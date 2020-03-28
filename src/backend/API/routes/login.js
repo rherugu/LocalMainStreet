@@ -1,0 +1,98 @@
+const express = require('express');
+
+const router = express.Router();
+
+const app = express();
+
+const Users = require('../models/Post');
+
+const bodyParser = require('body-parser');
+
+const Joi = require('@hapi/joi');
+
+const {registerValidation, LoginValidation} = require('../validation.js');
+
+const bcrypt = require('bcryptjs');
+
+const jwt = require('jsonwebtoken');
+
+
+
+//gets back all the posts
+router.get('/', async (req, res) => {
+    try{
+        const login = await Users.find();
+        res.json(posts);
+    }catch(err){
+        res.json({ message: err })
+    }
+});
+
+
+
+//submits a post
+router.post('/', async (req, res) => {
+
+
+    //VAILDATION
+    const {error} = LoginValidation(req.body);
+    if(error) return res.send(error.details[0].message)
+
+    //Checking if the email exists
+
+    const user = await Users.findOne({email: req.body.email});
+    if (!user) return res.send('Email or password is invalid.');
+    const { email, password, fname, lname } = user;
+    //Check if password is correct
+    const validPass = await bcrypt.compare(req.body.password, password);
+    if(!validPass) return res.send('Email or password is invalid.');
+
+    //Create and assign a token
+    const token = jwt.sign({_id: user._id}, process.env.TOKEN_SECRET);
+    res.header('auth-token', token).send(token);
+
+    // res.send('Logged In!');
+
+});
+
+
+// //specific post
+// router.get('/:postId', async (req, res) => {
+//     try{
+//         const post = await Post.findById(req.params.postId)
+//         res.json(post);
+//     }catch(err){
+//         res.json({ message: err });
+//     }
+// });
+
+// //Delete Post
+// router.delete('/:postId', async (req, res) => {
+//     try{
+//         const removedPost = await Post.deleteOne({ _id: req.params.postId })
+//         res.json(removedPost)
+//     }catch(err){
+//         res.json({ message: err });
+//     }
+// });
+
+// //Update a post
+// router.patch('/:postId', async (req, res) => {
+//     try{
+//         const updatedPost = await Post.updateOne
+//         (
+//             { _id: req.params.postId }, 
+//             { $set: {email: req.body.email} },
+//             { $set: {password: req.body.password} },
+//             { $set: {fname: req.body.fname} },
+//             { $set: {lname: req.body.lname} },
+//         )
+//         res.json(updatedPost);
+
+//     }catch(err){
+//         res.json({ message: err });
+//     }
+// });
+
+
+module.exports = router;

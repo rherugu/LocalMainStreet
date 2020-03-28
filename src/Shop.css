@@ -1,0 +1,146 @@
+.Shop {
+    text-align: center;
+    background-image: url(./Assets/bgforshop.jpg) ;
+    background-attachment: fixed;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      animation: App-logo-spin infinite 20s linear;
+    }
+  }
+  
+  .bgcover {
+    width: 100%;
+    height: 2000px;
+    background-color: white;
+  }
+  
+  .Shop-header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: top;
+    margin-top: 100;
+    font-size: calc(10px + 2vmin);
+    color: rgb(255, 255, 255);
+  
+  }
+  .subtitle {
+    font-family: OpenSansCondensed;
+    background: -webkit-linear-gradient(#f0f9ff 99%, #FF4136);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+  }
+  .title {
+    /* color: linear-gradient(180deg,#fff 35%,#75a6c3); */
+    font-family: OpenSansCondensed;
+    background: -webkit-linear-gradient(white 73%, #7FDBFF);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  @font-face {
+    font-family: 'OpenSansCondensed';
+    src: local('OpenSansCondensed'), url(./open-sans-condensed/OpenSans-CondBold.ttf) format('truetype');
+  }
+  
+  .App-link {
+    color: #61dafb;
+  }
+  
+  
+  
+  @keyframes App-logo-spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .tabs {
+    margin-top: 15px;
+    flex-direction: row;
+    flex: 1;
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50px;
+  }
+  
+  button {
+    margin-right: 50px;
+  }
+  
+  .btn {
+    border: none;
+    display: block;
+    text-align: center;
+    cursor: pointer;
+    text-transform: uppercase;
+    outline: none;
+    overflow: hidden;
+    position: relative;
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    background-color: #222;
+    padding: 17px 60px;
+    margin: 50 auto;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.20);
+  }
+  
+  .btn span {
+    position: relative; 
+    z-index: 1;
+  }
+  
+  .btn:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 490%;
+    width: 400px;
+    background: #78c7d2;
+    -webkit-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
+    transform: translateX(-98%) translateY(-25%) rotate(45deg);
+  }
+  
+  .btn:hover:after {
+    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
+    transform: translateX(-9%) translateY(-25%) rotate(45deg);
+  }
+  
+  .link {
+    font-size: 20px;
+    margin-top: 30px;
+  }
+  
+  .link a {
+    color: #000;
+    font-size: 25px; 
+  }
+  
+  .logoimgS {
+    position: fixed;
+    left:0px; 
+    top:15px;
+  }
