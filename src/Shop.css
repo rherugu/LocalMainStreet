@@ -1,93 +1,89 @@
 .Shop {
-    text-align: center;
-    background-image: url(./Assets/bgforshop.jpg) ;
-    background-attachment: fixed;
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
-  
+  text-align: center;
+  background-color: white;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
   .App-logo {
-    height: 40vmin;
-    pointer-events: none;
+    animation: App-logo-spin infinite 20s linear;
   }
-  
-  @media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-      animation: App-logo-spin infinite 20s linear;
-    }
+}
+
+.Shop-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: top;
+  margin-top: 100;
+  height: 10vh;
+  width: 100%;
+  background: rgb(74, 74, 74);
+  background-attachment: fixed;
+  top: 0px;
+  z-index: 1;
+  position: fixed;
+}
+
+.subtitle {
+  font-family: OpenSansCondensed;
+  background: -webkit-linear-gradient(#f0f9ff 99%, #ff4136);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.title {
+  /* color: linear-gradient(180deg,#fff 35%,#75a6c3); */
+  font-family: OpenSansCondensed;
+  background: -webkit-linear-gradient(white 73%, #7fdbff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@font-face {
+  font-family: "OpenSansCondensed";
+  src: local("OpenSansCondensed"),
+    url(./open-sans-condensed/OpenSans-CondBold.ttf) format("truetype");
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
   }
-  
-  .bgcover {
-    width: 100%;
-    height: 2000px;
-    background-color: white;
+  to {
+    transform: rotate(360deg);
   }
-  
-  .Shop-header {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: top;
-    margin-top: 100;
-    font-size: calc(10px + 2vmin);
-    color: rgb(255, 255, 255);
-  
-  }
-  .subtitle {
-    font-family: OpenSansCondensed;
-    background: -webkit-linear-gradient(#f0f9ff 99%, #FF4136);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    
-  }
-  .title {
-    /* color: linear-gradient(180deg,#fff 35%,#75a6c3); */
-    font-family: OpenSansCondensed;
-    background: -webkit-linear-gradient(white 73%, #7FDBFF);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  @font-face {
-    font-family: 'OpenSansCondensed';
-    src: local('OpenSansCondensed'), url(./open-sans-condensed/OpenSans-CondBold.ttf) format('truetype');
-  }
-  
-  .App-link {
-    color: #61dafb;
-  }
-  
-  
-  
-  @keyframes App-logo-spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
-  
-  .tabs {
-    margin-top: 15px;
-    flex-direction: row;
-    flex: 1;
-    position: fixed;
-    display: flex;
-    justify-content: space-between;
-    margin-right: 50px;
-  }
-  
-  button {
-    margin-right: 50px;
-  }
-  
-  .btn {
+}
+
+.tabs {
+  margin-top: 15px;
+  flex-direction: row;
+  flex: 1;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  margin-right: 50px;
+}
+
+button {
+  margin-right: 50px;
+}
+
+/* .btn {
     border: none;
     display: block;
     text-align: center;
@@ -128,19 +124,56 @@
     -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
     transform: translateX(-9%) translateY(-25%) rotate(45deg);
   }
-  
-  .link {
-    font-size: 20px;
-    margin-top: 30px;
+   */
+.link {
+  font-size: 20px;
+  margin-top: 30px;
+}
+
+.link a {
+  color: #000;
+  font-size: 25px;
+}
+
+.logoimgS {
+  position: fixed;
+  left: 0px;
+  top: 15px;
+}
+
+.searchInput {
+  filter: drop-shadow(1px 1px rgb(74, 74, 74, 0.7));
+  font-family: Poppins-Regular;
+  font-size: 15px;
+  outline: none;
+}
+.searchInput:hover {
+  /* animation: searchHover 0.6 ease; */
+  filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.9));
+  font-size: 16px;
+  font-family: Poppins-Bold;
+  width: 600px;
+  filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.99));
+}
+
+/* @keyframes searchHover {
+  0% {
+    filter: drop-shadow(1px 1px rgb(74, 74, 74, 0.7));
+    font-family: Poppins-Regular;
+    font-size: 15px;
+    outline: none;
   }
-  
-  .link a {
-    color: #000;
-    font-size: 25px; 
+  25% {
+    filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.9));
   }
-  
-  .logoimgS {
-    position: fixed;
-    left:0px; 
-    top:15px;
+  50% {
+    font-size: 16px;
+    font-family: Poppins-Bold;
   }
+  75% {
+    width: 500px;
+  }
+  100% {
+    filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.99));
+  }
+} */
