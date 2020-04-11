@@ -24,49 +24,53 @@ class Shop extends Component {
     this.props.history.push("/login");
   };
 
+  handleToken = async (token) => {
+    console.log("hi");
+    const product = {
+      name: this.state.name,
+      price: this.state.price,
+    };
+    const response = await axios.post("http://localhost:8080/", {
+      token,
+      product,
+    });
+    const { status } = response.data;
+    console.log("#status", status);
+    if (status === "success") {
+      alert("Success! Check email for details");
+    } else {
+      alert("Something went wrong.");
+    }
+  };
+
   constructor(props) {
     super(props);
     this.state = {
       shops: [],
-      price: 25
+      price: 25,
+      name: "SmartTicketing",
     };
   }
 
   componentDidMount() {
     const tokenval = localStorage.getItem("token");
+
     const headers = {
-      "auth-token": tokenval
+      "auth-token": tokenval,
     };
     axios
       .get("http://localhost:3000/shop", { headers })
-      .then(response => {
+      .then((response) => {
         console.log(response.data);
 
         this.setState({ shops: response.data });
       })
-      .catch(function(err) {
-        alert(err);
+      .catch((err) => {
+        this.onClickLogin();
       });
   }
 
   render() {
-    async function handleToken(token) {
-      const product = {
-        name: "SmartTicketing",
-        price: 25
-      };
-      const response = await axios.post("http://localhost:8080/", {
-        token,
-        product
-      });
-      const { status } = response.data;
-      if (status === "success") {
-        alert("Success! Check email for details");
-      } else {
-        alert("Something went wrong.");
-      }
-    }
-
     return (
       <div className="Shop">
         <div className="Shop-headerP" style={{ backgroundColor: "#ffffff" }}>
@@ -120,10 +124,11 @@ class Shop extends Component {
 
         <StripeCheckout
           stripeKey="pk_test_KkfXWjgjLwtNgUTOjtn25pj4005QCLSJ6I"
-          token={handleToken}
+          token={this.handleToken}
           billingAddress
           shippingAddress
           amount={this.state.price * 100}
+          name={this.state.name}
         ></StripeCheckout>
 
         <div class="searchBox">

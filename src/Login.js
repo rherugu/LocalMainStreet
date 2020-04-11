@@ -20,7 +20,7 @@ class Login extends Component {
       error: null,
       PhoneNumber: "",
       logins: false,
-      Password: ""
+      Password: "",
     };
   }
   onClickHome = () => {
@@ -39,16 +39,16 @@ class Login extends Component {
     this.props.history.push("/login");
   };
 
-  onSubmitHandler = e => {
+  onSubmitHandler = (e) => {
     e.preventDefault();
     const payload = {
       email: this.state.email,
-      password: this.state.Password
+      password: this.state.Password,
     };
 
     axios
       .post("http://localhost:3000/login/", payload)
-      .then(response => {
+      .then((response) => {
         console.log(response);
         if (response.status === 200) {
           localStorage.setItem("token", response.data);
@@ -61,7 +61,7 @@ class Login extends Component {
         }
         this.props.history.push("/Shop");
       })
-      .catch(function(err) {
+      .catch(function (err) {
         alert(err);
       });
   };
@@ -120,12 +120,12 @@ class Login extends Component {
               name="email"
               placeholder="Your email"
               value={this.state.email}
-              onChange={e => this.setState({ email: e.target.value })}
+              onChange={(e) => this.setState({ email: e.target.value })}
               style={{
                 width: 560,
                 height: 60,
                 fontSize: 20,
-                backgroundColor: "#DDDDDD"
+                backgroundColor: "#DDDDDD",
               }}
               required
             />
@@ -145,12 +145,12 @@ class Login extends Component {
               name="Password"
               placeholder="Your Password"
               value={this.state.Password}
-              onChange={e => this.setState({ Password: e.target.value })}
+              onChange={(e) => this.setState({ Password: e.target.value })}
               style={{
                 width: 560,
                 height: 60,
                 fontSize: 20,
-                backgroundColor: "#DDDDDD"
+                backgroundColor: "#DDDDDD",
               }}
               required
             />
