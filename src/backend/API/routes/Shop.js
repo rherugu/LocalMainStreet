@@ -24,12 +24,17 @@ router.get("/", verify, async (req, res) => {
 router.post("/", async (req, res) => {
   //VAILDATION
   const { error } = BusinessValidation(req.body);
-  if (error) return res.send(error.details[0].message);
+  if (error)
+    return res.send({
+      message: error.details[0].message,
+    });
 
   //Checking if the user is already in the database
   const emailExistb = await Blogin.findOne({ emailb: req.body.emailb });
   if (emailExistb)
-    return res.send("Email already exists. Please choose a different email.");
+    return res.send({
+      message: "Email already exists. Please choose a different email.",
+    });
 
   //Hashing of the passwords
   const salt = await bcrypt.genSalt(10);
@@ -45,12 +50,12 @@ router.post("/", async (req, res) => {
     description: req.body.description,
     address: req.body.address,
     phoneNumber: req.body.phoneNumber,
-    paymentMethod: req.body.paymentMethod
+    paymentMethod: req.body.paymentMethod,
   });
 
   try {
     const savedShop = await shop.save();
-    res.json(savedShop);
+    res.json({ savedShop, message: "Success!", check: 200 });
   } catch (err) {
     res.json({ message: err });
   }

@@ -1,3 +1,5 @@
+@import "fonts.css";
+
 .Shop {
   text-align: center;
   background-color: white;
@@ -177,3 +179,64 @@ button {
     filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.99));
   }
 } */
+
+/* Box-sizing reset: //w3bits.com/?p=3225 */
+.shop {
+  margin: 0;
+  padding: 0;
+}
+
+/* The Masonry Container */
+.gridlist {
+  width: 1500px;
+  margin: 20px auto;
+  columns: 4;
+  column-gap: 40px;
+}
+
+.gridlist .card {
+  width: 100%;
+  margin: 0 0 20px;
+  padding: 10px;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.gridlist MediaCard {
+  max-width: 100%;
+  margin-bottom: 30px;
+}
+
+.MediaCard {
+  max-width: 100%;
+  margin-bottom: 30px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+@media (max-width: 1650px) {
+  .gridlist {
+    columns: 3;
+    width: calc(100% - 40px);
+    box-sizing: border-box;
+    padding: 20px 20px 20px 0;
+  }
+}
+@media (max-width: 768px) {
+  .gridlist {
+    columns: 2;
+  }
+}
+@media (max-width: 480px) {
+  .gridlist {
+    columns: 1;
+  }
+}
+
+.end {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  font-family: Poppins-Regular;
+}

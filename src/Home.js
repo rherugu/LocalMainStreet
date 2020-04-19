@@ -3,10 +3,15 @@ import "./Home.css";
 import "./Home.scss";
 import Component from "@reactions/component";
 import TextLoop from "react-text-loop";
-import BackgroundSlideshow from "react-background-slideshow";
 import "./fonts.css";
-import ReactPlayer from "react-player";
-import $ from "jquery";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+// import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap-theme.css";
 
 class Home extends Component {
   componentDidMount() {
@@ -48,7 +53,16 @@ class Home extends Component {
       error: null,
       PhoneNumber: "",
       logins: false,
+      name: "",
+      emailc: "",
+      message: "",
+      anchorEl: "",
     };
+    // this.cstate = {
+    //   name: "",
+    //   emailc: "",
+    //   message: "",
+    // };
   }
 
   handleFormSubmit(event) {
@@ -56,36 +70,108 @@ class Home extends Component {
     console.log(this.state);
   }
 
-  render() {
-    // $(window).scroll(function() {
-    //   if (
-    //     $(window).scrollTop() + $(window).height() >
-    //     $(document).height() - 100
-    //   ) {
-    //     this.document.getElementById("wrapper").style.width = "80%";
-    //     this.document.getElementById("wrapper").style.margin = "auto";
-    //     this.document.getElementById("header").style.width = "80%";
-    //   } else {
-    //     this.document.getElementById("wrapper").style.width = "100%";
-    //     this.document.getElementById("wrapper").style.height = "100%";
-    //   }
-    // });
+  resetForm = () => {
+    this.setState({ name: "", emailc: "", message: "" });
+  };
 
+  notify = () => toast("Wow so easy !", { type: "success" });
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+
+    toast.configure();
+
+    if (
+      this.state.name === "" ||
+      this.state.emailc === "" ||
+      this.state.message === ""
+    ) {
+      toast("Not all fields are filled in. Make sure to fill in every field.", {
+        type: "error",
+      });
+      return;
+    } else {
+      const payload = {
+        name: this.state.name,
+        emailc: this.state.emailc,
+        message: this.state.message,
+      };
+
+      axios.post("http://localhost:3009/send", payload).then((response) => {
+        if (response.data.status === "success") {
+          toast("Thank you very much for your feedback.", { type: "success" });
+          this.resetForm();
+        } else if (response.data.status === "fail") {
+          toast(
+            "Hmmmm, Something went wrong. Dont worry, its not you, its us. Please try again.",
+            { type: "error" }
+          );
+        } else if (
+          // prettier-ignore
+          response.data === '"emailc" must be a valid email'
+        ) {
+          toast("Your email must be a valid email.", { type: "error" });
+        }
+        // prettier-ignore
+        else if (
+          // prettier-ignore
+          response.data === '"message" length must be at least 6 characters long'
+        ) {
+          toast(
+            "Your message is too short. It needs to be at least 6 characters.",
+            { type: "error" }
+          );
+        }
+      });
+    }
+  };
+
+  render() {
+    const handleClick = (event) => {
+      this.setState({
+        anchorEl: event.currentTarget,
+      });
+    };
+    const handleClose1 = () => {
+      this.setState({
+        anchorEl: null,
+      });
+    };
+
+    const handleClose2 = () => {
+      this.setState({
+        anchorEl: null,
+      });
+    };
+
+    const handleClose3 = () => {
+      this.setState({
+        anchorEl: null,
+      });
+    };
+
+    const handleClose = () => {
+      this.setState({
+        anchorEl: null,
+      });
+    };
     return (
       <div className="slideshowbg">
         <div className="Home">
           <title>LocalMainStreet</title>
 
-          <div
-            className="Home-headerP"
-            id="header"
-            style={{ backgroundColor: "#ffffff" }}
-          >
+          <div className="Home-headerP" id="header">
             <div className="Home-header">
               <div className="logoimg" onClick={this.onClickHome}>
                 <img
                   src={require("./Assets/golo.png")}
                   className="logoimage"
+                ></img>
+              </div>
+              <div className="logoimg2" onClick={this.onClickHome}>
+                <img
+                  src={require("./Assets/Logo/logor.png")}
+                  className="logoimage2"
                 ></img>
               </div>
 
@@ -126,7 +212,7 @@ class Home extends Component {
           <br></br>
           <br></br>
           <br></br>
-          <div className="main">
+          <div className="main" id="sizeShifter">
             <big>
               <big>
                 <big>
@@ -136,17 +222,22 @@ class Home extends Component {
                         <big>
                           <big>
                             <h1 className="textloop">
+                              We Bring&nbsp;
                               <TextLoop
-                                interval={1500}
+                                interval={2000}
                                 springConfig={{ stiffness: 180, damping: 8 }}
                               >
-                                <span className="ICG">Inspire.</span>
-                                <span className="ICG">Create.</span>
+                                <span className="ICG">&nbsp;People&nbsp;</span>
                                 <span className="ICG">
-                                  &nbsp;&nbsp;Grow.&nbsp;&nbsp;
+                                  &nbsp;Businesses&nbsp;
+                                </span>
+                                <span className="ICG">
+                                  &nbsp;Communities&nbsp;
                                 </span>
                               </TextLoop>{" "}
+                              Together.
                             </h1>
+                            <h2 className="textloop2">Together, we win!</h2>
                           </big>
                         </big>
                       </big>
@@ -155,7 +246,7 @@ class Home extends Component {
                 </big>
               </big>
             </big>
-            <button style={{ visibility: "hidden" }}>
+            {/* <button style={{ visibility: "hidden" }}>
               <div
                 onClick={this.onClickCustomerLogin}
                 className="butn btn-four"
@@ -165,7 +256,13 @@ class Home extends Component {
                   Get Started
                 </span>
               </div>
-            </button>
+            </button> */}
+
+            <div className="mainbutton" onClick={this.onClickCustomerLogin}>
+              <div className="half"></div>
+              <span className="getstarted">Get Started</span>
+              <div className="half1"></div>
+            </div>
           </div>
         </div>
         <div className="bgcover">
@@ -282,7 +379,11 @@ class Home extends Component {
           <br></br>
           <br></br>
           <br></br>
-          <img className="phoneimg" src={require("./Assets/phone.png")}></img>
+          <img
+            className="phoneimg"
+            src={require("./Assets/phone.png")}
+            draggable="false"
+          ></img>
           <br></br>
           <br></br>
           <br></br>
@@ -371,12 +472,20 @@ class Home extends Component {
                       <input
                         className="app-form-control"
                         placeholder="NAME"
+                        value={this.state.name}
+                        onChange={(e) =>
+                          this.setState({ name: e.target.value })
+                        }
                       ></input>
                     </div>
                     <div className="app-form-group">
                       <input
                         className="app-form-control"
                         placeholder="EMAIL"
+                        value={this.state.emailc}
+                        onChange={(e) =>
+                          this.setState({ emailc: e.target.value })
+                        }
                       ></input>
                     </div>
                     <div className="app-form-group message">
@@ -385,13 +494,33 @@ class Home extends Component {
                         placeholder="MESSAGE"
                         rows="6"
                         columns="10"
+                        value={this.state.message}
+                        onChange={(e) =>
+                          this.setState({ message: e.target.value })
+                        }
                       ></textarea>
                     </div>
                     <div className="app-form-group buttons">
-                      <button className="app-form-button" type="reset">
+                      <button
+                        className="app-form-button"
+                        type="reset"
+                        onClick={() => {
+                          this.setState({
+                            name: "",
+                            emailc: "",
+                            message: "",
+                          });
+                        }}
+                      >
                         CANCEL
                       </button>
-                      <button className="app-form-button">SEND</button>
+                      <button
+                        className="app-form-button"
+                        onClick={this.handleSubmit}
+                        type="submit"
+                      >
+                        SEND
+                      </button>
                     </div>
                   </div>
                 </div>

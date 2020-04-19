@@ -2,10 +2,20 @@ import React from "react";
 import "./Shop.css";
 import axios from "axios";
 import Component from "@reactions/component";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+// import { Elements } from "@stripe/react-stripe-js";
+// import { loadStripe } from "@stripe/stripe-js";
 import StripeCheckout from "react-stripe-checkout";
-import $ from "jquery";
+import { toast } from "react-toastify";
+import MediaCard from "./Card";
+
+// const useStyles = makeStyles((theme) => ({
+//   gridList: {
+//     width: 500,
+//     height: 450,
+//   },
+// }));
+
+// const classes = useStyles();
 
 class Shop extends Component {
   onClickHome = () => {
@@ -25,21 +35,22 @@ class Shop extends Component {
   };
 
   handleToken = async (token) => {
-    console.log("hi");
+    toast.configure();
+
     const product = {
       name: this.state.name,
       price: this.state.price,
     };
-    const response = await axios.post("http://localhost:8080/", {
+    const response = await axios.post("http://localhost:8080/checkout", {
       token,
       product,
     });
     const { status } = response.data;
     console.log("#status", status);
     if (status === "success") {
-      alert("Success! Check email for details");
+      toast("Success! Check email for details", { type: "success" });
     } else {
-      alert("Something went wrong.");
+      toast("Something went wrong.", { type: "error" });
     }
   };
 
@@ -50,6 +61,7 @@ class Shop extends Component {
       price: 25,
       name: "SmartTicketing",
     };
+    this.bname = "";
   }
 
   componentDidMount() {
@@ -71,6 +83,21 @@ class Shop extends Component {
   }
 
   render() {
+    const shops = this.state.shops.map((shop) => shop);
+
+    const phoneNumber = this.state.shops.map((shop) => {
+      return <p key={shop._id}>{shop.phoneNumber}</p>;
+    });
+
+    const bname = this.state.shops.map((shop) => {
+      return <p key={shop._id}>{shop.bname}</p>;
+    });
+    const description = this.state.shops.map((shop) => {
+      return <p key={shop._id}>{shop.description}</p>;
+    });
+
+    var Infinite = require("react-infinite");
+
     return (
       <div className="Shop">
         <div className="Shop-headerP" style={{ backgroundColor: "#ffffff" }}>
@@ -122,26 +149,26 @@ class Shop extends Component {
         <br></br>
         <br></br>
 
-        <StripeCheckout
-          stripeKey="pk_test_KkfXWjgjLwtNgUTOjtn25pj4005QCLSJ6I"
-          token={this.handleToken}
-          billingAddress
-          shippingAddress
-          amount={this.state.price * 100}
-          name={this.state.name}
-        ></StripeCheckout>
-
-        <div class="searchBox">
-          <input
-            class="searchInput"
-            type="text"
-            name=""
-            placeholder="Search"
-          ></input>
-          <button class="searchButton" href="#">
-            <i class="material-icons">search</i>
-          </button>
+        {/* <ul>{bname}</ul>
+        <ul>{description}</ul>
+        <ul>{phoneNumber}</ul> */}
+        <br></br>
+        <br></br>
+        <div className="gridlist">
+          <div className="card">
+            {shops.map((shop) => (
+              <MediaCard
+                card={shop}
+                className="MediaCard"
+                bname={shop.bname}
+                description={shop.description}
+                phoneNumber={shop.phoneNumber}
+                history={this.props.history}
+              />
+            ))}
+          </div>
         </div>
+        <p className="end">It looks like you've reached the end.</p>
       </div>
     );
   }

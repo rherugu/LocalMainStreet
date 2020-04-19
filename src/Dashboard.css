@@ -1,0 +1,189 @@
+@import "fonts.css";
+
+.heading1 {
+  display: flex;
+  font-family: Poppins-Light;
+  color: white;
+  justify-content: center;
+  cursor: pointer;
+  flex: 0.2;
+}
+
+.heading2 {
+  display: flex;
+  font-family: Poppins-Light;
+  color: white;
+
+  cursor: pointer;
+  flex: 1;
+  float: left;
+  justify-content: flex-end;
+}
+
+.heading {
+  display: flex;
+  font-family: Poppins-SemiBold;
+  color: white;
+
+  cursor: pointer;
+  flex: 1;
+  float: left;
+  justify-content: flex-start;
+}
+
+.heading span:hover,
+.heading1 span:hover,
+.heading2 span:hover {
+  color: rgb(183, 183, 183);
+}
+
+.heading,
+.heading1,
+.heading2 {
+  width: auto;
+  height: auto;
+}
+
+.default,
+.default1 {
+  font-family: Poppins-Bold;
+}
+
+.Dashboard-Header {
+  display: flex;
+  width: 100%;
+  height: 10vh;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rgb(74, 74, 74);
+  position: fixed;
+  padding-top: 0px;
+  justify-content: space-between;
+}
+
+.DH {
+  display: flex;
+  width: 95%;
+  height: 100%;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rgb(74, 74, 74);
+}
+
+.Dashboard {
+  display: flex;
+  width: 95%;
+  height: 100vh;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  padding-top: 0px;
+  justify-content: center;
+}
+
+.welcome {
+  display: flex;
+  height: 600px;
+  width: 600px;
+  border-radius: 50%;
+  background-color: rgb(241, 241, 241);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.welcomebtn,
+.welcomebtn2,
+.welcometxt {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.welcometxt {
+  font-family: Poppins-Thin;
+  font-size: 50px;
+}
+
+.hamburger {
+  display: none;
+}
+
+@media screen and (max-width: 1483px) {
+  .heading1 {
+    flex: 0.5;
+  }
+
+  .welcome {
+    height: 500px;
+    width: 500px;
+  }
+}
+@media screen and (max-width: 694px) {
+  .hamburger {
+    display: flex;
+    height: auto;
+    width: auto;
+    cursor: pointer;
+    display: flex;
+    cursor: pointer;
+    flex: 1;
+    float: left;
+    justify-content: flex-end;
+  }
+
+  .hamburger img {
+    width: 30px;
+    cursor: pointer;
+    display: flex;
+    cursor: pointer;
+    flex: 1;
+    float: left;
+    justify-content: flex-start;
+  }
+
+  .heading2,
+  .heading1 {
+    display: none;
+  }
+
+  .heading {
+    display: flex;
+    font-family: Poppins-Light;
+    color: white;
+
+    cursor: pointer;
+    flex: 1;
+    float: left;
+    justify-content: flex-start;
+  }
+
+  .welcome {
+    height: 400px;
+    width: 400px;
+  }
+  .welcometxt {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .welcome {
+    height: 300px;
+    width: 300px;
+  }
+}
+
+@media screen and (max-width: 240px), (max-height: 320px) {
+  .welcome {
+    height: 200px;
+    width: 200px;
+    transform: scale(1);
+  }
+  .welcometxt {
+    font-size: 20px;
+  }
+  .rocket-button,
+  .rocket-button1 {
+    transform: scale(0.7);
+  }
+}

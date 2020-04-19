@@ -78,3 +78,117 @@
   }
 }
 //end btn styling
+
+.mainbutton {
+  margin-top: 100px;
+  font-size: 20px;
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes back {
+  0% {
+    opacity: 0;
+    .half1 {
+      -webkit-transform: translate(-19.5em, 0);
+      -moz-transform: translate(-19.5em, 0);
+      -o-transform: translate(-19.5em, 0);
+      -ms-transform: translate(-19.5em, 0);
+      transform: translate(-19.5em, 0);
+      opacity: 0;
+    }
+    .half {
+      -webkit-transform: translate(9em, 0);
+      -moz-transform: translate(9em, 0);
+      -o-transform: translate(9em, 0);
+      -ms-transform: translate(9em, 0);
+      transform: translate(9em, 0);
+      opacity: 0;
+    }
+  }
+  100% {
+    opacity: 1;
+    .half {
+      -webkit-transform: translate(-19.5em, 0);
+      -moz-transform: translate(-19.5em, 0);
+      -o-transform: translate(-19.5em, 0);
+      -ms-transform: translate(-19.5em, 0);
+      transform: translate(-19.5em, 0);
+      opacity: 1;
+    }
+    .half1 {
+      -webkit-transform: translate(9em, 0);
+      -moz-transform: translate(9em, 0);
+      -o-transform: translate(9em, 0);
+      -ms-transform: translate(9em, 0);
+      transform: translate(9em, 0);
+      opacity: 1;
+    }
+  }
+}
+
+.mainbutton:hover {
+  .half {
+    -webkit-transform: translate(9em, 0);
+    -moz-transform: translate(9em, 0);
+    -o-transform: translate(9em, 0);
+    -ms-transform: translate(9em, 0);
+    transform: translate(9em, 0);
+    animation: fade-out 1s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}
+.mainbutton:hover {
+  .half1 {
+    -webkit-transform: translate(-19.5em, 0);
+    -moz-transform: translate(-19.5em, 0);
+    -o-transform: translate(-19.5em, 0);
+    -ms-transform: translate(-19.5em, 0);
+    transform: translate(-19.5em, 0);
+    animation: fade-out 1s ease-in-out;
+    animation-fill-mode: forwards;
+  }
+}
+
+.half,
+.half1 {
+  position: absolute;
+  background: rgb(136, 158, 241);
+  background: linear-gradient(
+    83deg,
+    rgba(136, 158, 241, 1) 0%,
+    rgba(99, 229, 253, 1) 100%
+  );
+  width: 170px;
+  height: 30px;
+  left: 50%;
+  transform: translate(-50%);
+  -webkit-transition: 1s ease-out;
+  -moz-transition: 1s ease-out;
+  -o-transition: 1s ease-out;
+  transition: 1s ease-out;
+
+  animation: fade-in 1s ease-in-out;
+
+  animation: back 1s ease-in-out;
+}
+
+.half1 {
+  margin-top: 30px;
+}

@@ -1,31 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
+import React from "react";
 
-import { Button, Image, Tab, TabNavigation, Pane, Tablist, SidebarTab, 
-Paragraph } from 'evergreen-ui';
-
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 import Component from "@reactions/component";
-import Home from './Home';
-import Shop from './Shop';
-import About from './About';
-import Contact from './Contact';
-import CustomerLogin from './CustomerLogin';
-import Login from './Login';
-import BusinessLogin from'./BusinessLogin';
-import BR2 from './BR2';
-import BR3 from './BR3';
-import BR4 from './BR4';
-import BR5 from './BR5';
-import BR6 from './BR6';
+import Home from "./Home";
+import Shop from "./Shop";
+import About from "./About";
+import Contact from "./Contact";
+import CustomerLogin from "./CustomerLogin";
+import Login from "./Login";
+import BusinessLogin from "./BusinessLogin";
+import BR2 from "./BR2";
+import BR3 from "./BR3";
+import BR4 from "./BR4";
+import BR5 from "./BR5";
+import BR6 from "./BR6";
+import Buy from "./Buy";
+import Dashboard from "./Dashboard";
 
-
+//prettier-ignore
 class App extends Component {
   render(){
     return (
@@ -131,18 +124,23 @@ class App extends Component {
                   )
                 }
               />
-              {/* <Route path="/">
-                <Home />
-              </Route>
-              <Route path="/Shop">
-                <Shop />
-              </Route>
-              <Route path="/About">
-                <About />
-              </Route>
-              <Route path="/Contact">
-                <Contact />
-              </Route> */}
+              <Route
+                exact
+                path="/Buy"
+                render={props =>(
+                    <Buy  {...props} />
+                  )
+                }
+              />
+              <Route
+                exact
+                path="/Dashboard"
+                render={props =>(
+                    <Dashboard  {...props} />
+                  )
+                }
+              />
+
             </Switch>
           </Router>
     );

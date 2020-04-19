@@ -36,7 +36,7 @@ class CustomerLogin extends Component {
       lname: "",
       email: "",
       Password: "",
-      displaymessage: "hidden"
+      displaymessage: "hidden",
     };
   }
 
@@ -45,18 +45,18 @@ class CustomerLogin extends Component {
     console.log(this.state);
   }
 
-  onSubmitEventHandler = e => {
+  onSubmitEventHandler = (e) => {
     e.preventDefault();
     const payload = {
       email: this.state.email,
       password: this.state.Password,
       fname: this.state.fname,
-      lname: this.state.lname
+      lname: this.state.lname,
     };
 
     axios
       .post("http://localhost:3000/posts/", payload)
-      .then(function(response) {
+      .then(function (response) {
         res = response.data;
         if (res === '"password" length must be at least 6 characters long') {
           res =
@@ -83,7 +83,7 @@ class CustomerLogin extends Component {
         }
         alert(res);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
       });
     this.state.displaymessage = "visible";
@@ -135,12 +135,12 @@ class CustomerLogin extends Component {
               name="email"
               placeholder="Your email"
               value={this.state.email}
-              onChange={e => this.setState({ email: e.target.value })}
+              onChange={(e) => this.setState({ email: e.target.value })}
               style={{
                 width: 560,
                 height: 60,
                 fontSize: 20,
-                backgroundColor: "#DDDDDD"
+                backgroundColor: "#DDDDDD",
               }}
               required
             />
@@ -154,12 +154,12 @@ class CustomerLogin extends Component {
               name="Password"
               placeholder="Your Password"
               value={this.state.Password}
-              onChange={e => this.setState({ Password: e.target.value })}
+              onChange={(e) => this.setState({ Password: e.target.value })}
               style={{
                 width: 560,
                 height: 60,
                 fontSize: 20,
-                backgroundColor: "#DDDDDD"
+                backgroundColor: "#DDDDDD",
               }}
               required
             />
@@ -172,12 +172,12 @@ class CustomerLogin extends Component {
               name="Fname"
               placeholder="Your First Name"
               value={this.state.fname}
-              onChange={e => this.setState({ fname: e.target.value })}
+              onChange={(e) => this.setState({ fname: e.target.value })}
               style={{
                 width: 560,
                 height: 60,
                 fontSize: 20,
-                backgroundColor: "#DDDDDD"
+                backgroundColor: "#DDDDDD",
               }}
               required
             />
@@ -189,12 +189,12 @@ class CustomerLogin extends Component {
               name="Lname"
               placeholder="Your Last Name"
               value={this.state.lname}
-              onChange={e => this.setState({ lname: e.target.value })}
+              onChange={(e) => this.setState({ lname: e.target.value })}
               style={{
                 width: 560,
                 height: 60,
                 fontSize: 20,
-                backgroundColor: "#DDDDDD"
+                backgroundColor: "#DDDDDD",
               }}
               required
             />

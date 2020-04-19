@@ -41,15 +41,11 @@ class BusinessLogin extends Component {
       PhoneNumber: "",
       displaymessage: "hidden",
       Password: "",
-      paymentMethod: ""
+      paymentMethod: "",
     };
   }
 
-  handleFormSubmit(event) {
-    event.preventDefault();
-    console.log(this.state);
-  }
-  onSubmitEventHandler = e => {
+  onSubmitEventHandler = (e) => {
     e.preventDefault();
     const payload = {
       emailb: this.state.email,
@@ -60,39 +56,23 @@ class BusinessLogin extends Component {
       description: this.state.description,
       address: this.state.Address,
       phoneNumber: this.state.PhoneNumber,
-      paymentMethod: this.state.paymentMethod
+      paymentMethod: this.state.paymentMethod,
     };
 
     axios
       .post("http://localhost:3000/shop/", payload)
-      .then(function(response) {
+      .then((response) => {
         res = response.data;
-        if (res === '"password" length must be at least 6 characters long') {
-          res =
-            "Password length is too short. It needs to be at least 6 characters long.";
+
+        alert(res.message);
+
+        if (res.check === 200) {
+          this.props.history.push("/Dashboard");
         }
-        if (res === '"email" length must be at least 6 characters long') {
-          res = "Email is too short; needs to be at least 6 characters.";
-        }
-        if (res === '"email" must be a valid email') {
-          res =
-            "The email entered is not a valid email. Make sure to include the @ sign and the '.com, or .io, etc";
-        }
-        if (res === '"fname" is not allowed to be empty') {
-          res = "Please enter your first name.";
-        }
-        if (res === '"lname" is not allowed to be empty') {
-          res = "Please enter your last name.";
-        }
-        if (res === '"password" is not allowed to be empty') {
-          res = "Please enter your password.";
-        }
-        if (res === '"email" is not allowed to be empty') {
-          res = "Please enter your email.";
-        }
-        alert(res);
+
+        console.log("#", response);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
       });
     this.state.displaymessage = "visible";
@@ -143,12 +123,12 @@ class BusinessLogin extends Component {
             name="firstname"
             placeholder="Your name.."
             value={this.state.fname}
-            onChange={e => this.setState({ fname: e.target.value })}
+            onChange={(e) => this.setState({ fname: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -160,12 +140,12 @@ class BusinessLogin extends Component {
             name="lastname"
             placeholder="Your last name.."
             value={this.state.lname}
-            onChange={e => this.setState({ lname: e.target.value })}
+            onChange={(e) => this.setState({ lname: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -178,12 +158,12 @@ class BusinessLogin extends Component {
             name="email"
             placeholder="Your email"
             value={this.state.email}
-            onChange={e => this.setState({ email: e.target.value })}
+            onChange={(e) => this.setState({ email: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -196,12 +176,12 @@ class BusinessLogin extends Component {
             name="Password"
             placeholder="Your Password"
             value={this.state.Password}
-            onChange={e => this.setState({ Password: e.target.value })}
+            onChange={(e) => this.setState({ Password: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -213,12 +193,12 @@ class BusinessLogin extends Component {
             name="bname"
             placeholder="The name of your business"
             value={this.state.bname}
-            onChange={e => this.setState({ bname: e.target.value })}
+            onChange={(e) => this.setState({ bname: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -233,13 +213,13 @@ class BusinessLogin extends Component {
             id="description"
             name="description"
             placeholder="This will be shown for the consumer to see"
-            onChange={e => this.setState({ description: e.target.value })}
+            onChange={(e) => this.setState({ description: e.target.value })}
             value={this.state.description}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           ></textarea>
           <br></br>
@@ -252,12 +232,12 @@ class BusinessLogin extends Component {
             name="Address"
             placeholder="Your address"
             value={this.state.Address}
-            onChange={e => this.setState({ Address: e.target.value })}
+            onChange={(e) => this.setState({ Address: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -269,12 +249,12 @@ class BusinessLogin extends Component {
             name="PhoneNumber"
             placeholder="Your Phone No."
             value={this.state.PhoneNumber}
-            onChange={e => this.setState({ PhoneNumber: e.target.value })}
+            onChange={(e) => this.setState({ PhoneNumber: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -286,12 +266,12 @@ class BusinessLogin extends Component {
             name="paymentMethod"
             placeholder="Choose payment system"
             value={this.state.paymentMethod}
-            onChange={e => this.setState({ paymentMethod: e.target.value })}
+            onChange={(e) => this.setState({ paymentMethod: e.target.value })}
             style={{
               width: 500,
               height: 50,
               fontSize: 20,
-              backgroundColor: "#DDDDDD"
+              backgroundColor: "#DDDDDD",
             }}
           />
           <br></br>
@@ -319,8 +299,11 @@ class BusinessLogin extends Component {
           <input
             type="submit"
             value="Submit"
-            onClick={e => this.onSubmitEventHandler(e)}
+            onClick={(e) => this.onSubmitEventHandler(e)}
           />
+          <button onClick={() => this.props.history.push("/Subscription")}>
+            Test
+          </button>
         </form>
         <br></br>
         {/* <label style={{ color: "#111111" }}>First Name</label>
