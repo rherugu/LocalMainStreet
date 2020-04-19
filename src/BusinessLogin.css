@@ -35,26 +35,6 @@
   justify-content: top;
 }
 
-.subtitle {
-  font-family: OpenSansCondensed;
-  background: -webkit-linear-gradient(#f0f9ff 99%, #ff4136);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.title {
-  /* color: linear-gradient(180deg,#fff 35%,#75a6c3); */
-  font-family: OpenSansCondensed;
-  background: -webkit-linear-gradient(white 73%, #7fdbff);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-@font-face {
-  font-family: "OpenSansCondensed";
-  src: local("OpenSansCondensed"),
-    url(./open-sans-condensed/OpenSans-CondBold.ttf) format("truetype");
-}
-
 .App-link {
   color: #61dafb;
 }
