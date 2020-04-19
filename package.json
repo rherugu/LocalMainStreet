@@ -67,8 +67,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix src && npm run build --prefix src"
+    "eject": "react-scripts eject"
   },
   "resolutions": {
     "@babel/preset-env": "7.5.5"
