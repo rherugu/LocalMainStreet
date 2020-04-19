@@ -7,14 +7,13 @@ app.use(express.json());
 
 // Serve static assets if in production:
 if (process.env.NODE_ENV === "production") {
-  //set static folder
-  app.use(express.static("build"));
+  // Set static folder
+  app.use(express.static("src/build"));
 
-  app.get("*", (res, req) => {
-    res.sendFile(path.resolve(__dirname, "build", "index.html"));
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, "src", "build", "index.html"));
   });
 }
-
 const port = process.env.PORT || 3010;
 
 app.listen(port, () => console.log(`Listening on port ${port}`));
