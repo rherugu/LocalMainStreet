@@ -1,17 +1,9 @@
 import React, { useState } from "react";
 import "./Home.css";
-import "./Home.scss";
 import Component from "@reactions/component";
 import TextLoop from "react-text-loop";
-import "./fonts.css";
 import axios from "axios";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-// import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap/dist/css/bootstrap-theme.css";
+import { toast } from "react-toastify";
 
 class Home extends Component {
   componentDidMount() {
@@ -157,96 +149,63 @@ class Home extends Component {
     };
     return (
       <div className="slideshowbg">
+        <header className="Home-Header">
+          <div className="HH">
+            <div className="logoimg" onClick={this.onClickHome}>
+              <img
+                src={require("./Assets/golo.png")}
+                className="logoimage"
+              ></img>
+            </div>
+            <div className="logoimg2" onClick={this.onClickHome}>
+              <img
+                src={require("./Assets/logor.png")}
+                className="logoimage2"
+              ></img>
+            </div>
+
+            <h3 className="Hheading1" onClick={this.onClickHome}>
+              <span>Home</span>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickShop}>
+              <span>Shop</span>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickAbout}>
+              <span>About</span>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickContact}>
+              <span>Contact</span>
+            </h3>
+            <h3 className="Hheading2" onClick={this.onClickLogin}>
+              <span>Login</span>
+            </h3>
+          </div>
+        </header>
         <div className="Home">
           <title>LocalMainStreet</title>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <h1 className="textloop">
+            We Bring&nbsp;
+            <TextLoop
+              interval={2000}
+              springConfig={{ stiffness: 180, damping: 8 }}
+            >
+              <span className="ICG">&nbsp;People&nbsp;</span>
+              <span className="ICG">&nbsp;Businesses&nbsp;</span>
+              <span className="ICG">&nbsp;Communities&nbsp;</span>
+            </TextLoop>{" "}
+            Together.
+          </h1>
+          <h2 className="textloop2">Together, we win!</h2>
 
-          <div className="Home-headerP" id="header">
-            <div className="Home-header">
-              <div className="logoimg" onClick={this.onClickHome}>
-                <img
-                  src={require("./Assets/golo.png")}
-                  className="logoimage"
-                ></img>
-              </div>
-              <div className="logoimg2" onClick={this.onClickHome}>
-                <img
-                  src={require("./Assets/Logo/logor.png")}
-                  className="logoimage2"
-                ></img>
-              </div>
-
-              <div className="tabs">
-                <div className="navtabs" onClick={this.onClickHome}>
-                  <span id="btnspan">Home</span>
-                </div>
-                <br></br>
-                <div className="navtabs" onClick={this.onClickShop}>
-                  <span id="btnspan">Shop</span>
-                </div>
-                <br></br>
-                <div className="navtabs" onClick={this.onClickAbout}>
-                  <span id="btnspan">About</span>
-                </div>
-                <br></br>
-                <div className="navtabs" onClick={this.onClickContact}>
-                  <span id="btnspan">Contact</span>
-                </div>
-                <br></br>
-                <div className="divider"></div>
-
-                <div
-                  className="navtabsL"
-                  id=".dropbtn"
-                  onClick={this.onClickLogin}
-                >
-                  <span id="btnspan">Login</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <div className="main" id="sizeShifter">
-            <big>
-              <big>
-                <big>
-                  <big>
-                    <big>
-                      <big>
-                        <big>
-                          <big>
-                            <h1 className="textloop">
-                              We Bring&nbsp;
-                              <TextLoop
-                                interval={2000}
-                                springConfig={{ stiffness: 180, damping: 8 }}
-                              >
-                                <span className="ICG">&nbsp;People&nbsp;</span>
-                                <span className="ICG">
-                                  &nbsp;Businesses&nbsp;
-                                </span>
-                                <span className="ICG">
-                                  &nbsp;Communities&nbsp;
-                                </span>
-                              </TextLoop>{" "}
-                              Together.
-                            </h1>
-                            <h2 className="textloop2">Together, we win!</h2>
-                          </big>
-                        </big>
-                      </big>
-                    </big>
-                  </big>
-                </big>
-              </big>
-            </big>
-            {/* <button style={{ visibility: "hidden" }}>
+          {/* <button style={{ visibility: "hidden" }}>
               <div
                 onClick={this.onClickCustomerLogin}
                 className="butn btn-four"
@@ -257,12 +216,14 @@ class Home extends Component {
                 </span>
               </div>
             </button> */}
-
-            <div className="mainbutton" onClick={this.onClickCustomerLogin}>
-              <div className="half"></div>
-              <span className="getstarted">Get Started</span>
-              <div className="half1"></div>
-            </div>
+          <br></br>
+          <div className="mainbutton">
+            <a
+              onClick={this.onClickCustomerLogin}
+              class="fancy-button pop-onhover bg-gradient1"
+            >
+              <span>Get Started</span>
+            </a>
           </div>
         </div>
         <div className="bgcover">
@@ -282,7 +243,19 @@ class Home extends Component {
               </big>
             </big>
           </big>
+
           <br></br>
+          <div className="parentvid1">
+            <big>
+              <h2 className="textvid" style={{ textAlign: "center" }}>
+                During the Covid 19 outbreak, we connect local businesses to
+                your community. In these uncertain times, we need to stand
+                together. You can help by buying gift cards and vouchers from
+                your local businesses to be redeemed later when the crisis is
+                over.{" "}
+              </h2>
+            </big>
+          </div>
 
           <div className="parentvid">
             <div className="videop">
@@ -303,124 +276,33 @@ class Home extends Component {
                 ></iframe>
               </div>
             </div>
-
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <br></br>
-            <big>
-              <h2 className="textvid">
-                During the Covid 19 outbreak, we connect local businesses to
-                you. Since they are making no money, you can help by buying gift
-                cards and redeeming them later.{" "}
-              </h2>
-            </big>
           </div>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
 
-          <big>
+          <div className="AvailableP">
             <big>
               <big>
-                <h1 className="Available">Available For Download</h1>
+                <big>
+                  <h1 className="Available">Available For Download</h1>
+                </big>
               </big>
             </big>
-          </big>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+          </div>
           <img
             className="phoneimg"
             src={require("./Assets/phone.png")}
             draggable="false"
           ></img>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+
           <div className="home-footer">
             <div className="logoandterms">
-              <div className="logoimg" onClick={this.onClickHome}>
+              <div className="logoimg3" onClick={this.onClickHome}>
                 <img
                   src={require("./Assets/golo.png")}
-                  className="logoimage"
-                  style={{ width: "450px" }}
+                  className="logoimage2"
+                  style={{ width: "250px" }}
                 ></img>
               </div>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
-              <br></br>
+
               <div className="socialmedia">
                 <div className="facebook">
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -439,93 +321,52 @@ class Home extends Component {
               </div>
               <br></br>
               <a className="terms">Terms and Conditions</a>
-              <a className="terms1"> | </a>
               <a className="terms">Privacy Policy</a>
             </div>
 
-            <div className="screen">
-              <div className="screen-header">
-                <div className="screen-header-left">
-                  <div className="screen-header-button close"></div>
-                  <div className="screen-header-button maximize"></div>
-                  <div className="screen-header-button minimize"></div>
-                </div>
-                <div className="screen-header-right">
-                  <div className="screen-header-ellipsis"></div>
-                  <div class="screen-header-ellipsis"></div>
-                  <div className="screen-header-ellipsis"></div>
-                </div>
+            <form className="contactus">
+              <input
+                className="app-form-control"
+                placeholder="NAME"
+                value={this.state.name}
+                onChange={(e) => this.setState({ name: e.target.value })}
+              ></input>
+              <input
+                className="app-form-control"
+                placeholder="EMAIL"
+                value={this.state.emailc}
+                onChange={(e) => this.setState({ emailc: e.target.value })}
+              ></input>
+              <textarea
+                className="app-form-control"
+                placeholder="MESSAGE"
+                value={this.state.message}
+                onChange={(e) => this.setState({ message: e.target.value })}
+              ></textarea>
+
+              <div className="app-form-group buttons">
+                <button
+                  className="app-form-button"
+                  type="reset"
+                  onClick={() => {
+                    this.setState({
+                      name: "",
+                      emailc: "",
+                      message: "",
+                    });
+                  }}
+                >
+                  CANCEL
+                </button>
+                <button
+                  className="app-form-button"
+                  onClick={this.handleSubmit}
+                  type="submit"
+                >
+                  SEND
+                </button>
               </div>
-              <div className="screen-body">
-                <div className="screen-body-item left">
-                  <div className="app-title">
-                    <span>CONTACT</span>
-                    <span>US</span>
-                  </div>
-                  <div className="app-contact">
-                    CONTACT INFO : +1 732 803 8584
-                  </div>
-                </div>
-                <div className="screen-body-item">
-                  <div className="app-form">
-                    <div className="app-form-group">
-                      <input
-                        className="app-form-control"
-                        placeholder="NAME"
-                        value={this.state.name}
-                        onChange={(e) =>
-                          this.setState({ name: e.target.value })
-                        }
-                      ></input>
-                    </div>
-                    <div className="app-form-group">
-                      <input
-                        className="app-form-control"
-                        placeholder="EMAIL"
-                        value={this.state.emailc}
-                        onChange={(e) =>
-                          this.setState({ emailc: e.target.value })
-                        }
-                      ></input>
-                    </div>
-                    <div className="app-form-group message">
-                      <textarea
-                        className="app-form-control"
-                        placeholder="MESSAGE"
-                        rows="6"
-                        columns="10"
-                        value={this.state.message}
-                        onChange={(e) =>
-                          this.setState({ message: e.target.value })
-                        }
-                      ></textarea>
-                    </div>
-                    <div className="app-form-group buttons">
-                      <button
-                        className="app-form-button"
-                        type="reset"
-                        onClick={() => {
-                          this.setState({
-                            name: "",
-                            emailc: "",
-                            message: "",
-                          });
-                        }}
-                      >
-                        CANCEL
-                      </button>
-                      <button
-                        className="app-form-button"
-                        onClick={this.handleSubmit}
-                        type="submit"
-                      >
-                        SEND
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       </div>

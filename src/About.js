@@ -1,16 +1,5 @@
 import React from "react";
 import logo from "./logo.svg";
-import {
-  Button,
-  Image,
-  Tab,
-  TabNavigation,
-  Pane,
-  Tablist,
-  SidebarTab,
-  Paragraph,
-  TextInput
-} from "evergreen-ui";
 import "./About.css";
 
 import Component from "@reactions/component";
