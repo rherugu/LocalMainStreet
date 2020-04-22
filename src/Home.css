@@ -300,11 +300,13 @@ a:active {
   background-repeat: no-repeat;
   backface-visibility: hidden;
   animation: slideBg 17s linear infinite 0s;
-  animation-timing-function: ease-in-out;
+  animation-timing-function: ease;
   background-image: url(./Assets/homebg.jpg);
   background-attachment: fixed;
   position: absolute;
   z-index: -1;
+  top: 0;
+  left: 0;
 }
 
 @keyframes slideBg {
@@ -345,6 +347,7 @@ a:active {
 .video {
   width: 80vh;
   height: 45vh;
+  outline: none;
 }
 
 .textvid {

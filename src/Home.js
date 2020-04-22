@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Home.css";
 import Component from "@reactions/component";
 import TextLoop from "react-text-loop";
@@ -50,11 +50,6 @@ class Home extends Component {
       message: "",
       anchorEl: "",
     };
-    // this.cstate = {
-    //   name: "",
-    //   emailc: "",
-    //   message: "",
-    // };
   }
 
   handleFormSubmit(event) {
@@ -118,35 +113,41 @@ class Home extends Component {
     }
   };
 
+  btnonclick = () => {
+    var juice = document.querySelector(".orange-juice");
+    var btn = document.getElementById("play-pause");
+    var video = document.querySelector(".video");
+    if (video.paused) {
+      btn.className = "pause";
+      video.play();
+    } else {
+      btn.className = "play";
+      video.pause();
+    }
+    video.addEventListener("timeupdate", function () {
+      var juicePos = video.currentTime / video.duration;
+      juice.style.width = juicePos * 100 + "%";
+
+      if (video.ended) {
+        btn.className = "play";
+      }
+    });
+  };
+
+  btnonclick1 = () => {
+    var juice = document.querySelector(".orange-juice");
+    var btn = document.getElementById("play-pause");
+    var video = document.querySelector(".video");
+    if (video.requestFullScreen) {
+      video.requestFullScreen();
+    } else if (video.webkitRequestFullScreen) {
+      video.webkitRequestFullScreen();
+    } else if (video.mozRequestFullScreen) {
+      video.mozRequestFullScreen();
+    }
+  };
+
   render() {
-    const handleClick = (event) => {
-      this.setState({
-        anchorEl: event.currentTarget,
-      });
-    };
-    const handleClose1 = () => {
-      this.setState({
-        anchorEl: null,
-      });
-    };
-
-    const handleClose2 = () => {
-      this.setState({
-        anchorEl: null,
-      });
-    };
-
-    const handleClose3 = () => {
-      this.setState({
-        anchorEl: null,
-      });
-    };
-
-    const handleClose = () => {
-      this.setState({
-        anchorEl: null,
-      });
-    };
     return (
       <div className="slideshowbg">
         <header className="Home-Header">
@@ -155,12 +156,14 @@ class Home extends Component {
               <img
                 src={require("./Assets/golo.png")}
                 className="logoimage"
+                alt="localmainstreet"
               ></img>
             </div>
             <div className="logoimg2" onClick={this.onClickHome}>
               <img
                 src={require("./Assets/logor.png")}
                 className="logoimage2"
+                alt="localmainstreet"
               ></img>
             </div>
 
@@ -183,14 +186,7 @@ class Home extends Component {
         </header>
         <div className="Home">
           <title>LocalMainStreet</title>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+
           <h1 className="textloop">
             We Bring&nbsp;
             <TextLoop
@@ -216,7 +212,7 @@ class Home extends Component {
                 </span>
               </div>
             </button> */}
-          <br></br>
+
           <div className="mainbutton">
             <a
               onClick={this.onClickCustomerLogin}
@@ -227,11 +223,6 @@ class Home extends Component {
           </div>
         </div>
         <div className="bgcover">
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
           <big style={{ textAlign: "center" }}>
             <big>
               <big>
@@ -244,7 +235,6 @@ class Home extends Component {
             </big>
           </big>
 
-          <br></br>
           <div className="parentvid1">
             <big>
               <h2 className="textvid" style={{ textAlign: "center" }}>
@@ -260,20 +250,17 @@ class Home extends Component {
           <div className="parentvid">
             <div className="videop">
               <div
-                className="video"
+                className="video1"
                 style={{
                   textAlign: "center",
                 }}
               >
-                <iframe
-                  width="560"
-                  height="315"
-                  src="https://www.youtube.com/embed/h3dKMLCbOhk"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen
+                <video
                   className="video"
-                ></iframe>
+                  controls
+                  controlsList
+                  src={require("./Assets/introVid.mp4")}
+                ></video>
               </div>
             </div>
           </div>
@@ -319,7 +306,7 @@ class Home extends Component {
                   <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAACjklEQVRoge2ZT2gTQRTGv9m0pu0mEAu2ikuJDQqCNNbWniJ6qViwFg+i0osXvTeCDfSmElIPAQ8eRK8FsQiilXqzgvWgLbbpQRFUrD0YW0ItCSbY3edFlCQ7SSd1divM7/bmvZ39vn37Z3YXUCgUCjdh1Qo8idQAiIaIoRuA7oAmAMgR2GsNlDRj4ceVCisa0EbnEiA2/G+1CRO3YuERXpJrwJNIDRDooRxNYjCN+s0rByfschp3K6IhaYoEsSwW5eW4BoihS44ccRjQzcvxOwD4JGipFT8vUcmALfuavZgaDGEtegDPB0PYu927OWmbRNjAnT4DRwwder2GiKHjdp8hQ9eGETbQ2dpYFHeVxE4jbOBN+kdRPFsSO42wgYuTS3ixlEPup4WpxSwuTX6RoWvD1Ilu8D5TwNGxDzK01IRwB7Yawh0whzvKxjyjqar53f56XO7Zgd6gD+0BLwqmhYXlPO6/XcXd+QwKJolKAVCDgVoItzTg6dl2tDT93V1DnQcRQ0fE0HGhoxn945/wNbcuPLcjp9D46WCR+FIOtTZi7FRb9bW9DY4YCAW2Va051ubDiRB3xcDFEQMWATdnVtB77yPOP1rEs89Z27pz+wPCcztyDVydTuPadPpP/ODdd0ycCeL4nuIj3rOrSXhuRzpwa3alKDaJEH/5raxupy5+PKUbIACZvFk2vrCcLxvzez3C80s3wLuzrBbKTW3Zu5BMlAG3UQbcRhlwm//eAPfZoSXma3vDkIQVC9tqrdQB+yWjK7A1Xob/bRRsRo4YcQjE1cI1oIGScuSIo8HiauEa+P1nJC5FkRB03Yx1PuFlq/9iujF30rJYlAGH4dwX6ywBrzRYyUriFQqFwn1+AXvFo7bcPPZdAAAAAElFTkSuQmCC" />
                 </div>
               </div>
-              <br></br>
+
               <a className="terms">Terms and Conditions</a>
               <a className="terms">Privacy Policy</a>
             </div>

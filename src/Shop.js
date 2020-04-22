@@ -100,44 +100,40 @@ class Shop extends Component {
 
     return (
       <div className="Shop">
-        <div className="Shop-headerP" style={{ backgroundColor: "#ffffff" }}>
-          <div className="Shop-header">
+        <header className="Home-Header">
+          <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
               <img
                 src={require("./Assets/golo.png")}
                 className="logoimage"
+                alt="localmainstreet"
+              ></img>
+            </div>
+            <div className="logoimg2" onClick={this.onClickHome}>
+              <img
+                src={require("./Assets/logor.png")}
+                className="logoimage2"
+                alt="localmainstreet"
               ></img>
             </div>
 
-            <div className="tabs">
-              <div className="navtabs" onClick={this.onClickHome}>
-                <span id="btnspan">Home</span>
-              </div>
-              <br></br>
-              <div className="navtabs" onClick={this.onClickShop}>
-                <span id="btnspan">Shop</span>
-              </div>
-              <br></br>
-              <div className="navtabs" onClick={this.onClickAbout}>
-                <span id="btnspan">About</span>
-              </div>
-              <br></br>
-              <div className="navtabs" onClick={this.onClickContact}>
-                <span id="btnspan">Contact</span>
-              </div>
-              <br></br>
-              <div className="divider"></div>
-
-              <div
-                className="navtabsL"
-                id=".dropbtn"
-                onClick={this.onClickLogin}
-              >
-                <span id="btnspan">Login</span>
-              </div>
-            </div>
+            <h3 className="Hheading1" onClick={this.onClickHome}>
+              <span>Home</span>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickShop}>
+              <span>Shop</span>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickAbout}>
+              <span>About</span>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickContact}>
+              <span>Contact</span>
+            </h3>
+            <h3 className="Hheading2" onClick={this.onClickLogin}>
+              <span>Login</span>
+            </h3>
           </div>
-        </div>
+        </header>
         <br></br>
         <br></br>
         <br></br>

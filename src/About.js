@@ -23,32 +23,60 @@ class About extends Component {
   render() {
     return (
       <div className="About">
-        <header className="About-header">
-          <div className="logoimgA">
-            <img src={require("./Assets/LOGObg.png")}></img>
-          </div>
-          <div className="tabsA">
-            <button class="btn" onClick={this.onClickHome}>
+        <header className="Home-Header">
+          <div className="HH">
+            <div className="logoimg" onClick={this.onClickHome}>
+              <img
+                src={require("./Assets/golo.png")}
+                className="logoimage"
+                alt="localmainstreet"
+              ></img>
+            </div>
+            <div className="logoimg2" onClick={this.onClickHome}>
+              <img
+                src={require("./Assets/logor.png")}
+                className="logoimage2"
+                alt="localmainstreet"
+              ></img>
+            </div>
+
+            <h3 className="Hheading1" onClick={this.onClickHome}>
               <span>Home</span>
-            </button>
-            <br></br>
-            <button class="btn" onClick={this.onClickShop}>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickShop}>
               <span>Shop</span>
-            </button>
-            <br></br>
-            <button class="btn" onClick={this.onClickAbout}>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickAbout}>
               <span>About</span>
-            </button>
-            <br></br>
-            <button class="btn" onClick={this.onClickContact}>
+            </h3>
+            <h3 className="Hheading1" onClick={this.onClickContact}>
               <span>Contact</span>
-            </button>
-            <br></br>
-            <button class="btn" id=".dropbtn" onClick={this.onClickLogin}>
+            </h3>
+            <h3 className="Hheading2" onClick={this.onClickLogin}>
               <span>Login</span>
-            </button>
+            </h3>
           </div>
         </header>
+        <main className="mainA">
+          {/* prettier-ignore */}
+          <div className="titleandtext">
+            <h1 className="titleA">About</h1>
+            {/* prettier-ignore */}
+            <h3 className="abouttxt">
+              We are in the middle of a crisis. Covid 19 has harmed many, but the
+              financial aspect is just as bad. People are losing businesses, jobs,
+              and money at an fast rate. The situation has begun to surpass that
+              of the 2008 recession. Small business owners, the pizza resteraunt
+              around the block, the barber shop nearby, etc. These people have
+              lost their businesses. And thats where we come in.
+              <br></br><br></br> 
+              LocalMainStreet allows you as a customer to buy gift cards from these small
+              businesses. If you own a business, then registering is easy. You can
+              share and buy gift cards and vouchers. Let's take a step forward,
+              together!
+            </h3>
+          </div>
+        </main>
       </div>
     );
   }

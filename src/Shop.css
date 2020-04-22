@@ -1,164 +1,77 @@
 @import "fonts.css";
 
-.Shop {
-  text-align: center;
-  background-color: white;
-  background-attachment: fixed;
-  height: 100%;
-  width: 100%;
-  margin: 0;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.Shop-header {
+.Hheading1 {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: top;
-  margin-top: 100;
-  height: 10vh;
-  width: 100%;
-  background: rgb(74, 74, 74);
-  background-attachment: fixed;
-  top: 0px;
-  z-index: 1;
-  position: fixed;
+  font-family: Poppins-Light;
+  color: white;
+  justify-content: center;
+  cursor: pointer;
+  flex: 0.2;
 }
 
-.App-link {
-  color: #61dafb;
-}
+.Hheading2 {
+  display: flex;
+  font-family: Poppins-Light;
+  color: white;
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.tabs {
-  margin-top: 15px;
-  flex-direction: row;
+  cursor: pointer;
   flex: 1;
-  position: fixed;
+  float: left;
+  justify-content: flex-end;
+}
+
+.logoimg,
+.logoimg2 {
   display: flex;
-  justify-content: space-between;
-  margin-right: 50px;
+  font-family: Poppins-SemiBold;
+  color: white;
+
+  cursor: pointer;
+  flex: 1;
+  float: left;
+  justify-content: flex-start;
 }
 
-button {
-  margin-right: 50px;
+.Hheading span:hover,
+.Hheading1 span:hover,
+.Hheading2 span:hover {
+  color: rgb(183, 183, 183);
 }
 
-/* .btn {
-    border: none;
-    display: block;
-    text-align: center;
-    cursor: pointer;
-    text-transform: uppercase;
-    outline: none;
-    overflow: hidden;
-    position: relative;
-    color: #fff;
-    font-weight: 700;
-    font-size: 15px;
-    background-color: #222;
-    padding: 17px 60px;
-    margin: 50 auto;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.20);
-  }
-  
-  .btn span {
-    position: relative; 
-    z-index: 1;
-  }
-  
-  .btn:after {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 490%;
-    width: 400px;
-    background: #78c7d2;
-    -webkit-transition: all .5s ease-in-out;
-    transition: all .5s ease-in-out;
-    -webkit-transform: translateX(-98%) translateY(-25%) rotate(45deg);
-    transform: translateX(-98%) translateY(-25%) rotate(45deg);
-  }
-  
-  .btn:hover:after {
-    -webkit-transform: translateX(-9%) translateY(-25%) rotate(45deg);
-    transform: translateX(-9%) translateY(-25%) rotate(45deg);
-  }
-   */
-.link {
-  font-size: 20px;
-  margin-top: 30px;
+.Hheading,
+.Hheading1,
+.Hheading2 {
+  width: auto;
+  height: auto;
+  cursor: pointer;
 }
 
-.link a {
-  color: #000;
-  font-size: 25px;
-}
-
-.logoimgS {
+.Home-Header {
+  display: flex;
+  width: 100%;
+  height: 10vh;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rgb(74, 74, 74);
   position: fixed;
-  left: 0px;
-  top: 15px;
+  padding-top: 0px;
+  justify-content: space-between;
+  z-index: 3;
 }
 
-.searchInput {
-  filter: drop-shadow(1px 1px rgb(74, 74, 74, 0.7));
-  font-family: Poppins-Regular;
-  font-size: 15px;
-  outline: none;
-}
-.searchInput:hover {
-  /* animation: searchHover 0.6 ease; */
-  filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.9));
-  font-size: 16px;
-  font-family: Poppins-Bold;
-  width: 600px;
-  filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.99));
+.HH {
+  display: flex;
+  width: 95%;
+  height: 100%;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rgb(74, 74, 74);
+  z-index: 3;
 }
 
-/* @keyframes searchHover {
-  0% {
-    filter: drop-shadow(1px 1px rgb(74, 74, 74, 0.7));
-    font-family: Poppins-Regular;
-    font-size: 15px;
-    outline: none;
-  }
-  25% {
-    filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.9));
-  }
-  50% {
-    font-size: 16px;
-    font-family: Poppins-Bold;
-  }
-  75% {
-    width: 500px;
-  }
-  100% {
-    filter: drop-shadow(2px 2px rgb(74, 74, 74, 0.99));
-  }
-} */
+.logoimg2 {
+  display: none;
+}
 
 /* Box-sizing reset: //w3bits.com/?p=3225 */
 .shop {
@@ -219,4 +132,46 @@ button {
   justify-content: center;
   align-items: flex-end;
   font-family: Poppins-Regular;
+}
+
+@media screen and (max-width: 1483px) {
+  .Hheading1 {
+    flex: 0.5;
+  }
+}
+
+@media screen and (max-width: 1034px) {
+  .logoimg2 {
+    display: flex;
+    font-family: Poppins-SemiBold;
+    color: white;
+
+    cursor: pointer;
+    flex: 1;
+    float: left;
+    justify-content: flex-start;
+
+    transform: scale(0.7);
+  }
+
+  .logoimg {
+    display: none;
+  }
+}
+@media screen and (max-width: 694px) {
+  .Hheading2,
+  .Hheading1 {
+    display: none;
+  }
+
+  .Hheading {
+    display: flex;
+    font-family: Poppins-Light;
+    color: white;
+
+    cursor: pointer;
+    flex: 1;
+    float: left;
+    justify-content: flex-start;
+  }
 }

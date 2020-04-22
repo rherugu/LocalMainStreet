@@ -1,0 +1,160 @@
+.Hheading1 {
+  display: flex;
+  font-family: Poppins-Light;
+  color: white;
+  justify-content: center;
+  cursor: pointer;
+  flex: 0.2;
+}
+
+.Hheading2 {
+  display: flex;
+  font-family: Poppins-Light;
+  color: white;
+
+  cursor: pointer;
+  flex: 1;
+  float: left;
+  justify-content: flex-end;
+}
+
+.logoimg,
+.logoimg2 {
+  display: flex;
+  font-family: Poppins-SemiBold;
+  color: white;
+
+  cursor: pointer;
+  flex: 1;
+  float: left;
+  justify-content: flex-start;
+}
+
+.Hheading span:hover,
+.Hheading1 span:hover,
+.Hheading2 span:hover {
+  color: rgb(183, 183, 183);
+}
+
+.Hheading,
+.Hheading1,
+.Hheading2 {
+  width: auto;
+  height: auto;
+  cursor: pointer;
+}
+
+.Home-Header {
+  display: flex;
+  width: 100%;
+  height: 10vh;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rgb(74, 74, 74);
+  position: fixed;
+  padding-top: 0px;
+  justify-content: space-between;
+  z-index: 3;
+  top: 0px;
+  margin-top: 0px;
+}
+
+.HH {
+  display: flex;
+  width: 95%;
+  height: 100%;
+  margin: 0 auto;
+  align-items: center;
+  background-color: rgb(74, 74, 74);
+  z-index: 3;
+}
+
+.logoimg2 {
+  display: none;
+}
+
+@media screen and (max-width: 1483px) {
+  .Hheading1 {
+    flex: 0.5;
+  }
+}
+
+@media screen and (max-width: 1034px) {
+  .logoimg2 {
+    display: flex;
+    font-family: Poppins-SemiBold;
+    color: white;
+
+    cursor: pointer;
+    flex: 1;
+    float: left;
+    justify-content: flex-start;
+
+    transform: scale(0.7);
+  }
+
+  .logoimg {
+    display: none;
+  }
+}
+@media screen and (max-width: 694px) {
+  .Hheading2,
+  .Hheading1 {
+    display: none;
+  }
+
+  .Hheading {
+    display: flex;
+    font-family: Poppins-Light;
+    color: white;
+
+    cursor: pointer;
+    flex: 1;
+    float: left;
+    justify-content: flex-start;
+  }
+}
+
+.About {
+  height: 100vh;
+  position: fixed;
+  width: 100%;
+  z-index: -2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.mainA {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+.titleA {
+  display: flex;
+  width: 30%;
+  justify-content: center;
+  text-align: center;
+  font-size: 50px;
+  margin: auto;
+}
+
+.abouttxt {
+  display: flex;
+  width: 30%;
+  justify-content: center;
+  text-align: center;
+  margin: auto;
+}
+
+.titleandtext {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: fit-content;
+  margin: auto;
+}

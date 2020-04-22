@@ -10,11 +10,6 @@ import Contact from "./Contact";
 import CustomerLogin from "./CustomerLogin";
 import Login from "./Login";
 import BusinessLogin from "./BusinessLogin";
-import BR2 from "./BR2";
-import BR3 from "./BR3";
-import BR4 from "./BR4";
-import BR5 from "./BR5";
-import BR6 from "./BR6";
 import Buy from "./Buy";
 import Dashboard from "./Dashboard";
 
@@ -80,47 +75,6 @@ class App extends Component {
                 path="/BusinessLogin"
                 render={props =>(
                     <BusinessLogin  {...props} />
-                  )
-                }
-              />
-
-              <Route
-                exact
-                path="/BR2"
-                render={props =>(
-                    <BR2  {...props} />
-                  )
-                }
-              />  
-              <Route
-                exact
-                path="/BR3"
-                render={props =>(
-                    <BR3  {...props} />
-                  )
-                }
-              /> 
-              <Route
-                exact
-                path="/BR4"
-                render={props =>(
-                    <BR4  {...props} />
-                  )
-                }
-              />
-              <Route
-                exact
-                path="/BR5"
-                render={props =>(
-                    <BR5  {...props} />
-                  )
-                }
-              />
-              <Route
-                exact
-                path="/BR6"
-                render={props =>(
-                    <BR6  {...props} />
                   )
                 }
               />
