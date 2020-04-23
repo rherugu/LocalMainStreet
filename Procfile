@@ -1,0 +1,1 @@
+web: cd src && cd backend && node app.js

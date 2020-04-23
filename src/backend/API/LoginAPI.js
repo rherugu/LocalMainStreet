@@ -55,14 +55,6 @@ mongoose.connect(
     )
 );
 
-app.listen(3000);
+// app.listen(3000);
 
-//code for fetching data in the website:
-
-// fetch('http://localhost:3000/posts')
-//   .then(result =>{
-//     return result.json();
-//   })
-//   .then(data =>{
-//     console.log(data);
-//   })
+module.exports = app;

@@ -61,4 +61,6 @@ app.post("/checkout", async (req, res) => {
   res.json({ error, status });
 });
 
-app.listen(8080, () => console.log("Connected!"));
+// app.listen(8080, () => console.log("Connected!"));
+
+module.exports = app;
