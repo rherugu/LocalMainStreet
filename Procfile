@@ -1,1 +1,1 @@
-web: cd src && cd backend && node app.js wait -n
+web: cd src && cd backend && node app.js
