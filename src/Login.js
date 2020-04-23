@@ -47,7 +47,7 @@ class Login extends Component {
     };
 
     axios
-      .post("http://localhost:3000/login/", payload)
+      .post("http://localhost:3000/LoginAPI/login/", payload)
       .then((response) => {
         console.log(response);
         if (response.status === 200) {

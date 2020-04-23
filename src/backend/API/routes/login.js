@@ -20,7 +20,7 @@ const jwt = require("jsonwebtoken");
 router.get("/", async (req, res) => {
   try {
     const login = await Users.find();
-    res.json(posts);
+    res.json(login);
   } catch (err) {
     res.json({ message: err });
   }

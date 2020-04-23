@@ -57,7 +57,7 @@ class BusinessLogin extends Component {
     };
 
     axios
-      .post("http://localhost:3000/shop/", payload)
+      .post("http://localhost:3000/BusinessLoginAPI/shop/", payload)
       .then((response) => {
         res = response.data;
 
