@@ -13,7 +13,7 @@ app.use("/contact", contact);
 app.use("/payment", payment);
 app.use("/LoginAPI", LoginAPI);
 
-app.listen(3000, () => {
+app.listen(3000 || process.env.PORT, () => {
   console.log(
     "Connected to databases, connect to Stripe, Nodemailer ready! Good to go!"
   );
