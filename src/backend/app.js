@@ -18,3 +18,5 @@ app.listen(3000 || process.env.PORT, () => {
     "Connected to databases, connect to Stripe, Nodemailer ready! Good to go!"
   );
 });
+
+module.exports = app;
