@@ -5,6 +5,11 @@ var cors = require("cors");
 const creds = require("./config");
 const Joi = require("@hapi/joi");
 const { contactValidation } = require("../API/validation");
+const helmet = require("helmet");
+var compression = require("compression");
+
+router.use(compression()); //Compress all routes
+router.use(helmet());
 
 router.get("/", (req, res) => {
   res.send("Contact form");

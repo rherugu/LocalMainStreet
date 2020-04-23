@@ -113,40 +113,6 @@ class Home extends Component {
     }
   };
 
-  btnonclick = () => {
-    var juice = document.querySelector(".orange-juice");
-    var btn = document.getElementById("play-pause");
-    var video = document.querySelector(".video");
-    if (video.paused) {
-      btn.className = "pause";
-      video.play();
-    } else {
-      btn.className = "play";
-      video.pause();
-    }
-    video.addEventListener("timeupdate", function () {
-      var juicePos = video.currentTime / video.duration;
-      juice.style.width = juicePos * 100 + "%";
-
-      if (video.ended) {
-        btn.className = "play";
-      }
-    });
-  };
-
-  btnonclick1 = () => {
-    var juice = document.querySelector(".orange-juice");
-    var btn = document.getElementById("play-pause");
-    var video = document.querySelector(".video");
-    if (video.requestFullScreen) {
-      video.requestFullScreen();
-    } else if (video.webkitRequestFullScreen) {
-      video.webkitRequestFullScreen();
-    } else if (video.mozRequestFullScreen) {
-      video.mozRequestFullScreen();
-    }
-  };
-
   render() {
     return (
       <div className="slideshowbg">
@@ -258,7 +224,6 @@ class Home extends Component {
                 <video
                   className="video"
                   controls
-                  controlsList
                   src={require("./Assets/introVid.mp4")}
                 ></video>
               </div>

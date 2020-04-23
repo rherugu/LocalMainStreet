@@ -2,9 +2,12 @@ const cors = require("cors");
 const express = require("express");
 const stripe = require("stripe")("sk_test_uJl5PPIm5zrfXwqPOCIpKP5k00kcciQo3z");
 const uuid = require("uuid/v4");
+const helmet = require("helmet");
 
 const app = express();
-
+var compression = require("compression");
+app.use(compression()); //Compress all routes
+app.use(helmet());
 app.use(express.json());
 app.use(cors());
 
