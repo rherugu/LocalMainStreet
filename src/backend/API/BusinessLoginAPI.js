@@ -51,13 +51,6 @@ mongoose.connect(
     )
 );
 
-console.log(
-  "DB_CONNECTION",
-  process.env.DB_CONNECTION,
-  "DB_CONNECTION2",
-  process.env.DB_CONNECTION2
-);
-
 // app.listen(3011);
 
 module.exports = app;
