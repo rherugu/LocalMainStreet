@@ -7,6 +7,6 @@ require("dotenv/config");
 
 app.use("/app", appjs);
 
-app.listen(3001 || process.env.PORT, () => {
+app.listen(process.env.PORT || 3001, "0.0.0.0", () => {
   console.log("mainbackend up and running");
 });
