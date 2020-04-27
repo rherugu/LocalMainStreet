@@ -1,4 +1,3 @@
-
 # LocalMainStreet
 
 LocalMainStreet is a website that serves small businesses during the Covid 19 cirsis. We make it easy to buy, sell, and share gift cards to businesses wont perish during harsh times like these.
@@ -11,10 +10,9 @@ Our frontend is deployed on Zeit, and our backend is deployed on Heroku.
 
 Links:
 
-[&nbsp;&nbsp;&nbsp;&nbsp;• Mobile App](https://github.com/vaibhavherugu/LocalMainStreetApp)
+&nbsp;&nbsp;&nbsp;&nbsp;[• Mobile App](https://github.com/vaibhavherugu/LocalMainStreetApp)
 
-
-[&nbsp;&nbsp;&nbsp;&nbsp;• Backend Code](https://github.com/rherugu/LocalMainStreetBackend)
+&nbsp;&nbsp;&nbsp;&nbsp;[• Backend Code](https://github.com/rherugu/LocalMainStreetBackend)
 
 We hope you enjoy and we hope businesses won't die out in times like these! :)
 
