@@ -55,32 +55,39 @@ class Contact extends Component {
         message: this.state.message,
       };
 
-      axios.post("http://localhost:3009/send", payload).then((response) => {
-        if (response.data.status === "success") {
-          toast("Thank you very much for your feedback.", { type: "success" });
-          this.resetForm();
-        } else if (response.data.status === "fail") {
-          toast(
-            "Hmmmm, Something went wrong. Dont worry, its not you, its us. Please try again.",
-            { type: "error" }
-          );
-        } else if (
-          // prettier-ignore
-          response.data === '"emailc" must be a valid email'
-        ) {
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/contact/send",
+          payload
+        )
+        .then((response) => {
+          if (response.data.status === "success") {
+            toast("Thank you very much for your feedback.", {
+              type: "success",
+            });
+            this.resetForm();
+          } else if (response.data.status === "fail") {
+            toast(
+              "Hmmmm, Something went wrong. Dont worry, its not you, its us. Please try again.",
+              { type: "error" }
+            );
+          } else if (
+            // prettier-ignore
+            response.data === '"emailc" must be a valid email'
+          ) {
           toast("Your email must be a valid email.", { type: "error" });
         }
-        // prettier-ignore
-        else if (
           // prettier-ignore
-          response.data === '"message" length must be at least 6 characters long'
-        ) {
-          toast(
-            "Your message is too short. It needs to be at least 6 characters.",
-            { type: "error" }
-          );
-        }
-      });
+          else if (
+            // prettier-ignore
+            response.data === '"message" length must be at least 6 characters long'
+          ) {
+            toast(
+              "Your message is too short. It needs to be at least 6 characters.",
+              { type: "error" }
+            );
+          }
+        });
     }
   };
 

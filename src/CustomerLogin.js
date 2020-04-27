@@ -55,7 +55,10 @@ class CustomerLogin extends Component {
     };
 
     axios
-      .post("http://localhost:3000/LoginAPI/posts/", payload)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/",
+        payload
+      )
       .then(function (response) {
         res = response.data;
         if (res === '"password" length must be at least 6 characters long') {

@@ -47,7 +47,10 @@ class Login extends Component {
     };
 
     axios
-      .post("http://localhost:3000/LoginAPI/login/", payload)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+        payload
+      )
       .then((response) => {
         console.log(response);
         if (response.status === 200) {

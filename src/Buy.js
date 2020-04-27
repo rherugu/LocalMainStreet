@@ -14,10 +14,13 @@ export default function Buy(props) {
       name: props.location.state.bname,
       price: price,
     };
-    const response = await axios.post("http://localhost:8080/checkout", {
-      token,
-      product,
-    });
+    const response = await axios.post(
+      "https://localmainstreetbackend.herokuapp.com/app/payment/checkout",
+      {
+        token,
+        product,
+      }
+    );
     const { status } = response.data;
     if (status === "success") {
       toast("Success! Check email for details", { type: "success" });

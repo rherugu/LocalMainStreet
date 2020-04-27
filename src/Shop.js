@@ -71,7 +71,10 @@ class Shop extends Component {
       "auth-token": tokenval,
     };
     axios
-      .get("http://localhost:3000/BusinessLoginAPI/shop", { headers })
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+        { headers }
+      )
       .then((response) => {
         console.log(response.data);
 

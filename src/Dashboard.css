@@ -1,40 +1,889 @@
-@import "fonts.css";
+@import url(/Users/raghavherugu/Documents/localmainstreet/src/fonts.css);
+.rocket-button {
+  --background: #262730;
+  --text: #fff;
+  --check: #5c86ff;
+  --blue: #5c86ff;
+  --blue-transparent: rgba(92, 134, 255, 0);
+  --dot: #51fe5d;
+  --dot-shadow: rgba(81, 254, 93, 0.3);
+  --dot1: #fe5151;
+  --dot-shadow1: rgba(254, 81, 81, 0.3);
+  --smoke: rgba(247, 248, 255, 0.9);
+  --rocket: #eef0fd;
+  --rocket-shadow-left: #fff;
+  --rocket-shadow-right: #d3d4ec;
+  --rocket-wing-right: #c2c3d9;
+  --rocket-wing-left: #d3d4ec;
+  --rocket-window: #275efe;
+  --rocket-window-shadow: #c2c3d9;
+  --rocket-line: #9ea0be;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+  padding: 14px 28px;
+  display: table;
+  position: relative;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  text-decoration: none;
+  color: var(--text);
+  -webkit-filter: drop-shadow(0px 0px 15px rgba(81, 254, 93, 0.3));
+          filter: drop-shadow(0px 0px 15px rgba(81, 254, 93, 0.3));
+}
+
+.rocket-button:before {
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  transition: -webkit-transform 0.2s ease;
+  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+  -webkit-transform: scale(var(--s, 1)) translateZ(0);
+          transform: scale(var(--s, 1)) translateZ(0);
+  position: absolute;
+  background: var(--background);
+}
+
+.rocket-button .default,
+.rocket-button .success,
+.rocket-button .animation {
+  z-index: 1;
+}
+
+.rocket-button .default span,
+.rocket-button .success span {
+  display: block;
+  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
+  -webkit-transform: translateX(var(--x, 0));
+          transform: translateX(var(--x, 0));
+  opacity: var(--o, 1);
+  -webkit-filter: blur(var(--b, 0px));
+          filter: blur(var(--b, 0px));
+}
+
+.rocket-button .default {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.rocket-button .default:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 7px 8px 0 0;
+  -webkit-box-shadow: 0 0 0 1px var(--dot-shadow);
+          box-shadow: 0 0 0 1px var(--dot-shadow);
+  -webkit-animation: pulse 1s ease infinite;
+          animation: pulse 1s ease infinite;
+  vertical-align: top;
+  display: inline-block;
+  -webkit-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
+  opacity: var(--o, 1);
+  background: var(--dot);
+}
+
+.rocket-button .default1 {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.rocket-button .default1:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 7px 8px 0 0;
+  -webkit-box-shadow: 0 0 0 1px var(--dot-shadow1);
+          box-shadow: 0 0 0 1px var(--dot-shadow1);
+  -webkit-animation: pulse1 1s ease infinite;
+          animation: pulse1 1s ease infinite;
+  vertical-align: top;
+  display: inline-block;
+  -webkit-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
+  opacity: var(--o, 1);
+  background: var(--dot1);
+}
+
+.rocket-button .success {
+  opacity: var(--o, 0);
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: 14px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.rocket-button .success svg {
+  width: 13px;
+  height: 11px;
+  stroke-width: 2;
+  stroke-dasharray: 20px;
+  stroke-dashoffset: var(--o, 20px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  display: block;
+  color: var(--check);
+  margin: 4px 8px 0 0;
+}
+
+.rocket-button .success > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.rocket-button .success > div span {
+  --o: 0;
+  --x: 8px;
+  --b: 2px;
+}
+
+.rocket-button .animation {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  pointer-events: none;
+  overflow: hidden;
+  position: absolute;
+}
+
+.rocket-button .animation .smoke {
+  left: 50%;
+  top: 100%;
+  position: absolute;
+}
+
+.rocket-button .animation .smoke i {
+  opacity: 0;
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+  border-radius: 50%;
+  position: absolute;
+  bottom: var(--b, -20px);
+  left: var(--l, -12px);
+  width: var(--s, 32px);
+  height: var(--s, 32px);
+  background: var(--smoke);
+}
+
+.rocket-button .animation .smoke i:nth-child(2) {
+  --s: 20px;
+  --l: -24px;
+  --b: -10px;
+  --d: 50ms;
+}
+
+.rocket-button .animation .smoke i:nth-child(3) {
+  --s: 22px;
+  --l: 0;
+  --b: -12px;
+  --d: 20ms;
+}
+
+.rocket-button .animation .smoke i:nth-child(4) {
+  --s: 12px;
+  --l: 16px;
+  --b: -6px;
+  --d: 120ms;
+}
+
+.rocket-button .animation .smoke i:nth-child(5) {
+  --s: 24px;
+  --l: -20px;
+  --b: -14px;
+  --d: 80ms;
+}
+
+.rocket-button .animation .smoke i:nth-child(6) {
+  --s: 12px;
+  --l: -28px;
+  --b: -8px;
+  --d: 60ms;
+}
+
+.rocket-button .animation .rocket {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  z-index: 1;
+  margin: 0 0 0 -12px;
+}
+
+.rocket-button .animation .rocket:before {
+  content: "";
+  margin-left: -3px;
+  left: 50%;
+  top: 32px;
+  position: absolute;
+  width: 6px;
+  border-radius: 2px;
+  height: 32px;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--blue)), to(var(--blue-transparent)));
+  background: linear-gradient(var(--blue), var(--blue-transparent));
+}
+
+.rocket-button .animation .rocket svg {
+  width: 24px;
+  height: 36px;
+  display: block;
+}
+
+.rocket-button:active {
+  --s: 0.95;
+}
+
+.rocket-button.live:before {
+  -webkit-animation: shake 1.5s ease 0.6s;
+          animation: shake 1.5s ease 0.6s;
+}
+
+.rocket-button.live .default:before {
+  --o: 0;
+}
+
+.rocket-button.live .default span {
+  --o: 0;
+  --x: 8px;
+  --b: 2px;
+  -webkit-transition: opacity 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+  transition: opacity 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+  transition: transform 0.3s ease var(--d), opacity 0.3s ease var(--d), filter 0.3s ease var(--d);
+  transition: transform 0.3s ease var(--d), opacity 0.3s ease var(--d), filter 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+}
+
+.rocket-button.live .success {
+  --o: 1;
+}
+
+.rocket-button.live .success span {
+  --o: 1;
+  --x: 0;
+  --b: 0;
+  -webkit-transition: opacity 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: opacity 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: transform 0.3s ease calc(var(--d) + 2200ms), opacity 0.3s ease calc(var(--d) + 2200ms), filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: transform 0.3s ease calc(var(--d) + 2200ms), opacity 0.3s ease calc(var(--d) + 2200ms), filter 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+}
+
+.rocket-button.live .success svg {
+  --o: 0;
+  -webkit-transition: stroke-dashoffset 0.3s ease 2.25s;
+  transition: stroke-dashoffset 0.3s ease 2.25s;
+}
+
+.rocket-button.live .animation .rocket {
+  -webkit-animation: rocket 2s ease forwards 0.4s;
+          animation: rocket 2s ease forwards 0.4s;
+}
+
+.rocket-button.live .animation .rocket:before {
+  -webkit-animation: rocket-light 2s ease forwards 0.4s;
+          animation: rocket-light 2s ease forwards 0.4s;
+}
+
+.rocket-button.live .animation .smoke i {
+  -webkit-animation: var(--n, smoke) 1.7s ease forwards calc(var(--d) + 600ms);
+          animation: var(--n, smoke) 1.7s ease forwards calc(var(--d) + 600ms);
+}
+
+.rocket-button.live .animation .smoke i:nth-child(3), .rocket-button.live .animation .smoke i:nth-child(6) {
+  --n: smoke-alt;
+}
+
+.rocket-button1 {
+  --background: #262730;
+  --text: #fff;
+  --check: #5c86ff;
+  --blue: #5c86ff;
+  --blue-transparent: rgba(92, 134, 255, 0);
+  --dot: #51fe5d;
+  --dot-shadow: rgba(81, 254, 93, 0.3);
+  --dot1: #fe5151;
+  --dot-shadow1: rgba(254, 81, 81, 0.3);
+  --smoke: rgba(247, 248, 255, 0.9);
+  --rocket: #eef0fd;
+  --rocket-shadow-left: #fff;
+  --rocket-shadow-right: #d3d4ec;
+  --rocket-wing-right: #c2c3d9;
+  --rocket-wing-left: #d3d4ec;
+  --rocket-window: #275efe;
+  --rocket-window-shadow: #c2c3d9;
+  --rocket-line: #9ea0be;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 19px;
+  padding: 14px 28px;
+  display: table;
+  position: relative;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  text-decoration: none;
+  color: var(--text);
+  -webkit-filter: drop-shadow(0px 0px 15px rgba(254, 81, 81, 0.3));
+          filter: drop-shadow(0px 0px 15px rgba(254, 81, 81, 0.3));
+}
+
+.rocket-button1:before {
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.2s ease;
+  transition: -webkit-transform 0.2s ease;
+  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, -webkit-transform 0.2s ease;
+  -webkit-transform: scale(var(--s, 1)) translateZ(0);
+          transform: scale(var(--s, 1)) translateZ(0);
+  position: absolute;
+  background: var(--background);
+}
+
+.rocket-button1 .default,
+.rocket-button1 .success,
+.rocket-button1 .animation {
+  z-index: 1;
+}
+
+.rocket-button1 .default span,
+.rocket-button1 .success span {
+  display: block;
+  -webkit-transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: opacity 0.2s ease, -webkit-transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease, -webkit-transform 0.2s ease;
+  -webkit-transform: translateX(var(--x, 0));
+          transform: translateX(var(--x, 0));
+  opacity: var(--o, 1);
+  -webkit-filter: blur(var(--b, 0px));
+          filter: blur(var(--b, 0px));
+}
+
+.rocket-button1 .default {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.rocket-button1 .default:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 7px 8px 0 0;
+  -webkit-box-shadow: 0 0 0 1px var(--dot-shadow);
+          box-shadow: 0 0 0 1px var(--dot-shadow);
+  -webkit-animation: pulse 1s ease infinite;
+          animation: pulse 1s ease infinite;
+  vertical-align: top;
+  display: inline-block;
+  -webkit-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
+  opacity: var(--o, 1);
+  background: var(--dot);
+}
+
+.rocket-button1 .default1 {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.rocket-button1 .default1:before {
+  content: "";
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  margin: 7px 8px 0 0;
+  -webkit-box-shadow: 0 0 0 1px var(--dot-shadow1);
+          box-shadow: 0 0 0 1px var(--dot-shadow1);
+  -webkit-animation: pulse1 1s ease infinite;
+          animation: pulse1 1s ease infinite;
+  vertical-align: top;
+  display: inline-block;
+  -webkit-transition: opacity 0.3s linear;
+  transition: opacity 0.3s linear;
+  opacity: var(--o, 1);
+  background: var(--dot1);
+}
+
+.rocket-button1 .success {
+  opacity: var(--o, 0);
+  position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  top: 14px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.rocket-button1 .success svg {
+  width: 13px;
+  height: 11px;
+  stroke-width: 2;
+  stroke-dasharray: 20px;
+  stroke-dashoffset: var(--o, 20px);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  display: block;
+  color: var(--check);
+  margin: 4px 8px 0 0;
+}
+
+.rocket-button1 .success > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.rocket-button1 .success > div span {
+  --o: 0;
+  --x: 8px;
+  --b: 2px;
+}
+
+.rocket-button1 .animation {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 120px;
+  pointer-events: none;
+  overflow: hidden;
+  position: absolute;
+}
+
+.rocket-button1 .animation .smoke {
+  left: 50%;
+  top: 100%;
+  position: absolute;
+}
+
+.rocket-button1 .animation .smoke i {
+  opacity: 0;
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+  border-radius: 50%;
+  position: absolute;
+  bottom: var(--b, -20px);
+  left: var(--l, -12px);
+  width: var(--s, 32px);
+  height: var(--s, 32px);
+  background: var(--smoke);
+}
+
+.rocket-button1 .animation .smoke i:nth-child(2) {
+  --s: 20px;
+  --l: -24px;
+  --b: -10px;
+  --d: 50ms;
+}
+
+.rocket-button1 .animation .smoke i:nth-child(3) {
+  --s: 22px;
+  --l: 0;
+  --b: -12px;
+  --d: 20ms;
+}
+
+.rocket-button1 .animation .smoke i:nth-child(4) {
+  --s: 12px;
+  --l: 16px;
+  --b: -6px;
+  --d: 120ms;
+}
+
+.rocket-button1 .animation .smoke i:nth-child(5) {
+  --s: 24px;
+  --l: -20px;
+  --b: -14px;
+  --d: 80ms;
+}
+
+.rocket-button1 .animation .smoke i:nth-child(6) {
+  --s: 12px;
+  --l: -28px;
+  --b: -8px;
+  --d: 60ms;
+}
+
+.rocket-button1 .animation .rocket {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  z-index: 1;
+  margin: 0 0 0 -12px;
+}
+
+.rocket-button1 .animation .rocket:before {
+  content: "";
+  margin-left: -3px;
+  left: 50%;
+  top: 32px;
+  position: absolute;
+  width: 6px;
+  border-radius: 2px;
+  height: 32px;
+  -webkit-transform-origin: 50% 0;
+          transform-origin: 50% 0;
+  -webkit-transform: scaleY(0.5);
+          transform: scaleY(0.5);
+  background: -webkit-gradient(linear, left top, left bottom, from(var(--blue)), to(var(--blue-transparent)));
+  background: linear-gradient(var(--blue), var(--blue-transparent));
+}
+
+.rocket-button1 .animation .rocket svg {
+  width: 24px;
+  height: 36px;
+  display: block;
+}
+
+.rocket-button1:active {
+  --s: 0.95;
+}
+
+.rocket-button1.live:before {
+  -webkit-animation: shake 1.5s ease 0.6s;
+          animation: shake 1.5s ease 0.6s;
+}
+
+.rocket-button1.live .default:before {
+  --o: 0;
+}
+
+.rocket-button1.live .default span {
+  --o: 0;
+  --x: 8px;
+  --b: 2px;
+  -webkit-transition: opacity 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+  transition: opacity 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+  transition: transform 0.3s ease var(--d), opacity 0.3s ease var(--d), filter 0.3s ease var(--d);
+  transition: transform 0.3s ease var(--d), opacity 0.3s ease var(--d), filter 0.3s ease var(--d), -webkit-transform 0.3s ease var(--d), -webkit-filter 0.3s ease var(--d);
+}
+
+.rocket-button1.live .success {
+  --o: 1;
+}
+
+.rocket-button1.live .success span {
+  --o: 1;
+  --x: 0;
+  --b: 0;
+  -webkit-transition: opacity 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: opacity 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: transform 0.3s ease calc(var(--d) + 2200ms), opacity 0.3s ease calc(var(--d) + 2200ms), filter 0.3s ease calc(var(--d) + 2200ms);
+  transition: transform 0.3s ease calc(var(--d) + 2200ms), opacity 0.3s ease calc(var(--d) + 2200ms), filter 0.3s ease calc(var(--d) + 2200ms), -webkit-transform 0.3s ease calc(var(--d) + 2200ms), -webkit-filter 0.3s ease calc(var(--d) + 2200ms);
+}
+
+.rocket-button1.live .success svg {
+  --o: 0;
+  -webkit-transition: stroke-dashoffset 0.3s ease 2.25s;
+  transition: stroke-dashoffset 0.3s ease 2.25s;
+}
+
+.rocket-button1.live .animation .rocket {
+  -webkit-animation: rocket 2s ease forwards 0.4s;
+          animation: rocket 2s ease forwards 0.4s;
+}
+
+.rocket-button1.live .animation .rocket:before {
+  -webkit-animation: rocket-light 2s ease forwards 0.4s;
+          animation: rocket-light 2s ease forwards 0.4s;
+}
+
+.rocket-button1.live .animation .smoke i {
+  -webkit-animation: var(--n, smoke) 1.7s ease forwards calc(var(--d) + 600ms);
+          animation: var(--n, smoke) 1.7s ease forwards calc(var(--d) + 600ms);
+}
+
+.rocket-button1.live .animation .smoke i:nth-child(3), .rocket-button1.live .animation .smoke i:nth-child(6) {
+  --n: smoke-alt;
+}
+
+@-webkit-keyframes pulse {
+  50% {
+    -webkit-box-shadow: 0 0 0 2px var(--dot-shadow);
+            box-shadow: 0 0 0 2px var(--dot-shadow);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    -webkit-box-shadow: 0 0 0 2px var(--dot-shadow);
+            box-shadow: 0 0 0 2px var(--dot-shadow);
+  }
+}
+
+@-webkit-keyframes pulse1 {
+  50% {
+    -webkit-box-shadow: 0 0 0 2px var(--dot-shadow1);
+            box-shadow: 0 0 0 2px var(--dot-shadow1);
+  }
+}
+
+@keyframes pulse1 {
+  50% {
+    -webkit-box-shadow: 0 0 0 2px var(--dot-shadow1);
+            box-shadow: 0 0 0 2px var(--dot-shadow1);
+  }
+}
+
+@-webkit-keyframes pulse2 {
+  50% {
+    -webkit-filter: drop-shadow(0px 0px 10px rgba(254, 81, 81, 0.3));
+            filter: drop-shadow(0px 0px 10px rgba(254, 81, 81, 0.3));
+  }
+}
+
+@keyframes pulse2 {
+  50% {
+    -webkit-filter: drop-shadow(0px 0px 10px rgba(254, 81, 81, 0.3));
+            filter: drop-shadow(0px 0px 10px rgba(254, 81, 81, 0.3));
+  }
+}
+
+@-webkit-keyframes shake {
+  8%,
+  24%,
+  40%,
+  56%,
+  72%,
+  88% {
+    -webkit-transform: translateX(-1px);
+            transform: translateX(-1px);
+  }
+  16%,
+  32%,
+  48%,
+  64%,
+  80%,
+  96% {
+    -webkit-transform: translateX(1px);
+            transform: translateX(1px);
+  }
+}
+
+@keyframes shake {
+  8%,
+  24%,
+  40%,
+  56%,
+  72%,
+  88% {
+    -webkit-transform: translateX(-1px);
+            transform: translateX(-1px);
+  }
+  16%,
+  32%,
+  48%,
+  64%,
+  80%,
+  96% {
+    -webkit-transform: translateX(1px);
+            transform: translateX(1px);
+  }
+}
+
+@-webkit-keyframes smoke {
+  20%,
+  80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  55% {
+    -webkit-transform: scale(0.92);
+            transform: scale(0.92);
+  }
+}
+
+@keyframes smoke {
+  20%,
+  80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  55% {
+    -webkit-transform: scale(0.92);
+            transform: scale(0.92);
+  }
+}
+
+@-webkit-keyframes smoke-alt {
+  20%,
+  80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  60% {
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+  }
+}
+
+@keyframes smoke-alt {
+  20%,
+  80% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  60% {
+    -webkit-transform: scale(1.08);
+            transform: scale(1.08);
+  }
+}
+
+@-webkit-keyframes rocket {
+  35% {
+    -webkit-transform: translateY(-56px);
+            transform: translateY(-56px);
+  }
+  80% {
+    -webkit-transform: translateY(-48px);
+            transform: translateY(-48px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-108px) scale(0.6);
+            transform: translateY(-108px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@keyframes rocket {
+  35% {
+    -webkit-transform: translateY(-56px);
+            transform: translateY(-56px);
+  }
+  80% {
+    -webkit-transform: translateY(-48px);
+            transform: translateY(-48px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(-108px) scale(0.6);
+            transform: translateY(-108px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+@-webkit-keyframes rocket-light {
+  35% {
+    -webkit-transform: scaleY(0.6);
+            transform: scaleY(0.6);
+  }
+  75% {
+    -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+}
+
+@keyframes rocket-light {
+  35% {
+    -webkit-transform: scaleY(0.6);
+            transform: scaleY(0.6);
+  }
+  75% {
+    -webkit-transform: scaleY(0.5);
+            transform: scaleY(0.5);
+  }
+  100% {
+    -webkit-transform: scaleY(1);
+            transform: scaleY(1);
+  }
+}
 
 .heading1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-Light;
   color: white;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   cursor: pointer;
-  flex: 0.2;
+  -webkit-box-flex: 0.2;
+      -ms-flex: 0.2;
+          flex: 0.2;
 }
 
 .heading2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-Light;
   color: white;
-
   cursor: pointer;
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   float: left;
-  justify-content: flex-end;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
 }
 
 .heading {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-SemiBold;
   color: white;
-
   cursor: pointer;
-  flex: 1;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
   float: left;
-  justify-content: flex-start;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
 }
 
 .heading span:hover,
 .heading1 span:hover,
 .heading2 span:hover {
-  color: rgb(183, 183, 183);
+  color: #b7b7b7;
 }
 
 .heading,
@@ -50,46 +899,71 @@
 }
 
 .Dashboard-Header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   height: 10vh;
   margin: 0 auto;
-  align-items: center;
-  background-color: rgb(74, 74, 74);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #4a4a4a;
   position: fixed;
   padding-top: 0px;
-  justify-content: space-between;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .DH {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 95%;
   height: 100%;
   margin: 0 auto;
-  align-items: center;
-  background-color: rgb(74, 74, 74);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #4a4a4a;
 }
 
 .Dashboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 95%;
   height: 100vh;
   margin: 0 auto;
-  align-items: center;
-  background-color: rgb(255, 255, 255);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: white;
   padding-top: 0px;
-  justify-content: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .welcome {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 600px;
   width: 600px;
   border-radius: 50%;
-  background-color: rgb(241, 241, 241);
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  background-color: #f1f1f1;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .welcomebtn,
@@ -110,53 +984,68 @@
 
 @media screen and (max-width: 1483px) {
   .heading1 {
-    flex: 0.5;
+    -webkit-box-flex: 0.5;
+        -ms-flex: 0.5;
+            flex: 0.5;
   }
-
   .welcome {
     height: 500px;
     width: 500px;
   }
 }
+
 @media screen and (max-width: 694px) {
   .hamburger {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     height: auto;
     width: auto;
     cursor: pointer;
     display: flex;
     cursor: pointer;
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     float: left;
-    justify-content: flex-end;
+    -webkit-box-pack: end;
+        -ms-flex-pack: end;
+            justify-content: flex-end;
   }
-
   .hamburger img {
     width: 30px;
     cursor: pointer;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     cursor: pointer;
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     float: left;
-    justify-content: flex-start;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
   }
-
   .heading2,
   .heading1 {
     display: none;
   }
-
   .heading {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     font-family: Poppins-Light;
     color: white;
-
     cursor: pointer;
-    flex: 1;
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1;
     float: left;
-    justify-content: flex-start;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
   }
-
   .welcome {
     height: 400px;
     width: 400px;
@@ -177,13 +1066,16 @@
   .welcome {
     height: 200px;
     width: 200px;
-    transform: scale(1);
+    -webkit-transform: scale(1);
+            transform: scale(1);
   }
   .welcometxt {
     font-size: 20px;
   }
   .rocket-button,
   .rocket-button1 {
-    transform: scale(0.7);
+    -webkit-transform: scale(0.7);
+            transform: scale(0.7);
   }
 }
+/*# sourceMappingURL=Dashboard.css.map */
