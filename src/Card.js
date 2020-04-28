@@ -35,7 +35,7 @@ export default function MediaCard(props) {
                   className: "Buy",
                 },
               });
-            }, 1000);
+            }, 100);
           }}
         >
           <CardMedia

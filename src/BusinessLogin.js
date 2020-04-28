@@ -38,7 +38,11 @@ class BusinessLogin extends Component {
       PhoneNumber: "",
       displaymessage: "hidden",
       Password: "",
-      paymentMethod: "",
+      // paymentMethod: "",
+      accountHolderName: "",
+      accountHolderType: "",
+      routingNumber: "",
+      accountNumber: "",
     };
   }
 
@@ -53,7 +57,10 @@ class BusinessLogin extends Component {
       description: this.state.description,
       address: this.state.Address,
       phoneNumber: this.state.PhoneNumber,
-      paymentMethod: this.state.paymentMethod,
+      accountHolderName: this.state.accountHolderName,
+      accountHolderType: this.state.accountHolderType,
+      routingNumber: this.state.routingNumber,
+      accountNumber: this.state.accountNumber,
     };
 
     axios
@@ -264,15 +271,78 @@ class BusinessLogin extends Component {
               }}
             />
             <br></br>
-            <label style={{ color: "#111111" }}>Choose payment system</label>
+            <label style={{ color: "#111111" }}>
+              Bank Account Information: Whats your account holder name?
+            </label>
             <br></br>
             <input
               type="text"
               id="paymentMethod"
-              name="paymentMethod"
-              placeholder="Choose payment system"
-              value={this.state.paymentMethod}
-              onChange={(e) => this.setState({ paymentMethod: e.target.value })}
+              name="accountHolderName"
+              placeholder="account holder name"
+              value={this.state.accountHolderName}
+              onChange={(e) =>
+                this.setState({ accountHolderName: e.target.value })
+              }
+              style={{
+                width: 500,
+                height: 50,
+                fontSize: 20,
+                backgroundColor: "#DDDDDD",
+              }}
+            />
+            <br></br>
+            <label style={{ color: "#111111" }}>
+              Bank Account Information: Whats your account holder type?
+            </label>
+            <br></br>
+            <input
+              type="text"
+              id="paymentMethod"
+              name="accountHolderType"
+              placeholder="account holder type"
+              value={this.state.accountHolderType}
+              onChange={(e) =>
+                this.setState({ accountHolderType: e.target.value })
+              }
+              style={{
+                width: 500,
+                height: 50,
+                fontSize: 20,
+                backgroundColor: "#DDDDDD",
+              }}
+            />
+            <br></br>
+            <label style={{ color: "#111111" }}>
+              Bank Account Information: Whats your routing number?
+            </label>
+            <br></br>
+            <input
+              type="text"
+              id="paymentMethod"
+              name="rountingNumber"
+              placeholder="routing number"
+              value={this.state.routingNumber}
+              onChange={(e) => this.setState({ routingNumber: e.target.value })}
+              style={{
+                width: 500,
+                height: 50,
+                fontSize: 20,
+                backgroundColor: "#DDDDDD",
+              }}
+            />
+            <br></br>
+            <label style={{ color: "#111111" }}>
+              Bank Account Information: Whats your account number?
+            </label>
+            <br></br>
+            <input
+              type="text"
+              id="paymentMethod"
+              name="accountNumber"
+              placeholder="account number"
+              value={this.state.accountNumber}
+              onChange={(e) => this.setState({ accountNumber: e.target.value })}
               style={{
                 width: 500,
                 height: 50,
