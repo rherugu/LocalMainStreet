@@ -50,6 +50,7 @@
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.4.0",
     "react-player": "^1.15.3",
+    "react-promise-tracker": "^2.1.0",
     "react-router-dom": "^5.1.2",
     "react-router-page-transition": "^3.1.0",
     "react-scripts": "3.4.0",

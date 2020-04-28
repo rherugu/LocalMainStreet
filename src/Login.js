@@ -5,6 +5,8 @@ import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
 import axios from "axios";
 import { BrowserRouter as Router, Link } from "react-router-dom";
+import { trackPromise } from "react-promise-tracker";
+import Loader from "./Loader";
 
 class Login extends Component {
   constructor(props) {
@@ -45,33 +47,35 @@ class Login extends Component {
       email: this.state.email,
       password: this.state.Password,
     };
+    trackPromise(
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+          payload
+        )
+        .then((response) => {
+          console.log(response);
+          if (response.status === 200) {
+            localStorage.setItem("token", response.data);
+          }
+          const tokenval = localStorage.getItem("token");
+          console.log(tokenval);
 
-    axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
-        payload
-      )
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          localStorage.setItem("token", response.data);
-        }
-        const tokenval = localStorage.getItem("token");
-        console.log(tokenval);
-
-        if (!tokenval) {
-          alert("Incorrect email or password.");
-        }
-        this.props.history.push("/Shop");
-      })
-      .catch(function (err) {
-        alert(err);
-      });
+          if (!tokenval) {
+            alert("Incorrect email or password.");
+          }
+          this.props.history.push("/Shop");
+        })
+        .catch(function (err) {
+          alert(err);
+        })
+    );
   };
 
   render() {
     return (
       <div className="login">
+        <Loader />
         <header className="Home-Header">
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>

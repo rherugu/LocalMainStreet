@@ -4,6 +4,8 @@ import Component from "@reactions/component";
 import "./BusinessLogin.css";
 import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
+import { trackPromise } from "react-promise-tracker";
+import Loader from "./Loader";
 
 var res = "f";
 
@@ -48,6 +50,9 @@ class BusinessLogin extends Component {
 
   onSubmitEventHandler = (e) => {
     e.preventDefault();
+
+    window.scrollTo(0, 0);
+
     const payload = {
       emailb: this.state.email,
       passwordb: this.state.Password,
@@ -62,32 +67,34 @@ class BusinessLogin extends Component {
       routingNumber: this.state.routingNumber,
       accountNumber: this.state.accountNumber,
     };
+    trackPromise(
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          payload
+        )
+        .then((response) => {
+          res = response.data;
 
-    axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-        payload
-      )
-      .then((response) => {
-        res = response.data;
+          alert(res.message);
 
-        alert(res.message);
+          if (res.check === 200) {
+            this.props.history.push("/Dashboard");
+          }
 
-        if (res.check === 200) {
-          this.props.history.push("/Dashboard");
-        }
-
-        console.log("#", response);
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
+          console.log("#", response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
+    );
     this.state.displaymessage = "visible";
   };
 
   render() {
     return (
       <div className="BLogin">
+        <Loader />
         <div className="spacer"></div>
         <header className="Home-Header">
           <div className="HH">

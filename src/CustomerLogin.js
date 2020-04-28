@@ -4,6 +4,8 @@ import Component from "@reactions/component";
 import axios from "axios";
 import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
+import { trackPromise } from "react-promise-tracker";
+import Loader from "./Loader";
 
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
@@ -53,42 +55,43 @@ class CustomerLogin extends Component {
       fname: this.state.fname,
       lname: this.state.lname,
     };
-
-    axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/",
-        payload
-      )
-      .then(function (response) {
-        res = response.data;
-        if (res === '"password" length must be at least 6 characters long') {
-          res =
-            "Password length is too short. It needs to be at least 6 characters long.";
-        }
-        if (res === '"email" length must be at least 6 characters long') {
-          res = "Email is too short; needs to be at least 6 characters.";
-        }
-        if (res === '"email" must be a valid email') {
-          res =
-            "The email entered is not a valid email. Make sure to include the @ sign and the '.com, or .io, etc";
-        }
-        if (res === '"fname" is not allowed to be empty') {
-          res = "Please enter your first name.";
-        }
-        if (res === '"lname" is not allowed to be empty') {
-          res = "Please enter your last name.";
-        }
-        if (res === '"password" is not allowed to be empty') {
-          res = "Please enter your password.";
-        }
-        if (res === '"email" is not allowed to be empty') {
-          res = "Please enter your email.";
-        }
-        alert(res);
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
+    trackPromise(
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/",
+          payload
+        )
+        .then(function (response) {
+          res = response.data;
+          if (res === '"password" length must be at least 6 characters long') {
+            res =
+              "Password length is too short. It needs to be at least 6 characters long.";
+          }
+          if (res === '"email" length must be at least 6 characters long') {
+            res = "Email is too short; needs to be at least 6 characters.";
+          }
+          if (res === '"email" must be a valid email') {
+            res =
+              "The email entered is not a valid email. Make sure to include the @ sign and the '.com, or .io, etc";
+          }
+          if (res === '"fname" is not allowed to be empty') {
+            res = "Please enter your first name.";
+          }
+          if (res === '"lname" is not allowed to be empty') {
+            res = "Please enter your last name.";
+          }
+          if (res === '"password" is not allowed to be empty') {
+            res = "Please enter your password.";
+          }
+          if (res === '"email" is not allowed to be empty') {
+            res = "Please enter your email.";
+          }
+          alert(res);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
+    );
     this.state.displaymessage = "visible";
   };
 
@@ -96,6 +99,7 @@ class CustomerLogin extends Component {
     console.log(res);
     return (
       <div className="CL">
+        <Loader />
         <header className="Home-Header">
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>

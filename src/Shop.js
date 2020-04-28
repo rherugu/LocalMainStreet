@@ -2,20 +2,10 @@ import React from "react";
 import "./Shop.css";
 import axios from "axios";
 import Component from "@reactions/component";
-// import { Elements } from "@stripe/react-stripe-js";
-// import { loadStripe } from "@stripe/stripe-js";
-import StripeCheckout from "react-stripe-checkout";
 import { toast } from "react-toastify";
 import MediaCard from "./Card";
-
-// const useStyles = makeStyles((theme) => ({
-//   gridList: {
-//     width: 500,
-//     height: 450,
-//   },
-// }));
-
-// const classes = useStyles();
+import Loader from "./Loader";
+import { trackPromise } from "react-promise-tracker";
 
 class Shop extends Component {
   onClickHome = () => {
@@ -70,19 +60,21 @@ class Shop extends Component {
     const headers = {
       "auth-token": tokenval,
     };
-    axios
-      .get(
-        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-        { headers }
-      )
-      .then((response) => {
-        console.log(response.data);
+    trackPromise(
+      axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          { headers }
+        )
+        .then((response) => {
+          console.log(response.data);
 
-        this.setState({ shops: response.data });
-      })
-      .catch((err) => {
-        this.onClickLogin();
-      });
+          this.setState({ shops: response.data });
+        })
+        .catch((err) => {
+          this.onClickLogin();
+        })
+    );
   }
 
   render() {
@@ -103,6 +95,7 @@ class Shop extends Component {
 
     return (
       <div className="Shop">
+        <Loader />
         <header className="Home-Header">
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
@@ -148,9 +141,6 @@ class Shop extends Component {
         <br></br>
         <br></br>
 
-        {/* <ul>{bname}</ul>
-        <ul>{description}</ul>
-        <ul>{phoneNumber}</ul> */}
         <br></br>
         <br></br>
         <div className="gridlist">
