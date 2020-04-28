@@ -23,7 +23,21 @@ export default function MediaCard(props) {
   return (
     <div className={props.className}>
       <Card className={classes.root}>
-        <CardActionArea>
+        <CardActionArea
+          onClick={() => {
+            setTimeout(function () {
+              props.history.push({
+                pathname: "/Buy",
+                state: {
+                  bname: props.bname,
+                  description: props.description,
+                  phoneNumber: props.phoneNumber,
+                  className: "Buy",
+                },
+              });
+            }, 1000);
+          }}
+        >
           <CardMedia
             className={classes.media}
             image="./Assets/defaulticon.png"
