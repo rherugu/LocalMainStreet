@@ -1,0 +1,106 @@
+.section1 {
+  width: 50%;
+  height: 100vh;
+  position: absolute;
+  -webkit-box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.Description {
+  width: 89%;
+}
+
+.section2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  width: 50%;
+  height: 100vh;
+  right: 0;
+  position: absolute;
+  -webkit-box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1);
+          box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1);
+}
+
+.section2 h6 {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.inputprice {
+  position: absolute;
+  top: 43%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.checkout {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+.goback {
+  position: absolute;
+  margin: 30px;
+  cursor: pointer;
+  z-index: 909090;
+  -webkit-transition: margin-left 0.3s;
+  transition: margin-left 0.3s;
+}
+
+.goback:hover {
+  color: #005b90;
+  margin-left: 27px;
+}
+
+@media screen and (max-width: 1207px) {
+  .Title {
+    font-size: 15px;
+  }
+  .Description {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 571px) {
+  .Title {
+    font-size: 12px;
+  }
+  .Description {
+    font-size: 8px;
+  }
+  .PhoneNumber {
+    font-size: 7px;
+  }
+}
+/*# sourceMappingURL=Buy.css.map */
