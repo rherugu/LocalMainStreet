@@ -85,6 +85,9 @@
   margin: 20px auto;
   columns: 4;
   column-gap: 40px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .gridlist .card {
@@ -98,6 +101,9 @@
 .gridlist MediaCard {
   max-width: 100%;
   margin-bottom: 30px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .MediaCard {
@@ -191,4 +197,12 @@
   left: 50%;
 
   transform: translate(-50%);
+}
+.filter1 {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  font-size: large;
+  align-items: center;
+  width: 500px;
 }

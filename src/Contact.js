@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import "./Contact.css";
 import Component from "@reactions/component";
+import "react-toastify/dist/ReactToastify.css";
 
 class Contact extends Component {
   constructor(props) {

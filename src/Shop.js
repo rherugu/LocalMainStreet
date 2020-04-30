@@ -7,6 +7,57 @@ import MediaCard from "./Card";
 import Loader from "./Loader";
 import { trackPromise } from "react-promise-tracker";
 import $ from "jquery";
+import "react-toastify/dist/ReactToastify.css";
+// import { Dropdown } from "semantic-ui-react";
+// import "semantic-ui-css/semantic.min.css";
+
+// const options = [
+//   {
+//     key: 0,
+//     value: "Restaurant",
+//     text: "Restaurant",
+//   },
+//   {
+//     key: 1,
+//     value: "Hair and Nail Salon",
+//     text: "Hair and Nail Salon",
+//   },
+//   {
+//     key: 2,
+//     value: "Grocery",
+//     text: "Grocery",
+//   },
+//   {
+//     key: 3,
+//     value: "Auto",
+//     text: "Auto",
+//   },
+//   {
+//     key: 4,
+//     value: "Spa & Beauty",
+//     text: "Spa & Beauty",
+//   },
+//   {
+//     key: 5,
+//     value: "Massage Parlour",
+//     text: "Massage Parlour",
+//   },
+//   {
+//     key: 6,
+//     value: "Recreation",
+//     text: "Recreation",
+//   },
+//   {
+//     key: 7,
+//     value: "Coffee & Bakery",
+//     text: "Coffee & Bakery",
+//   },
+//   {
+//     key: 8,
+//     value: "Others",
+//     text: "Others",
+//   },
+// ];
 
 class Shop extends Component {
   onClickHome = () => {
@@ -169,6 +220,7 @@ class Shop extends Component {
           <option>Coffee & Bakery</option>
           <option>Others</option>
         </select>
+
         <br></br>
         <br></br>
         <br></br>

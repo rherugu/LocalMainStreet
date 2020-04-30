@@ -11,6 +11,8 @@
 
 input[type="text"],
 input[type="email"],
+input[type="password"],
+input[type="number"],
 select,
 textarea,
 input[type="password"] {
@@ -51,4 +53,11 @@ input[type="submit"]:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+img {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
 }

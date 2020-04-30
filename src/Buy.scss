@@ -104,3 +104,33 @@ UN COMMENT TO EDIT!!
 .logoimgfordabuy {
   width: 300px;
 }
+
+.modal {
+  width: 45%;
+  background-color: rgb(73, 73, 73);
+  display: flex;
+  justify-content: top;
+  align-items: center;
+  flex-direction: column;
+  color: aliceblue;
+  position: absolute;
+  height: 45%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  box-shadow: -10px -10px 30px 4px rgba(0, 0, 0, 0.1);
+  opacity: 0.96;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.modal h3 {
+  font-size: 30px;
+}
+.modal button {
+  position: absolute;
+  right: 3%;
+  top: 6%;
+  border-radius: 5px;
+  box-shadow: -100px -100px 300px 40px rgba(0, 0, 0, 0.1);
+}

@@ -28,7 +28,7 @@ export default function MediaCard(props) {
 
   var image;
   if (props.businessCatagory === "Restaurant") {
-    image = "resteraunt.jpg";
+    image = "resteraunt.png";
   } else if (props.businessCatagory === "Hair and Nail Salon") {
     image = "salon.png";
   } else if (props.businessCatagory === "Grocery") {

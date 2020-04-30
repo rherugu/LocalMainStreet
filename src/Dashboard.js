@@ -6,6 +6,7 @@ import "./Dashboard.css";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = (props) => {
   var [price, setPrice] = useState();

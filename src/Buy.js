@@ -5,6 +5,9 @@ import axios from "axios";
 import Component from "@reactions/component";
 import "./Buy.css";
 import Button from "@material-ui/core/Button";
+import QRCode from "qrcode.react";
+import { render } from "@testing-library/react";
+import "react-toastify/dist/ReactToastify.css";
 
 toast.configure();
 
@@ -17,7 +20,7 @@ export default function Buy(props) {
       price: price,
     };
     const response = await axios.post(
-      "https://localmainstreetbackend.herokuapp.com/app/payment/checkout",
+      "http://localhost:3006/app/payment/checkout",
       {
         token,
         product,
@@ -26,6 +29,21 @@ export default function Buy(props) {
     const { status } = response.data;
     if (status === "success") {
       toast("Success! Check email for details", { type: "success" });
+      render(
+        <div className="modal" id="modal">
+          <button
+            className="modalclose"
+            onClick={() => {
+              var x = document.getElementById("modal");
+              x.style.opacity = 0;
+            }}
+          >
+            close
+          </button>
+          <h3>This is your QRCode</h3>
+          <QRCode value={product.price} />
+        </div>
+      );
     } else {
       toast("Something went wrong.", { type: "error" });
     }
@@ -36,7 +54,7 @@ export default function Buy(props) {
 
   var image;
   if (bc === "Restaurant") {
-    image = "resteraunt.jpg";
+    image = "resteraunt.png";
   } else if (bc === "Hair and Nail Salon") {
     image = "salon.png";
   } else if (bc === "Grocery") {
@@ -54,7 +72,6 @@ export default function Buy(props) {
   } else {
     image = "defaulticon.png";
   }
-  console.log(prop.businessCatagory);
 
   return (
     <div className={prop.className} id="Buy">
@@ -62,6 +79,7 @@ export default function Buy(props) {
         className="goback"
         id="back"
         src={require("./Assets/158817861253589426.png")}
+        draggable="false"
       />
       <span
         className="goback"
@@ -98,9 +116,11 @@ export default function Buy(props) {
         <div className="purchase">
           {/* <h3 className="customval">Choose a custom price</h3> */}
           <input
-            type="text"
-            maxLength="5"
+            type="number"
+            maxLength="6"
             minLength="1"
+            min="1"
+            max="6"
             onChange={(e) => setPrice((price = e.target.value))}
             value={price}
             placeholder="Choose a price"
@@ -121,6 +141,7 @@ export default function Buy(props) {
             Note: You will be charged 2% extra during this transaction for fees
             for LocalMainStreet. We do not store your credit card information.{" "}
           </h6>
+          {/* <QRCode value="hi" /> */}
         </div>
       </div>
     </div>

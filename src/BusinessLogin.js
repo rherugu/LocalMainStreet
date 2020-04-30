@@ -287,6 +287,7 @@ class BusinessLogin extends Component {
               onChange={(e) =>
                 this.setState({ businessCatagory: e.target.value })
               }
+              className="filter1"
             >
               <option>Restaurant</option>
               <option>Hair and Nail Salon</option>

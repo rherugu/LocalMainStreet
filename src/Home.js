@@ -5,6 +5,7 @@ import TextLoop from "react-text-loop";
 import axios from "axios";
 import { toast } from "react-toastify";
 import $ from "jquery";
+import "react-toastify/dist/ReactToastify.css";
 
 class Home extends Component {
   componentDidMount() {
