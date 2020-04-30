@@ -20,7 +20,7 @@ export default function Buy(props) {
       price: price,
     };
     const response = await axios.post(
-      "http://localhost:3006/app/payment/checkout",
+      "http://localmainstreetbackend.herokuapp.com/app/payment/checkout",
       {
         token,
         product,

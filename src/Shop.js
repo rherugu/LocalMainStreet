@@ -76,26 +76,6 @@ class Shop extends Component {
     this.props.history.push("/login");
   };
 
-  handleToken = async (token) => {
-    toast.configure();
-
-    const product = {
-      name: this.state.name,
-      price: this.state.price,
-    };
-    const response = await axios.post("http://localhost:8080/checkout", {
-      token,
-      product,
-    });
-    const { status } = response.data;
-    console.log("#status", status);
-    if (status === "success") {
-      toast("Success! Check email for details", { type: "success" });
-    } else {
-      toast("Something went wrong.", { type: "error" });
-    }
-  };
-
   constructor(props) {
     super(props);
     this.state = {

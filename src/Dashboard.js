@@ -12,23 +12,6 @@ const Dashboard = (props) => {
   var [price, setPrice] = useState();
   var [name, setName] = useState();
 
-  async function handleToken(token, addresses) {
-    const product = {
-      name: name,
-      price: price,
-    };
-    const response = await axios.post("http://localhost:8080/checkout", {
-      token,
-      product,
-    });
-    const { status } = response.data;
-    if (status === "success") {
-      toast("Success! Check email for details", { type: "success" });
-    } else {
-      toast("Something went wrong.", { type: "error" });
-    }
-  }
-
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
