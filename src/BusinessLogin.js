@@ -71,7 +71,10 @@ class BusinessLogin extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3006/app/BusinessLoginAPI/shop", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          payload
+        )
         .then((response) => {
           res = response.data;
 
