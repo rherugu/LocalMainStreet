@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import Component from "@reactions/component";
 import "./Buy.css";
+import Button from "@material-ui/core/Button";
 
 toast.configure();
 
@@ -31,18 +32,51 @@ export default function Buy(props) {
   }
 
   var prop = props.location.state;
+  var bc = prop.businessCatagory;
+
+  var image;
+  if (bc === "Restaurant") {
+    image = "resteraunt.jpg";
+  } else if (bc === "Hair and Nail Salon") {
+    image = "salon.png";
+  } else if (bc === "Grocery") {
+    image = "grocery.png";
+  } else if (bc === "Auto") {
+    image = "auto.png";
+  } else if (bc === "Spa & Beauty") {
+    image = "spa.jpg";
+  } else if (bc === "Massage Parlour") {
+    image = "massage.png";
+  } else if (bc === "Recreation") {
+    image = "recreation.png";
+  } else if (bc === "Coffee & Bakery") {
+    image = "coffee.png";
+  } else {
+    image = "defaulticon.png";
+  }
+  console.log(prop.businessCatagory);
 
   return (
     <div className={prop.className} id="Buy">
+      <img
+        className="goback"
+        id="back"
+        src={require("./Assets/158817861253589426.png")}
+      />
       <span
         className="goback"
         onClick={() => {
           props.history.push("/Shop");
         }}
       >
-        Back
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Back
       </span>
       <div className="section1">
+        <img
+          className="logoimgfordabuy"
+          src={require(`./Assets/${image}`)}
+          alt={prop.businessCatagory}
+        />
         <div className="Title">
           <big>
             <h1>{prop.bname}</h1>
@@ -83,7 +117,7 @@ export default function Buy(props) {
               name={prop.bname}
             ></StripeCheckout>
           </div>
-          <h6>
+          <h6 className="note">
             Note: You will be charged 2% extra during this transaction for fees
             for LocalMainStreet. We do not store your credit card information.{" "}
           </h6>

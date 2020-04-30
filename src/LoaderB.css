@@ -1,0 +1,71 @@
+.loaderwrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #3498db;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.end {
+  display: none;
+}
+
+.loaderwrapper h2 {
+  position: absolute;
+  left: 50%;
+  color: #f3f3f3;
+  text-align: center;
+  transform: translate(-50%);
+  background-color: rgb(86, 86, 86);
+  width: 400px;
+}
+
+.loaderwrapper h2:before {
+  content: "Hashing Passwords...";
+  animation: head 6s ease-out forwards;
+}
+
+@keyframes head {
+  0% {
+    content: "Hashing Passwords...";
+  }
+  20% {
+    content: "Checking for Validity";
+  }
+  40% {
+    content: "Proccessing data";
+  }
+  61% {
+    content: "Hashing Bank Credentials...";
+  }
+  100% {
+    content: "Hashing Bank Credentials...";
+  }
+}

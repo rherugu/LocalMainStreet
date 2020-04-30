@@ -5,7 +5,7 @@ import "./BusinessLogin.css";
 import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
 import { trackPromise } from "react-promise-tracker";
-import Loader from "./Loader";
+import LoaderB from "./LoaderB";
 
 var res = "f";
 
@@ -38,6 +38,7 @@ class BusinessLogin extends Component {
       mailSent: false,
       error: null,
       PhoneNumber: "",
+      businessCatagory: "",
       displaymessage: "hidden",
       Password: "",
       // paymentMethod: "",
@@ -62,6 +63,7 @@ class BusinessLogin extends Component {
       description: this.state.description,
       address: this.state.Address,
       phoneNumber: this.state.PhoneNumber,
+      businessCatagory: this.state.businessCatagory,
       accountHolderName: this.state.accountHolderName,
       accountHolderType: this.state.accountHolderType,
       routingNumber: this.state.routingNumber,
@@ -69,10 +71,7 @@ class BusinessLogin extends Component {
     };
     trackPromise(
       axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-          payload
-        )
+        .post("http://localhost:3006/app/BusinessLoginAPI/shop", payload)
         .then((response) => {
           res = response.data;
 
@@ -94,7 +93,7 @@ class BusinessLogin extends Component {
   render() {
     return (
       <div className="BLogin">
-        <Loader />
+        <LoaderB />
         <div className="spacer"></div>
         <header className="Home-Header">
           <div className="HH">
@@ -277,6 +276,25 @@ class BusinessLogin extends Component {
                 backgroundColor: "#DDDDDD",
               }}
             />
+            <br></br>
+            <label style={{ color: "#111111" }}>Business Catogory</label>
+            <br></br>
+            <select
+              value={this.state.businessCatagory}
+              onChange={(e) =>
+                this.setState({ businessCatagory: e.target.value })
+              }
+            >
+              <option>Restaurant</option>
+              <option>Hair and Nail Salon</option>
+              <option>Grocery</option>
+              <option>Auto</option>
+              <option>Spa & Beauty</option>
+              <option>Massage Parlour</option>
+              <option>Recreation</option>
+              <option>Coffee & Bakery</option>
+              <option>Others</option>
+            </select>
             <br></br>
             <label style={{ color: "#111111" }}>
               Bank Account Information: Whats your account holder name?

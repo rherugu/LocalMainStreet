@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import MediaCard from "./Card";
 import Loader from "./Loader";
 import { trackPromise } from "react-promise-tracker";
+import $ from "jquery";
 
 class Shop extends Component {
   onClickHome = () => {
@@ -50,6 +51,7 @@ class Shop extends Component {
       shops: [],
       price: 25,
       name: "SmartTicketing",
+      businessCatagory: "",
     };
     this.bname = "";
   }
@@ -77,6 +79,21 @@ class Shop extends Component {
     );
   }
 
+  optionChange = (e) => {
+    this.setState({ businessCatagory: e.target.value });
+  };
+
+  handleOpen = () => {
+    this.setState({
+      open: "true",
+    });
+  };
+  handleClose = () => {
+    this.setState({
+      open: "false",
+    });
+  };
+
   render() {
     const shops = this.state.shops.map((shop) => shop);
 
@@ -96,6 +113,7 @@ class Shop extends Component {
     return (
       <div className="Shop">
         <Loader />
+
         <header className="Home-Header">
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
@@ -136,11 +154,25 @@ class Shop extends Component {
         <br></br>
         <br></br>
         <br></br>
+        <select
+          value={this.state.businessCatagory}
+          onChange={this.optionChange}
+          className="filter"
+        >
+          <option>Restaurant</option>
+          <option>Hair and Nail Salon</option>
+          <option>Grocery</option>
+          <option>Auto</option>
+          <option>Spa & Beauty</option>
+          <option>Massage Parlour</option>
+          <option>Recreation</option>
+          <option>Coffee & Bakery</option>
+          <option>Others</option>
+        </select>
         <br></br>
         <br></br>
         <br></br>
         <br></br>
-
         <br></br>
         <br></br>
         <div className="gridlist">
@@ -153,6 +185,7 @@ class Shop extends Component {
                 description={shop.description}
                 phoneNumber={shop.phoneNumber}
                 history={this.props.history}
+                businessCatagory={shop.businessCatagory}
               />
             ))}
           </div>

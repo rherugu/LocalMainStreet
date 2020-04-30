@@ -175,3 +175,20 @@
     justify-content: flex-start;
   }
 }
+
+* {
+  outline: none;
+}
+
+.filter {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  font-size: large;
+  align-items: center;
+  width: 600px;
+  position: absolute;
+  left: 50%;
+
+  transform: translate(-50%);
+}

@@ -7,6 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import "./Card.css";
 
 const useStyles = makeStyles({
   root: {
@@ -14,12 +15,38 @@ const useStyles = makeStyles({
   },
   media: {
     height: 140,
-    backgroundImage: `url(${require("./Assets/defaulticon.png")})`,
+    backgroundSize: "cover",
+    wordWrap: "break-word",
+    width: "auto",
   },
 });
 
 export default function MediaCard(props) {
   const classes = useStyles();
+
+  console.log(props.businessCatagory);
+
+  var image;
+  if (props.businessCatagory === "Restaurant") {
+    image = "resteraunt.jpg";
+  } else if (props.businessCatagory === "Hair and Nail Salon") {
+    image = "salon.png";
+  } else if (props.businessCatagory === "Grocery") {
+    image = "grocery.png";
+  } else if (props.businessCatagory === "Auto") {
+    image = "auto.png";
+  } else if (props.businessCatagory === "Spa & Beauty") {
+    image = "spa.jpg";
+  } else if (props.businessCatagory === "Massage Parlour") {
+    image = "massage.png";
+  } else if (props.businessCatagory === "Recreation") {
+    image = "recreation.png";
+  } else if (props.businessCatagory === "Coffee & Bakery") {
+    image = "coffee.png";
+  } else {
+    image = "defaulticon.png";
+  }
+
   return (
     <div className={props.className}>
       <Card className={classes.root}>
@@ -33,6 +60,7 @@ export default function MediaCard(props) {
                   description: props.description,
                   phoneNumber: props.phoneNumber,
                   className: "Buy",
+                  businessCatagory: props.businessCatagory,
                 },
               });
             }, 100);
@@ -40,16 +68,23 @@ export default function MediaCard(props) {
         >
           <CardMedia
             className={classes.media}
+            id="media"
             image="./Assets/defaulticon.png"
             style={{
-              backgroundImage: `url(${require("./Assets/defaulticon.png")})`,
+              backgroundImage: `url(${require(`./Assets/${image}`)})`,
+              backgroundSize: "cover",
             }}
           />
-          <CardContent>
+          <CardContent className="content">
             <Typography gutterBottom variant="h5" component="h2">
               {props.bname}
             </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
+            <Typography
+              variant="body2"
+              color="textSecondary"
+              className="typographywrap"
+              component="p"
+            >
               {props.description}
             </Typography>
             <br></br>

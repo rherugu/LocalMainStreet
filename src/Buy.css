@@ -1,3 +1,10 @@
+/*
+
+
+UN COMMENT TO EDIT!!
+
+
+*/
 .section1 {
   width: 50%;
   height: 100vh;
@@ -21,6 +28,7 @@
 
 .Description {
   width: 89%;
+  word-wrap: break-word;
 }
 
 .section2 {
@@ -102,5 +110,14 @@
   .PhoneNumber {
     font-size: 7px;
   }
+}
+
+#back {
+  -webkit-transform: scale(0.7);
+          transform: scale(0.7);
+}
+
+.logoimgfordabuy {
+  width: 300px;
 }
 /*# sourceMappingURL=Buy.css.map */

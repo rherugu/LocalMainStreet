@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "./logo.svg";
 import "./About.css";
+import $ from "jquery";
 
 import Component from "@reactions/component";
 
