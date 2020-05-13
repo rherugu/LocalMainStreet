@@ -1,56 +1,167 @@
-import React, { useState } from "react";
-import StripeCheckout from "react-stripe-checkout";
-import { toast } from "react-toastify";
-import axios from "axios";
-import Component from "@reactions/component";
+import React, { useEffect, useReducer, useState } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import "./Buy.css";
-import Button from "@material-ui/core/Button";
-import QRCode from "qrcode.react";
-import { render } from "@testing-library/react";
-import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
-toast.configure();
+var bc;
 
-export default function Buy(props) {
-  var [price, setPrice] = useState();
-
-  async function handleToken(token, addresses) {
-    const product = {
-      name: props.location.state.bname,
-      price: price,
-    };
-    const response = await axios.post(
-      "http://localmainstreetbackend.herokuapp.com/app/payment/checkout",
-      {
-        token,
+const fetchCheckoutSession = async ({ quantity, product }) => {
+  return await fetch(
+    "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        quantity,
         product,
-      }
-    );
-    const { status } = response.data;
-    if (status === "success") {
-      toast("Success! Check email for details", { type: "success" });
-      render(
-        <div className="modal" id="modal">
-          <button
-            className="modalclose"
-            onClick={() => {
-              var x = document.getElementById("modal");
-              x.style.opacity = 0;
-            }}
-          >
-            close
-          </button>
-          <h3>This is your QRCode</h3>
-          <QRCode value={product.price} />
-        </div>
-      );
-    } else {
-      toast("Something went wrong.", { type: "error" });
+      }),
+    }
+  ).then((res) => res.json());
+};
+
+const formatPrice = ({ amount, currency, quantity }) => {
+  const numberFormat = new Intl.NumberFormat("en-US", {
+    currency,
+    currencyDisplay: "symbol",
+  });
+  const parts = numberFormat.formatToParts(amount);
+  let zeroDecimalCurrency = true;
+  for (let part of parts) {
+    if (part.type === "decimal") {
+      zeroDecimalCurrency = false;
     }
   }
+  amount = zeroDecimalCurrency ? amount : amount / 100;
+  const total = (quantity * amount).toFixed(2);
+  return numberFormat.format(total);
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "useEffectUpdate":
+      return {
+        ...state,
+        ...action.payload,
+        price: formatPrice({
+          amount: action.payload.basePrice / 100,
+          currency: action.payload.currency,
+          quantity: state.quantity,
+        }),
+      };
+    case "increment":
+      return {
+        ...state,
+        quantity: state.quantity + 1,
+        price: formatPrice({
+          amount: state.basePrice / 100,
+          currency: state.currency,
+          quantity: state.quantity + 1,
+        }),
+      };
+    case "decrement":
+      return {
+        ...state,
+        quantity: state.quantity - 1,
+        price: formatPrice({
+          amount: state.basePrice / 100,
+          currency: state.currency,
+          quantity: state.quantity - 1,
+        }),
+      };
+    case "setLoading":
+      return { ...state, loading: action.payload.loading };
+    case "setError":
+      return { ...state, error: action.payload.error };
+    default:
+      throw new Error();
+  }
+}
+
+const Buy = (props) => {
+  const [state, dispatch] = useReducer(reducer, {
+    quantity: 1,
+    price: null,
+    loading: false,
+    error: null,
+    stripe: null,
+  });
+
+  var [mprice, setMprice] = useState();
+
+  useEffect(() => {
+    async function fetchConfig() {
+      // Fetch config from our backend.
+      const { publicKey, basePrice, currency } = await fetch(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/config"
+      ).then((res) => res.json());
+      // Make sure to call `loadStripe` outside of a component’s render to avoid
+      // recreating the `Stripe` object on every render.
+      dispatch({
+        type: "useEffectUpdate",
+        payload: { basePrice, currency, stripe: await loadStripe(publicKey) },
+      });
+    }
+    fetchConfig();
+  }, []);
 
   var prop = props.location.state;
-  var bc = prop.businessCatagory;
+
+  const handleClick = async (event) => {
+    if (mprice > 999999) {
+      alert("Cannot go above 999,999 dollars.");
+      state.loading = false;
+    }
+
+    const id = {
+      id: prop.id,
+    };
+
+    // await axios
+    //   .post("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", id)
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   });
+
+    // Call your backend to create the Checkout session.
+    dispatch({ type: "setLoading", payload: { loading: true } });
+    const { sessionId } = await fetchCheckoutSession({
+      quantity: mprice,
+      product: prop,
+    });
+    // When the customer clicks on the button, redirect them to Checkout.
+    const { error } = await state.stripe.redirectToCheckout({
+      sessionId,
+    });
+    // If `redirectToCheckout` fails due to a browser or network
+    // error, display the localized error message to your customer
+    // using `error.message`.
+    if (error) {
+      dispatch({ type: "setError", payload: { error } });
+      dispatch({ type: "setLoading", payload: { loading: false } });
+    }
+  };
+
+  //   pushShop = () => {
+  //     this.props.history.push("/Shop");
+  //   };
+
+  var props = props;
+
+  try {
+    bc = prop.businessCatagory;
+  } catch (err) {
+    prop = {
+      bname: "",
+      description: "",
+    };
+
+    props.history.push("/Shop");
+  }
 
   var image;
   if (bc === "Restaurant") {
@@ -74,76 +185,79 @@ export default function Buy(props) {
   }
 
   return (
-    <div className={prop.className} id="Buy">
-      <img
-        className="goback"
-        id="back"
-        src={require("./Assets/158817861253589426.png")}
-        draggable="false"
-      />
-      <span
-        className="goback"
-        onClick={() => {
-          props.history.push("/Shop");
-        }}
-      >
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Back
-      </span>
-      <div className="section1">
-        <img
-          className="logoimgfordabuy"
-          src={require(`./Assets/${image}`)}
-          alt={prop.businessCatagory}
-        />
-        <div className="Title">
-          <big>
-            <h1>{prop.bname}</h1>
-          </big>
-        </div>
-        <div className="Description">
-          <big>
-            <h2>{prop.description}</h2>
-          </big>
-        </div>
-        <div className="PhoneNumber">
-          <big>
-            <p>Phone Number: {prop.phoneNumber}</p>
-          </big>
-        </div>
-      </div>
-
-      <div className="section2">
-        <div className="purchase">
-          {/* <h3 className="customval">Choose a custom price</h3> */}
-          <input
-            type="number"
-            maxLength="6"
-            minLength="1"
-            min="1"
-            max="6"
-            onChange={(e) => setPrice((price = e.target.value))}
-            value={price}
-            placeholder="Choose a price"
-            className="inputprice"
-          ></input>
-          <br></br>
-          <div className="checkout">
-            <StripeCheckout
-              stripeKey="pk_test_KkfXWjgjLwtNgUTOjtn25pj4005QCLSJ6I"
-              token={handleToken}
-              billingAddress
-              shippingAddress
-              amount={price * 100 * 1.02}
-              name={prop.bname}
-            ></StripeCheckout>
+    <div className="sr-root">
+      <div className="sr-main">
+        <header className="sr-header">
+          <div className="sr-header__logo"></div>
+        </header>
+        <section className="container1">
+          <div>
+            <h1 id="h1">{prop.bname}</h1>
+            <h4 id="h4">{prop.description}</h4>
+            <div className="pasha-image">
+              <img
+                alt="Help local businesses"
+                src={require(`./Assets/${image}`)}
+                width="140"
+                height="160"
+              />
+            </div>
           </div>
-          <h6 className="note">
-            Note: You will be charged 2% extra during this transaction for fees
-            for LocalMainStreet. We do not store your credit card information.{" "}
-          </h6>
-          {/* <QRCode value="hi" /> */}
-        </div>
+          {/* <div className="quantity-setter">
+            <button
+              className="increment-btn"
+              id="bbutton"
+              disabled={state.quantity === 1}
+              onClick={() => dispatch({ type: "decrement" })}
+            >
+              -
+            </button>
+            <input
+              type="number"
+              id="quantity-input"
+              min="1"
+              max="10"
+              value={state.quantity}
+              readOnly
+            />
+            <button
+              className="increment-btn"
+              id="bbutton"
+              disabled={state.quantity === 10}
+              onClick={() => dispatch({ type: "increment" })}
+            >
+              +
+            </button>
+          </div> */}
+          <div className="quantity-setter">
+            <input
+              type="number"
+              numberFormat
+              id="quantity-input"
+              min="1"
+              style={{
+                width: "90%",
+              }}
+              className="numberinput"
+              max="100000000"
+              value={mprice}
+              onChange={(e) => {
+                price: formatPrice({
+                  amount: e.target.value,
+                });
+                setMprice((mprice = e.target.value));
+              }}
+            />
+          </div>
+          <p className="sr-legal-text">Choose your price</p>
+          <button role="link" onClick={handleClick} id="bbutton">
+            Buy for ${mprice}
+          </button>
+          <div className="sr-field-error">{state.error?.message}</div>
+        </section>
       </div>
     </div>
   );
-}
+};
+
+export default Buy;

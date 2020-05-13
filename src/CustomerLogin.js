@@ -220,14 +220,17 @@ class CustomerLogin extends Component {
           />
 
           <label style={{ color: "#111111" }}>
-            Register a <Link to="/BusinessLogin">Business</Link>
+            Register a{" "}
+            <Link className="link" to="/BusinessLogin">
+              Business
+            </Link>
           </label>
 
           <br></br>
 
           <a
             href="#"
-            class="fancy-button pop-onhover bg-gradient3"
+            className="fancy-button pop-onhover bg-gradient3 oo"
             onClick={this.onSubmitEventHandler}
             type="submit"
           >

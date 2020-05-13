@@ -17,7 +17,32 @@
 
 .titleB {
   font-size: 50px;
-  margin-top: 35vh;
+  margin-top: 25vh;
+}
+
+.date-field {
+  width: 30px;
+  text-align: center;
+}
+.date-field--year {
+  width: 60px;
+}
+.single-date-field {
+  width: 120px;
+}
+.dobwrap {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+}
+.field-inline-block {
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 5px;
+  width: 100;
+}
+.field-inline-block label {
+  text-align: center;
 }
 
 .mainBR {
@@ -33,8 +58,76 @@
   justify-content: center;
 }
 
+.oo {
+  width: 50%;
+  margin: auto;
+}
+.fancy-button {
+  margin: auto;
+}
+
 .formBR label {
   position: absolute;
   left: 50%;
   transform: translate(-50%);
+}
+
+#formBR1,
+#titleB1 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#titleB1 {
+  position: absolute;
+  left: 50%;
+  top: -5%;
+  transform: translate(-50%, -50%);
+}
+
+.termsforstripe {
+  display: flex;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%);
+  flex-direction: row;
+}
+
+.link {
+  /* RESET */
+  text-decoration: none;
+  padding: 0px 2px;
+  position: relative;
+  display: inline-block;
+  overflow: hidden;
+  color: #333;
+  vertical-align: bottom;
+  transition: color 0.3s ease-out;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+}
+
+.link::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transform: translateY(calc(100% - 2px));
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(60deg, #64b3f4 0%, #c2e59c 100%);
+  transition: transform 0.25s ease-out;
+}
+
+.link:hover {
+  color: rgb(69, 69, 69);
+}
+.link:hover::before {
+  transform: translateY(0);
+  transition: transform 0.25s ease-out;
 }

@@ -5,9 +5,10 @@ import "./BusinessLogin.css";
 import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
 import { trackPromise } from "react-promise-tracker";
-import LoaderB from "./LoaderB";
+import Loader from "./LoaderB";
 
 var res = "f";
+var stripeAccountId;
 
 class BusinessLogin extends Component {
   onClickHome = () => {
@@ -41,11 +42,13 @@ class BusinessLogin extends Component {
       businessCatagory: "",
       displaymessage: "hidden",
       Password: "",
-      // paymentMethod: "",
       accountHolderName: "",
       accountHolderType: "",
       routingNumber: "",
       accountNumber: "",
+      day: "",
+      month: "",
+      year: "",
     };
   }
 
@@ -93,10 +96,106 @@ class BusinessLogin extends Component {
     this.state.displaymessage = "visible";
   };
 
+  stripe = async (e) => {
+    e.preventDefault();
+
+    const data = {
+      email: this.state.email,
+      password: this.state.Password,
+      fname: this.state.fname,
+      lname: this.state.lname,
+      bname: this.state.bname,
+      description: this.state.description,
+      address: this.state.Address,
+      phoneNumber: this.state.PhoneNumber,
+      day: this.state.day,
+      month: this.state.month,
+      year: this.state.year,
+    };
+
+    axios
+      .post("https://localmainstreetbackend.herokuapp.com/app/payment/data", {
+        data,
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("ERROR", err);
+      });
+
+    fetch(
+      "https://localmainstreetbackend.herokuapp.com/app/payment/get-oauth-link",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then(async (data) => {
+        console.log(data);
+        if (data.url) {
+          window.open(data.url, "_blank");
+        } else {
+          alert("error");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    axios
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/stripeAccountId"
+      )
+      .then((res) => {
+        stripeAccountId = res;
+        console.log("boi", stripeAccountId);
+      });
+
+    const database = {
+      emailb: this.state.email,
+      passwordb: this.state.Password,
+      fnameb: this.state.fname,
+      lnameb: this.state.lname,
+      bname: this.state.bname,
+      description: this.state.description,
+      address: this.state.Address,
+      phoneNumber: this.state.PhoneNumber,
+      stripeAccountId: "temporary",
+    };
+
+    // module.exports = database;
+
+    trackPromise(
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          database
+        )
+        .then((response) => {
+          res = response.data;
+
+          alert(res.message);
+
+          if (res.check === 200) {
+            // this.props.history.push("/Dashboard");
+          }
+
+          console.log("#", response);
+        })
+        .catch(function (err) {
+          console.log(err);
+        })
+    );
+  };
+
   render() {
     return (
       <div className="BLogin">
-        <LoaderB />
+        <Loader />
         <div className="spacer"></div>
         <header className="Home-Header">
           <div className="HH">
@@ -171,7 +270,6 @@ class BusinessLogin extends Component {
               }}
             />
             <br></br>
-
             <label style={{ color: "#111111" }}>Email</label>
             <br></br>
             <input
@@ -189,7 +287,6 @@ class BusinessLogin extends Component {
               }}
             />
             <br></br>
-
             <label style={{ color: "#111111" }}>Password</label>
             <br></br>
             <input
@@ -224,7 +321,6 @@ class BusinessLogin extends Component {
               }}
             />
             <br></br>
-
             <label style={{ color: "#111111" }}>
               Say something about your business
             </label>
@@ -245,7 +341,6 @@ class BusinessLogin extends Component {
               }}
             ></textarea>
             <br></br>
-
             <label style={{ color: "#111111" }}>Address</label>
             <br></br>
             <input
@@ -279,7 +374,7 @@ class BusinessLogin extends Component {
                 backgroundColor: "#DDDDDD",
               }}
             />
-            <br></br>
+            {/* <br></br>
             <label style={{ color: "#111111" }}>Business Catogory</label>
             <br></br>
             <select
@@ -378,13 +473,58 @@ class BusinessLogin extends Component {
                 fontSize: 20,
                 backgroundColor: "#DDDDDD",
               }}
-            />
+            /> */}
             <br></br>
-
+            {/* <button onClick={this.stripe}>Stripe</button> */}
+            <label>Date of Birth</label>
+            <br></br>
+            <div className="dobwrap">
+              <div className="field-inline-block">
+                {/* <label>DD</label> */}
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  maxlength="2"
+                  size="2"
+                  className="date-field"
+                  value={this.state.day}
+                  onChange={(e) => this.setState({ day: e.target.value })}
+                />
+              </div>
+              /
+              <div className="field-inline-block">
+                {/* <label>MM</label> */}
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  maxlength="2"
+                  size="2"
+                  className="date-field"
+                  value={this.state.month}
+                  onChange={(e) => this.setState({ month: e.target.value })}
+                />
+              </div>
+              /
+              <div className="field-inline-block">
+                {/* <label>YYYY</label> */}
+                <input
+                  type="text"
+                  pattern="[0-9]*"
+                  maxlength="4"
+                  size="4"
+                  className="date-field date-field--year"
+                  value={this.state.year}
+                  onChange={(e) => this.setState({ year: e.target.value })}
+                />
+              </div>
+            </div>
+            <br></br>
+            <br></br>
+            <br></br>
             <a
               href="#"
-              class="fancy-button pop-onhover bg-gradient3"
-              onClick={(e) => this.onSubmitEventHandler(e)}
+              className="fancy-button pop-onhover bg-gradient3 oo"
+              onClick={this.stripe}
               type="submit"
             >
               <span>
@@ -395,6 +535,22 @@ class BusinessLogin extends Component {
                 />
               </span>
             </a>
+
+            <h6 className="termsforstripe">
+              By registering your account, you agree to Stripe's&nbsp;
+              <a href="https://stripe.com/legal" className="link">
+                Services Agreement
+              </a>
+              &nbsp;and the&nbsp;
+              <a
+                target="_blank"
+                className="link"
+                href="https://stripe.com/connect-account/legal"
+              >
+                Stripe Connected Account Agreement
+              </a>
+              .
+            </h6>
           </form>
         </main>
         <br></br>

@@ -219,6 +219,7 @@ a:active {
   text-transform: uppercase;
   color: #fff;
   position: relative;
+  width: 100%;
 }
 .fancy-button:before {
   content: "";

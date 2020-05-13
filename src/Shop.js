@@ -93,21 +93,25 @@ class Shop extends Component {
     const headers = {
       "auth-token": tokenval,
     };
-    trackPromise(
-      axios
-        .get(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-          { headers }
-        )
-        .then((response) => {
-          console.log(response.data);
+    if (tokenval) {
+      trackPromise(
+        axios
+          .get(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+            { headers }
+          )
+          .then((response) => {
+            console.log(response.data);
 
-          this.setState({ shops: response.data });
-        })
-        .catch((err) => {
-          this.onClickLogin();
-        })
-    );
+            this.setState({ shops: response.data });
+          })
+          .catch((err) => {
+            this.onClickLogin();
+          })
+      );
+    } else {
+      this.onClickLogin();
+    }
   }
 
   optionChange = (e) => {
@@ -138,8 +142,6 @@ class Shop extends Component {
     const description = this.state.shops.map((shop) => {
       return <p key={shop._id}>{shop.description}</p>;
     });
-
-    var Infinite = require("react-infinite");
 
     return (
       <div className="Shop">
@@ -218,11 +220,15 @@ class Shop extends Component {
                 phoneNumber={shop.phoneNumber}
                 history={this.props.history}
                 businessCatagory={shop.businessCatagory}
+                stripeId={shop.stripeAccountId}
               />
             ))}
           </div>
         </div>
         <p className="end">It looks like you've reached the end.</p>
+        <div className="donate">
+          <h3 unselectable="on">Donate to us!</h3>
+        </div>
       </div>
     );
   }

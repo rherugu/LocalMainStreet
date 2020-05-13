@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StripeCheckout from "react-stripe-checkout";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -11,6 +11,32 @@ import "react-toastify/dist/ReactToastify.css";
 const Dashboard = (props) => {
   var [price, setPrice] = useState();
   var [name, setName] = useState();
+
+  var url = "";
+  console.log(props);
+  useEffect(async () => {
+    axios
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard",
+        props.location.state
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    await axios
+      .get("https://localmainstreetbackend.herokuapp.com/app/payment/dashboard")
+      .then((res) => {
+        url = res;
+        document.location = res.data.url;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, [url]);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -64,9 +90,15 @@ const Dashboard = (props) => {
     });
   });
 
+  // if (props.tour === "no") {
+  //   var x = document.getElementById("welcome");
+  //   x.style.display = "none";
+  // }
+
   return (
-    <div>
-      <header className="Dashboard-Header">
+    <div className="loadingbois">
+      <h2>Loading...</h2>
+      {/* <header className="Dashboard-Header">
         <div className="DH">
           <h3
             className="heading"
@@ -115,24 +147,24 @@ const Dashboard = (props) => {
         </div>
       </header>
       <main className="Dashboard">
-        <div className="welcome">
+        <div className="welcome" id="welcome">
           <h1 className="welcometxt">Welcome!</h1>
 
-          <a href="" class="rocket-button">
-            <div class="default">Take a Tour</div>
-            <div class="success">
+          <a href="" className="rocket-button">
+            <div className="default">Take a Tour</div>
+            <div className="success">
               <svg>
                 <use xlinkHref="#check"></use>
               </svg>
               <div>Loaded</div>
             </div>
-            <div class="animation">
-              <div class="rocket">
+            <div className="animation">
+              <div className="rocket">
                 <svg>
                   <use xlinkHref="#rocket"></use>
                 </svg>
               </div>
-              <div class="smoke">
+              <div className="smoke">
                 <i></i>
                 <i></i>
                 <i></i>
@@ -199,21 +231,21 @@ const Dashboard = (props) => {
             </symbol>
           </svg>
           <br></br>
-          <a href="" class="rocket-button1">
-            <div class="default1">No Thanks</div>
-            <div class="success">
+          <a href="" className="rocket-button1">
+            <div className="default1">No Thanks</div>
+            <div className="success">
               <svg>
                 <use xlinkHref="#check"></use>
               </svg>
               <div>No problem!</div>
             </div>
-            <div class="animation">
-              <div class="rocket">
+            <div className="animation">
+              <div className="rocket">
                 <svg>
                   <use xlinkHref="#rocket"></use>
                 </svg>
               </div>
-              <div class="smoke">
+              <div className="smoke">
                 <i></i>
                 <i></i>
                 <i></i>
@@ -280,7 +312,7 @@ const Dashboard = (props) => {
             </symbol>
           </svg>
         </div>
-      </main>
+      </main> */}
     </div>
   );
 };

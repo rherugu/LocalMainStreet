@@ -56,23 +56,23 @@ class Home extends Component {
             <img src={require("./Assets/LOGObg.png")}></img>
           </div>
           <div className="tabs">
-            <button class="btn" onClick={this.onClickHome}>
+            <button className="btn" onClick={this.onClickHome}>
               <span>Home</span>
             </button>
             <br></br>
-            <button class="btn" onClick={this.onClickShop}>
+            <button className="btn" onClick={this.onClickShop}>
               <span>Shop</span>
             </button>
             <br></br>
-            <button class="btn" onClick={this.onClickAbout}>
+            <button className="btn" onClick={this.onClickAbout}>
               <span>About</span>
             </button>
             <br></br>
-            <button class="btn" onClick={this.onClickContact}>
+            <button className="btn" onClick={this.onClickContact}>
               <span>Contact</span>
             </button>
             <br></br>
-            <button class="btn" id=".dropbtn" onClick={this.onClickLogin}>
+            <button className="btn" id=".dropbtn" onClick={this.onClickLogin}>
               <span>Login</span>
             </button>
           </div>

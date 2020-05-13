@@ -8,7 +8,7 @@ const LoaderB = (props) => {
   return (
     promiseInProgress && (
       <div className="loaderwrapper">
-        <div class="loader"></div>
+        <div className="loader"></div>
         <h2 id="1"></h2>
         {/* <h2 id="2">Hashing Bank Credentials...</h2> */}
       </div>

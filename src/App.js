@@ -12,6 +12,9 @@ import Login from "./Login";
 import BusinessLogin from "./BusinessLogin";
 import Buy from "./Buy";
 import Dashboard from "./Dashboard";
+import QRCodejs from "./QRCode";
+import BusinessL from "./BusinessL";
+import Success from "./Success";
 
 class App extends Component {
   render() {
@@ -43,6 +46,21 @@ class App extends Component {
             exact
             path="/Dashboard"
             render={(props) => <Dashboard {...props} />}
+          />
+          <Route
+            exact
+            path="/QRCode"
+            render={(props) => <QRCodejs {...props} />}
+          />
+          <Route
+            exact
+            path="/BusinessL"
+            render={(props) => <BusinessL {...props} />}
+          />
+          <Route
+            exact
+            path="/Success"
+            render={(props) => <Success {...props} />}
           />
         </Switch>
       </Router>

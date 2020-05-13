@@ -61,9 +61,10 @@ export default function MediaCard(props) {
                   phoneNumber: props.phoneNumber,
                   className: "Buy",
                   businessCatagory: props.businessCatagory,
+                  id: props.stripeId,
                 },
               });
-            }, 100);
+            }, 500);
           }}
         >
           <CardMedia
@@ -108,6 +109,7 @@ export default function MediaCard(props) {
                   description: props.description,
                   phoneNumber: props.phoneNumber,
                   className: "Buy",
+                  id: props.stripeId,
                 },
               });
             }}

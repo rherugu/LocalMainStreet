@@ -204,7 +204,7 @@ class Home extends Component {
             <div className="mainbutton">
               <a
                 onClick={this.onClickCustomerLogin}
-                class="fancy-button pop-onhover bg-gradient1"
+                className="fancy-button pop-onhover bg-gradient1"
               >
                 <span>Get Started</span>
               </a>
@@ -296,8 +296,8 @@ class Home extends Component {
                   </div>
                 </div>
 
-                <a className="terms">Terms and Conditions</a>
-                <a className="terms">Privacy Policy</a>
+                <a className="terms link">Terms and Conditions</a>
+                <a className="terms link">Privacy Policy</a>
               </div>
 
               <form className="contactus">

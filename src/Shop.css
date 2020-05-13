@@ -96,6 +96,9 @@
   padding: 10px;
   overflow: hidden;
   margin-bottom: 30px;
+  -webkit-column-break-inside: avoid;
+  page-break-inside: avoid;
+  break-inside: avoid;
 }
 
 .gridlist MediaCard {
@@ -205,4 +208,32 @@
   font-size: large;
   align-items: center;
   width: 500px;
+}
+
+.donate {
+  position: fixed;
+  left: 50%;
+  bottom: 0%;
+  transform: translate(-50%, -1%);
+  text-align: center;
+  background-color: rgb(183, 221, 255);
+  padding: 0px 30px;
+  border-top-right-radius: 10%;
+  border-top-left-radius: 10%;
+  cursor: pointer;
+}
+
+.donate:hover {
+  background-color: rgb(122, 191, 255);
+}
+
+.donate:active {
+  background-color: rgb(82, 172, 255);
+}
+
+.donate h3 {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
