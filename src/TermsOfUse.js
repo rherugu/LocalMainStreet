@@ -188,6 +188,7 @@ const TermsOfUse = () => {
                   <a
                     href="https://localmainstreet.com"
                     target="_blank"
+                    rel="noopener noreferrer"
                     data-custom-class="link"
                   >
                     https://localmainstreet.com

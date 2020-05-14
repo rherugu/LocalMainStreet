@@ -13,7 +13,6 @@ import BusinessLogin from "./BusinessLogin";
 import Buy from "./Buy";
 import Dashboard from "./Dashboard";
 import QRCodejs from "./QRCode";
-import BusinessL from "./BusinessL";
 import Success from "./Success";
 import TermsOfUse from "./TermsOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
@@ -54,11 +53,6 @@ class App extends Component {
             exact
             path="/QRCode"
             render={(props) => <QRCodejs {...props} />}
-          />
-          <Route
-            exact
-            path="/BusinessL"
-            render={(props) => <BusinessL {...props} />}
           />
           <Route
             exact

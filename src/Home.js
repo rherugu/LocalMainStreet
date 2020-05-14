@@ -51,6 +51,8 @@ class Home extends Component {
       emailc: "",
       message: "",
       anchorEl: "",
+      hoverColor: "white",
+      hoverColor2: "white",
     };
     this.cursor = React.createRef();
   }
@@ -303,6 +305,21 @@ class Home extends Component {
 
                 <a
                   className="terms link"
+                  style={{
+                    zIndex: "999909090",
+                    width: "max-content",
+                    color: this.state.hoverColor,
+                  }}
+                  onMouseEnter={() => {
+                    this.setState({
+                      hoverColor: "black",
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    this.setState({
+                      hoverColor: "white",
+                    });
+                  }}
                   onClick={() => {
                     this.props.history.push("/TermsOfUse");
                   }}
@@ -311,6 +328,21 @@ class Home extends Component {
                 </a>
                 <a
                   className="terms link"
+                  style={{
+                    zIndex: "999909090",
+                    width: "max-content",
+                    color: this.state.hoverColor2,
+                  }}
+                  onMouseEnter={() => {
+                    this.setState({
+                      hoverColor2: "black",
+                    });
+                  }}
+                  onMouseLeave={() => {
+                    this.setState({
+                      hoverColor2: "white",
+                    });
+                  }}
                   onClick={() => {
                     this.props.history.push("/PrivacyPolicy");
                   }}

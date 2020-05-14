@@ -198,19 +198,17 @@ class Login extends Component {
                   />
                 </span>
               </a>
+              <br></br>
               <big>
                 <big>
                   <big>
                     <label style={{ color: "#111111" }}>
-                      Not a member yet? Register{" "}
-                      <Link className="link" to="/CustomerLogin">
-                        here
-                      </Link>
+                      Not a member yet?
                     </label>
                   </big>
                 </big>
               </big>
-              <br></br>
+
               {/* <big>
                 <big>
                   <big>
@@ -236,11 +234,11 @@ class Login extends Component {
                   </big>
                 </big>
               </big> */}
-              <br></br>
+
               <div className="loginB">
                 <br />
                 <div
-                  class="buttonb"
+                  className="buttonb"
                   onClick={() => {
                     this.props.history.push("/BusinessLogin");
                   }}
@@ -282,9 +280,9 @@ class Login extends Component {
                 <br />
 
                 <div
-                  class="buttonb"
+                  className="buttonb"
                   onClick={() => {
-                    this.props.history.push("/BusinessL");
+                    this.props.history.push("/CustomerLogin");
                   }}
                 >
                   <svg>
@@ -299,7 +297,7 @@ class Login extends Component {
                       text-anchor="middle"
                       fill="black"
                     >
-                      Login as a
+                      Register as
                     </text>
                     <text
                       x="50%"
@@ -308,7 +306,7 @@ class Login extends Component {
                       text-anchor="middle"
                       fill="black"
                     >
-                      Business
+                      a Customer
                     </text>
                     <polyline
                       className="o2"
