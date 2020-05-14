@@ -12,6 +12,9 @@ class Contact extends Component {
       name: "",
       emailc: "",
       message: "",
+      burger: "0",
+      pointerEvents: "none",
+      width: "30px",
     };
   }
 
@@ -95,6 +98,50 @@ class Contact extends Component {
   render() {
     return (
       <div className="Contact">
+        <div
+          className="burger1"
+          style={{
+            height: "100%",
+            opacity: this.state.burger,
+            pointerEvents: this.state.pointerEvents,
+          }}
+        >
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickHome}
+          >
+            <span>Home</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickShop}
+          >
+            <span>Shop</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickAbout}
+          >
+            <span>About</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickContact}
+          >
+            <span>Contact</span>
+          </h3>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickLogin}
+          >
+            <span>Login</span>
+          </h3>
+        </div>
         <header className="Home-Header">
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
@@ -110,6 +157,49 @@ class Contact extends Component {
                 className="logoimage2"
                 alt="localmainstreet"
               ></img>
+            </div>
+
+            <div
+              className="burgermenu"
+              style={{
+                zIndex: "493324",
+              }}
+              onClick={() => {
+                this.setState({
+                  burger: "1",
+                  width: "30px",
+                  pointerEvents: "all",
+                });
+                if (this.state.burger === "1") {
+                  this.setState({
+                    burger: "0",
+                  });
+                }
+                if (this.state.pointerEvents === "all") {
+                  this.setState({
+                    pointerEvents: "none",
+                  });
+                }
+              }}
+            >
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
             </div>
 
             <h3 className="Hheading1" onClick={this.onClickHome}>

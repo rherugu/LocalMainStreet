@@ -96,9 +96,9 @@
   padding: 10px;
   overflow: hidden;
   margin-bottom: 30px;
-  -webkit-column-break-inside: avoid;
+  /* -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
-  break-inside: avoid;
+  break-inside: avoid; */
 }
 
 .gridlist MediaCard {

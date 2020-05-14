@@ -58,6 +58,10 @@
   justify-content: center;
 }
 
+.formBR {
+  margin-top: 350px;
+}
+
 .oo {
   width: 50%;
   margin: auto;
@@ -93,6 +97,72 @@
   left: 50%;
   transform: translate(-50%);
   flex-direction: row;
+  width: 100%;
+  justify-content: center;
+}
+
+@media screen and (max-width: 654px) {
+  .termsforstripe {
+    font-size: xx-small;
+  }
+}
+
+@media screen and (max-width: 554px) {
+  .termsforstripe {
+    font-size: 7px;
+  }
+}
+
+@media screen and (max-width: 428px) {
+  .termsforstripe {
+    font-size: 5px;
+  }
+}
+
+@media screen and (max-width: 582px) {
+  .saysome {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 542px) {
+  .formBR {
+    transform: scale(0.8);
+  }
+}
+
+@media screen and (max-width: 444px) {
+  .formBR {
+    transform: scale(0.7);
+  }
+}
+
+@media screen and (max-height: 754px) {
+  .formBR {
+    margin-top: 400px;
+  }
+}
+@media screen and (max-height: 670px) {
+  .formBR {
+    margin-top: 500px;
+  }
+}
+@media screen and (max-height: 557px) {
+  .formBR {
+    margin-top: 600px;
+  }
+}
+@media screen and (max-height: 433px) {
+  .formBR {
+    margin-top: 700px;
+  }
+}
+
+@media screen and (max-height: 412px) {
+  .logoimg2 {
+    transform: scale(0.5);
+  }
 }
 
 .link {

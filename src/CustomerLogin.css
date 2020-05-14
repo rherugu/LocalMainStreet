@@ -61,3 +61,24 @@ img {
   -o-user-select: none;
   user-select: none;
 }
+
+@media screen and (max-height: 739px) {
+  .titleCol {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 513px) {
+  .formCL {
+    margin-top: 80px;
+  }
+}
+
+@media screen and (max-height: 464px) {
+  .formCL {
+    transform: scale(0.6);
+  }
+  .logoimg2 {
+    transform: scale(0.6);
+  }
+}

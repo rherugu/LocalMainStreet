@@ -49,6 +49,9 @@ class BusinessLogin extends Component {
       day: "",
       month: "",
       year: "",
+      burger: "0",
+      pointerEvents: "none",
+      width: "30px",
     };
   }
 
@@ -74,10 +77,7 @@ class BusinessLogin extends Component {
     };
     trackPromise(
       axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-          payload
-        )
+        .post("http://localhost:3006/app/BusinessLoginAPI/shop", payload)
         .then((response) => {
           res = response.data;
 
@@ -114,7 +114,7 @@ class BusinessLogin extends Component {
     };
 
     axios
-      .post("https://localmainstreetbackend.herokuapp.com/app/payment/data", {
+      .post("http://localhost:3006/app/payment/data", {
         data,
       })
       .then((res) => {
@@ -124,15 +124,12 @@ class BusinessLogin extends Component {
         console.log("ERROR", err);
       });
 
-    fetch(
-      "https://localmainstreetbackend.herokuapp.com/app/payment/get-oauth-link",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch("http://localhost:3006/app/payment/get-oauth-link", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then(async (data) => {
         console.log(data);
@@ -147,9 +144,7 @@ class BusinessLogin extends Component {
       });
 
     axios
-      .get(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/stripeAccountId"
-      )
+      .get("http://localhost:3006/app/payment/stripeAccountId")
       .then((res) => {
         stripeAccountId = res;
         console.log("boi", stripeAccountId);
@@ -171,10 +166,7 @@ class BusinessLogin extends Component {
 
     trackPromise(
       axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-          database
-        )
+        .post("http://localhost:3006/app/BusinessLoginAPI/shop", database)
         .then((response) => {
           res = response.data;
 
@@ -195,6 +187,50 @@ class BusinessLogin extends Component {
   render() {
     return (
       <div className="BLogin">
+        <div
+          className="burger1"
+          style={{
+            height: "100%",
+            opacity: this.state.burger,
+            pointerEvents: this.state.pointerEvents,
+          }}
+        >
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickHome}
+          >
+            <span>Home</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickShop}
+          >
+            <span>Shop</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickAbout}
+          >
+            <span>About</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickContact}
+          >
+            <span>Contact</span>
+          </h3>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickLogin}
+          >
+            <span>Login</span>
+          </h3>
+        </div>
         <Loader />
         <div className="spacer"></div>
         <header className="Home-Header">
@@ -212,6 +248,49 @@ class BusinessLogin extends Component {
                 className="logoimage2"
                 alt="localmainstreet"
               ></img>
+            </div>
+
+            <div
+              className="burgermenu"
+              style={{
+                zIndex: "493324",
+              }}
+              onClick={() => {
+                this.setState({
+                  burger: "1",
+                  width: "30px",
+                  pointerEvents: "all",
+                });
+                if (this.state.burger === "1") {
+                  this.setState({
+                    burger: "0",
+                  });
+                }
+                if (this.state.pointerEvents === "all") {
+                  this.setState({
+                    pointerEvents: "none",
+                  });
+                }
+              }}
+            >
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
             </div>
 
             <h3 className="Hheading1" onClick={this.onClickHome}>
@@ -232,9 +311,9 @@ class BusinessLogin extends Component {
           </div>
         </header>
         <main className="mainBR">
-          <div className="titleB">
+          {/* <div className="titleB">
             <h3 style={{ color: "#111111" }}>Business Registration</h3>
-          </div>
+          </div> */}
           <form className="formBR">
             <label style={{ color: "#111111" }}>First Name</label>
             <br></br>
@@ -321,7 +400,7 @@ class BusinessLogin extends Component {
               }}
             />
             <br></br>
-            <label style={{ color: "#111111" }}>
+            <label className="saysome" style={{ color: "#111111" }}>
               Say something about your business
             </label>
             <br></br>
@@ -553,7 +632,11 @@ class BusinessLogin extends Component {
               >
                 Stripe Connected Account Agreement
               </a>
-              . You also agree to LocalMainStreet's&nbsp;
+              .
+            </h6>
+            <br></br>
+            <h6 className="termsforstripe">
+              You also agree to LocalMainStreet's&nbsp;
               <a
                 target="_blank"
                 className="link"

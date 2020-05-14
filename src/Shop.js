@@ -8,56 +8,6 @@ import Loader from "./Loader";
 import { trackPromise } from "react-promise-tracker";
 import $ from "jquery";
 import "react-toastify/dist/ReactToastify.css";
-// import { Dropdown } from "semantic-ui-react";
-// import "semantic-ui-css/semantic.min.css";
-
-// const options = [
-//   {
-//     key: 0,
-//     value: "Restaurant",
-//     text: "Restaurant",
-//   },
-//   {
-//     key: 1,
-//     value: "Hair and Nail Salon",
-//     text: "Hair and Nail Salon",
-//   },
-//   {
-//     key: 2,
-//     value: "Grocery",
-//     text: "Grocery",
-//   },
-//   {
-//     key: 3,
-//     value: "Auto",
-//     text: "Auto",
-//   },
-//   {
-//     key: 4,
-//     value: "Spa & Beauty",
-//     text: "Spa & Beauty",
-//   },
-//   {
-//     key: 5,
-//     value: "Massage Parlour",
-//     text: "Massage Parlour",
-//   },
-//   {
-//     key: 6,
-//     value: "Recreation",
-//     text: "Recreation",
-//   },
-//   {
-//     key: 7,
-//     value: "Coffee & Bakery",
-//     text: "Coffee & Bakery",
-//   },
-//   {
-//     key: 8,
-//     value: "Others",
-//     text: "Others",
-//   },
-// ];
 
 class Shop extends Component {
   onClickHome = () => {
@@ -83,6 +33,9 @@ class Shop extends Component {
       price: 25,
       name: "SmartTicketing",
       businessCatagory: "",
+      burger: "0",
+      pointerEvents: "none",
+      width: "30px",
     };
     this.bname = "";
   }
@@ -145,6 +98,50 @@ class Shop extends Component {
 
     return (
       <div className="Shop">
+        <div
+          className="burger1"
+          style={{
+            height: "100%",
+            opacity: this.state.burger,
+            pointerEvents: this.state.pointerEvents,
+          }}
+        >
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickHome}
+          >
+            <span>Home</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickShop}
+          >
+            <span>Shop</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickAbout}
+          >
+            <span>About</span>
+          </h3>
+          <h3
+            className="Hheading1b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickContact}
+          >
+            <span>Contact</span>
+          </h3>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px" }}
+            onClick={this.onClickLogin}
+          >
+            <span>Login</span>
+          </h3>
+        </div>
         <Loader />
 
         <header className="Home-Header">
@@ -162,6 +159,48 @@ class Shop extends Component {
                 className="logoimage2"
                 alt="localmainstreet"
               ></img>
+            </div>
+            <div
+              className="burgermenu"
+              style={{
+                zIndex: "493324",
+              }}
+              onClick={() => {
+                this.setState({
+                  burger: "1",
+                  width: "30px",
+                  pointerEvents: "all",
+                });
+                if (this.state.burger === "1") {
+                  this.setState({
+                    burger: "0",
+                  });
+                }
+                if (this.state.pointerEvents === "all") {
+                  this.setState({
+                    pointerEvents: "none",
+                  });
+                }
+              }}
+            >
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
+              <div
+                className="bar"
+                style={{
+                  width: this.state.width,
+                }}
+              ></div>
             </div>
 
             <h3 className="Hheading1" onClick={this.onClickHome}>
@@ -187,7 +226,7 @@ class Shop extends Component {
         <br></br>
         <br></br>
         <br></br>
-        <select
+        {/* <select
           value={this.state.businessCatagory}
           onChange={this.optionChange}
           className="filter"
@@ -201,7 +240,7 @@ class Shop extends Component {
           <option>Recreation</option>
           <option>Coffee & Bakery</option>
           <option>Others</option>
-        </select>
+        </select> */}
 
         <br></br>
         <br></br>
