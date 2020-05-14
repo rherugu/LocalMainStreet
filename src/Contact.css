@@ -180,3 +180,35 @@
   outline: none;
   transition: border-color 0.2s;
 }
+
+@media screen and (max-width: 658px) {
+  .formCL {
+    transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .formCCL {
+    transform: scale(0.5);
+  }
+}
+
+@media screen and (max-width: 548px) {
+  .formCL {
+    transform: scale(0.7);
+  }
+  .titleCol {
+    transform: scale(0.7);
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 424px) {
+  .formCL {
+    transform: scale(0.5);
+  }
+  .titleCol {
+    transform: scale(0.7);
+    margin: 0;
+  }
+}

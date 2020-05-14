@@ -21,6 +21,7 @@
 }
 
 /* fancy Button */
+.fancy-button22121,
 .fancy-button {
   display: inline-block;
   margin: 30px;
@@ -30,9 +31,17 @@
   text-transform: uppercase;
   color: #fff;
   position: relative;
-  transform: scale(0.61);
 }
 
+.fancy-button22121,
+.ee {
+  transform: scale(0.61);
+}
+.fancy-button {
+  transform: scale(0.8);
+}
+
+.fancy-button22121:before,
 .fancy-button:before {
   content: "";
   display: inline-block;
@@ -47,12 +56,14 @@
   transform-style: preserve-3d;
   transition: all 0.3s ease-out;
 }
+.fancy-button22121 i,
 .fancy-button i {
   margin-top: -1px;
   margin-right: 20px;
   font-size: 1.265em;
   vertical-align: middle;
 }
+.fancy-button22121 span,
 .fancy-button span {
   display: flex;
   padding: 18px 60px;
@@ -65,39 +76,49 @@
   align-items: center;
   font-size: x-large;
 }
+.fancy-button22121:focus,
+.fancy-button22121:active,
 .fancy-button:focus,
 .fancy-button:active {
   color: #fff;
 }
+.fancy-button22121:hover,
 .fancy-button:hover {
   color: #fff;
 }
+.fancy-button22121:hover span,
 .fancy-button:hover span {
   filter: brightness(1.05) contrast(1.05);
   transform: scale(0.95);
 }
+.fancy-button22121:hover:before,
 .fancy-button:hover:before {
   bottom: 0;
   filter: blur(10px) brightness(0.95);
 }
-.fancy-button.pop-onhover:before {
+.fancy-button22121.pop-onhover:before,
+.fancy-button.poponhover:before {
   opacity: 0;
   bottom: 10px;
 }
-.fancy-button.pop-onhover:hover:before {
+.fancy-button22121.pop-onhover:hover:before,
+.fancy-button.poponhover:hover:before {
   bottom: -7px;
   opacity: 1;
   filter: blur(20px);
 }
-.fancy-button.pop-onhover:hover span {
+.fancy-button22121.pop-onhover:hover span,
+.fancy-button.poponhover:hover span {
   transform: scale(1.04);
 }
-.fancy-button.pop-onhover:hover:active span {
+.fancy-button22121.pop-onhover:hover:active span,
+.fancy-button22121.pop-onhover:hover:active span {
   filter: brightness(1) contrast(1);
   transform: scale(1);
   transition: all 0.15s ease-out;
 }
-.fancy-button.pop-onhover:hover:active:before {
+.fancy-button22121.pop-onhover:hover:active:before,
+.fancy-button22121.pop-onhover:hover:active:before {
   bottom: 0;
   filter: blur(10px) brightness(0.95);
   transition: all 0.2s ease-out;
@@ -173,4 +194,36 @@ text {
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+}
+
+@media screen and (max-width: 658px) {
+  .formL {
+    transform: scale(0.9);
+  }
+}
+
+@media screen and (max-width: 504px) {
+  .formL {
+    transform: scale(0.8);
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .formL {
+    transform: scale(0.7);
+  }
+  .titleLog {
+    transform: scale(0.9);
+    margin: 0;
+  }
+}
+
+@media screen and (max-width: 298px) {
+  .formL {
+    transform: scale(0.6);
+  }
+  .titleLog {
+    transform: scale(0.8);
+    margin: 0;
+  }
 }

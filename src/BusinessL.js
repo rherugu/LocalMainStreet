@@ -174,7 +174,7 @@ class BusinessL extends Component {
 
             <a
               href="#"
-              className="fancy-button pop-onhover bg-gradient3 oo"
+              className="fancy-button pop-onhover bg-gradient3 oo ww ee"
               onClick={(e) => this.onSubmitEventHandler(e)}
               type="submit"
             >

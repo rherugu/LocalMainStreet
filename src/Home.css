@@ -80,6 +80,7 @@
 
 .logoimg2 {
   display: none;
+  margin: 0;
 }
 
 @media screen and (max-width: 1483px) {
@@ -106,10 +107,40 @@
     display: none;
   }
 }
+.burgermenu {
+  display: none;
+  height: 30px;
+  width: 35px;
+  z-index: 90909999;
+  flex-direction: column;
+}
+.bar {
+  height: 5px;
+  z-index: 909099999;
+  background-color: white;
+  width: 2.5%;
+  display: flex;
+  margin: 3px;
+  cursor: pointer;
+  flex-direction: column;
+}
 @media screen and (max-width: 694px) {
   .Hheading2,
   .Hheading1 {
     display: none;
+  }
+
+  .burgermenu {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+  }
+  .logoimg2 {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 0;
+    position: absolute;
+    left: 100px;
   }
 
   .Hheading {
@@ -121,6 +152,12 @@
     flex: 1;
     float: left;
     justify-content: flex-start;
+  }
+}
+
+@media screen and (max-height: 700px) {
+  .home-footer {
+    height: 100vh;
   }
 }
 
@@ -519,7 +556,7 @@ a:active {
 
 .home-footer {
   width: 100%;
-  height: 25vh;
+  height: 26vh;
   display: flex;
   bottom: 0%;
   margin-top: 100px;
@@ -576,6 +613,39 @@ a:active {
 @media screen and (max-width: 1450px) {
   .app-title {
     font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 1103px) {
+  .textloop {
+    font-size: 50px;
+  }
+  .textloop2 {
+    font-size: 30px;
+  }
+}
+
+@media screen and (max-width: 893px) {
+  .slideshowbg {
+    width: 200%;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .slideshowbg {
+    width: 300%;
+    background-color: rgb(255, 250, 210);
+    background-image: none;
+    animation: none;
+  }
+  .home-footer {
+    height: 27vh;
+  }
+  .textloop {
+    color: rgb(0, 0, 0);
+  }
+  .textloop2 {
+    color: black;
   }
 }
 

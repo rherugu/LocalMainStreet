@@ -15,6 +15,9 @@ import Dashboard from "./Dashboard";
 import QRCodejs from "./QRCode";
 import BusinessL from "./BusinessL";
 import Success from "./Success";
+import TermsOfUse from "./TermsOfUse";
+import PrivacyPolicy from "./PrivacyPolicy";
+import fourofour from "./fourofour";
 
 class App extends Component {
   render() {
@@ -62,6 +65,17 @@ class App extends Component {
             path="/Success"
             render={(props) => <Success {...props} />}
           />
+          <Route
+            exact
+            path="/TermsOfUse"
+            render={(props) => <TermsOfUse {...props} />}
+          />
+          <Route
+            exact
+            path="/PrivacyPolicy"
+            render={(props) => <PrivacyPolicy {...props} />}
+          />
+          <Route component={fourofour} />
         </Switch>
       </Router>
     );

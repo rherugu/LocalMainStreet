@@ -153,6 +153,11 @@ class Home extends Component {
                 alt="localmainstreet"
               ></img>
             </div>
+            <div className="burgermenu">
+              <div className="bar"></div>
+              <div className="bar"></div>
+              <div className="bar"></div>
+            </div>
 
             <h3 className="Hheading1" onClick={this.onClickHome}>
               <span>Home</span>
@@ -296,8 +301,22 @@ class Home extends Component {
                   </div>
                 </div>
 
-                <a className="terms link">Terms and Conditions</a>
-                <a className="terms link">Privacy Policy</a>
+                <a
+                  className="terms link"
+                  onClick={() => {
+                    this.props.history.push("/TermsOfUse");
+                  }}
+                >
+                  Terms and Conditions
+                </a>
+                <a
+                  className="terms link"
+                  onClick={() => {
+                    this.props.history.push("/PrivacyPolicy");
+                  }}
+                >
+                  Privacy Policy
+                </a>
               </div>
 
               <form className="contactus">

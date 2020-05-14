@@ -158,3 +158,10 @@
   width: fit-content;
   margin: auto;
 }
+
+@media screen and (max-width: 884px) {
+  .abouttxt {
+    font-size: 15px;
+    width: 90%;
+  }
+}

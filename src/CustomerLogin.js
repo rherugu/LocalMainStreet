@@ -137,7 +137,9 @@ class CustomerLogin extends Component {
 
         <big>
           <big>
-            <h1 style={{ color: "#111111" }}>Register</h1>
+            <h1 className="titleCol" style={{ color: "#111111" }}>
+              Register
+            </h1>
           </big>
         </big>
         {/* <h3

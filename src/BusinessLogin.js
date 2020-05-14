@@ -476,7 +476,7 @@ class BusinessLogin extends Component {
             /> */}
             <br></br>
             {/* <button onClick={this.stripe}>Stripe</button> */}
-            <label>Date of Birth</label>
+            <label>Date of Birth (optional)</label>
             <br></br>
             <div className="dobwrap">
               <div className="field-inline-block">
@@ -486,6 +486,7 @@ class BusinessLogin extends Component {
                   pattern="[0-9]*"
                   maxlength="2"
                   size="2"
+                  placeholder="DD"
                   className="date-field"
                   value={this.state.day}
                   onChange={(e) => this.setState({ day: e.target.value })}
@@ -498,6 +499,7 @@ class BusinessLogin extends Component {
                   type="text"
                   pattern="[0-9]*"
                   maxlength="2"
+                  placeholder="MM"
                   size="2"
                   className="date-field"
                   value={this.state.month}
@@ -512,6 +514,7 @@ class BusinessLogin extends Component {
                   pattern="[0-9]*"
                   maxlength="4"
                   size="4"
+                  placeholder="YYYY"
                   className="date-field date-field--year"
                   value={this.state.year}
                   onChange={(e) => this.setState({ year: e.target.value })}
@@ -523,7 +526,7 @@ class BusinessLogin extends Component {
             <br></br>
             <a
               href="#"
-              className="fancy-button pop-onhover bg-gradient3 oo"
+              className="fancy-button pop-onhover bg-gradient3 oo ee"
               onClick={this.stripe}
               type="submit"
             >
@@ -549,7 +552,34 @@ class BusinessLogin extends Component {
               >
                 Stripe Connected Account Agreement
               </a>
-              .
+              . You also agree to LocalMainStreet's&nbsp;
+              <a
+                target="_blank"
+                className="link"
+                style={{
+                  cursor: "pointer",
+                }}
+                href="/TermsOfUse"
+                // onClick={() => {
+                //   this.props.history.push("/TermsOfUse");
+                // }}
+              >
+                TermsOfUse
+              </a>
+              &nbsp;and our&nbsp;{" "}
+              <a
+                target="_blank"
+                style={{
+                  cursor: "pointer",
+                }}
+                href="/PrivacyPolicy"
+                className="link"
+                // onClick={() => {
+                //   this.props.history.push("/PrivacyPolicy");
+                // }}
+              >
+                PrivacyPolicy
+              </a>
             </h6>
           </form>
         </main>

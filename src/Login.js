@@ -56,7 +56,7 @@ class Login extends Component {
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
-            localStorage.setItem("token", response.data);
+            localStorage.setItem("token", response.data.token);
           }
           const tokenval = localStorage.getItem("token");
           console.log(tokenval);
@@ -64,10 +64,26 @@ class Login extends Component {
           if (!tokenval) {
             alert("Incorrect email or password.");
           }
-          this.props.history.push("/Shop");
+          if (response.data.url === "/Shop") {
+            this.props.history.push("/Shop");
+          } else if (
+            response.data.url === "/Dashboard" &&
+            response.data.stripeId
+          ) {
+            this.props.history.push({
+              pathname: "/Dashboard",
+              state: {
+                // tour: "no",
+                stripeAccountId: response.data.stripeId,
+              },
+            });
+          } else {
+            alert("Whoops! Something wrong happended.");
+          }
         })
         .catch(function (err) {
-          alert(err);
+          // alert(err);
+          console.log(err);
         })
     );
   };
@@ -170,7 +186,7 @@ class Login extends Component {
               />
               <a
                 href="#"
-                className="fancy-button pop-onhover bg-gradient3 oo"
+                className="fancy-button22121 pop-onhover bg-gradient3 oo"
                 onClick={this.onSubmitHandler}
                 type="submit"
               >
@@ -226,7 +242,7 @@ class Login extends Component {
                 <div
                   class="buttonb"
                   onClick={() => {
-                    this.props.history.push("/BusinessL");
+                    this.props.history.push("/BusinessLogin");
                   }}
                 >
                   <svg>
