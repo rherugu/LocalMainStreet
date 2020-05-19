@@ -2,8 +2,75 @@ import React, { useEffect, useReducer, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import "./Buy.css";
 import axios from "axios";
+import {
+  withGoogleMap,
+  withScriptjs,
+  GoogleMap,
+  Marker,
+  InfoWindow,
+} from "react-google-maps";
+import Geocode from "react-geocode";
+// import "../public/sdk/map.css";
+const NodeGeocoder = require("node-geocoder");
 
 var bc;
+
+function Map() {
+  // const [selectedPark, setSelectedPark] = useState(null);
+
+  // useEffect(() => {
+  //   const listener = e => {
+  //     if (e.key === "Escape") {
+  //       setSelectedPark(null);
+  //     }
+  //   };
+  //   window.addEventListener("keydown", listener);
+
+  //   return () => {
+  //     window.removeEventListener("keydown", listener);
+  //   };
+  // }, []);
+
+  return (
+    <GoogleMap defaultZoom={10} defaultCenter={{ lat: 45.4211, lng: -75.6903 }}>
+      {/* {parkData.features.map(park => ( */}
+      <Marker
+        // key={park.properties.PARK_ID}
+        position={{
+          lat: 45.4211,
+          lng: -75.6903,
+        }}
+        // onClick={() => {
+        //   setSelectedPark(park);
+        // }}
+        // icon={{
+        //   url: `/skateboarding.svg`,
+        //   scaledSize: new window.google.maps.Size(25, 25)
+        // }}
+      />
+      {/* ))} */}
+
+      {/* {selectedPark && (
+        <InfoWindow
+          onCloseClick={() => {
+            setSelectedPark(null);
+          }}
+          position={{
+            lat: 45.4211,
+            lng: -75.6903
+          }}
+        >
+          <div>
+            <h2>{selectedPark.properties.NAME}</h2>
+            <p>{selectedPark.properties.DESCRIPTIO}</p>
+          </div>
+        </InfoWindow>
+      )} */}
+    </GoogleMap>
+  );
+}
+
+const MapWrapped = withScriptjs(withGoogleMap(Map));
 
 const fetchCheckoutSession = async ({ quantity, product }) => {
   return await fetch(
@@ -104,6 +171,61 @@ const Buy = (props) => {
       });
     }
     fetchConfig();
+
+    // async function geocode() {
+    //   const options = {
+    //     provider: "tomtom",
+    //     // Optional depending on the providers
+    //     apiKey: "1mFsoddRBssP98W4yadCzAdopJJXjuw0", // for Mapquest, OpenCage, Google Premier
+    //     formatter: null, // 'gpx', 'string', ...
+    //   };
+
+    //   const geocoder = NodeGeocoder(options);
+
+    //   const res = await geocoder.geocode("2 Darryl Dr");
+    //   console.log("OHHIHI", res);
+    // }
+    // geocode();
+    (async () => {
+      try {
+        if (props.location.state.address === undefined) {
+          alert("Invalid address. Map could not be displayed");
+        }
+
+        Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+        try {
+          var { lat } = "";
+          var { lng } = "";
+
+          await Geocode.fromAddress(`${props.location.state.address}`).then(
+            (response) => {
+              lat = response.results[0].geometry.location.lat;
+              lng = response.results[0].geometry.location.lng;
+              console.log("lat and lng", lat, lng);
+            },
+            (error) => {
+              console.error("ERROR", error);
+            }
+          );
+
+          const script = document.createElement("script");
+          script.src = process.env.PUBLIC_URL + "/sdk/tomtom.min.js";
+          document.body.appendChild(script);
+          script.async = true;
+          script.onload = () => {
+            var map = window.tomtom.L.map("map", {
+              source: "vector",
+              key: `${process.env.REACT_APP_TKEY}`,
+              center: [lat, lng],
+              basePath: "/sdk",
+              zoom: 16,
+            });
+          };
+        } catch (error) {
+          alert("Invalid address. Map could not be displayed");
+        }
+      } catch (err) {}
+    })();
   }, []);
 
   var prop = props.location.state;
@@ -113,6 +235,24 @@ const Buy = (props) => {
       alert("Cannot go above 999,999 dollars.");
       state.loading = false;
     }
+    var fnameq = localStorage.getItem("fname");
+    var lnameq = localStorage.getItem("lname");
+    var emailq = localStorage.getItem("email");
+
+    const payload = {
+      nameq: `${fnameq} ${lnameq}`,
+      emailq: emailq,
+      balance: mprice,
+    };
+
+    await axios
+      .post("http://localhost:3006/app/payment/getInfo", payload)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
 
     const id = {
       id: prop.id,
@@ -187,21 +327,10 @@ const Buy = (props) => {
   return (
     <div className="sr-root">
       <div className="sr-main">
-        <header className="sr-header">
-          <div className="sr-header__logo"></div>
-        </header>
         <section className="container1">
           <div>
             <h1 id="h1">{prop.bname}</h1>
             <h4 id="h4">{prop.description}</h4>
-            <div className="pasha-image">
-              <img
-                alt="Help local businesses"
-                src={require(`./Assets/${image}`)}
-                width="140"
-                height="160"
-              />
-            </div>
           </div>
           {/* <div className="quantity-setter">
             <button
@@ -256,6 +385,16 @@ const Buy = (props) => {
           <div className="sr-field-error">{state.error?.message}</div>
         </section>
       </div>
+      <div
+        id="map"
+        style={{
+          position: "absolute",
+          width: "100vw",
+          height: "50vh",
+          top: "0",
+          zIndex: 90,
+        }}
+      ></div>
     </div>
   );
 };

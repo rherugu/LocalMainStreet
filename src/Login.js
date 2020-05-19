@@ -57,6 +57,9 @@ class Login extends Component {
           console.log(response);
           if (response.status === 200) {
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("email", response.data.email);
+            localStorage.setItem("fname", response.data.fname);
+            localStorage.setItem("lname", response.data.lname);
           }
           const tokenval = localStorage.getItem("token");
           console.log(tokenval);
@@ -78,7 +81,7 @@ class Login extends Component {
               },
             });
           } else {
-            alert("Whoops! Something wrong happended.");
+            alert("Whoops! Something wrong happened.");
           }
         })
         .catch(function (err) {

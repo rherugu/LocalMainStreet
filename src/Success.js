@@ -21,10 +21,7 @@ class Success extends Component {
     };
 
     await axios
-      .get(
-        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-        { headers }
-      )
+      .get("http://localhost:3006/app/BusinessLoginAPI/shop", { headers })
       .then((response) => {
         console.log(response);
         this.shops = String(response.data[response.data.length - 1]._id);
@@ -34,9 +31,7 @@ class Success extends Component {
         console.error(err);
       });
     await axios
-      .get(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/stripeAccountId"
-      )
+      .get("http://localhost:3006/app/payment/stripeAccountId")
       .then((res) => {
         stripeAccountId = res.data;
         console.log(stripeAccountId);
@@ -46,7 +41,7 @@ class Success extends Component {
       });
     // axios
     //   .get(
-    //     "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+    //     "http://localhost:3006/app/BusinessLoginAPI/shop",
     //     { headers }
     //   )
     //   .then((response) => {
@@ -70,7 +65,7 @@ class Success extends Component {
     //   stripeAccountId: stripeAccountId,
     // };
     // axios
-    //   .post("https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop", database)
+    //   .post("http://localhost:3006/app/BusinessLoginAPI/shop", database)
     //   .then((response) => {
     //     res = response.data;
 
@@ -90,7 +85,7 @@ class Success extends Component {
 
     axios
       .patch(
-        `https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/${this.shops}`,
+        `http://localhost:3006/app/BusinessLoginAPI/shop/${this.shops}`,
         database
       )
       .then((response) => {

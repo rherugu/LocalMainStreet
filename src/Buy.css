@@ -253,10 +253,53 @@ UN COMMENT TO EDIT!!
 
 .sr-main {
   width: var(--form-width);
+  margin-top: 100px;
+  position: absolute;
+  bottom: 0;
+  top: 10%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
 }
 
 .sr-content {
   padding-left: 48px;
+}
+
+.container1 {
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+  width: 100%;
+}
+
+@media screen and (max-width: 1080px) {
+  #map {
+    width: 100vw;
+    height: 35%;
+  }
+}
+
+@media screen and (max-width: 436px) {
+  .container1 {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .container1 {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 314px) {
+  #map {
+    position: absolute;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+  }
 }
 
 .sr-header__logo {
@@ -902,5 +945,11 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .banner a {
   color: var(--accent-color);
+}
+
+#map {
+  position: absolute;
+  height: 40%;
+  width: 100%;
 }
 /*# sourceMappingURL=Buy.css.map */

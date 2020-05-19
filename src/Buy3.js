@@ -22,7 +22,7 @@ export default function Buy(props) {
       price: price,
     };
     const response = await axios.post(
-      "https://localmainstreetbackend.herokuapp.com/app/payment/checkout",
+      "http://localhost:3006/app/payment/checkout",
       {
         token,
         product,
@@ -41,10 +41,7 @@ export default function Buy(props) {
       };
 
       await axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/qrcode/",
-          payload
-        )
+        .post("http://localhost:3006/app/qrcode/", payload)
         .then((res) => {
           console.log("resposnsefsdfds", res);
         })
@@ -53,7 +50,7 @@ export default function Buy(props) {
         });
 
       await axios
-        .get("https://localmainstreetbackend.herokuapp.com/app/qrcode/")
+        .get("http://localhost:3006/app/qrcode/")
         .then((res) => {
           console.log(res.data[res.data.length - 1]);
           id = res.data[res.data.length - 1]._id;
@@ -106,12 +103,9 @@ export default function Buy(props) {
     console.log("PRODUCT", product);
 
     axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/paypal/pay",
-        {
-          product,
-        }
-      )
+      .post("http://localhost:3006/app/payment/paypal/pay", {
+        product,
+      })
       .then((response) => {
         console.log(response);
       })
@@ -214,7 +208,7 @@ export default function Buy(props) {
             for LocalMainStreet. We do not store your credit card information.
           </h6>
           {/* <form
-            // action="https://localmainstreetbackend.herokuapp.com/app/payment/paypal/pay"
+            // action="http://localhost:3006/app/payment/paypal/pay"
             method="post"
           > */}
           <br></br>

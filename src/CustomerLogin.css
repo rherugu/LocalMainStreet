@@ -13,6 +13,7 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 input[type="number"],
+.Autocomplete,
 select,
 textarea,
 input[type="password"] {
@@ -25,7 +26,8 @@ input[type="password"] {
   margin-bottom: 16px;
   resize: vertical;
 }
-input[type="submit"] {
+input[type="submit"],
+input[type="button"] {
   background-color: #4caf50;
   color: white;
   padding: 12px 20px;
@@ -33,7 +35,8 @@ input[type="submit"] {
   border-radius: 4px;
   cursor: pointer;
 }
-input[type="submit"]:hover {
+input[type="submit"]:hover,
+input[type="button"]:hover {
   background-color: #45a049;
 }
 .container {
@@ -53,13 +56,6 @@ input[type="submit"]:hover {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-}
-img {
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -o-user-select: none;
-  user-select: none;
 }
 
 @media screen and (max-height: 739px) {

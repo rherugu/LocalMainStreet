@@ -33,7 +33,7 @@ const Dashboard = (props) => {
       .catch((err) => {
         console.error(err);
       });
-  }, [url]);
+  }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 

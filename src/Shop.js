@@ -6,7 +6,6 @@ import { toast } from "react-toastify";
 import MediaCard from "./Card";
 import Loader from "./Loader";
 import { trackPromise } from "react-promise-tracker";
-import $ from "jquery";
 import "react-toastify/dist/ReactToastify.css";
 
 class Shop extends Component {
@@ -49,10 +48,7 @@ class Shop extends Component {
     if (tokenval) {
       trackPromise(
         axios
-          .get(
-            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-            { headers }
-          )
+          .get("http://localhost:3006/app/BusinessLoginAPI/shop", { headers })
           .then((response) => {
             console.log(response.data);
 
@@ -65,6 +61,19 @@ class Shop extends Component {
     } else {
       this.onClickLogin();
     }
+
+    axios.get("http://localhost:3006/app/payment/encryption").then((res) => {
+      if (res.data.status === "success") {
+        this.props.history.push({
+          pathname: "/QRCode",
+          state: {
+            value: res.data.message,
+          },
+        });
+      } else if (res.data.status === "failure") {
+        console.log("User has not bought anything yet.");
+      }
+    });
   }
 
   optionChange = (e) => {
@@ -260,6 +269,7 @@ class Shop extends Component {
                 history={this.props.history}
                 businessCatagory={shop.businessCatagory}
                 stripeId={shop.stripeAccountId}
+                address={shop.address}
               />
             ))}
           </div>

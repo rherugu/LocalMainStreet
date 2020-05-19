@@ -31,7 +31,8 @@
     "imagesloaded": "^4.1.4",
     "jquery": "^3.4.1",
     "mongoose": "^5.9.6",
-    "node-sass": "^4.13.1",
+    "node-geocoder": "^3.27.0",
+    "node-sass": "^4.14.1",
     "nodemailer": "^6.4.6",
     "nodemon": "^2.0.2",
     "parcel-bundler": "^1.12.4",
@@ -44,6 +45,9 @@
     "react-dnd": "^10.0.2",
     "react-dnd-html5-backend": "^10.0.2",
     "react-dom": "^16.13.1",
+    "react-geocode": "^0.2.1",
+    "react-google-autocomplete": "^1.2.4",
+    "react-google-maps": "^9.4.5",
     "react-gradient-text": "^0.1.0",
     "react-infinite": "^0.13.0",
     "react-infinite-scroll-component": "^5.0.4",
@@ -73,9 +77,9 @@
     "video-react": "^0.14.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "env-cmd -f .env react-scripts start",
+    "build": "env-cmd -f .env react-scripts build",
+    "test": "env-cmd -f .env react-scripts test",
     "eject": "react-scripts eject",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },

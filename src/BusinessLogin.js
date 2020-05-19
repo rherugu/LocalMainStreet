@@ -6,6 +6,8 @@ import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
 import { trackPromise } from "react-promise-tracker";
 import Loader from "./LoaderB";
+import Autocomplete from "react-google-autocomplete";
+import Geocode from "react-geocode";
 
 var res = "f";
 var stripeAccountId;
@@ -99,6 +101,30 @@ class BusinessLogin extends Component {
   stripe = async (e) => {
     e.preventDefault();
 
+    console.log(this.state.Address);
+
+    Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+    var { lat } = "";
+    var { lng } = "";
+    // console.log(place);
+
+    try {
+      Geocode.fromAddress(`${this.state.Address}`).then(
+        (response) => {
+          lat = response.results[0].geometry.location.lat;
+          lng = response.results[0].geometry.location.lng;
+          console.log("lat and lng", lat, lng);
+        },
+        (error) => {
+          alert("Invalid address");
+          return;
+        }
+      );
+    } catch (err) {
+      alert("Invalid address");
+      return;
+    }
+
     const data = {
       email: this.state.email,
       password: this.state.Password,
@@ -136,7 +162,7 @@ class BusinessLogin extends Component {
         if (data.url) {
           window.open(data.url, "_blank");
         } else {
-          alert("error");
+          alert("Something went wrong.");
         }
       })
       .catch((err) => {
@@ -173,9 +199,23 @@ class BusinessLogin extends Component {
           alert(res.message);
 
           if (res.check === 200) {
-            // this.props.history.push("/Dashboard");
+            return (
+              <div className="modal" id="modal">
+                <button
+                  className="modalclose"
+                  onClick={() => {
+                    var x = document.getElementById("modal");
+                    x.style.opacity = 0;
+                    x.style.pointerEvents = "none";
+                  }}
+                >
+                  close
+                </button>
+                <h3>Step One Complete!</h3>
+                <button>On to step two!</button>
+              </div>
+            );
           }
-
           console.log("#", response);
         })
         .catch(function (err) {
@@ -422,7 +462,7 @@ class BusinessLogin extends Component {
             <br></br>
             <label style={{ color: "#111111" }}>Address</label>
             <br></br>
-            <input
+            {/* <input
               type="text"
               id="Address"
               name="Address"
@@ -435,6 +475,23 @@ class BusinessLogin extends Component {
                 fontSize: 20,
                 backgroundColor: "#DDDDDD",
               }}
+            />
+            <br></br> */}
+            <Autocomplete
+              className="Autocomplete"
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+              }}
+              value={this.state.Address}
+              onChange={(e) => this.setState({ Address: e.target.value })}
+              onPlaceSelected={(place) => {
+                this.setState({ Address: place.formatted_address });
+              }}
+              types={["address"]}
+              // componentRestrictions={{ country: "ru" }}
             />
             <br></br>
             <label style={{ color: "#111111" }}>Phone Number</label>

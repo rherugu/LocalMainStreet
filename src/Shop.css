@@ -82,7 +82,7 @@
 /* The Masonry Container */
 .gridlist {
   width: 1500px;
-  margin: 20px auto;
+  margin: 0 auto;
   columns: 4;
   column-gap: 40px;
   -webkit-column-break-inside: avoid;

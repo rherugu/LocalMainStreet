@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   const classes = useStyles();
 
-  console.log(props.businessCatagory);
+  console.log(props.address);
 
   var image;
   if (props.businessCatagory === "Restaurant") {
@@ -62,6 +62,7 @@ export default function MediaCard(props) {
                   className: "Buy",
                   businessCatagory: props.businessCatagory,
                   id: props.stripeId,
+                  address: props.address,
                 },
               });
             }, 500);
@@ -110,6 +111,7 @@ export default function MediaCard(props) {
                   phoneNumber: props.phoneNumber,
                   className: "Buy",
                   id: props.stripeId,
+                  address: props.address,
                 },
               });
             }}

@@ -4,7 +4,7 @@
 
 // // Create a Checkout Session with the selected quantity
 // var createCheckoutSession = function () {
-//   return fetch("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", {
+//   return fetch("http://localhost:3006/app/payment/create-checkout-session", {
 //     method: "POST",
 //     headers: {
 //       "Content-Type": "application/json",
@@ -18,7 +18,7 @@
 // };
 
 // /* Get the accounts list, publishable key and base price */
-// fetch("https://localmainstreetbackend.herokuapp.com/app/payment/config")
+// fetch("http://localhost:3006/app/payment/config")
 //   .then(function (result) {
 //     return result.json();
 //   })
