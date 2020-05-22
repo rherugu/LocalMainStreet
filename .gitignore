@@ -36,3 +36,6 @@ package-lock.json
 /build/index.html
 ./build
 ./build/index.html
+
+index.html
+
