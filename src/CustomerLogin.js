@@ -60,7 +60,7 @@ class CustomerLogin extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3006/app/LoginAPI/posts/", payload)
+        .post("http://localhost:3003/app/LoginAPI/posts/", payload)
         .then(function (response) {
           res = response.data;
           if (res === '"password" length must be at least 6 characters long') {

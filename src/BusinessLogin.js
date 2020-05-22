@@ -79,7 +79,7 @@ class BusinessLogin extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3006/app/BusinessLoginAPI/shop", payload)
+        .post("http://localhost:3003/app/BusinessLoginAPI/shop", payload)
         .then((response) => {
           res = response.data;
 
@@ -140,7 +140,7 @@ class BusinessLogin extends Component {
     };
 
     axios
-      .post("http://localhost:3006/app/payment/data", {
+      .post("http://localhost:3003/app/payment/data", {
         data,
       })
       .then((res) => {
@@ -150,7 +150,7 @@ class BusinessLogin extends Component {
         console.log("ERROR", err);
       });
 
-    fetch("http://localhost:3006/app/payment/get-oauth-link", {
+    fetch("http://localhost:3003/app/payment/get-oauth-link", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -170,7 +170,7 @@ class BusinessLogin extends Component {
       });
 
     axios
-      .get("http://localhost:3006/app/payment/stripeAccountId")
+      .get("http://localhost:3003/app/payment/stripeAccountId")
       .then((res) => {
         stripeAccountId = res;
         console.log("boi", stripeAccountId);
@@ -192,7 +192,7 @@ class BusinessLogin extends Component {
 
     trackPromise(
       axios
-        .post("http://localhost:3006/app/BusinessLoginAPI/shop", database)
+        .post("http://localhost:3003/app/BusinessLoginAPI/shop", database)
         .then((response) => {
           res = response.data;
 

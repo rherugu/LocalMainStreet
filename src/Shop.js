@@ -48,7 +48,7 @@ class Shop extends Component {
     if (tokenval) {
       trackPromise(
         axios
-          .get("http://localhost:3006/app/BusinessLoginAPI/shop", { headers })
+          .get("http://localhost:3003/app/BusinessLoginAPI/shop", { headers })
           .then((response) => {
             console.log(response.data);
 
@@ -62,7 +62,7 @@ class Shop extends Component {
       this.onClickLogin();
     }
 
-    axios.get("http://localhost:3006/app/payment/encryption").then((res) => {
+    axios.get("http://localhost:3003/app/payment/encryption").then((res) => {
       if (res.data.status === "success") {
         this.props.history.push({
           pathname: "/QRCode",

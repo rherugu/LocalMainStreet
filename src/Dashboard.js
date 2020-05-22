@@ -16,7 +16,7 @@ const Dashboard = (props) => {
   console.log(props);
   useEffect(async () => {
     await axios
-      .post("http://localhost:3006/app/payment/dashboard", props.location.state)
+      .post("http://localhost:3003/app/payment/dashboard", props.location.state)
       .then((res) => {
         console.log(res);
       })
@@ -25,7 +25,7 @@ const Dashboard = (props) => {
       });
 
     axios
-      .get("http://localhost:3006/app/payment/dashboard")
+      .get("http://localhost:3003/app/payment/dashboard")
       .then((res) => {
         url = res;
         document.location = res.data.url;

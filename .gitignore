@@ -28,3 +28,8 @@ package-lock.json
 
 .now
 
+/public
+/public/index.html
+/build
+/build/index.html
+

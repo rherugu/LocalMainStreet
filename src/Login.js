@@ -52,7 +52,7 @@ class Login extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3006/app/LoginAPI/login", payload)
+        .post("http://localhost:3003/app/LoginAPI/login", payload)
         .then((response) => {
           console.log(response);
           if (response.status === 200) {

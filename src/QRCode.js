@@ -14,6 +14,9 @@ class QRCodejs extends React.Component {
       phone: "",
       sent: "",
       display: "none",
+      wrongEmail: "none",
+      wrongEmailTxt: "Wrong Email?",
+      email: "",
     };
   }
 
@@ -32,7 +35,7 @@ class QRCodejs extends React.Component {
       sent: "Sending...",
     });
     await axios
-      .post("http://localhost:3006/app/contact/getqrcode", { qrcode: img })
+      .post("http://localhost:3003/app/contact/getqrcode", { qrcode: img })
       .then((res) => {
         console.log(res);
       })
@@ -47,7 +50,37 @@ class QRCodejs extends React.Component {
     };
 
     axios
-      .post("http://localhost:3006/app/contact/sendqrcode", mail)
+      .post("http://localhost:3003/app/contact/sendqrcode", mail)
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          sent: "Message sent successfully!",
+        });
+      })
+      .catch((err) => {
+        console.error("ERROR!!!", err);
+      });
+  };
+  handleWrongEmail = async () => {
+    this.setState({
+      display: "flex",
+      sent: "Sending...",
+    });
+    await axios
+      .post("http://localhost:3003/app/contact/getqrcode", { qrcode: img })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    const mail = {
+      emailq: this.state.email,
+    };
+
+    axios
+      .post("http://localhost:3003/app/contact/sendqrcode", mail)
       .then((res) => {
         console.log(res);
         this.setState({
@@ -77,7 +110,7 @@ class QRCodejs extends React.Component {
       });
 
     axios
-      .post("http://localhost:3006/app/contact/phone", {
+      .post("http://localhost:3003/app/contact/phone", {
         phone: this.state.phone,
       })
       .then((res) => {
@@ -95,7 +128,15 @@ class QRCodejs extends React.Component {
     // };
 
     const email = localStorage.getItem("email");
-    const val = `${this.props.location.state.value}`;
+    var valueL;
+    var val;
+    try {
+      val = `${JSON.stringify(this.props.location.state.value)}`;
+      valueL = localStorage.setItem("QRCode", val);
+    } catch (error) {
+      val = localStorage.getItem("QRCode");
+    }
+
     return (
       <div
         style={{
@@ -134,10 +175,7 @@ class QRCodejs extends React.Component {
         ></img>
 
         <br></br>
-        <h3>
-          This QR Code will be sent to you at {email}. Click the button bellow
-          to send.
-        </h3>
+        <h3>Click the button below to send to {email}.</h3>
         <br></br>
         <input type="button" value="Send!" onClick={this.handleEmail}></input>
         <br></br>
@@ -147,10 +185,56 @@ class QRCodejs extends React.Component {
             display: this.state.display,
           }}
         ></br>
-        <a href="" className="link">
-          Wrong email?
+        <a
+          href=""
+          onClick={(e) => {
+            e.preventDefault();
+            if (this.state.wrongEmail === "none") {
+              this.setState({
+                wrongEmail: "flex",
+                wrongEmailTxt: "Hide text input",
+              });
+            }
+            if (this.state.wrongEmail === "flex") {
+              this.setState({
+                wrongEmail: "none",
+                wrongEmailTxt: "Wrong Email?",
+              });
+            }
+          }}
+          className="link"
+        >
+          {this.state.wrongEmailTxt}
         </a>
 
+        <br></br>
+        <div
+          style={{
+            display: this.state.wrongEmail,
+          }}
+        >
+          <input
+            type="text"
+            placeholder="Enter right email"
+            value={this.state.email}
+            onChange={(e) => {
+              this.setState({
+                email: e.target.value,
+              });
+            }}
+          ></input>
+
+          <input
+            style={{
+              height: "44px",
+              marginTop: "6.4px",
+              marginLeft: "3px",
+            }}
+            onClick={this.handleWrongEmail}
+            type="button"
+            value="Submit"
+          ></input>
+        </div>
         <br></br>
 
         {/* <h3>You can also send using SMS: </h3>
