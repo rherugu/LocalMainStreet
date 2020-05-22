@@ -30,6 +30,9 @@ package-lock.json
 
 /public
 /public/index.html
+./public
+./public/index.html
 /build
 /build/index.html
-
+./build
+./build/index.html
