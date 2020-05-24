@@ -1,6 +1,7 @@
 import React from "react";
 import QRCode from "qrcode.react";
 import axios from "axios";
+import "./QRCode.css";
 
 var img;
 
@@ -27,6 +28,8 @@ class QRCodejs extends React.Component {
     this.setState({
       img: img,
     });
+
+    localStorage.setItem("QRCodeUrl", img);
   }
 
   handleEmail = async () => {
@@ -61,7 +64,14 @@ class QRCodejs extends React.Component {
         console.error("ERROR!!!", err);
       });
   };
-  handleWrongEmail = async () => {
+  handleWrongEmail = async (e) => {
+    if (this.state.email === "" || null || undefined) {
+      this.setState({
+        display: "flex",
+        sent: "Please enter an email.",
+      });
+      return 0;
+    }
     this.setState({
       display: "flex",
       sent: "Sending...",
@@ -147,9 +157,10 @@ class QRCodejs extends React.Component {
         }}
       >
         <h1
-          style={{
-            fontSize: "50px",
-          }}
+          // style={{
+          //   fontSize: "50px",
+          // }}
+          className="titleQR"
         >
           Here is your QR code:{" "}
         </h1>
@@ -167,19 +178,27 @@ class QRCodejs extends React.Component {
           ></QRCode>
         </div>
         <img
-          style={{
-            width: "256px",
-            height: "256px",
-          }}
+          // style={{
+          //   width: "256px",
+          //   height: "256px",
+          // }}
+          className="QRCode"
           src={this.state.img}
         ></img>
 
         <br></br>
-        <h3>Click the button below to send to {email}.</h3>
+        <h3 className="sendtxtext">
+          Click the button below to send to {email}.
+        </h3>
         <br></br>
-        <input type="button" value="Send!" onClick={this.handleEmail}></input>
+        <input
+          type="button"
+          className="sendbtnbutton"
+          value="Send!"
+          onClick={this.handleEmail}
+        ></input>
         <br></br>
-        <h3>{this.state.sent}</h3>
+        <h3 className="sendwrngwrong">{this.state.sent}</h3>
         <br
           style={{
             display: this.state.display,
@@ -214,13 +233,16 @@ class QRCodejs extends React.Component {
           }}
         >
           <input
-            type="text"
+            type="email"
             placeholder="Enter right email"
             value={this.state.email}
             onChange={(e) => {
               this.setState({
                 email: e.target.value,
               });
+            }}
+            style={{
+              width: "100%",
             }}
           ></input>
 
@@ -231,7 +253,7 @@ class QRCodejs extends React.Component {
               marginLeft: "3px",
             }}
             onClick={this.handleWrongEmail}
-            type="button"
+            type="submit"
             value="Submit"
           ></input>
         </div>

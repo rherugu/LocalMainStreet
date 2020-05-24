@@ -29,7 +29,34 @@ class CustomerLogin extends Component {
   onClickLogin = () => {
     this.props.history.push("/Login");
   };
+  onClickLogout = () => {
+    localStorage.setItem("token", undefined);
+    localStorage.setItem("Btoken", undefined);
+    this.props.history.push("/login");
+  };
+  componentDidMount() {
+    const tokenval = localStorage.getItem("token");
+    const tokenvalB = localStorage.getItem("Btoken");
 
+    var tokenC = `${tokenval}`;
+    var tokenB = `${tokenvalB}`;
+
+    if (tokenB && tokenC === "undefined") {
+      if (this.state.login === "none") {
+        this.setState({
+          login: "flex",
+          logout: "none",
+        });
+      }
+    } else if (tokenB || tokenC !== "undefined") {
+      if (this.state.login === "flex") {
+        this.setState({
+          login: "none",
+          logout: "flex",
+        });
+      }
+    }
+  }
   constructor(props) {
     super(props);
     this.message = "";
@@ -42,6 +69,8 @@ class CustomerLogin extends Component {
       burger: "0",
       pointerEvents: "none",
       width: "30px",
+      logout: "none",
+      login: "flex",
     };
   }
 
@@ -85,6 +114,9 @@ class CustomerLogin extends Component {
           }
           if (res === '"email" is not allowed to be empty') {
             res = "Please enter your email.";
+          }
+          if (typeof res === "object" && res !== null) {
+            res = "User created successfully! You may login now.";
           }
           alert(res);
         })
@@ -137,10 +169,17 @@ class CustomerLogin extends Component {
           </h3>
           <h3
             className="Hheading2b"
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "20px", display: this.state.login }}
             onClick={this.onClickLogin}
           >
             <span>Login</span>
+          </h3>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px", display: this.state.logout }}
+            onClick={this.onClickLogout}
+          >
+            <span>Logout</span>
           </h3>
         </div>
         <Loader />
@@ -216,8 +255,19 @@ class CustomerLogin extends Component {
             <h3 className="Hheading1" onClick={this.onClickContact}>
               <span>Contact</span>
             </h3>
-            <h3 className="Hheading2" onClick={this.onClickLogin}>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.login }}
+              onClick={this.onClickLogin}
+            >
               <span>Login</span>
+            </h3>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.logout }}
+              onClick={this.onClickLogout}
+            >
+              <span>Logout</span>
             </h3>
           </div>
         </header>

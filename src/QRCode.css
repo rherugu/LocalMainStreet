@@ -1,0 +1,45 @@
+.titleQR {
+  font-size: 50px;
+  text-align: center;
+}
+
+.QRCode {
+  width: 256px;
+  height: 256px;
+}
+
+@media screen and (max-width: 570px) {
+  .titleQR {
+    font-size: 40px;
+  }
+
+  .QRCode {
+    width: 128px;
+    height: 128px;
+  }
+
+  .sendtxtext {
+    transform: scale(0.7);
+  }
+
+  .sendbtnbutton {
+    transform: scale(0.7);
+  }
+
+  .sendwrngwrong {
+    transform: scale(0.7);
+  }
+}
+
+@media screen and (max-width: 512px) {
+  .sendtxtext {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 436px) {
+  .titleQR {
+    font-size: 30px;
+  }
+}

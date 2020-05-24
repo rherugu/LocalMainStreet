@@ -8,9 +8,34 @@ import $ from "jquery";
 import "react-toastify/dist/ReactToastify.css";
 
 class Home extends Component {
-  componentDidMount() {
-    this.title();
+  constructor(props) {
+    super(props);
+    this.state = {
+      fname: "",
+      lname: "",
+      email: "",
+      bname: "",
+      description: "",
+      Address: "",
+      mailSent: false,
+      error: null,
+      PhoneNumber: "",
+      logins: false,
+      name: "",
+      emailc: "",
+      message: "",
+      anchorEl: "",
+      hoverColor: "white",
+      hoverColor2: "white",
+      burger: "0",
+      pointerEvents: "none",
+      width: "30px",
+      logout: "none",
+      login: "flex",
+    };
+    this.cursor = React.createRef();
   }
+
   title = () => {
     document.title = "LocalMainStreet";
   };
@@ -34,30 +59,35 @@ class Home extends Component {
   onClickCustomerLogin = () => {
     this.props.history.push("/CustomerLogin");
   };
-  constructor(props) {
-    super(props);
-    this.state = {
-      fname: "",
-      lname: "",
-      email: "",
-      bname: "",
-      description: "",
-      Address: "",
-      mailSent: false,
-      error: null,
-      PhoneNumber: "",
-      logins: false,
-      name: "",
-      emailc: "",
-      message: "",
-      anchorEl: "",
-      hoverColor: "white",
-      hoverColor2: "white",
-      burger: "0",
-      pointerEvents: "none",
-      width: "30px",
-    };
-    this.cursor = React.createRef();
+
+  onClickLogout = () => {
+    localStorage.setItem("token", undefined);
+    localStorage.setItem("Btoken", undefined);
+    this.props.history.push("/login");
+  };
+
+  componentDidMount() {
+    const tokenval = localStorage.getItem("token");
+    const tokenvalB = localStorage.getItem("Btoken");
+
+    var tokenC = `${tokenval}`;
+    var tokenB = `${tokenvalB}`;
+
+    if (tokenB && tokenC === "undefined") {
+      if (this.state.login === "none") {
+        this.setState({
+          login: "flex",
+          logout: "none",
+        });
+      }
+    } else if (tokenB || tokenC !== "undefined") {
+      if (this.state.login === "flex") {
+        this.setState({
+          login: "none",
+          logout: "flex",
+        });
+      }
+    }
   }
 
   handleFormSubmit(event) {
@@ -158,8 +188,19 @@ class Home extends Component {
           <h3 className="Hheading1b" onClick={this.onClickContact}>
             <span>Contact</span>
           </h3>
-          <h3 className="Hheading2b" onClick={this.onClickLogin}>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px", display: this.state.login }}
+            onClick={this.onClickLogin}
+          >
             <span>Login</span>
+          </h3>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px", display: this.state.logout }}
+            onClick={this.onClickLogout}
+          >
+            <span>Logout</span>
           </h3>
         </div>
         <div className="cursor" ref="cursor"></div>
@@ -234,8 +275,19 @@ class Home extends Component {
             <h3 className="Hheading1" onClick={this.onClickContact}>
               <span>Contact</span>
             </h3>
-            <h3 className="Hheading2" onClick={this.onClickLogin}>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.login }}
+              onClick={this.onClickLogin}
+            >
               <span>Login</span>
+            </h3>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.logout }}
+              onClick={this.onClickLogout}
+            >
+              <span>Logout</span>
             </h3>
           </div>
         </header>

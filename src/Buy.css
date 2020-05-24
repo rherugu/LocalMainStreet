@@ -335,6 +335,12 @@ UN COMMENT TO EDIT!!
 .sr-input,
 .sr-select,
 input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="password"],
+input[type="password"],
+input[type="button"],
+input[type="submit"],
 input[type="number"] {
   border: 1px solid var(--gray-border);
   border-radius: var(--radius);
@@ -350,10 +356,17 @@ input[type="number"] {
   -webkit-appearance: none;
   appearance: none;
   color: #32325d;
+  -webkit-transition: all ease 0.2s;
+  transition: all ease 0.2s;
 }
 
 .sr-input:focus,
 input[type="text"]:focus,
+input[type="search"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="button"]:focus,
+input[type="submit"]:focus,
 button:focus,
 input:focus,
 textarea:focus,

@@ -5,7 +5,7 @@ import "./BusinessLogin.css";
 import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
 import { trackPromise } from "react-promise-tracker";
-import Loader from "./LoaderB";
+import Loader from "./Loader";
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
 
@@ -27,6 +27,11 @@ class BusinessLogin extends Component {
   };
   onClickLogin = () => {
     this.props.history.push("/Login");
+  };
+  onClickLogout = () => {
+    localStorage.setItem("token", undefined);
+    localStorage.setItem("Btoken", undefined);
+    this.props.history.push("/login");
   };
 
   constructor(props) {
@@ -54,7 +59,32 @@ class BusinessLogin extends Component {
       burger: "0",
       pointerEvents: "none",
       width: "30px",
+      logout: "none",
+      login: "flex",
     };
+  }
+  componentDidMount() {
+    const tokenval = localStorage.getItem("token");
+    const tokenvalB = localStorage.getItem("Btoken");
+
+    var tokenC = `${tokenval}`;
+    var tokenB = `${tokenvalB}`;
+
+    if (tokenB && tokenC === "undefined") {
+      if (this.state.login === "none") {
+        this.setState({
+          login: "flex",
+          logout: "none",
+        });
+      }
+    } else if (tokenB || tokenC !== "undefined") {
+      if (this.state.login === "flex") {
+        this.setState({
+          login: "none",
+          logout: "flex",
+        });
+      }
+    }
   }
 
   onSubmitEventHandler = (e) => {
@@ -100,6 +130,7 @@ class BusinessLogin extends Component {
 
   stripe = async (e) => {
     e.preventDefault();
+    var stripeUrl;
 
     console.log(this.state.Address);
 
@@ -150,7 +181,7 @@ class BusinessLogin extends Component {
         console.log("ERROR", err);
       });
 
-    fetch("http://localhost:3003/app/payment/get-oauth-link", {
+    await fetch("http://localhost:3003/app/payment/get-oauth-link", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -160,7 +191,7 @@ class BusinessLogin extends Component {
       .then(async (data) => {
         console.log(data);
         if (data.url) {
-          window.open(data.url, "_blank");
+          stripeUrl = data.url;
         } else {
           alert("Something went wrong.");
         }
@@ -197,6 +228,10 @@ class BusinessLogin extends Component {
           res = response.data;
 
           alert(res.message);
+
+          if (res.message === "Success!") {
+            window.location.assign(stripeUrl);
+          }
 
           if (res.check === 200) {
             return (
@@ -265,10 +300,17 @@ class BusinessLogin extends Component {
           </h3>
           <h3
             className="Hheading2b"
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "20px", display: this.state.login }}
             onClick={this.onClickLogin}
           >
             <span>Login</span>
+          </h3>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px", display: this.state.logout }}
+            onClick={this.onClickLogout}
+          >
+            <span>Logout</span>
           </h3>
         </div>
         <Loader />
@@ -345,8 +387,19 @@ class BusinessLogin extends Component {
             <h3 className="Hheading1" onClick={this.onClickContact}>
               <span>Contact</span>
             </h3>
-            <h3 className="Hheading2" onClick={this.onClickLogin}>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.login }}
+              onClick={this.onClickLogin}
+            >
               <span>Login</span>
+            </h3>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.logout }}
+              onClick={this.onClickLogout}
+            >
+              <span>Logout</span>
             </h3>
           </div>
         </header>

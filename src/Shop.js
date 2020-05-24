@@ -7,6 +7,7 @@ import MediaCard from "./Card";
 import Loader from "./Loader";
 import { trackPromise } from "react-promise-tracker";
 import "react-toastify/dist/ReactToastify.css";
+import Geocode from "react-geocode";
 
 class Shop extends Component {
   onClickHome = () => {
@@ -24,6 +25,11 @@ class Shop extends Component {
   onClickLogin = () => {
     this.props.history.push("/login");
   };
+  onClickLogout = () => {
+    localStorage.setItem("token", undefined);
+    localStorage.setItem("Btoken", undefined);
+    this.props.history.push("/login");
+  };
 
   constructor(props) {
     super(props);
@@ -35,12 +41,35 @@ class Shop extends Component {
       burger: "0",
       pointerEvents: "none",
       width: "30px",
+      logout: "none",
+      login: "flex",
+      search: "",
     };
     this.bname = "";
   }
 
   componentDidMount() {
     const tokenval = localStorage.getItem("token");
+    const tokenvalB = localStorage.getItem("Btoken");
+
+    var tokenC = `${tokenval}`;
+    var tokenB = `${tokenvalB}`;
+
+    if (tokenB && tokenC === "undefined") {
+      if (this.state.login === "none") {
+        this.setState({
+          login: "flex",
+          logout: "none",
+        });
+      }
+    } else if (tokenB || tokenC !== "undefined") {
+      if (this.state.login === "flex") {
+        this.setState({
+          login: "none",
+          logout: "flex",
+        });
+      }
+    }
 
     const headers = {
       "auth-token": tokenval,
@@ -53,6 +82,7 @@ class Shop extends Component {
             console.log(response.data);
 
             this.setState({ shops: response.data });
+            // shops = this.state.shops.map((shop) => shop);
           })
           .catch((err) => {
             this.onClickLogin();
@@ -64,6 +94,19 @@ class Shop extends Component {
 
     axios.get("http://localhost:3003/app/payment/encryption").then((res) => {
       if (res.data.status === "success") {
+        var dl = {
+          name: res.data.businessName,
+          amountPaid: res.data.amountPaid,
+          amountLeft: 4,
+          QRcode: res.data.message,
+        };
+        var counter = 1;
+        localStorage.setItem(`${counter}`, JSON.stringify(dl));
+        var check = localStorage.getItem(`${counter}`);
+        if (check) {
+          counter++;
+        }
+
         this.props.history.push({
           pathname: "/QRCode",
           state: {
@@ -91,9 +134,32 @@ class Shop extends Component {
     });
   };
 
-  render() {
-    const shops = this.state.shops.map((shop) => shop);
+  handleSearch = () => {
+    const tokenval = localStorage.getItem("token");
+    const headers = {
+      "auth-token": tokenval,
+    };
+    axios
+      .post(
+        "http://localhost:3003/app/BusinessLoginAPI/shop/search",
+        {
+          query: this.state.search,
+        },
+        { headers }
+      )
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          shops: res.data.result.map((shop) => shop),
+        });
+        console.log(this.state.shops);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
 
+  render() {
     const phoneNumber = this.state.shops.map((shop) => {
       return <p key={shop._id}>{shop.phoneNumber}</p>;
     });
@@ -113,6 +179,7 @@ class Shop extends Component {
             height: "100%",
             opacity: this.state.burger,
             pointerEvents: this.state.pointerEvents,
+            zIndex: "900909",
           }}
         >
           <h3
@@ -145,15 +212,27 @@ class Shop extends Component {
           </h3>
           <h3
             className="Hheading2b"
-            style={{ fontSize: "20px" }}
+            style={{ fontSize: "20px", display: this.state.login }}
             onClick={this.onClickLogin}
           >
             <span>Login</span>
           </h3>
+          <h3
+            className="Hheading2b"
+            style={{ fontSize: "20px", display: this.state.logout }}
+            onClick={this.onClickLogout}
+          >
+            <span>Logout</span>
+          </h3>
         </div>
         <Loader />
 
-        <header className="Home-Header">
+        <header
+          className="Home-Header"
+          style={{
+            zIndex: "900909",
+          }}
+        >
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
               <img
@@ -224,8 +303,19 @@ class Shop extends Component {
             <h3 className="Hheading1" onClick={this.onClickContact}>
               <span>Contact</span>
             </h3>
-            <h3 className="Hheading2" onClick={this.onClickLogin}>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.login }}
+              onClick={this.onClickLogin}
+            >
               <span>Login</span>
+            </h3>
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.logout }}
+              onClick={this.onClickLogout}
+            >
+              <span>Logout</span>
             </h3>
           </div>
         </header>
@@ -235,44 +325,87 @@ class Shop extends Component {
         <br></br>
         <br></br>
         <br></br>
-        {/* <select
-          value={this.state.businessCatagory}
-          onChange={this.optionChange}
-          className="filter"
+        <div
+          className="search"
+          style={{
+            width: "25%",
+            margin: "auto",
+          }}
         >
-          <option>Restaurant</option>
-          <option>Hair and Nail Salon</option>
-          <option>Grocery</option>
-          <option>Auto</option>
-          <option>Spa & Beauty</option>
-          <option>Massage Parlour</option>
-          <option>Recreation</option>
-          <option>Coffee & Bakery</option>
-          <option>Others</option>
-        </select> */}
-
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
-        <div className="gridlist">
-          <div className="card">
-            {shops.map((shop) => (
-              <MediaCard
-                card={shop}
-                className="MediaCard"
-                bname={shop.bname}
-                description={shop.description}
-                phoneNumber={shop.phoneNumber}
-                history={this.props.history}
-                businessCatagory={shop.businessCatagory}
-                stripeId={shop.stripeAccountId}
-                address={shop.address}
-              />
-            ))}
+          <label
+            style={{
+              cursor: "text",
+            }}
+          >
+            Search Businesses
+          </label>
+          <div
+            className="search-main"
+            style={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <input
+              placeholder="Enter search query here"
+              type="text"
+              className="searchBar"
+              value={this.state.search}
+              onChange={(e) => {
+                this.setState({
+                  search: e.target.value,
+                });
+              }}
+            ></input>
+            <input
+              type="button"
+              className="searchSubmit"
+              value="Search"
+              onClick={this.handleSearch}
+            ></input>
+            <br></br>
+            <input
+              type="button"
+              className="searchSubmit"
+              value="View businesses based on your location"
+              onClick={() => {
+                var lat;
+                var lng;
+                navigator.geolocation.getCurrentPosition((position) => {
+                  console.log("Latitude is :", position.coords.latitude);
+                  console.log("Longitude is :", position.coords.longitude);
+                  lat = position.coords.latitude;
+                  lng = position.coords.longitude;
+                  Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+                  Geocode.fromLatLng(lat, lng).then(
+                    (response) => {
+                      const address = response.results[0].formatted_address;
+                      console.log(address);
+                    },
+                    (error) => {
+                      console.error(error);
+                    }
+                  );
+                });
+              }}
+            ></input>
           </div>
+        </div>
+
+        <div className="gridlist">
+          {this.state.shops.map((shop) => (
+            <MediaCard
+              card={shop}
+              className="MediaCard"
+              bname={shop.bname}
+              description={shop.description}
+              phoneNumber={shop.phoneNumber}
+              history={this.props.history}
+              businessCatagory={shop.businessCatagory}
+              stripeId={shop.stripeAccountId}
+              address={shop.address}
+            />
+          ))}
         </div>
         <p className="end">It looks like you've reached the end.</p>
         <div className="donate">
