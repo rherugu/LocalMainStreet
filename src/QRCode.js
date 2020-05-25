@@ -196,6 +196,9 @@ class QRCodejs extends React.Component {
           className="sendbtnbutton"
           value="Send!"
           onClick={this.handleEmail}
+          style={{
+            width: "20%",
+          }}
         ></input>
         <br></br>
         <h3 className="sendwrngwrong">{this.state.sent}</h3>

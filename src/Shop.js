@@ -135,28 +135,111 @@ class Shop extends Component {
   };
 
   handleSearch = () => {
-    const tokenval = localStorage.getItem("token");
-    const headers = {
-      "auth-token": tokenval,
-    };
-    axios
-      .post(
-        "http://localhost:3003/app/BusinessLoginAPI/shop/search",
-        {
-          query: this.state.search,
-        },
-        { headers }
-      )
-      .then((res) => {
-        console.log(res);
-        this.setState({
-          shops: res.data.result.map((shop) => shop),
+    if (/\S/.test(this.state.search)) {
+      const tokenval = localStorage.getItem("token");
+      const headers = {
+        "auth-token": tokenval,
+      };
+      axios
+        .post(
+          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
+          {
+            query: this.state.search,
+          },
+          { headers }
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            shops: res.data.result.map((shop) => shop),
+          });
+          console.log(this.state.shops);
+        })
+        .catch((err) => {
+          console.error(err);
         });
-        console.log(this.state.shops);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    } else if (this.state.search === "" || null || undefined) {
+      const tokenval = localStorage.getItem("token");
+      const headers = {
+        "auth-token": tokenval,
+      };
+      axios
+        .post(
+          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
+          {
+            query: this.state.search,
+          },
+          { headers }
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            shops: res.data.result.map((shop) => shop),
+          });
+          console.log(this.state.shops);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else {
+      return 0;
+    }
+  };
+
+  keySearch = (e) => {
+    if (e.keyCode == 13) {
+      if (/\S/.test(this.state.search)) {
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
+        axios
+          .post(
+            "http://localhost:3003/app/BusinessLoginAPI/shop/search",
+            {
+              query: this.state.search,
+            },
+            { headers }
+          )
+          .then((res) => {
+            console.log(res);
+            this.setState({
+              shops: res.data.result.map((shop) => shop),
+            });
+            console.log(this.state.shops);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else if (this.state.search === "" || null || undefined) {
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
+        axios
+          .post(
+            "http://localhost:3003/app/BusinessLoginAPI/shop/search",
+            {
+              query: this.state.search,
+            },
+            { headers }
+          )
+          .then((res) => {
+            console.log(res);
+            this.setState({
+              shops: res.data.result.map((shop) => shop),
+            });
+            console.log(this.state.shops);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else {
+        return 0;
+      }
+    } else {
+      return 0;
+    }
   };
 
   render() {
@@ -356,6 +439,7 @@ class Shop extends Component {
                   search: e.target.value,
                 });
               }}
+              onKeyDown={this.keySearch}
             ></input>
             <input
               type="button"

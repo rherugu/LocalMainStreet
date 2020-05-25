@@ -281,7 +281,6 @@ input[type="text"],
 input[type="search"],
 input[type="email"],
 input[type="password"],
-input[type="password"],
 input[type="button"],
 input[type="submit"],
 input[type="number"] {
@@ -305,7 +304,6 @@ input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="button"]:focus,
 input[type="submit"]:focus,
-button:focus,
 input:focus,
 textarea:focus,
 option:focus,
@@ -374,7 +372,7 @@ input[type="number"]::placeholder {
   cursor: pointer;
 }
 input:focus,
-button:focus,
+// button:focus,
 option:focus,
 textarea:focus {
   box-shadow: 0 0 0 1px rgba(50, 151, 211, 0.3), 0 1px 1px 0 rgba(0, 0, 0, 0.07),
