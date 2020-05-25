@@ -102,6 +102,17 @@ class QRCodejs extends React.Component {
       });
   };
 
+  refund = () => {
+    axios
+      .get("http://localhost:3003/app/payment/refund")
+      .then((res) => {
+        console.info(res);
+      })
+      .catch((err) => {
+        console.error("refund err: ", err);
+      });
+  };
+
   phone = async (e) => {
     e.preventDefault();
 
@@ -261,6 +272,16 @@ class QRCodejs extends React.Component {
           ></input>
         </div>
         <br></br>
+
+        <input
+          type="button"
+          className="sendbtnbutton"
+          value="Refund this payment"
+          onClick={this.refund}
+          style={{
+            width: "20%",
+          }}
+        ></input>
 
         {/* <h3>You can also send using SMS: </h3>
         <input

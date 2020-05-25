@@ -44,6 +44,7 @@ class Shop extends Component {
       logout: "none",
       login: "flex",
       search: "",
+      modal: true,
     };
     this.bname = "";
   }
@@ -117,6 +118,25 @@ class Shop extends Component {
         console.log("User has not bought anything yet.");
       }
     });
+    return (
+      <div
+        style={{
+          zIndex: 999999999999999999999999999999999999999999999,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "50%",
+          height: "50%",
+          backgroundColor: "red",
+        }}
+      >
+        // When I stop working, you stop working // when I start working, you
+        start working, even at 6(sometimes) // you will work as diligently as me
+        // Deal?
+        <h1>Please contribute and Donate to us.</h1>
+        <h3>Even 1 dollar makes a difference!</h3>
+      </div>
+    );
   }
 
   optionChange = (e) => {
@@ -492,9 +512,6 @@ class Shop extends Component {
           ))}
         </div>
         <p className="end">It looks like you've reached the end.</p>
-        <div className="donate">
-          <h3 unselectable="on">Donate to us!</h3>
-        </div>
       </div>
     );
   }

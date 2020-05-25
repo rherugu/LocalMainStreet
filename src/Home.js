@@ -331,6 +331,21 @@ class Home extends Component {
             </div>
           </div>
         </div>
+        {/* <div
+          className="scrollDown"
+          style={{
+            position: "fixed",
+            left: "50%",
+            top: "70vh",
+            transform: "translate(-50%)",
+            height: "300px",
+            width: "150px",
+            zIndex: 99999999999999999999999999999999999,
+          }}
+        ></div> */}
+        <div className="bounce">
+          <i className="fa fa-angle-double-down"></i>
+        </div>
         <div className="section">
           <div className="bgcover">
             <big style={{ textAlign: "center" }}>

@@ -17,6 +17,7 @@ import Success from "./Success";
 import TermsOfUse from "./TermsOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
 import fourofour from "./fourofour";
+import ForgotPass from "./ForgotPass";
 
 class App extends Component {
   render() {
@@ -68,6 +69,11 @@ class App extends Component {
             exact
             path="/PrivacyPolicy"
             render={(props) => <PrivacyPolicy {...props} />}
+          />
+          <Route
+            exact
+            path="/ForgotPass"
+            render={(props) => <ForgotPass {...props} />}
           />
           <Route component={fourofour} />
         </Switch>

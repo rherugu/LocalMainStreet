@@ -8,6 +8,10 @@ import { BrowserRouter as Router, Link } from "react-router-dom";
 import { trackPromise } from "react-promise-tracker";
 import Loader from "./Loader";
 
+const Cryptr = require("cryptr");
+const cryptr = new Cryptr(process.env.REACT_APP_KEY);
+var keyCode;
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -28,6 +32,12 @@ class Login extends Component {
       width: "30px",
       logout: "none",
       login: "flex",
+      forgotPass: "none",
+      emailp: "",
+      keyCode: "none",
+      keyCodeVal: "",
+      newP: "none",
+      newPVal: "",
     };
   }
   onClickHome = () => {
@@ -121,6 +131,63 @@ class Login extends Component {
           alert("Incorrect email or password.");
         })
     );
+  };
+
+  forgotPass = () => {
+    if (this.state.forgotPass === "none") {
+      this.setState({
+        forgotPass: "flex",
+      });
+    }
+    if (this.state.forgotPass === "flex") {
+      this.setState({
+        forgotPass: "none",
+      });
+    }
+  };
+
+  passwordSend = async (e) => {
+    if (e.keyCode == 13) {
+      await axios
+        .post("http://localhost:3003/app/contact/resetPass", {
+          emailp: this.state.emailp,
+        })
+        .then((res) => {
+          console.info(res);
+          keyCode = cryptr.decrypt(res.data.encKey);
+          this.setState({
+            keyCode: "flex",
+          });
+        })
+        .catch((err) => {
+          console.error("err", err);
+        });
+    } else {
+      return 0;
+    }
+  };
+
+  keyCodeValCheck = async (e) => {
+    if (e.keyCode == 13) {
+      if (this.state.keyCodeVal === keyCode) {
+        this.setState({
+          newP: "flex",
+        });
+      } else {
+        alert("Invalid Code");
+      }
+    } else {
+      return 0;
+    }
+  };
+
+  updatePass = async (e) => {
+    if (e.keyCode == 13) {
+      // axios.patch("http://localhost:3003/app/")
+      alert("testing");
+    } else {
+      return 0;
+    }
   };
 
   render() {
@@ -457,6 +524,84 @@ class Login extends Component {
                   <span>Business</span> */}
                 </div>
                 <br></br>
+              </div>
+              <a
+                href="javascript:void(0)"
+                onClick={this.forgotPass}
+                className="link"
+              >
+                Forgot Password?
+              </a>
+              <br></br>
+              <br></br>
+              <br></br>
+              <div
+                style={{
+                  display: this.state.forgotPass,
+                  flexDirection: "column",
+                }}
+              >
+                <label>
+                  Enter your email so we can send you a confirmation link.
+                </label>
+                <input
+                  type="email"
+                  value={this.state.emailp}
+                  onChange={(e) => {
+                    this.setState({
+                      emailp: e.target.value,
+                    });
+                  }}
+                  placeholder="Email"
+                  onKeyDown={this.passwordSend}
+                ></input>
+                <small>
+                  <h4>Click Enter to submit</h4>
+                </small>
+              </div>
+
+              <div
+                style={{
+                  display: this.state.keyCode,
+                  flexDirection: "column",
+                }}
+              >
+                <label>
+                  Email Sent! Check your email and enter the confirmation key:
+                </label>
+                <input
+                  type="text"
+                  value={this.state.keyCodeVal}
+                  onChange={(e) => {
+                    this.setState({
+                      keyCodeVal: e.target.value,
+                    });
+                  }}
+                  placeholder="Key"
+                  onKeyDown={this.keyCodeValCheck}
+                ></input>
+                <small>
+                  <h4>Click Enter to submit</h4>
+                </small>
+              </div>
+              <div
+                style={{
+                  display: this.state.newP,
+                  flexDirection: "column",
+                }}
+              >
+                <label>Enter new password:</label>
+                <input
+                  type="text"
+                  value={this.state.newPVal}
+                  onChange={(e) => {
+                    this.setState({
+                      newPVal: e.target.value,
+                    });
+                  }}
+                  placeholder="New Password"
+                  onKeyDown={this.updatePass}
+                ></input>
               </div>
             </form>
           </div>

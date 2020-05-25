@@ -24,8 +24,6 @@ const useStyles = makeStyles({
 export default function MediaCard(props) {
   const classes = useStyles();
 
-  console.log(props.address);
-
   var image;
   if (props.businessCatagory === "Restaurant") {
     image = "resteraunt.png";
