@@ -406,7 +406,87 @@ class Home extends Component {
                 </div>
               </div>
             </div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <big style={{ textAlign: "center" }}>
+              <big>
+                <big>
+                  <big>
+                    <big>
+                      <h1 className="WWA22">How it Works</h1>
+                    </big>
+                  </big>
+                </big>
+              </big>
+            </big>
+            <div className="parentvid11">
+              <big>
+                <div
+                  className="textvid"
+                  style={{ textAlign: "center", margin: "auto" }}
+                >
+                  <div
+                    className="circle c1"
+                    style={{ textAlign: "center", margin: "auto" }}
+                  >
+                    {" "}
+                    <img
+                      src="https://img.icons8.com/officel/220/000000/add-user-male.png"
+                      alt="register"
+                    />
+                    <br></br>
+                    <span>Create an Account</span>
+                  </div>
+                  <div
+                    className="circle c2"
+                    style={{
+                      textAlign: "center",
+                      margin: "auto",
+                    }}
+                  >
+                    <img
+                      src="https://img.icons8.com/ios/220/000000/for-you.png"
+                      alt="pay and help local businesess"
+                    />
 
+                    <br></br>
+                    <span>Find your favorite Local Business</span>
+                  </div>
+                  <div
+                    className="circle c2"
+                    style={{
+                      textAlign: "center",
+                      margin: "auto",
+                    }}
+                  >
+                    <img
+                      src="https://img.icons8.com/cotton/220/000000/mobile-payment--v3.png"
+                      alt="pay and help local businesess"
+                    />
+
+                    <br></br>
+                    <span>
+                      Buy Gift Cards/Vouchers <br></br>
+                      (Secured by Stripe®)
+                    </span>
+                  </div>
+                  <div
+                    className="circle c3"
+                    style={{ textAlign: "center", margin: "auto" }}
+                  >
+                    <img
+                      src="https://img.icons8.com/bubbles/220/000000/qr-code.png"
+                      alt="help local businesses shop local qrcode"
+                    />
+                    <br></br>
+                    <span>
+                      Get the QR Code by email<br></br> Redeem it later
+                    </span>
+                  </div>
+                </div>
+              </big>
+            </div>
             <div className="AvailableP">
               <big>
                 <big>
