@@ -32,6 +32,8 @@ class Home extends Component {
       width: "30px",
       logout: "none",
       login: "flex",
+      hoverColor3: "white",
+      hoverColor4: "white",
     };
     this.cursor = React.createRef();
   }
@@ -532,6 +534,8 @@ class Home extends Component {
 
             <a
               className="terms link"
+              target="_blank"
+              href="/TermsOfUse"
               style={{
                 zIndex: "999909090",
                 width: "max-content",
@@ -547,14 +551,13 @@ class Home extends Component {
                   hoverColor: "white",
                 });
               }}
-              onClick={() => {
-                this.props.history.push("/TermsOfUse");
-              }}
             >
               Terms and Conditions
             </a>
             <a
               className="terms link"
+              target="_blank"
+              href="/PrivacyPolicy"
               style={{
                 zIndex: "999909090",
                 width: "max-content",
@@ -570,11 +573,56 @@ class Home extends Component {
                   hoverColor2: "white",
                 });
               }}
-              onClick={() => {
-                this.props.history.push("/PrivacyPolicy");
-              }}
             >
               Privacy Policy
+            </a>
+            <br></br>
+            <a
+              href="https://icons8.com/"
+              target="_blank"
+              style={{
+                zIndex: "999909090",
+                width: "max-content",
+                color: this.state.hoverColor3,
+                marginLeft: "24px",
+              }}
+              className="terms link"
+              onMouseEnter={() => {
+                this.setState({
+                  hoverColor3: "black",
+                });
+              }}
+              onMouseLeave={() => {
+                this.setState({
+                  hoverColor3: "white",
+                });
+              }}
+            >
+              All Icons by Icons8®.
+            </a>
+            <br></br>
+            <br></br>
+            <a
+              href="javascript:void(0)"
+              style={{
+                zIndex: "999909090",
+                width: "max-content",
+                color: this.state.hoverColor4,
+                marginLeft: "24px",
+              }}
+              className="terms link"
+              onMouseEnter={() => {
+                this.setState({
+                  hoverColor4: "black",
+                });
+              }}
+              onMouseLeave={() => {
+                this.setState({
+                  hoverColor4: "white",
+                });
+              }}
+            >
+              Copyright LocalMainStreet© 2020. All Rights Reserved.
             </a>
           </div>
 
