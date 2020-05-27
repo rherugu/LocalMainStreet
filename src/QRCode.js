@@ -226,6 +226,7 @@ class QRCodejs extends React.Component {
     try {
       val = `${JSON.stringify(this.props.location.state.value)}`;
       valueL = localStorage.setItem("QRCode", val);
+      console.log(valueL);
     } catch (error) {
       val = localStorage.getItem("QRCode");
     }
@@ -260,14 +261,7 @@ class QRCodejs extends React.Component {
             id="mycanvas"
           ></QRCode>
         </div>
-        <img
-          // style={{
-          //   width: "256px",
-          //   height: "256px",
-          // }}
-          className="QRCode"
-          src={this.state.img}
-        ></img>
+        <img alt="qr code bought" className="QRCode" src={this.state.img}></img>
 
         <br></br>
         <h3 className="sendtxtext">
@@ -293,7 +287,7 @@ class QRCodejs extends React.Component {
           }}
         ></br>
         <a
-          href=""
+          href="javascript:void(0)"
           onClick={(e) => {
             e.preventDefault();
             if (this.state.wrongEmail === "none") {

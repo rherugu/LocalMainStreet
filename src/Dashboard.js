@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from "react";
-import StripeCheckout from "react-stripe-checkout";
-import { toast } from "react-toastify";
 import axios from "axios";
 import "./Dashboard.css";
-import Button from "@material-ui/core/Button";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
 import "react-toastify/dist/ReactToastify.css";
 
 const Dashboard = (props) => {
