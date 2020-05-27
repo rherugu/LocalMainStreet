@@ -91,7 +91,7 @@ class CustomerLogin extends Component {
           "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/",
           payload
         )
-        .then(function (response) {
+        .then((response) => {
           res = response.data;
           if (res === '"password" length must be at least 6 characters long') {
             res =
@@ -117,7 +117,56 @@ class CustomerLogin extends Component {
             res = "Please enter your email.";
           }
           if (typeof res === "object" && res !== null) {
-            res = "User created successfully! You may login now.";
+            res = "User created successfully!";
+            const payload = {
+              email: this.state.email,
+              password: this.state.Password,
+            };
+            trackPromise(
+              axios
+                .post(
+                  "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+                  payload
+                )
+                .then((response) => {
+                  console.log(response);
+                  if (response.status === 200) {
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("email", response.data.email);
+                    localStorage.setItem("fname", response.data.fname);
+                    localStorage.setItem("lname", response.data.lname);
+                  }
+                  const tokenval = localStorage.getItem("token");
+                  console.log(tokenval);
+                  console.log(response.data.stripeId);
+
+                  if (!tokenval) {
+                    alert("Incorrect email or password.");
+                  }
+                  if (response.data.url === "/Shop") {
+                    this.props.history.push("/Shop");
+                  } else if (
+                    response.data.url === "/Dashboard" &&
+                    response.data.stripeId
+                  ) {
+                    this.props.history.push({
+                      pathname: "/Dashboard",
+                      state: {
+                        // tour: "no",
+                        stripeAccountId: response.data.stripeId,
+                      },
+                    });
+                  } else {
+                    alert(
+                      "Whoops! Something wrong happened. Possible causes are that this account has not registered properly."
+                    );
+                  }
+                })
+                .catch(function (err) {
+                  // alert(err);
+                  alert("Incorrect email or password.");
+                })
+            );
           }
           alert(res);
         })

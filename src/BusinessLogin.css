@@ -201,3 +201,7 @@ body {
   transform: translateY(0);
   transition: transform 0.25s ease-out;
 }
+
+.ze {
+  width: 60% !important;
+}

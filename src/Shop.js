@@ -492,7 +492,7 @@ class Shop extends Component {
               onClick={this.handleSearch}
             ></input>
             <br></br>
-            <input
+            {/* <input
               type="button"
               className="searchSubmit"
               value="View businesses based on your location"
@@ -516,7 +516,7 @@ class Shop extends Component {
                   );
                 });
               }}
-            ></input>
+            ></input> */}
             <br></br>
             {/* <a
               href="javascript:void(0)"

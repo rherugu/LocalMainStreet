@@ -1,5 +1,5 @@
 .login {
-  height: 100vh;
+  height: 100%;
   position: fixed;
   width: 100%;
   z-index: -2;
@@ -7,6 +7,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
 }
 
 .titleLog {
@@ -18,6 +20,8 @@
   align-items: center;
   flex-direction: column;
   margin: 0;
+  width: 100vw;
+  margin-top: 10vh;
 }
 
 /* fancy Button */
@@ -36,6 +40,9 @@
 .fancy-button22121,
 .ee {
   transform: scale(0.61);
+}
+.oo {
+  width: unset !important;
 }
 .fancy-button {
   transform: scale(0.8);

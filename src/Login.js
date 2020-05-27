@@ -45,6 +45,7 @@ class Login extends Component {
       succfcusbusfp2: "Click Enter to submit",
       succfcusbusfp3: "Click Enter to submit",
       succfcusbusfp4: "Click Enter to submit",
+      caps: "hidden",
     };
   }
   onClickHome = () => {
@@ -195,6 +196,14 @@ class Login extends Component {
             succfcusbusfp2: "Success!",
           });
           console.log(this.state.id);
+        })
+        .catch((e) => {
+          this.setState({
+            succfcusbusfp2: "This email is not in our database.",
+          });
+          this.setState({
+            keyCode: "none",
+          });
         });
     } else {
       return 0;
@@ -239,6 +248,7 @@ class Login extends Component {
           this.setState({
             succfcusbusfp4: "Success! You may login now.",
           });
+          window.location.reload();
         })
         .catch((err) => {
           console.error("ERROR!!!", err);
@@ -255,8 +265,10 @@ class Login extends Component {
       input.addEventListener("keyup", function (event) {
         if (event.getModifierState("CapsLock")) {
           text.style.display = "block";
+          text.style.visibility = "visible";
         } else {
           text.style.display = "none";
+          text.style.visibility = "hidden";
         }
       });
     }
@@ -407,16 +419,16 @@ class Login extends Component {
           <div className="formL">
             {/* {this.errorMessage ? <h2>{this.errorMessage}</h2> : null} */}
 
-            <big>
+            <form className="formL">
               <big>
                 <big>
-                  <h1 className="titleLog" style={{ color: "#111111" }}>
-                    Login
-                  </h1>
+                  <big>
+                    <h1 className="titleLog" style={{ color: "#111111" }}>
+                      Login
+                    </h1>
+                  </big>
                 </big>
               </big>
-            </big>
-            <form className="formL">
               <big>
                 <big>
                   <big>
@@ -460,8 +472,20 @@ class Login extends Component {
                   backgroundColor: "#DDDDDD",
                 }}
                 required
+                onLoad={() => {
+                  this.setState({
+                    caps: "hidden",
+                  });
+                }}
               />
-              <h5 id="CapsLock">Warning! You have Caps-Lock on.</h5>
+              <h5
+                id="CapsLock"
+                style={{
+                  visibility: this.state.caps,
+                }}
+              >
+                Warning! You have Caps-Lock on.
+              </h5>
               <a
                 href="#"
                 className="fancy-button22121 pop-onhover bg-gradient3 oo"

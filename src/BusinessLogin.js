@@ -629,7 +629,7 @@ class BusinessLogin extends Component {
             <br></br>
             <a
               href="javascript:void(0)"
-              className="fancy-button pop-onhover bg-gradient3 oo ee"
+              className="fancy-button pop-onhover bg-gradient3 oo ee ze"
               onClick={this.stripe}
               type="submit"
             >
@@ -643,7 +643,12 @@ class BusinessLogin extends Component {
               </span>
             </a>
 
-            <h6 className="termsforstripe">
+            <h6
+              className="termsforstripe"
+              style={{
+                marginBottom: "200px",
+              }}
+            >
               By registering your account, you agree to Stripe's&nbsp;
               <a href="https://stripe.com/legal" className="link">
                 Services Agreement
