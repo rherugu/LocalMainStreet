@@ -215,7 +215,12 @@ class QRCodejs extends React.Component {
     // img = await canvas.toDataURL("image/png");
     // };
 
-    const email = localStorage.getItem("email");
+    var email;
+    if (localStorage.getItem("email") === "undefined") {
+      email = localStorage.getItem("emailb");
+    } else if (localStorage.getItem("emailb") === "undefined") {
+      email = localStorage.getItem("email");
+    }
     var valueL;
     var val;
     try {

@@ -109,6 +109,7 @@ class Login extends Component {
           if (response.status === 200) {
             localStorage.setItem("token", response.data.token);
             localStorage.setItem("email", response.data.email);
+            localStorage.setItem("emailb", response.data.emailb);
             localStorage.setItem("fname", response.data.fname);
             localStorage.setItem("lname", response.data.lname);
           }
