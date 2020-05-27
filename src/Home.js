@@ -123,7 +123,10 @@ class Home extends Component {
       };
 
       axios
-        .post("http://localhost:3003/app/contact/send", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/contact/send",
+          payload
+        )
         .then((response) => {
           if (response.data.status === "success") {
             toast("Thank you very much for your feedback.", {
@@ -295,19 +298,23 @@ class Home extends Component {
           <div className="Home">
             <title>LocalMainStreet</title>
 
-            <h1 className="textloop">
-              We Bring&nbsp;
-              <TextLoop
-                interval={2000}
-                springConfig={{ stiffness: 180, damping: 8 }}
-              >
-                <span className="ICG">&nbsp;People&nbsp;</span>
-                <span className="ICG">&nbsp;Businesses&nbsp;</span>
-                <span className="ICG">&nbsp;Communities&nbsp;</span>
-              </TextLoop>{" "}
-              Together.
+            <h1
+              className="textloop"
+              style={{
+                textAlign: "center",
+              }}
+            >
+              It Takes a Family to Raise a Child.<br></br>It Takes a Community
+              to Raise a Business.
             </h1>
-            <h2 className="textloop2">Together, we win!</h2>
+            {/* <h2
+              style={{
+                color: "white",
+              }}
+              className="Anonymous"
+            >
+              <i>- Anonymous</i>
+            </h2> */}
 
             {/* <button style={{ visibility: "hidden" }}>
               <div
@@ -343,11 +350,22 @@ class Home extends Component {
             zIndex: 99999999999999999999999999999999999,
           }}
         ></div> */}
-        <div className="bounce">
-          <i className="fa fa-angle-double-down"></i>
-        </div>
+        <a href="#WhatWeDo">
+          <div
+            className="bounce"
+            style={{
+              cursor: "pointer",
+            }}
+          >
+            <i className="fa fa-angle-double-down"></i>
+          </div>
+        </a>
         <div className="section">
-          <div className="bgcover">
+          <div className="bgcover" id="WhatWeDo">
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <big style={{ textAlign: "center" }}>
               <big>
                 <big>
@@ -482,22 +500,30 @@ class Home extends Component {
 
           <form className="contactus">
             <input
+              type="text"
               className="app-form-control"
               placeholder="NAME"
               value={this.state.name}
               onChange={(e) => this.setState({ name: e.target.value })}
             ></input>
             <input
+              type="text"
               className="app-form-control"
               placeholder="EMAIL"
               value={this.state.emailc}
               onChange={(e) => this.setState({ emailc: e.target.value })}
             ></input>
             <textarea
-              className="app-form-control"
+              // className="app-form-control"
               placeholder="MESSAGE"
+              rows="5"
+              type="text"
               value={this.state.message}
               onChange={(e) => this.setState({ message: e.target.value })}
+              s
+              style={{
+                height: "100%",
+              }}
             ></textarea>
 
             <div className="app-form-group buttons">

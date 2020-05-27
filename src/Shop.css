@@ -93,14 +93,17 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%);
+  text-align: center;
+  margin: 0 auto;
 }
 
 .gridlist .card {
   width: 100%;
-  margin-bottom: 1em;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
   break-inside: avoid;
+  margin: 0 auto;
+  display: inline-block;
 }
 
 .gridlist MediaCard {
@@ -108,14 +111,18 @@
   page-break-inside: avoid;
   break-inside: avoid;
   width: 100%;
+  margin: 0 auto;
+  display: inline-block;
 }
 
 .MediaCard {
   width: 100%;
-  margin-bottom: 1em;
   break-inside: avoid;
   -webkit-column-break-inside: avoid;
   page-break-inside: avoid;
+  margin: 0 auto;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 @media (max-width: 2178px) {
@@ -143,10 +150,20 @@
   .gridlist {
     column-count: 1;
   }
+  .search {
+    width: 190%;
+    margin: unset;
+  }
+}
+
+.search {
+  width: 25%;
+  margin: auto;
 }
 
 .searchBar {
   z-index: 0;
+  width: 100%;
 }
 .end {
   display: flex;

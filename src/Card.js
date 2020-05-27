@@ -46,7 +46,13 @@ export default function MediaCard(props) {
   }
 
   return (
-    <div className={props.className}>
+    <div
+      className={props.className}
+      style={{
+        display: "inline-block",
+        margin: "0 auto",
+      }}
+    >
       <Card className={classes.root}>
         <CardActionArea
           onClick={() => {
@@ -144,6 +150,7 @@ export default function MediaCard(props) {
           </Button>
         </CardActions>
       </Card> */}
+      <br></br>
     </div>
   );
 }

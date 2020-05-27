@@ -89,7 +89,10 @@ class Contact extends Component {
       };
 
       axios
-        .post("http://localhost:3003/app/contact/send", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/contact/send",
+          payload
+        )
         .then((response) => {
           if (response.data.status === "success") {
             toast("Thank you very much for your feedback.", {
@@ -271,49 +274,45 @@ class Contact extends Component {
           <br></br>
           <form className="formC">
             <input
-              className="inputC"
-              placeholder="NAME"
-              rows="1"
+              type="text"
               value={this.state.name}
               onChange={(e) => this.setState({ name: e.target.value })}
+              placeholder="Name"
             ></input>
             <input
-              className="inputC"
-              placeholder="EMAIL"
-              rows="1"
+              type="text"
               value={this.state.emailc}
               onChange={(e) => this.setState({ emailc: e.target.value })}
+              placeholder="Email"
             ></input>
             <textarea
-              className="inputC"
-              placeholder="MESSAGE"
-              rows="6"
+              rows="5"
               value={this.state.message}
               onChange={(e) => this.setState({ message: e.target.value })}
+              placeholder="Message"
+              style={{
+                width: "100%",
+                height: "100%",
+              }}
             ></textarea>
-
-            <div className="ButtonsC">
-              <button
-                className="ButtonC"
-                type="reset"
-                onClick={() => {
-                  this.setState({
-                    name: "",
-                    emailc: "",
-                    message: "",
-                  });
-                }}
-              >
-                CANCEL
-              </button>
-              <button
-                className="ButtonC"
-                onClick={this.handleSubmit}
-                type="submit"
-              >
-                SEND
-              </button>
-            </div>
+            <br></br>
+            <input
+              type="button"
+              onClick={this.handleSubmit}
+              value="Submit"
+            ></input>
+            <br></br>
+            <input
+              type="button"
+              onClick={() => {
+                this.setState({
+                  name: "",
+                  emailc: "",
+                  message: "",
+                });
+              }}
+              value="Cancel"
+            ></input>
           </form>
         </main>
       </div>

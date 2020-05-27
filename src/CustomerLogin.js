@@ -7,9 +7,7 @@ import "react-awesome-button/dist/styles.css";
 import { trackPromise } from "react-promise-tracker";
 import Loader from "./Loader";
 
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-
-const qs = require("querystring");
+import { Link } from "react-router-dom";
 
 var res = "f";
 
@@ -89,7 +87,10 @@ class CustomerLogin extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3003/app/LoginAPI/posts/", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/",
+          payload
+        )
         .then(function (response) {
           res = response.data;
           if (res === '"password" length must be at least 6 characters long') {
@@ -124,7 +125,9 @@ class CustomerLogin extends Component {
           console.log(err);
         })
     );
-    this.state.displaymessage = "visible";
+    this.setState({
+      displaymessage: "visible",
+    });
   };
 
   render() {
@@ -368,7 +371,7 @@ class CustomerLogin extends Component {
           <br></br>
 
           <a
-            href="#"
+            href="javascript:void(0)"
             className="fancy-button pop-onhover bg-gradient3 oo"
             onClick={this.onSubmitEventHandler}
             type="submit"

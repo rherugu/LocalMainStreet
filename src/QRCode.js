@@ -18,6 +18,10 @@ class QRCodejs extends React.Component {
       wrongEmail: "none",
       wrongEmailTxt: "Wrong Email?",
       email: "",
+      name: "",
+      emailf: "",
+      refund: "block",
+      message: "",
     };
   }
 
@@ -38,7 +42,10 @@ class QRCodejs extends React.Component {
       sent: "Sending...",
     });
     await axios
-      .post("http://localhost:3003/app/contact/getqrcode", { qrcode: img })
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/getqrcode",
+        { qrcode: img }
+      )
       .then((res) => {
         console.log(res);
       })
@@ -53,7 +60,10 @@ class QRCodejs extends React.Component {
     };
 
     axios
-      .post("http://localhost:3003/app/contact/sendqrcode", mail)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcode",
+        mail
+      )
       .then((res) => {
         console.log(res);
         this.setState({
@@ -77,7 +87,10 @@ class QRCodejs extends React.Component {
       sent: "Sending...",
     });
     await axios
-      .post("http://localhost:3003/app/contact/getqrcode", { qrcode: img })
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/getqrcode",
+        { qrcode: img }
+      )
       .then((res) => {
         console.log(res);
       })
@@ -90,7 +103,10 @@ class QRCodejs extends React.Component {
     };
 
     axios
-      .post("http://localhost:3003/app/contact/sendqrcode", mail)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcode",
+        mail
+      )
       .then((res) => {
         console.log(res);
         this.setState({
@@ -102,26 +118,66 @@ class QRCodejs extends React.Component {
       });
   };
 
-  refund = () => {
-    axios
-      .get("http://localhost:3003/app/payment/refund")
+  refund = async () => {
+    await axios
+      .get("https://localmainstreetbackend.herokuapp.com/app/payment/refund")
       .then((res) => {
         console.info(res);
       })
       .catch((err) => {
         console.error("refund err: ", err);
       });
+
+    // var yourString = this.props.location.state.value.encData;
+    // var result = yourString.substring(1, yourString.length - 1);
+    await axios
+      .delete(
+        "https://localmainstreetbackend.herokuapp.com/app/qrcode/" +
+          this.props.location.state.value._id
+      )
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          refund: "none",
+        });
+      })
+      .catch((err) => {
+        console.error("EROROOROROR", err);
+      });
+
+    localStorage.setItem("QRCode", undefined);
+
+    this.props.history.push("/Shop");
   };
 
-  phone = async (e) => {
-    e.preventDefault();
-
+  share = async () => {
+    if (this.state.emailf === "" || null || undefined) {
+      this.setState({
+        display: "flex",
+        sent: "Please enter an email.",
+      });
+      return 0;
+    }
+    if (this.state.name === "" || null || undefined) {
+      this.setState({
+        display: "flex",
+        sent: "Please enter an name.",
+      });
+    }
+    if (this.state.message === "" || null || undefined) {
+      this.setState({
+        display: "flex",
+        sent: "Please enter an message.",
+      });
+    }
+    this.setState({
+      display: "flex",
+      sent: "Sending...",
+    });
     await axios
       .post(
-        `https://api.imgbb.com/1/upload?key=6c7cb3d1ebc4d32ccee0110a8dbc2f68&image=${this.state.img}`,
-        {
-          image: this.state.img,
-        }
+        "https://localmainstreetbackend.herokuapp.com/app/contact/getqrcode",
+        { qrcode: img }
       )
       .then((res) => {
         console.log(res);
@@ -130,15 +186,26 @@ class QRCodejs extends React.Component {
         console.log(err);
       });
 
+    const mail = {
+      emailq: this.state.emailf,
+      name: this.state.name,
+      bname: this.props.location.state.bname,
+      message: this.state.message,
+    };
+
     axios
-      .post("http://localhost:3003/app/contact/phone", {
-        phone: this.state.phone,
-      })
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcodeshare",
+        mail
+      )
       .then((res) => {
         console.log(res);
+        this.setState({
+          sent: "Message sent successfully!",
+        });
       })
       .catch((err) => {
-        console.error(err);
+        console.error("ERROR!!!", err);
       });
   };
 
@@ -201,6 +268,8 @@ class QRCodejs extends React.Component {
         <h3 className="sendtxtext">
           Click the button below to send to {email}.
         </h3>
+        <br></br>
+
         <br></br>
         <input
           type="button"
@@ -280,25 +349,61 @@ class QRCodejs extends React.Component {
           onClick={this.refund}
           style={{
             width: "20%",
+            display: this.state.refund,
           }}
         ></input>
-
-        {/* <h3>You can also send using SMS: </h3>
+        <br></br>
+        <br></br>
+        <label>Share with a friend!</label>
+        <br></br>
         <input
-          type="number"
-          placeholder="Enter phone number"
+          type="email"
+          placeholder="Enter your friends email"
+          value={this.state.emailf}
+          onChange={(e) => {
+            this.setState({
+              emailf: e.target.value,
+            });
+          }}
           style={{
             width: "20%",
           }}
-          value={this.state.phone}
+        ></input>
+        <input
+          type="text"
+          placeholder="Enter your name"
+          value={this.state.name}
           onChange={(e) => {
             this.setState({
-              phone: e.target.value,
+              name: e.target.value,
             });
           }}
+          style={{
+            width: "20%",
+          }}
         ></input>
-
-        <input type="button" value="Send!" onClick={this.phone}></input> */}
+        <input
+          type="text"
+          placeholder="Enter a message"
+          value={this.state.message}
+          onChange={(e) => {
+            this.setState({
+              message: e.target.value,
+            });
+          }}
+          style={{
+            width: "20%",
+          }}
+        ></input>
+        <input
+          type="button"
+          className="sendbtnbutton"
+          value="Send to friend!"
+          onClick={this.share}
+          style={{
+            width: "20%",
+          }}
+        ></input>
       </div>
     );
   }

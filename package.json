@@ -21,6 +21,7 @@
     "array-unique": "^0.3.2",
     "axios": "^0.19.2",
     "babel": "^6.23.0",
+    "bcryptjs": "^2.4.3",
     "charming": "^3.0.2",
     "cors": "^2.8.5",
     "cryptr": "^6.0.2",

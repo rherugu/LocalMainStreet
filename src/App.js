@@ -18,6 +18,7 @@ import TermsOfUse from "./TermsOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
 import fourofour from "./fourofour";
 import ForgotPass from "./ForgotPass";
+// import FullMap from "./FullMap";
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
       <Router>
         <Switch>
           <Route exact path="/" render={(props) => <Home {...props} />} />
+          <Route exact path="/Home" render={(props) => <Home {...props} />} />
           <Route exact path="/Shop" render={(props) => <Shop {...props} />} />
           <Route exact path="/About" render={(props) => <About {...props} />} />
           <Route
@@ -75,6 +77,11 @@ class App extends Component {
             path="/ForgotPass"
             render={(props) => <ForgotPass {...props} />}
           />
+          {/* <Route
+            exact
+            path="/FullMap"
+            render={(props) => <FullMap {...props} />}
+          /> */}
           <Route component={fourofour} />
         </Switch>
       </Router>

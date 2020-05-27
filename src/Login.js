@@ -10,6 +10,8 @@ import Loader from "./Loader";
 
 const Cryptr = require("cryptr");
 const cryptr = new Cryptr(process.env.REACT_APP_KEY);
+const bcrypt = require("bcryptjs");
+
 var keyCode;
 
 class Login extends Component {
@@ -38,6 +40,11 @@ class Login extends Component {
       keyCodeVal: "",
       newP: "none",
       newPVal: "",
+      id: "",
+      succfcusbusfp: "Click Enter to submit",
+      succfcusbusfp2: "Click Enter to submit",
+      succfcusbusfp3: "Click Enter to submit",
+      succfcusbusfp4: "Click Enter to submit",
     };
   }
   onClickHome = () => {
@@ -91,7 +98,10 @@ class Login extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3003/app/LoginAPI/login", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+          payload
+        )
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -148,10 +158,16 @@ class Login extends Component {
 
   passwordSend = async (e) => {
     if (e.keyCode == 13) {
+      this.setState({
+        succfcusbusfp2: "Loading...",
+      });
       await axios
-        .post("http://localhost:3003/app/contact/resetPass", {
-          emailp: this.state.emailp,
-        })
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/contact/resetPass",
+          {
+            emailp: this.state.emailp,
+          }
+        )
         .then((res) => {
           console.info(res);
           keyCode = cryptr.decrypt(res.data.encKey);
@@ -162,6 +178,24 @@ class Login extends Component {
         .catch((err) => {
           console.error("err", err);
         });
+
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/getId",
+          {
+            emailf: this.state.emailp,
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            id: res.data.emailp._id,
+          });
+          this.setState({
+            succfcusbusfp2: "Success!",
+          });
+          console.log(this.state.id);
+        });
     } else {
       return 0;
     }
@@ -169,6 +203,9 @@ class Login extends Component {
 
   keyCodeValCheck = async (e) => {
     if (e.keyCode == 13) {
+      this.setState({
+        succfcusbusfp3: "Loading...",
+      });
       if (this.state.keyCodeVal === keyCode) {
         this.setState({
           newP: "flex",
@@ -176,6 +213,9 @@ class Login extends Component {
       } else {
         alert("Invalid Code");
       }
+      this.setState({
+        succfcusbusfp3: "Success!",
+      });
     } else {
       return 0;
     }
@@ -183,14 +223,44 @@ class Login extends Component {
 
   updatePass = async (e) => {
     if (e.keyCode == 13) {
-      // axios.patch("http://localhost:3003/app/")
-      alert("testing");
+      var salt = bcrypt.genSaltSync(10);
+      var hashedPassword = bcrypt.hashSync(this.state.newPVal, salt);
+      console.info(hashedPassword);
+      await axios
+        .patch(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/" +
+            this.state.id,
+          {
+            passwordf: hashedPassword,
+          }
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            succfcusbusfp4: "Success! You may login now.",
+          });
+        })
+        .catch((err) => {
+          console.error("ERROR!!!", err);
+        });
     } else {
       return 0;
     }
   };
 
   render() {
+    var input = document.getElementById("Pass");
+    var text = document.getElementById("CapsLock");
+    if (input && text) {
+      input.addEventListener("keyup", function (event) {
+        if (event.getModifierState("CapsLock")) {
+          text.style.display = "block";
+        } else {
+          text.style.display = "none";
+        }
+      });
+    }
+
     return (
       <div className="login">
         <div
@@ -391,6 +461,7 @@ class Login extends Component {
                 }}
                 required
               />
+              <h5 id="CapsLock">Warning! You have Caps-Lock on.</h5>
               <a
                 href="#"
                 className="fancy-button22121 pop-onhover bg-gradient3 oo"
@@ -533,8 +604,6 @@ class Login extends Component {
                 Forgot Password?
               </a>
               <br></br>
-              <br></br>
-              <br></br>
               <div
                 style={{
                   display: this.state.forgotPass,
@@ -542,7 +611,8 @@ class Login extends Component {
                 }}
               >
                 <label>
-                  Enter your email so we can send you a confirmation link.
+                  Enter your email so we can send you a confirmation link. This
+                  email should be registered with LocalMainStreet.
                 </label>
                 <input
                   type="email"
@@ -556,7 +626,7 @@ class Login extends Component {
                   onKeyDown={this.passwordSend}
                 ></input>
                 <small>
-                  <h4>Click Enter to submit</h4>
+                  <h4>{this.state.succfcusbusfp2}</h4>
                 </small>
               </div>
 
@@ -581,7 +651,7 @@ class Login extends Component {
                   onKeyDown={this.keyCodeValCheck}
                 ></input>
                 <small>
-                  <h4>Click Enter to submit</h4>
+                  <h4>{this.state.succfcusbusfp3}</h4>
                 </small>
               </div>
               <div
@@ -592,7 +662,7 @@ class Login extends Component {
               >
                 <label>Enter new password:</label>
                 <input
-                  type="text"
+                  type="password"
                   value={this.state.newPVal}
                   onChange={(e) => {
                     this.setState({
@@ -602,6 +672,10 @@ class Login extends Component {
                   placeholder="New Password"
                   onKeyDown={this.updatePass}
                 ></input>
+                <small>
+                  <h4>{this.state.succfcusbusfp4}</h4>
+                </small>
+                <br></br>
               </div>
             </form>
           </div>

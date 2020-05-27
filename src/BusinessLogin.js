@@ -109,7 +109,10 @@ class BusinessLogin extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3003/app/BusinessLoginAPI/shop", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          payload
+        )
         .then((response) => {
           res = response.data;
 
@@ -125,7 +128,9 @@ class BusinessLogin extends Component {
           console.log(err);
         })
     );
-    this.state.displaymessage = "visible";
+    this.setState({
+      displaymessage: "visible",
+    });
   };
 
   stripe = async (e) => {
@@ -171,7 +176,7 @@ class BusinessLogin extends Component {
     };
 
     axios
-      .post("http://localhost:3003/app/payment/data", {
+      .post("https://localmainstreetbackend.herokuapp.com/app/payment/data", {
         data,
       })
       .then((res) => {
@@ -181,12 +186,15 @@ class BusinessLogin extends Component {
         console.log("ERROR", err);
       });
 
-    await fetch("http://localhost:3003/app/payment/get-oauth-link", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    await fetch(
+      "https://localmainstreetbackend.herokuapp.com/app/payment/get-oauth-link",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then(async (data) => {
         console.log(data);
@@ -201,7 +209,9 @@ class BusinessLogin extends Component {
       });
 
     axios
-      .get("http://localhost:3003/app/payment/stripeAccountId")
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/stripeAccountId"
+      )
       .then((res) => {
         stripeAccountId = res;
         console.log("boi", stripeAccountId);
@@ -223,7 +233,10 @@ class BusinessLogin extends Component {
 
     trackPromise(
       axios
-        .post("http://localhost:3003/app/BusinessLoginAPI/shop", database)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          database
+        )
         .then((response) => {
           res = response.data;
 
@@ -563,109 +576,10 @@ class BusinessLogin extends Component {
                 backgroundColor: "#DDDDDD",
               }}
             />
-            {/* <br></br>
-            <label style={{ color: "#111111" }}>Business Catogory</label>
-            <br></br>
-            <select
-              value={this.state.businessCatagory}
-              onChange={(e) =>
-                this.setState({ businessCatagory: e.target.value })
-              }
-              className="filter1"
-            >
-              <option>Restaurant</option>
-              <option>Hair and Nail Salon</option>
-              <option>Grocery</option>
-              <option>Auto</option>
-              <option>Spa & Beauty</option>
-              <option>Massage Parlour</option>
-              <option>Recreation</option>
-              <option>Coffee & Bakery</option>
-              <option>Others</option>
-            </select>
-            <br></br>
-            <label style={{ color: "#111111" }}>
-              Bank Account Information: Whats your account holder name?
-            </label>
-            <br></br>
-            <input
-              type="text"
-              id="paymentMethod"
-              name="accountHolderName"
-              placeholder="account holder name"
-              value={this.state.accountHolderName}
-              onChange={(e) =>
-                this.setState({ accountHolderName: e.target.value })
-              }
-              style={{
-                width: 500,
-                height: 50,
-                fontSize: 20,
-                backgroundColor: "#DDDDDD",
-              }}
-            />
-            <br></br>
-            <label style={{ color: "#111111" }}>
-              Bank Account Information: Whats your account holder type?
-            </label>
-            <br></br>
-            <input
-              type="text"
-              id="paymentMethod"
-              name="accountHolderType"
-              placeholder="account holder type"
-              value={this.state.accountHolderType}
-              onChange={(e) =>
-                this.setState({ accountHolderType: e.target.value })
-              }
-              style={{
-                width: 500,
-                height: 50,
-                fontSize: 20,
-                backgroundColor: "#DDDDDD",
-              }}
-            />
-            <br></br>
-            <label style={{ color: "#111111" }}>
-              Bank Account Information: Whats your routing number?
-            </label>
-            <br></br>
-            <input
-              type="text"
-              id="paymentMethod"
-              name="rountingNumber"
-              placeholder="routing number"
-              value={this.state.routingNumber}
-              onChange={(e) => this.setState({ routingNumber: e.target.value })}
-              style={{
-                width: 500,
-                height: 50,
-                fontSize: 20,
-                backgroundColor: "#DDDDDD",
-              }}
-            />
-            <br></br>
-            <label style={{ color: "#111111" }}>
-              Bank Account Information: Whats your account number?
-            </label>
-            <br></br>
-            <input
-              type="text"
-              id="paymentMethod"
-              name="accountNumber"
-              placeholder="account number"
-              value={this.state.accountNumber}
-              onChange={(e) => this.setState({ accountNumber: e.target.value })}
-              style={{
-                width: 500,
-                height: 50,
-                fontSize: 20,
-                backgroundColor: "#DDDDDD",
-              }}
-            /> */}
+
             <br></br>
             {/* <button onClick={this.stripe}>Stripe</button> */}
-            <label>Date of Birth (optional)</label>
+            <label>Date of Birth</label>
             <br></br>
             <div className="dobwrap">
               <div className="field-inline-block">
@@ -714,7 +628,7 @@ class BusinessLogin extends Component {
             <br></br>
             <br></br>
             <a
-              href="#"
+              href="javascript:void(0)"
               className="fancy-button pop-onhover bg-gradient3 oo ee"
               onClick={this.stripe}
               type="submit"
@@ -723,6 +637,7 @@ class BusinessLogin extends Component {
                 Register&nbsp;&nbsp;
                 <img
                   className="icons8"
+                  alt="help local businesses during times of crisis"
                   src="data:image/png;base64,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"
                 />
               </span>

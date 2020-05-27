@@ -71,11 +71,8 @@ UN COMMENT TO EDIT!!
 }
 
 .checkout {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  width: 121px;
+  height: 32px;
 }
 
 .goback {
@@ -157,13 +154,6 @@ UN COMMENT TO EDIT!!
   font-size: 30px;
 }
 
-.modal button {
-  position: absolute;
-  right: 3%;
-  top: 6%;
-  border-radius: 5px;
-}
-
 /* Variables */
 :root {
   --gray-offset: rgba(0, 0, 0, 0.03);
@@ -214,8 +204,6 @@ UN COMMENT TO EDIT!!
       -ms-flex-direction: row;
           flex-direction: row;
   width: 100%;
-  max-width: 980px;
-  padding: 48px;
   -ms-flex-line-pack: center;
       align-content: center;
   -webkit-box-pack: center;
@@ -256,8 +244,12 @@ UN COMMENT TO EDIT!!
   margin-top: 100px;
   position: absolute;
   bottom: 0;
-  top: 10%;
+  top: 65%;
+  margin-bottom: 100px;
   left: 50%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
   -webkit-transform: translateX(-50%);
           transform: translateX(-50%);
 }
@@ -340,10 +332,29 @@ input[type="email"],
 input[type="password"],
 input[type="button"],
 input[type="submit"],
+input,
 input[type="number"] {
   border: 1px solid var(--gray-border);
   border-radius: var(--radius);
   padding: 5px 12px;
+  height: 44px;
+  width: 100%;
+  -webkit-transition: -webkit-box-shadow 0.2s ease;
+  transition: -webkit-box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease;
+  transition: box-shadow 0.2s ease, -webkit-box-shadow 0.2s ease;
+  background: white;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  color: #32325d;
+  -webkit-transition: all ease 0.2s;
+  transition: all ease 0.2s;
+}
+
+textarea {
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius);
   height: 44px;
   width: 100%;
   -webkit-transition: -webkit-box-shadow 0.2s ease;
@@ -822,6 +833,10 @@ input[type="number"]::-webkit-outer-spin-button {
           animation-timing-function: ease;
 }
 
+#Buy {
+  width: 100vw !important;
+}
+
 .sr-payment-form .sr-form-row {
   -webkit-animation: 0.4s field-in;
           animation: 0.4s field-in;
@@ -961,5 +976,10 @@ input[type="number"]::-webkit-outer-spin-button {
   position: absolute;
   height: 40%;
   width: 100%;
+  margin-bottom: 100px !important;
+}
+
+.container1 {
+  margin-top: 100px;
 }
 /*# sourceMappingURL=Buy.css.map */

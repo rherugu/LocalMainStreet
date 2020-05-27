@@ -49,7 +49,7 @@ class Shop extends Component {
     this.bname = "";
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const tokenval = localStorage.getItem("token");
     const tokenvalB = localStorage.getItem("Btoken");
 
@@ -71,53 +71,87 @@ class Shop extends Component {
         });
       }
     }
-
     const headers = {
       "auth-token": tokenval,
     };
-    if (tokenval) {
-      trackPromise(
-        axios
-          .get("http://localhost:3003/app/BusinessLoginAPI/shop", { headers })
-          .then((response) => {
-            console.log(response.data);
+    var check = "";
 
-            this.setState({ shops: response.data });
-            // shops = this.state.shops.map((shop) => shop);
-          })
-          .catch((err) => {
-            this.onClickLogin();
-          })
-      );
+    await axios
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/encryption"
+      )
+      .then((res) => {
+        if (res.data.status === "success") {
+          check = undefined;
+          var dl = {
+            name: res.data.businessName,
+            amountPaid: res.data.amountPaid,
+            amountLeft: 4,
+            QRcode: res.data.message,
+          };
+
+          if (tokenB || tokenC === "undefined") {
+            this.props.history.push({
+              pathname: "/QRCode",
+              state: {
+                value: res.data.message,
+                bname: res.data.businessName,
+              },
+            });
+            return 0;
+          } else if (tokenB && tokenC === "undefined") {
+            this.props.history.push({
+              pathname: "/QRCode",
+              state: {
+                value: res.data.message,
+                bname: res.data.businessName,
+              },
+            });
+            return 0;
+          } else {
+            this.props.history.push({
+              pathname: "/QRCode",
+              state: {
+                value: res.data.message,
+                bname: res.data.businessName,
+              },
+            });
+          }
+          this.props.history.push({
+            pathname: "/QRCode",
+            state: {
+              value: res.data.message,
+              bname: res.data.businessName,
+            },
+          });
+          return 0;
+        } else if (res.data.status === "failure") {
+          check = "yes";
+          console.log("User has not bought anything yet.");
+        }
+      });
+    if (check) {
+      if (tokenval) {
+        trackPromise(
+          axios
+            .get(
+              "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+              { headers }
+            )
+            .then((response) => {
+              this.setState({ shops: response.data });
+              // shops = this.state.shops.map((shop) => shop);
+            })
+            .catch((err) => {
+              this.onClickLogin();
+            })
+        );
+      } else {
+        this.onClickLogin();
+      }
     } else {
-      this.onClickLogin();
     }
 
-    axios.get("http://localhost:3003/app/payment/encryption").then((res) => {
-      if (res.data.status === "success") {
-        var dl = {
-          name: res.data.businessName,
-          amountPaid: res.data.amountPaid,
-          amountLeft: 4,
-          QRcode: res.data.message,
-        };
-        var counter = 1;
-        localStorage.setItem(`${counter}`, JSON.stringify(dl));
-        var check = localStorage.getItem(`${counter}`);
-        if (check) {
-          counter++;
-        }
-
-        this.props.history.push({
-          pathname: "/QRCode",
-          state: {
-            value: res.data.message,
-          },
-        });
-      } else if (res.data.status === "failure") {
-        console.log("User has not bought anything yet.");
-      }
-    });
     return (
       <div
         style={{
@@ -162,7 +196,7 @@ class Shop extends Component {
       };
       axios
         .post(
-          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
           {
             query: this.state.search,
           },
@@ -185,7 +219,7 @@ class Shop extends Component {
       };
       axios
         .post(
-          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
           {
             query: this.state.search,
           },
@@ -207,56 +241,56 @@ class Shop extends Component {
   };
 
   keySearch = (e) => {
-    if (e.keyCode == 13) {
-      if (/\S/.test(this.state.search)) {
-        const tokenval = localStorage.getItem("token");
-        const headers = {
-          "auth-token": tokenval,
-        };
-        axios
-          .post(
-            "http://localhost:3003/app/BusinessLoginAPI/shop/search",
-            {
-              query: this.state.search,
-            },
-            { headers }
-          )
-          .then((res) => {
-            console.log(res);
-            this.setState({
-              shops: res.data.result.map((shop) => shop),
-            });
-            console.log(this.state.shops);
-          })
-          .catch((err) => {
-            console.error(err);
+    this.setState({
+      search: e.target.value,
+    });
+    // if (e.keyCode == 13) {
+    if (/\S/.test(this.state.search)) {
+      const tokenval = localStorage.getItem("token");
+      const headers = {
+        "auth-token": tokenval,
+      };
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+          {
+            query: this.state.search,
+          },
+          { headers }
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            shops: res.data.result.map((shop) => shop),
           });
-      } else if (this.state.search === "" || null || undefined) {
-        const tokenval = localStorage.getItem("token");
-        const headers = {
-          "auth-token": tokenval,
-        };
-        axios
-          .post(
-            "http://localhost:3003/app/BusinessLoginAPI/shop/search",
-            {
-              query: this.state.search,
-            },
-            { headers }
-          )
-          .then((res) => {
-            console.log(res);
-            this.setState({
-              shops: res.data.result.map((shop) => shop),
-            });
-            console.log(this.state.shops);
-          })
-          .catch((err) => {
-            console.error(err);
+          console.log(this.state.shops);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (this.state.search === "" || null || undefined) {
+      const tokenval = localStorage.getItem("token");
+      const headers = {
+        "auth-token": tokenval,
+      };
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+          {
+            query: this.state.search,
+          },
+          { headers }
+        )
+        .then((res) => {
+          console.log(res);
+          this.setState({
+            shops: res.data.result.map((shop) => shop),
           });
-      } else {
-        return 0;
-      }
+          console.log(this.state.shops);
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     } else {
       return 0;
     }
@@ -428,13 +462,7 @@ class Shop extends Component {
         <br></br>
         <br></br>
         <br></br>
-        <div
-          className="search"
-          style={{
-            width: "25%",
-            margin: "auto",
-          }}
-        >
+        <div className="search">
           <label
             style={{
               cursor: "text",
@@ -454,12 +482,8 @@ class Shop extends Component {
               type="text"
               className="searchBar"
               value={this.state.search}
-              onChange={(e) => {
-                this.setState({
-                  search: e.target.value,
-                });
-              }}
-              onKeyDown={this.keySearch}
+              onChange={this.keySearch}
+              // onKeyDown={this.keySearch}
             ></input>
             <input
               type="button"
@@ -493,6 +517,29 @@ class Shop extends Component {
                 });
               }}
             ></input>
+            <br></br>
+            {/* <a
+              href="javascript:void(0)"
+              style={{
+                width: "fit-content",
+                margin: "auto",
+              }}
+              onClick={() => {
+                this.props.history.push({
+                  pathname: "/FullMap",
+                  state: {
+                    address: this.state.shops.map((shop) => shop.address),
+                    bname: this.state.shops.map((shop) => shop.bname),
+                  },
+                });
+              }}
+              className="link"
+            >
+              View Map
+            </a> */}
+            <br></br>
+            <br></br>
+            <br></br>
           </div>
         </div>
 

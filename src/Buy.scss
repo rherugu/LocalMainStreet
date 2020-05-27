@@ -57,10 +57,8 @@ UN COMMENT TO EDIT!!
 }
 
 .checkout {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 121px;
+  height: 32px;
 }
 
 .goback {
@@ -127,12 +125,6 @@ UN COMMENT TO EDIT!!
 .modal h3 {
   font-size: 30px;
 }
-.modal button {
-  position: absolute;
-  right: 3%;
-  top: 6%;
-  border-radius: 5px;
-}
 
 /* Variables */
 :root {
@@ -178,8 +170,9 @@ UN COMMENT TO EDIT!!
   display: flex;
   flex-direction: row;
   width: 100%;
-  max-width: 980px;
-  padding: 48px;
+  // max-width: 980px;
+  // margin: auto;
+  // padding: 48px;
   align-content: center;
   justify-content: center;
   height: auto;
@@ -205,8 +198,10 @@ UN COMMENT TO EDIT!!
   margin-top: 100px;
   position: absolute;
   bottom: 0;
-  top: 10%;
+  top: 65%;
+  margin-bottom: 100px;
   left: 50%;
+  height: fit-content;
   transform: translateX(-50%);
 }
 .sr-content {
@@ -283,10 +278,26 @@ input[type="email"],
 input[type="password"],
 input[type="button"],
 input[type="submit"],
+input,
 input[type="number"] {
   border: 1px solid var(--gray-border);
   border-radius: var(--radius);
   padding: 5px 12px;
+  height: 44px;
+  width: 100%;
+  transition: box-shadow 0.2s ease;
+  background: white;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  color: #32325d;
+  transition: all ease 0.2s;
+}
+
+textarea {
+  border: 1px solid var(--gray-border);
+  border-radius: var(--radius);
+
   height: 44px;
   width: 100%;
   transition: box-shadow 0.2s ease;
@@ -686,6 +697,10 @@ input[type="number"]::-webkit-outer-spin-button {
   animation-timing-function: ease;
 }
 
+#Buy {
+  width: 100vw !important;
+}
+
 .sr-payment-form .sr-form-row {
   animation: 0.4s field-in;
   animation-fill-mode: both;
@@ -774,4 +789,9 @@ input[type="number"]::-webkit-outer-spin-button {
   position: absolute;
   height: 40%;
   width: 100%;
+  margin-bottom: 100px !important;
+}
+
+.container1 {
+  margin-top: 100px;
 }

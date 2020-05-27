@@ -1,3 +1,5 @@
+// prettier-ignore
+
 import React, { useEffect, useReducer, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import "./Buy.css";
@@ -9,72 +11,24 @@ import {
   Marker,
   InfoWindow,
 } from "react-google-maps";
+import StripeCheckout from "react-stripe-checkout";
 import Geocode from "react-geocode";
-// import "../public/sdk/map.css";
+import $ from "jquery";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 const NodeGeocoder = require("node-geocoder");
 
 var bc;
-
-function Map() {
-  // const [selectedPark, setSelectedPark] = useState(null);
-
-  // useEffect(() => {
-  //   const listener = e => {
-  //     if (e.key === "Escape") {
-  //       setSelectedPark(null);
-  //     }
-  //   };
-  //   window.addEventListener("keydown", listener);
-
-  //   return () => {
-  //     window.removeEventListener("keydown", listener);
-  //   };
-  // }, []);
-
-  return (
-    <GoogleMap defaultZoom={10} defaultCenter={{ lat: 45.4211, lng: -75.6903 }}>
-      {/* {parkData.features.map(park => ( */}
-      <Marker
-        // key={park.properties.PARK_ID}
-        position={{
-          lat: 45.4211,
-          lng: -75.6903,
-        }}
-        // onClick={() => {
-        //   setSelectedPark(park);
-        // }}
-        // icon={{
-        //   url: `/skateboarding.svg`,
-        //   scaledSize: new window.google.maps.Size(25, 25)
-        // }}
-      />
-      {/* ))} */}
-
-      {/* {selectedPark && (
-        <InfoWindow
-          onCloseClick={() => {
-            setSelectedPark(null);
-          }}
-          position={{
-            lat: 45.4211,
-            lng: -75.6903
-          }}
-        >
-          <div>
-            <h2>{selectedPark.properties.NAME}</h2>
-            <p>{selectedPark.properties.DESCRIPTIO}</p>
-          </div>
-        </InfoWindow>
-      )} */}
-    </GoogleMap>
-  );
-}
-
-const MapWrapped = withScriptjs(withGoogleMap(Map));
+var lati = 0;
+var lngi = 0;
+var address;
+var bname;
+// prettier-ignore
 
 const fetchCheckoutSession = async ({ quantity, product }) => {
   return await fetch(
-    "http://localhost:3003/app/payment/create-checkout-session",
+    "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
     {
       method: "POST",
       headers: {
@@ -146,6 +100,60 @@ function reducer(state, action) {
   }
 }
 
+function Map(props) {
+  var [shop, setShop] = useState(null);
+  console.log(props);
+
+  if (props.lat && props.lng != undefined) {
+    return (
+      <GoogleMap
+        defaultZoom={10}
+        defaultCenter={{ lat: Number(props.lat), lng: Number(props.lng) }}
+      >
+        <Marker
+          position={{
+            lat: Number(props.lat),
+            lng: Number(props.lng),
+          }}
+          onClick={() => {
+            setShop(
+              (shop = {
+                lat: Number(props.lat),
+                lng: Number(props.lng),
+              })
+            );
+          }}
+        />
+
+        {shop && (
+          <InfoWindow
+            position={{
+              lat: Number(props.lat),
+              lng: Number(props.lng),
+            }}
+            onCloseClick={() => {
+              setShop((shop = null));
+            }}
+          >
+            <div
+              style={{
+                margin: "10px",
+              }}
+            >
+              <h3>{bname}</h3>
+              <h4>{address}</h4>
+            </div>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    );
+  } else {
+    return <div>no</div>;
+  }
+}
+
+const MapWrapped = withGoogleMap(Map);
+
 const Buy = (props) => {
   const [state, dispatch] = useReducer(reducer, {
     quantity: 1,
@@ -154,14 +162,32 @@ const Buy = (props) => {
     error: null,
     stripe: null,
   });
+  var lt, ln;
+  (async () => {
+    Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+    await Geocode.fromAddress(`${props.location.state.address}`).then(
+      (response) => {
+        lt = response.results[0].geometry.location.lat;
+        ln = response.results[0].geometry.location.lng;
+        console.log(lt, ln);
+      },
+      (error) => {
+        console.error("ERfdsdsffsdROR", error);
+      }
+    );
+  })();
 
   var [mprice, setMprice] = useState();
+  var [modal, setModal] = useState("none");
+  var [dprice, setDprice] = useState("");
+  var [lat, setLat] = useState();
+  var [lng, setLng] = useState();
 
   useEffect(() => {
     async function fetchConfig() {
       // Fetch config from our backend.
       const { publicKey, basePrice, currency } = await fetch(
-        "http://localhost:3003/app/payment/config"
+        "https://localmainstreetbackend.herokuapp.com/app/payment/config"
       ).then((res) => res.json());
       // Make sure to call `loadStripe` outside of a component’s render to avoid
       // recreating the `Stripe` object on every render.
@@ -187,7 +213,11 @@ const Buy = (props) => {
     // }
     // geocode();
     (async () => {
+      address = props.location.state.address;
+      bname = props.location.state.bname;
+
       try {
+        console.log(props.location.state.address);
         if (props.location.state.address === undefined) {
           alert("Invalid address. Map could not be displayed");
         }
@@ -202,25 +232,33 @@ const Buy = (props) => {
               lat = response.results[0].geometry.location.lat;
               lng = response.results[0].geometry.location.lng;
               console.log("lat and lng", lat, lng);
+              // prettier-ignore
+              setLng((lng = lng));
+              setLat((lat = lat));
+
+              lati = lat;
+              lngi = lng;
+              console.log("gyfds", lat);
+              console.log("Number", Number(lat));
             },
             (error) => {
               console.error("ERROR", error);
             }
           );
 
-          const script = document.createElement("script");
-          script.src = process.env.PUBLIC_URL + "/sdk/tomtom.min.js";
-          document.body.appendChild(script);
-          script.async = true;
-          script.onload = () => {
-            var map = window.tomtom.L.map("map", {
-              source: "vector",
-              key: `${process.env.REACT_APP_TKEY}`,
-              center: [lat, lng],
-              basePath: "/sdk",
-              zoom: 16,
-            });
-          };
+          // const script = document.createElement("script");
+          // script.src = process.env.PUBLIC_URL + "/sdk/tomtom.min.js";
+          // document.body.appendChild(script);
+          // script.async = true;
+          // script.onload = () => {
+          //   var map = window.tomtom.L.map("map", {
+          //     source: "vector",
+          //     key: `${process.env.REACT_APP_TKEY}`,
+          //     center: [lat, lng],
+          //     basePath: "/sdk",
+          //     zoom: 16,
+          //   });
+          // };
         } catch (error) {
           alert("Invalid address. Map could not be displayed");
         }
@@ -230,7 +268,105 @@ const Buy = (props) => {
 
   var prop = props.location.state;
 
+  // prettier-ignore
+
+  async function handleToken(token, addresses) {
+    const product = {
+      name: "Donate to LocalMainStreet",
+      price: dprice,
+    };
+    const response = await axios.post(
+      "https://localmainstreetbackend.herokuapp.com/app/payment/checkout",
+      {
+        token,
+        product,
+      }
+    );
+
+    const { status } = response.data;
+    if (status === "success") {
+      toast("Success! Check email for details", { type: "success" });
+
+      axios.post("https://localmainstreetbackend.herokuapp.com/app/payment/donate", {
+        status: "yes"
+      }).then(res => {
+        console.log(res)
+      }).catch(err => {
+        console.error(err)
+      })
+      
+      var fnameq = localStorage.getItem("fname");
+      var lnameq = localStorage.getItem("lname");
+      var emailq = localStorage.getItem("email");
+  
+      const payload = {
+        nameq: `${fnameq} ${lnameq}`,
+        emailq: emailq,
+        balance: mprice,
+      };
+  
+      await axios
+        .post("https://localmainstreetbackend.herokuapp.com/app/payment/getInfo", payload)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+  
+      const id = {
+        id: prop.id,
+      };
+  
+      // await axios
+      //   .post("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", id)
+      //   .then((res) => {
+      //     console.log(res);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
+  
+      // Call your backend to create the Checkout session.
+      dispatch({ type: "setLoading", payload: { loading: true } });
+      const { sessionId } = await fetchCheckoutSession({
+        quantity: mprice,
+        product: prop,
+      });
+      // When the customer clicks on the button, redirect them to Checkout.
+      const { error } = await state.stripe.redirectToCheckout({
+        sessionId,
+      });
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `error.message`.
+      if (error) {
+        dispatch({ type: "setError", payload: { error } });
+        dispatch({ type: "setLoading", payload: { loading: false } });
+      }
+    
+    } else {
+      toast("Something went wrong.", { type: "error" });
+    }
+  }
+
   const handleClick = async (event) => {
+    if (mprice === undefined) {
+      alert("Please enter a price");
+    } else if (mprice === "0") {
+      alert("Please enter a price. It cannot be 0.");
+    } else if (mprice === null) {
+      alert("Please enter a price");
+    } else if (mprice === "") {
+      alert("Please enter a price");
+    } else if (mprice > 999996) {
+      alert("Price cannot go above $999,996");
+    } else {
+      setModal(modal === "flex");
+    }
+    return 0;
+  };
+  const handleClick2 = async (event) => {
     if (mprice > 999999) {
       alert("Cannot go above 999,999 dollars.");
       state.loading = false;
@@ -246,7 +382,10 @@ const Buy = (props) => {
     };
 
     await axios
-      .post("http://localhost:3003/app/payment/getInfo", payload)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/getInfo",
+        payload
+      )
       .then((res) => {
         console.log(res);
       })
@@ -259,7 +398,7 @@ const Buy = (props) => {
     };
 
     // await axios
-    //   .post("http://localhost:3003/app/payment/create-checkout-session", id)
+    //   .post("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", id)
     //   .then((res) => {
     //     console.log(res);
     //   })
@@ -324,8 +463,81 @@ const Buy = (props) => {
     image = "defaulticon.png";
   }
 
+  $(document).ready(function () {
+    $(this).scrollTop(0);
+  });
+
   return (
-    <div className="sr-root">
+    <div className="sr-root" id="Buy">
+      <div
+        className="modal"
+        style={{
+          display: modal,
+          zIndex: "99999999999999999999999999999999",
+        }}
+        id="modal"
+      >
+        {/* prettier-ignore */}
+
+        <h3>Would You Like to Donate to us?</h3>
+        <h2
+          style={{
+            margin: "10px",
+            width: "90%",
+            textAlign: "center",
+          }}
+        >
+          In order to maintain this service, it costs us money. Any donation is
+          appreciated.
+        </h2>
+        {/* prettier-ignore */}
+
+        <input
+          type="text"
+          value={dprice}
+          onChange={(e) => {
+            setDprice((dprice = e.target.value))
+          }}
+          style={{
+            width: "35%"
+          }}
+          placeholder="Enter how much you want to donate"
+        ></input>
+        {/* <div
+          style={{
+            position: "absolute !important",
+            left: "63% !important",
+            bottom: "30px !important",
+            width: "100px",
+            height: "40px",
+            transform: "translate(-50%, -50%)",
+          }}
+        > */}
+
+        <div className="checkout">
+          <StripeCheckout
+            stripeKey="pk_test_KkfXWjgjLwtNgUTOjtn25pj4005QCLSJ6I"
+            token={handleToken}
+            billingAddress
+            shippingAddress
+            amount={dprice * 100}
+            name="Donate to LocalMainStreet"
+          ></StripeCheckout>
+        </div>
+        <br></br>
+        <input
+          type="button"
+          className="modalclose noDonate"
+          onClick={handleClick2}
+          style={{
+            margin: "10px",
+            width: "20%",
+            textAlign: "center",
+          }}
+          value="No, I do not want to donate."
+        ></input>
+      </div>
+
       <div className="sr-main">
         <section className="container1">
           <div>
@@ -380,13 +592,33 @@ const Buy = (props) => {
           </div>
           <p className="sr-legal-text">Choose your price</p>
           <button role="link" onClick={handleClick} id="bbutton">
-            Buy for ${mprice}
+            Buy
           </button>
           <div className="sr-field-error">{state.error?.message}</div>
+
+          <h6
+            style={{
+              textAlign: "center",
+            }}
+          >
+            Don't worry! Your information is secure and encrypted. We use
+            Stripe, one of the leading brands in payment processing, to deliver
+            a secure, safe, and smart way to handle payments.
+          </h6>
+          <h6
+            style={{
+              textAlign: "center",
+            }}
+          >
+            Please note that $0.59 will be added to your payment for application
+            fees.
+          </h6>
         </section>
+        <br></br>
+        <br></br>
       </div>
       <div
-        id="map"
+        id="map2"
         style={{
           position: "absolute",
           width: "100vw",
@@ -394,7 +626,16 @@ const Buy = (props) => {
           top: "0",
           zIndex: 90,
         }}
-      ></div>
+      >
+        <MapWrapped
+          googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GKEY}`}
+          loadingElement={<div style={{ height: `100%` }} />}
+          containerElement={<div style={{ height: `100%` }} />}
+          mapElement={<div style={{ height: `100%` }} />}
+          lat={lat}
+          lng={lng}
+        />
+      </div>
     </div>
   );
 };
