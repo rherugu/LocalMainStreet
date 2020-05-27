@@ -744,7 +744,10 @@ class BusinessLogin extends Component {
             </li>
             <br></br>
             <li>Fill in the fields bellow.</li>
-            <li>Fill in the fields in the next page.</li>
+            <li>
+              In the next page, review your answers and fill in the missing
+              fields.
+            </li>
             <li>
               After you have registered, you can login to view your balance and
               dashboard.
