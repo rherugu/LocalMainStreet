@@ -205,3 +205,32 @@ body {
 .ze {
   width: 60% !important;
 }
+
+.help {
+  background-color: rgba(74, 74, 74, 0.909);
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999999999999999999999999999999;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.help label,
+.help li {
+  color: white;
+}
+
+.help a {
+  color: white !important;
+  width: fit-content !important;
+}
+
+.f {
+  width: fit-content !important;
+  margin: auto !important;
+}

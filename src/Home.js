@@ -211,7 +211,7 @@ class Home extends Component {
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
               <img
-                src={require("./Assets/golo.png")}
+                src={require("./Assets/golo2.png")}
                 className="logoimage"
                 alt="localmainstreet"
               ></img>
@@ -278,6 +278,7 @@ class Home extends Component {
             <h3 className="Hheading1" onClick={this.onClickContact}>
               <span>Contact</span>
             </h3>
+
             <h3
               className="Hheading2"
               style={{ display: this.state.login }}
@@ -285,6 +286,14 @@ class Home extends Component {
             >
               <span>Login</span>
             </h3>
+            <div className="mainbutton">
+              <a
+                onClick={this.onClickCustomerLogin}
+                className="fancy-button pop-onhover bg-gradient1 Hheading2"
+              >
+                <span>Get Started</span>
+              </a>
+            </div>
             <h3
               className="Hheading2"
               style={{ display: this.state.logout }}
@@ -327,15 +336,6 @@ class Home extends Component {
                 </span>
               </div>
             </button> */}
-
-            <div className="mainbutton">
-              <a
-                onClick={this.onClickCustomerLogin}
-                className="fancy-button pop-onhover bg-gradient1"
-              >
-                <span>Get Started</span>
-              </a>
-            </div>
           </div>
         </div>
         {/* <div
@@ -427,7 +427,7 @@ class Home extends Component {
           <div className="logoandterms">
             <div className="logoimg3" onClick={this.onClickHome}>
               <img
-                src={require("./Assets/golo.png")}
+                src={require("./Assets/golo2.png")}
                 className="logoimage2"
                 style={{ width: "250px" }}
               ></img>

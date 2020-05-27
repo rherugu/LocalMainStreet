@@ -119,7 +119,7 @@ class About extends Component {
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
               <img
-                src={require("./Assets/golo.png")}
+                src={require("./Assets/golo2.png")}
                 className="logoimage"
                 alt="localmainstreet"
               ></img>
@@ -209,17 +209,17 @@ class About extends Component {
             <h1 className="titleA">About</h1>
             {/* prettier-ignore */}
             <h3 className="abouttxt">
-              We are in the middle of a crisis. Covid 19 has harmed many, but the
+              Back in late March, we were hit with global pandemic caused due to the Coronavirus. As the crisis started unfold, we saw our schools and local businesses being shut down. Besides the serious danger to public health, the economy also came to a standstill. We saw small businesses, the backbone of America, feel the impact. Our favorite local resteraunts, salons, and other small businesses were struggling to survive. We decided to to something about it. 
+              {/* We are in the middle of a crisis. Covid 19 has harmed many, but the
               financial aspect is just as bad. People are losing businesses, jobs,
               and money at an fast rate. The situation has begun to surpass that
               of the 2008 recession. Small business owners, the pizza resteraunt
               around the block, the barber shop nearby, etc. These people have
-              lost their businesses. And thats where we come in.
+              lost their businesses. And thats where we come in. */}
               <br></br><br></br> 
-              LocalMainStreet allows you as a customer to buy gift cards from these small
-              businesses. If you own a business, then registering is easy. You can
-              share and buy gift cards and vouchers. Let's take a step forward,
-              together!
+              Here, at LocalMainStreet.com we allow customers to buy and share gift cards and vouchers from your favorite local businesses.
+              Registration is free and only takes a few clicks. This is our way of contributing to the community and the businesses that have served us for a long time.
+              United we stand, together we win!
             </h3>
           </div>
         </main>

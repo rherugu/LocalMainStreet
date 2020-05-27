@@ -239,7 +239,7 @@ class CustomerLogin extends Component {
           <div className="HH">
             <div className="logoimg" onClick={this.onClickHome}>
               <img
-                src={require("./Assets/golo.png")}
+                src={require("./Assets/golo2.png")}
                 className="logoimage"
                 alt="localmainstreet"
               ></img>
