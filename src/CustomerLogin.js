@@ -69,6 +69,7 @@ class CustomerLogin extends Component {
       width: "30px",
       logout: "none",
       login: "flex",
+      Incorrect: "",
     };
   }
 
@@ -168,7 +169,9 @@ class CustomerLogin extends Component {
                 })
             );
           }
-          alert(res);
+          this.setState({
+            Incorrect: res,
+          });
         })
         .catch(function (err) {
           console.log(err);
@@ -180,7 +183,6 @@ class CustomerLogin extends Component {
   };
 
   render() {
-    console.log(res);
     return (
       <div className="CL">
         <div
@@ -409,7 +411,13 @@ class CustomerLogin extends Component {
             }}
             required
           />
-
+          <h5
+            style={{
+              color: "red",
+            }}
+          >
+            {this.state.Incorrect}
+          </h5>
           <label style={{ color: "#111111" }}>
             Register a{" "}
             <Link className="link" to="/BusinessLogin">

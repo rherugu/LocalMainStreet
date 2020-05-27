@@ -46,6 +46,7 @@ class Login extends Component {
       succfcusbusfp3: "Click Enter to submit",
       succfcusbusfp4: "Click Enter to submit",
       caps: "hidden",
+      incorrect: "none",
     };
   }
   onClickHome = () => {
@@ -116,7 +117,9 @@ class Login extends Component {
           console.log(response.data.stripeId);
 
           if (!tokenval) {
-            alert("Incorrect email or password.");
+            this.setState({
+              incorrect: "block",
+            });
           }
           if (response.data.url === "/Shop") {
             this.props.history.push("/Shop");
@@ -137,9 +140,10 @@ class Login extends Component {
             );
           }
         })
-        .catch(function (err) {
-          // alert(err);
-          alert("Incorrect email or password.");
+        .catch((err) => {
+          this.setState({
+            incorrect: "flex",
+          });
         })
     );
   };
@@ -281,6 +285,7 @@ class Login extends Component {
             height: "100%",
             opacity: this.state.burger,
             pointerEvents: this.state.pointerEvents,
+            position: "fixed",
           }}
         >
           <h3
@@ -485,6 +490,14 @@ class Login extends Component {
                 }}
               >
                 Warning! You have Caps-Lock on.
+              </h5>
+              <h5
+                style={{
+                  color: "red",
+                  display: this.state.incorrect,
+                }}
+              >
+                Incorrect email or password.
               </h5>
               <a
                 href="#"

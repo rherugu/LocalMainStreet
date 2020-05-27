@@ -290,6 +290,7 @@ class BusinessLogin extends Component {
             className="burger1"
             style={{
               height: "100%",
+              position: "fixed",
               opacity: this.state.burger,
               pointerEvents: this.state.pointerEvents,
             }}
@@ -726,8 +727,8 @@ class BusinessLogin extends Component {
         <div
           style={{
             display: this.state.help,
-            width: "500px",
-            height: "500px",
+            width: "300px",
+            height: "600px",
           }}
           className="help"
         >

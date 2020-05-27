@@ -193,14 +193,14 @@ class Home extends Component {
           </h3>
           <h3
             className="Hheading2b"
-            style={{ fontSize: "20px", display: this.state.login }}
+            style={{ display: this.state.login }}
             onClick={this.onClickLogin}
           >
             <span>Login</span>
           </h3>
           <h3
             className="Hheading2b"
-            style={{ fontSize: "20px", display: this.state.logout }}
+            style={{ display: this.state.logout }}
             onClick={this.onClickLogout}
           >
             <span>Logout</span>

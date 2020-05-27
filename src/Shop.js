@@ -317,6 +317,7 @@ class Shop extends Component {
             opacity: this.state.burger,
             pointerEvents: this.state.pointerEvents,
             zIndex: "900909",
+            position: "fixed",
           }}
         >
           <h3
