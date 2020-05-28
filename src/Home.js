@@ -267,7 +267,24 @@ class Home extends Component {
                 }}
               ></div>
             </div>
-
+            <h3
+              className="Hheading1"
+              style={{
+                visibility: "hidden",
+              }}
+              onClick={this.onClickContact}
+            >
+              <span>Contact</span>
+            </h3>
+            <h3
+              className="Hheading1"
+              style={{
+                visibility: "hidden",
+              }}
+              onClick={this.onClickContact}
+            >
+              <span>Contact</span>
+            </h3>
             <h3 className="Hheading1" onClick={this.onClickHome}>
               <span>Home</span>
             </h3>
@@ -306,6 +323,7 @@ class Home extends Component {
             </div>
           </div>
         </header>
+
         <div className="sectionf">
           <div className="Home">
             <title>LocalMainStreet</title>
