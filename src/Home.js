@@ -405,8 +405,8 @@ class Home extends Component {
                   During the Covid 19 outbreak, we connect local businesses to
                   your community. In these uncertain times, we need to stand
                   together. You can help by buying gift cards and vouchers from
-                  your local businesses to be redeemed later when the crisis is
-                  over.{" "}
+                  your local businesses to be redeemed later when things get
+                  back to normal.
                 </h2>
               </big>
             </div>

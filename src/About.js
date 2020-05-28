@@ -220,45 +220,224 @@ class About extends Component {
               width: "100%",
             }}
           >
-            <h1 className="titleA">About</h1>
-            <h3 className="abouttxt">
-              Back in late March, we were hit with global pandemic caused due to
-              the Coronavirus. As the crisis started unfold, we saw our schools
-              and local businesses being shut down. Besides the serious danger
-              to public health, the economy also came to a standstill. We saw
-              small businesses, the backbone of America, feel the impact. Our
-              favorite local resteraunts, salons, and other small businesses
+            <h3
+              className="abouttxt"
+              style={{
+                flexDirection: "column",
+              }}
+            >
+              <big>
+                <h1 className="titleA">About</h1>
+              </big>
+              Back in late March, we were hit with a global pandemic caused due
+              to the Coronavirus. As the crisis started to unfold, we saw our
+              schools and local businesses being shut down. Besides the serious
+              danger to public health, the economy also came to a standstill. We
+              saw small businesses, the backbone of America, feel the impact.
+              Our favorite local resteraunts, salons, and other small businesses
               were struggling to survive. We decided to to something about it.
               <br></br>
               <br></br>
-              Here, at LocalMainStreet.com we allow customers to buy and share
-              gift cards and vouchers from your favorite local businesses.
-              Registration is free and only takes a few clicks. This is our way
-              of contributing to the community and the businesses that have
-              served us for a long time. United we stand, together we win!
+              Here, at LocalMainStreet.com we allow customers to buy/share gift
+              cards and vouchers from your favorite local businesses. This will
+              help businesses survive these tough times. Registration is free
+              and only takes a few clicks. This is our way of contributing to
+              the community and the businesses that have served us for a long
+              time. <br></br> <br></br>
+              In the future, these local businesses can offer their own gift
+              cards just like Visa or Amazon would do. United we stand, together
+              we win!
+              <br></br>
+              <br></br>- Raghav and Vaibhav Herugu
+              <br></br>
+              Marlboro Township School District
             </h3>
           </div>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
           <div id="fit">
-            <img
+            <big>
+              <br></br>
+              <br></br>
+              <h1 className="titleA">Team</h1>
+              <br></br>
+              <br></br>
+            </big>
+            <div
               style={{
-                borderRadius: "15px",
-                margin: "auto",
-                alignSelf: "center",
+                display: "flex",
+
+                justifyContent: "center",
+                alignItems: "center",
               }}
-              className="RaghavVaibhavHerugu"
-              src={require("./Assets/AboutUsPic.png")}
-              alt="raghav and vaibhav herugu"
-            ></img>
-            <p
-              style={{
-                textAlign: "center",
-                margin: "auto",
-              }}
-              className="cofounder"
+              className="divflex"
             >
-              The Co-Founders, Raghav and Vaibhav Herugu, Both Middle Schoolers
-              from New Jersey
-            </p>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  style={{
+                    borderRadius: "15px",
+                    margin: "auto",
+                    alignSelf: "center",
+                  }}
+                  className="RaghavVaibhavHerugu"
+                  src={require("./Assets/Raghav.png")}
+                  alt="raghav and vaibhav herugu"
+                ></img>
+                <p
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <strong>Raghav Herugu</strong>
+                  <br></br> Incoming 8th Grader
+                </p>
+              </div>
+
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  style={{
+                    borderRadius: "15px",
+                    margin: "auto",
+                    alignSelf: "center",
+                  }}
+                  className="RaghavVaibhavHerugu"
+                  src={require("./Assets/Vaibhav.png")}
+                  alt="raghav and vaibhav herugu"
+                ></img>
+                <p
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <strong>Vaibhav Herugu</strong>
+                  <br></br> Incoming 6th Grader
+                </p>
+              </div>
+            </div>
+            <br></br>
+            <br></br>
+            <br></br>
+            <big>
+              <br></br>
+              <br></br>
+              <h1 className="titleA">Advisors</h1>
+              <br></br>
+              <br></br>
+            </big>
+            <div
+              style={{
+                display: "flex",
+
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              className="divflex"
+            >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  style={{
+                    borderRadius: "15px",
+                    margin: "auto",
+                    alignSelf: "center",
+                  }}
+                  className="RaghavVaibhavHerugu"
+                  src={require("./Assets/Veeru.png")}
+                  alt="raghav and vaibhav herugu"
+                ></img>
+                <p
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <strong>Veeranjaneya Murthy Pilladi</strong>
+                  <br></br>Software Developer
+                </p>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  style={{
+                    borderRadius: "15px",
+                    margin: "auto",
+                    alignSelf: "center",
+                  }}
+                  className="RaghavVaibhavHerugu"
+                  src={require("./Assets/ProfilePic.png")}
+                  alt="raghav and vaibhav herugu"
+                ></img>
+                <p
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <strong>Sreenivas Herugu</strong>
+                  <br></br>Entrepreneur & Tech Consultant
+                </p>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  style={{
+                    borderRadius: "15px",
+                    margin: "auto",
+                    alignSelf: "center",
+                  }}
+                  className="RaghavVaibhavHerugu"
+                  src={require("./Assets/Kavitha.png")}
+                  alt="raghav and vaibhav herugu"
+                ></img>
+                <p
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  {" "}
+                  <strong>Kavitha Herugu</strong>
+                  <br></br>Project Manager
+                </p>
+              </div>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+              <br></br>
+            </div>
           </div>
         </div>
         {/* <h1 className="titleA">Team</h1> */}

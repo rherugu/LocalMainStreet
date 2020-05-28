@@ -150,6 +150,9 @@
   text-align: center;
   margin: auto;
 }
+.abouttxt {
+  margin-top: 30% !important;
+}
 
 .titleandtext {
   display: flex;
@@ -160,7 +163,7 @@
   margin: auto;
 }
 .RaghavVaibhavHerugu {
-  margin: auto !important;
+  margin: auto 30px !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -177,57 +180,131 @@
 #fit {
   width: fit-content !important;
 }
+.RaghavVaibhavHerugu {
+  width: 290px;
+}
 
-@media screen and (max-width: 2154px) {
-  .abouttxt {
-    width: 90%;
-  }
-}
-@media screen and (max-width: 1922px) {
-  .RaghavVaibhavHerugu {
-    width: 60%;
-  }
-  .cofounder {
-    width: 60%;
-  }
-}
-@media screen and (max-width: 1584px) {
-  .Awrapp {
-    width: 97%;
-  }
-}
 .Awrapp {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   align-items: center;
 }
-
-@media screen and (max-width: 1026px) {
-  .Awrapp {
-    flex-direction: column;
-  }
-  .abouttxt {
-    margin-bottom: 30px;
-  }
-}
-@media screen and (max-width: 634px) {
-  .abouttxt {
-    font-size: medium;
-  }
-}
-@media screen and (max-width: 504px) {
-  .RaghavVaibhavHerugu {
-    width: 70%;
-  }
-}
-@media screen and (max-height: 818px) {
-  .abouttxt {
-    margin-top: 300px;
-  }
+.divflex {
+  flex-direction: row;
 }
 
 .About {
   overflow-y: scroll !important;
+  min-height: fit-content !important;
+  min-width: fit-content !important;
+}
+
+.Awrapp {
+  overflow-y: scroll !important;
+  min-height: fit-content !important;
+  min-width: fit-content !important;
+}
+.abouttxt {
+  min-height: fit-content !important;
+  min-width: 50% !important;
+  width: 50%;
+  margin-top: 50% !important;
+}
+
+@media screen and (max-width: 1047px) {
+  .divflex {
+    flex-direction: column;
+  }
+  .abouttxt {
+    margin-top: 300% !important;
+  }
+}
+
+@media screen and (max-height: 1090px) {
+  .abouttxt {
+    margin-top: 60%;
+  }
+}
+@media screen and (max-height: 925px) {
+  .abouttxt {
+    margin-top: 80% !important;
+  }
+}
+@media screen and (max-height: 817px) {
+  .abouttxt {
+    margin-top: 90% !important;
+  }
+}
+
+@media screen and (max-width: 1491px) {
+  .abouttxt {
+    margin-top: 110%;
+  }
+}
+@media screen and (max-width: 1269px) {
+  .abouttxt {
+    margin-top: 140%;
+  }
+}
+
+@media screen and (max-height: 683px) {
+  .abouttxt {
+    margin-top: 200% !important;
+  }
+}
+
+@media screen and (max-height: 767px), (max-width: 475px) {
+  .abouttxt {
+    margin-top: 1100% !important;
+  }
+}
+
+@media screen and (height: 1024px), (width: 768px) {
+  .abouttxt {
+    margin-top: 400% !important;
+  }
+}
+
+@media screen and (height: 1366px), (width: 1024px) {
+  .abouttxt {
+    margin-top: 250% !important;
+  }
+}
+
+@media screen and (height: 900px), (width: 1440px) {
+  .abouttxt {
+    margin-top: 100% !important;
+  }
+}
+
+@media screen and (height: 800px), (width: 1280px) {
+  .abouttxt {
+    margin-top: 130% !important;
+  }
+}
+
+@media screen and (height: 1280px), (width: 800px) {
+  .abouttxt {
+    margin-top: 330% !important;
+  }
+}
+
+@media screen and (height: 640px), (width: 360px) {
+  .abouttxt {
+    margin-top: 1230% !important;
+  }
+}
+
+@media screen and (height: 960px), (width: 600px) {
+  .abouttxt {
+    margin-top: 530% !important;
+  }
+}
+
+@media screen and (height: 854px), (width: 480px) {
+  .abouttxt {
+    margin-top: 730% !important;
+  }
 }
