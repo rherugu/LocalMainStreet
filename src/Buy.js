@@ -496,7 +496,7 @@ const Buy = (props) => {
             setDprice((dprice = e.target.value))
           }}
           style={{
-            width: "35%"
+            width: "81%"
           }}
           placeholder="Enter how much you want to donate"
         ></input>
@@ -528,7 +528,7 @@ const Buy = (props) => {
           onClick={handleClick2}
           style={{
             margin: "10px",
-            width: "20%",
+            width: "80%",
             textAlign: "center",
           }}
           value="No, I do not want to donate."

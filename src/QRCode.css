@@ -43,3 +43,9 @@
     font-size: 30px;
   }
 }
+
+@media screen and (max-width: 661px) {
+  .QRCODE input {
+    width: 100% !important;
+  }
+}

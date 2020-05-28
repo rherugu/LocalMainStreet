@@ -221,6 +221,7 @@ class QRCodejs extends React.Component {
           alignItems: "center",
           flexDirection: "column",
         }}
+        className="QRCODE"
       >
         <h1
           // style={{
@@ -258,7 +259,7 @@ class QRCodejs extends React.Component {
           value="Send!"
           onClick={this.handleEmail}
           style={{
-            width: "20%",
+            width: "30%",
           }}
         ></input>
         <br></br>
@@ -329,7 +330,7 @@ class QRCodejs extends React.Component {
           value="Refund this payment"
           onClick={this.refund}
           style={{
-            width: "20%",
+            width: "30%",
             display: this.state.refund,
           }}
         ></input>
@@ -347,7 +348,7 @@ class QRCodejs extends React.Component {
             });
           }}
           style={{
-            width: "20%",
+            width: "30%",
           }}
         ></input>
         <input
@@ -360,7 +361,7 @@ class QRCodejs extends React.Component {
             });
           }}
           style={{
-            width: "20%",
+            width: "30%",
           }}
         ></input>
         <input
@@ -373,7 +374,7 @@ class QRCodejs extends React.Component {
             });
           }}
           style={{
-            width: "20%",
+            width: "30%",
           }}
         ></input>
         <input
@@ -382,7 +383,7 @@ class QRCodejs extends React.Component {
           value="Send to friend!"
           onClick={this.share}
           style={{
-            width: "20%",
+            width: "30%",
           }}
         ></input>
       </div>
