@@ -216,9 +216,15 @@ class QRCodejs extends React.Component {
     // };
 
     var email;
-    if (localStorage.getItem("email") === "undefined") {
+    const tokenval = localStorage.getItem("token");
+    const tokenvalB = localStorage.getItem("Btoken");
+
+    var tokenC = `${tokenval}`;
+    var tokenB = `${tokenvalB}`;
+
+    if (tokenC === "undefined") {
       email = localStorage.getItem("emailb");
-    } else if (localStorage.getItem("emailb") === "undefined") {
+    } else if (tokenB === "undefined") {
       email = localStorage.getItem("email");
     }
     var valueL;
