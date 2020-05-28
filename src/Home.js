@@ -288,6 +288,14 @@ class Home extends Component {
             >
               <span>Login</span>
             </h3>
+
+            <h3
+              className="Hheading2"
+              style={{ display: this.state.logout }}
+              onClick={this.onClickLogout}
+            >
+              <span>Logout</span>
+            </h3>
             <div className="mainbutton">
               <a
                 onClick={this.onClickCustomerLogin}
@@ -296,13 +304,6 @@ class Home extends Component {
                 <span>Get Started</span>
               </a>
             </div>
-            <h3
-              className="Hheading2"
-              style={{ display: this.state.logout }}
-              onClick={this.onClickLogout}
-            >
-              <span>Logout</span>
-            </h3>
           </div>
         </header>
         <div className="sectionf">

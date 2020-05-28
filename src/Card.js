@@ -12,6 +12,7 @@ import "./Card.css";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    marginRight: 0,
   },
   media: {
     height: 140,
@@ -50,10 +51,17 @@ export default function MediaCard(props) {
       className={props.className}
       style={{
         display: "inline-block",
-        margin: "0 auto",
+        // margin: "0 auto",
+        marginRight: "0",
       }}
     >
-      <Card className={classes.root}>
+      <Card
+        className={classes.root}
+        style={{
+          marginRight: "0 !important",
+        }}
+        id="Cardoo"
+      >
         <CardActionArea
           onClick={() => {
             setTimeout(function () {

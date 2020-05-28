@@ -544,7 +544,12 @@ class Shop extends Component {
           </div>
         </div>
 
-        <div className="gridlist">
+        <div
+          className="gridlist"
+          style={{
+            width: "90%",
+          }}
+        >
           {this.state.shops.map((shop) => (
             <MediaCard
               card={shop}
