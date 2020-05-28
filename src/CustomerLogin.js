@@ -88,10 +88,7 @@ class CustomerLogin extends Component {
     };
     trackPromise(
       axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/",
-          payload
-        )
+        .post("http://localhost:3003/app/LoginAPI/posts/", payload)
         .then((response) => {
           res = response.data;
           if (res === '"password" length must be at least 6 characters long') {
@@ -125,10 +122,7 @@ class CustomerLogin extends Component {
             };
             trackPromise(
               axios
-                .post(
-                  "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
-                  payload
-                )
+                .post("http://localhost:3003/app/LoginAPI/login", payload)
                 .then((response) => {
                   console.log(response);
                   if (response.status === 200) {

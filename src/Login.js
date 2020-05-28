@@ -70,6 +70,21 @@ class Login extends Component {
     this.props.history.push("/login");
   };
   componentDidMount() {
+    try {
+      var e = this.props.location.state.error;
+      e: if (e === "yes") {
+        window.onload = function () {
+          //considering there aren't any hashes in the urls already
+          if (!window.location.hash) {
+            //setting window location
+            window.location = window.location + "#loaded";
+            //using reload() method to reload web page
+            window.location.reload();
+          }
+        };
+      }
+    } catch (error) {}
+
     const tokenval = localStorage.getItem("token");
     const tokenvalB = localStorage.getItem("Btoken");
 
@@ -100,10 +115,7 @@ class Login extends Component {
     };
     trackPromise(
       axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
-          payload
-        )
+        .post("http://localhost:3003/app/LoginAPI/login", payload)
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -122,6 +134,12 @@ class Login extends Component {
               incorrect: "block",
             });
           }
+          try {
+            if (this.props.location.state.SuccessJs === "yes") {
+              this.props.history.push("/Success");
+            }
+          } catch (error) {}
+
           if (response.data.url === "/Shop") {
             this.props.history.push("/Shop");
           } else if (
@@ -145,6 +163,7 @@ class Login extends Component {
           this.setState({
             incorrect: "flex",
           });
+          console.log(err);
         })
     );
   };
@@ -168,12 +187,9 @@ class Login extends Component {
         succfcusbusfp2: "Loading...",
       });
       await axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/contact/resetPass",
-          {
-            emailp: this.state.emailp,
-          }
-        )
+        .post("http://localhost:3003/app/contact/resetPass", {
+          emailp: this.state.emailp,
+        })
         .then((res) => {
           console.info(res);
           keyCode = cryptr.decrypt(res.data.encKey);
@@ -186,12 +202,9 @@ class Login extends Component {
         });
 
       axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/getId",
-          {
-            emailf: this.state.emailp,
-          }
-        )
+        .post("http://localhost:3003/app/LoginAPI/posts/getId", {
+          emailf: this.state.emailp,
+        })
         .then((res) => {
           console.log(res);
           this.setState({
@@ -241,13 +254,9 @@ class Login extends Component {
       var hashedPassword = bcrypt.hashSync(this.state.newPVal, salt);
       console.info(hashedPassword);
       await axios
-        .patch(
-          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/" +
-            this.state.id,
-          {
-            passwordf: hashedPassword,
-          }
-        )
+        .patch("http://localhost:3003/app/LoginAPI/posts/" + this.state.id, {
+          passwordf: hashedPassword,
+        })
         .then((res) => {
           console.log(res);
           this.setState({

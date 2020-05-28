@@ -28,7 +28,7 @@ var bname;
 
 const fetchCheckoutSession = async ({ quantity, product }) => {
   return await fetch(
-    "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
+    "http://localhost:3003/app/payment/create-checkout-session",
     {
       method: "POST",
       headers: {
@@ -187,7 +187,7 @@ const Buy = (props) => {
     async function fetchConfig() {
       // Fetch config from our backend.
       const { publicKey, basePrice, currency } = await fetch(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/config"
+        "http://localhost:3003/app/payment/config"
       ).then((res) => res.json());
       // Make sure to call `loadStripe` outside of a component’s render to avoid
       // recreating the `Stripe` object on every render.
@@ -276,7 +276,7 @@ const Buy = (props) => {
       price: dprice,
     };
     const response = await axios.post(
-      "https://localmainstreetbackend.herokuapp.com/app/payment/checkout",
+      "http://localhost:3003/app/payment/checkout",
       {
         token,
         product,
@@ -287,7 +287,7 @@ const Buy = (props) => {
     if (status === "success") {
       toast("Success! Check email for details", { type: "success" });
 
-      axios.post("https://localmainstreetbackend.herokuapp.com/app/payment/donate", {
+      axios.post("http://localhost:3003/app/payment/donate", {
         status: "yes"
       }).then(res => {
         console.log(res)
@@ -306,7 +306,7 @@ const Buy = (props) => {
       };
   
       await axios
-        .post("https://localmainstreetbackend.herokuapp.com/app/payment/getInfo", payload)
+        .post("http://localhost:3003/app/payment/getInfo", payload)
         .then((res) => {
           console.log(res);
         })
@@ -319,7 +319,7 @@ const Buy = (props) => {
       };
   
       // await axios
-      //   .post("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", id)
+      //   .post("http://localhost:3003/app/payment/create-checkout-session", id)
       //   .then((res) => {
       //     console.log(res);
       //   })
@@ -382,10 +382,7 @@ const Buy = (props) => {
     };
 
     await axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/getInfo",
-        payload
-      )
+      .post("http://localhost:3003/app/payment/getInfo", payload)
       .then((res) => {
         console.log(res);
       })
@@ -398,7 +395,7 @@ const Buy = (props) => {
     };
 
     // await axios
-    //   .post("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", id)
+    //   .post("http://localhost:3003/app/payment/create-checkout-session", id)
     //   .then((res) => {
     //     console.log(res);
     //   })

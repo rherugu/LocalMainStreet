@@ -77,9 +77,7 @@ class Shop extends Component {
     var check = "";
 
     await axios
-      .get(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/encryption"
-      )
+      .get("http://localhost:3003/app/payment/encryption")
       .then((res) => {
         if (res.data.status === "success") {
           check = undefined;
@@ -134,10 +132,7 @@ class Shop extends Component {
       if (tokenval) {
         trackPromise(
           axios
-            .get(
-              "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-              { headers }
-            )
+            .get("http://localhost:3003/app/BusinessLoginAPI/shop", { headers })
             .then((response) => {
               this.setState({ shops: response.data });
               // shops = this.state.shops.map((shop) => shop);
@@ -196,7 +191,7 @@ class Shop extends Component {
       };
       axios
         .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
           {
             query: this.state.search,
           },
@@ -219,7 +214,7 @@ class Shop extends Component {
       };
       axios
         .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
           {
             query: this.state.search,
           },
@@ -252,7 +247,7 @@ class Shop extends Component {
       };
       axios
         .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
           {
             query: this.state.search,
           },
@@ -275,7 +270,7 @@ class Shop extends Component {
       };
       axios
         .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+          "http://localhost:3003/app/BusinessLoginAPI/shop/search",
           {
             query: this.state.search,
           },

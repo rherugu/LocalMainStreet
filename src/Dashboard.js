@@ -11,19 +11,27 @@ const Dashboard = (props) => {
   console.log(props);
   useEffect(async () => {
     await axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard",
-        props.location.state
-      )
+      .post("http://localhost:3003/app/payment/dashboard", props.location.state)
       .then((res) => {
         console.log(res);
+        if (res.data === "temporary") {
+          alert(
+            "We have noticed some unusual traffic coming from your network. To secure your account, you need to login again. We are sorry for any inconvenience caused."
+          );
+          props.history.push({
+            pathname: "/Login",
+            state: {
+              error: "yes",
+            },
+          });
+        }
       })
       .catch((err) => {
         console.error(err);
       });
 
     axios
-      .get("https://localmainstreetbackend.herokuapp.com/app/payment/dashboard")
+      .get("http://localhost:3003/app/payment/dashboard")
       .then((res) => {
         url = res;
         document.location = res.data.url;
@@ -92,7 +100,7 @@ const Dashboard = (props) => {
 
   return (
     <div className="loadingbois">
-      <h2>Loading...</h2>
+      <h2>Loading . . .</h2>
       {/* <header className="Dashboard-Header">
         <div className="DH">
           <h3
