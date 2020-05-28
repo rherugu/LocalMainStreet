@@ -17,7 +17,29 @@
 
 .titleB {
   font-size: 50px;
-  margin-top: 25vh;
+
+  margin-top: 50vh !important;
+}
+
+@media screen and (max-width: 628px) {
+  .titleB {
+    font-size: 30px;
+  }
+}
+@media screen and (max-width: 520px) {
+  .titleB {
+    font-size: 20px;
+  }
+}
+@media screen and (max-height: 1048px) {
+  .titleB {
+    margin-top: 70vh !important;
+  }
+}
+@media screen and (max-height: 899px) {
+  .titleB {
+    margin-top: 100vh !important;
+  }
 }
 
 .date-field {
@@ -56,10 +78,6 @@
 .formBR a {
   display: flex;
   justify-content: center;
-}
-
-.formBR {
-  margin-top: 350px;
 }
 
 .oo {
@@ -137,13 +155,45 @@
     transform: scale(0.7);
   }
 }
+@media screen and (max-width: 546px) {
+  .titleB {
+    display: none;
+  }
+  .formBR {
+    margin-top: 100vh !important;
+  }
+}
+@media screen and (max-width: 354px) {
+  .formBR {
+    transform: scale(0.6);
+    margin-top: 49vh !important;
+  }
+  .titleB {
+    display: none;
+  }
+}
+@media screen and (max-height: 758px) {
+  .titleB {
+    margin-top: 150vh !important;
+  }
+}
+@media screen and (max-height: 587px) {
+  .titleB {
+    margin-top: 180vh !important;
+  }
+}
+@media screen and (max-height: 506px) {
+  .titleB {
+    margin-top: 200vh !important;
+  }
+}
 
-@media screen and (max-height: 754px) {
+/* @media screen and (max-height: 754px) {
   .formBR {
     margin-top: 400px;
   }
-}
-@media screen and (max-height: 670px) {
+} */
+/* @media screen and (max-height: 670px) {
   .formBR {
     margin-top: 500px;
   }
@@ -157,7 +207,7 @@
   .formBR {
     margin-top: 700px;
   }
-}
+} */
 
 @media screen and (max-height: 412px) {
   .logoimg2 {

@@ -53,15 +53,14 @@ class BusinessLogin extends Component {
       accountHolderType: "",
       routingNumber: "",
       accountNumber: "",
-      day: "",
-      month: "",
-      year: "",
       burger: "0",
       pointerEvents: "none",
       width: "30px",
       logout: "none",
       login: "flex",
       help: "none",
+      displayError: "none",
+      displayErrorText: "",
     };
   }
   componentDidMount() {
@@ -153,12 +152,18 @@ class BusinessLogin extends Component {
           console.log("lat and lng", lat, lng);
         },
         (error) => {
-          alert("Invalid address");
+          this.setState({
+            displayErrorText: "Invalid Address",
+            displayError: "flex",
+          });
           return;
         }
       );
     } catch (err) {
-      alert("Invalid address");
+      this.setState({
+        displayErrorText: "Invalid Address",
+        displayError: "flex",
+      });
       return;
     }
 
@@ -171,12 +176,9 @@ class BusinessLogin extends Component {
       description: this.state.description,
       address: this.state.Address,
       phoneNumber: this.state.PhoneNumber,
-      day: this.state.day,
-      month: this.state.month,
-      year: this.state.year,
     };
 
-    axios
+    await axios
       .post("https://localmainstreetbackend.herokuapp.com/app/payment/data", {
         data,
       })
@@ -240,8 +242,33 @@ class BusinessLogin extends Component {
         )
         .then((response) => {
           res = response.data;
-
-          alert(res.message);
+          var realres = "realres";
+          if (
+            res.message ===
+            '"passwordb" length must be at least 6 characters long'
+          ) {
+            realres =
+              "Password length is too short. It needs to be at least 6 characters long.";
+          } else if (
+            res.message === '"emailb" length must be at least 6 characters long'
+          ) {
+            realres = "Email is too short; needs to be at least 6 characters.";
+          } else if (res.message === '"emailb" must be a valid email') {
+            realres =
+              "The email entered is not a valid email. Make sure to include the @ sign and the '.com, or .io, etc";
+          } else if (res.message === '"fnameb" is not allowed to be empty') {
+            realres = "Please enter your first name.";
+          } else if (res.message === '"lnameb" is not allowed to be empty') {
+            realres = "Please enter your last name.";
+          } else if (res.message === '"passwordb" is not allowed to be empty') {
+            realres = "Please enter your password.";
+          } else if (res.message === '"emailb" is not allowed to be empty') {
+            realres = "Please enter your email.";
+          }
+          this.setState({
+            displayError: "flex",
+            displayErrorText: realres,
+          });
 
           if (res.message === "Success!") {
             window.location.assign(stripeUrl);
@@ -429,9 +456,9 @@ class BusinessLogin extends Component {
             </div>
           </header>
           <main className="mainBR">
-            {/* <div className="titleB">
-            <h3 style={{ color: "#111111" }}>Business Registration</h3>
-          </div> */}
+            <div className="titleB">
+              <h3 style={{ color: "#111111" }}>Business Registration</h3>
+            </div>
             <form className="formBR">
               <a
                 href="javascript:void(0)"
@@ -540,7 +567,7 @@ class BusinessLogin extends Component {
                 cols="160"
                 id="description"
                 name="description"
-                placeholder="This will be shown for the consumer to see"
+                placeholder="This will be shown for the customer to see. Keep it short and sweet!"
                 onChange={(e) => this.setState({ description: e.target.value })}
                 value={this.state.description}
                 style={{
@@ -553,21 +580,7 @@ class BusinessLogin extends Component {
               <br></br>
               <label style={{ color: "#111111" }}>Address</label>
               <br></br>
-              {/* <input
-              type="text"
-              id="Address"
-              name="Address"
-              placeholder="Your address"
-              value={this.state.Address}
-              onChange={(e) => this.setState({ Address: e.target.value })}
-              style={{
-                width: 500,
-                height: 50,
-                fontSize: 20,
-                backgroundColor: "#DDDDDD",
-              }}
-            />
-            <br></br> */}
+
               <Autocomplete
                 className="Autocomplete"
                 style={{
@@ -575,6 +588,7 @@ class BusinessLogin extends Component {
                   justifyContent: "center",
                   alignItems: "center",
                   width: "100%",
+                  backgroundColor: "#DDDDDD",
                 }}
                 value={this.state.Address}
                 onChange={(e) => this.setState({ Address: e.target.value })}
@@ -603,54 +617,9 @@ class BusinessLogin extends Component {
               />
               <br></br>
               {/* <button onClick={this.stripe}>Stripe</button> */}
-              <label>Date of Birth</label>
+
               <br></br>
-              <div className="dobwrap">
-                <div className="field-inline-block">
-                  {/* <label>DD</label> */}
-                  <input
-                    type="text"
-                    pattern="[0-9]*"
-                    maxlength="2"
-                    size="2"
-                    placeholder="DD"
-                    className="date-field"
-                    value={this.state.day}
-                    onChange={(e) => this.setState({ day: e.target.value })}
-                  />
-                </div>
-                /
-                <div className="field-inline-block">
-                  {/* <label>MM</label> */}
-                  <input
-                    type="text"
-                    pattern="[0-9]*"
-                    maxlength="2"
-                    placeholder="MM"
-                    size="2"
-                    className="date-field"
-                    value={this.state.month}
-                    onChange={(e) => this.setState({ month: e.target.value })}
-                  />
-                </div>
-                /
-                <div className="field-inline-block">
-                  {/* <label>YYYY</label> */}
-                  <input
-                    type="text"
-                    pattern="[0-9]*"
-                    maxlength="4"
-                    size="4"
-                    placeholder="YYYY"
-                    className="date-field date-field--year"
-                    value={this.state.year}
-                    onChange={(e) => this.setState({ year: e.target.value })}
-                  />
-                </div>
-              </div>
-              <br></br>
-              <br></br>
-              <br></br>
+
               <a
                 href="javascript:void(0)"
                 className="fancy-button pop-onhover bg-gradient3 oo ee ze"
@@ -666,6 +635,18 @@ class BusinessLogin extends Component {
                   />
                 </span>
               </a>
+              <br></br>
+              <h3
+                style={{
+                  textAlign: "center",
+                  display: this.state.displayError,
+                  margin: "auto",
+                  color: "red",
+                  width: "fit-content",
+                }}
+              >
+                {this.state.displayErrorText}
+              </h3>
               <h6
                 className="termsforstripe"
                 style={{
