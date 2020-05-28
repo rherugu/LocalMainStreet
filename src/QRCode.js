@@ -42,7 +42,10 @@ class QRCodejs extends React.Component {
       sent: "Sending...",
     });
     await axios
-      .post("http://localhost:3003/app/contact/getqrcode", { qrcode: img })
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/getqrcode",
+        { qrcode: img }
+      )
       .then((res) => {
         console.log(res);
       })
@@ -57,7 +60,10 @@ class QRCodejs extends React.Component {
     };
 
     axios
-      .post("http://localhost:3003/app/contact/sendqrcode", mail)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcode",
+        mail
+      )
       .then((res) => {
         console.log(res);
         this.setState({
@@ -81,7 +87,10 @@ class QRCodejs extends React.Component {
       sent: "Sending...",
     });
     await axios
-      .post("http://localhost:3003/app/contact/getqrcode", { qrcode: img })
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/getqrcode",
+        { qrcode: img }
+      )
       .then((res) => {
         console.log(res);
       })
@@ -94,7 +103,10 @@ class QRCodejs extends React.Component {
     };
 
     axios
-      .post("http://localhost:3003/app/contact/sendqrcode", mail)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcode",
+        mail
+      )
       .then((res) => {
         console.log(res);
         this.setState({
@@ -108,7 +120,7 @@ class QRCodejs extends React.Component {
 
   refund = async () => {
     await axios
-      .get("http://localhost:3003/app/payment/refund")
+      .get("https://localmainstreetbackend.herokuapp.com/app/payment/refund")
       .then((res) => {
         console.info(res);
       })
@@ -120,7 +132,7 @@ class QRCodejs extends React.Component {
     // var result = yourString.substring(1, yourString.length - 1);
     await axios
       .delete(
-        "http://localhost:3003/app/qrcode/" +
+        "https://localmainstreetbackend.herokuapp.com/app/qrcode/" +
           this.props.location.state.value._id
       )
       .then((res) => {
@@ -163,7 +175,10 @@ class QRCodejs extends React.Component {
       sent: "Sending...",
     });
     await axios
-      .post("http://localhost:3003/app/contact/getqrcode", { qrcode: img })
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/getqrcode",
+        { qrcode: img }
+      )
       .then((res) => {
         console.log(res);
       })
@@ -179,7 +194,10 @@ class QRCodejs extends React.Component {
     };
 
     axios
-      .post("http://localhost:3003/app/contact/sendqrcodeshare", mail)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcodeshare",
+        mail
+      )
       .then((res) => {
         console.log(res);
         this.setState({

@@ -11,7 +11,10 @@ const Dashboard = (props) => {
   console.log(props);
   useEffect(async () => {
     await axios
-      .post("http://localhost:3003/app/payment/dashboard", props.location.state)
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard",
+        props.location.state
+      )
       .then((res) => {
         console.log(res);
         if (res.data === "temporary") {
@@ -31,7 +34,7 @@ const Dashboard = (props) => {
       });
 
     axios
-      .get("http://localhost:3003/app/payment/dashboard")
+      .get("https://localmainstreetbackend.herokuapp.com/app/payment/dashboard")
       .then((res) => {
         url = res;
         document.location = res.data.url;

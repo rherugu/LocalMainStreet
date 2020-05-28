@@ -89,7 +89,10 @@ class Contact extends Component {
       };
 
       axios
-        .post("http://localhost:3003/app/contact/send", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/contact/send",
+          payload
+        )
         .then((response) => {
           if (response.data.status === "success") {
             toast("Thank you very much for your feedback.", {

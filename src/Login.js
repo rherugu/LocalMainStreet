@@ -115,7 +115,10 @@ class Login extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3003/app/LoginAPI/login", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+          payload
+        )
         .then((response) => {
           console.log(response);
           if (response.status === 200) {
@@ -187,9 +190,12 @@ class Login extends Component {
         succfcusbusfp2: "Loading...",
       });
       await axios
-        .post("http://localhost:3003/app/contact/resetPass", {
-          emailp: this.state.emailp,
-        })
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/contact/resetPass",
+          {
+            emailp: this.state.emailp,
+          }
+        )
         .then((res) => {
           console.info(res);
           keyCode = cryptr.decrypt(res.data.encKey);
@@ -202,9 +208,12 @@ class Login extends Component {
         });
 
       axios
-        .post("http://localhost:3003/app/LoginAPI/posts/getId", {
-          emailf: this.state.emailp,
-        })
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/getId",
+          {
+            emailf: this.state.emailp,
+          }
+        )
         .then((res) => {
           console.log(res);
           this.setState({
@@ -254,9 +263,13 @@ class Login extends Component {
       var hashedPassword = bcrypt.hashSync(this.state.newPVal, salt);
       console.info(hashedPassword);
       await axios
-        .patch("http://localhost:3003/app/LoginAPI/posts/" + this.state.id, {
-          passwordf: hashedPassword,
-        })
+        .patch(
+          "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/posts/" +
+            this.state.id,
+          {
+            passwordf: hashedPassword,
+          }
+        )
         .then((res) => {
           console.log(res);
           this.setState({

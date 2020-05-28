@@ -110,7 +110,10 @@ class BusinessLogin extends Component {
     };
     trackPromise(
       axios
-        .post("http://localhost:3003/app/BusinessLoginAPI/shop", payload)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          payload
+        )
         .then((response) => {
           res = response.data;
 
@@ -174,7 +177,7 @@ class BusinessLogin extends Component {
     };
 
     axios
-      .post("http://localhost:3003/app/payment/data", {
+      .post("https://localmainstreetbackend.herokuapp.com/app/payment/data", {
         data,
       })
       .then((res) => {
@@ -184,12 +187,15 @@ class BusinessLogin extends Component {
         console.log("ERROR", err);
       });
 
-    await fetch("http://localhost:3003/app/payment/get-oauth-link", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    await fetch(
+      "https://localmainstreetbackend.herokuapp.com/app/payment/get-oauth-link",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
       .then((response) => response.json())
       .then(async (data) => {
         console.log(data);
@@ -204,7 +210,9 @@ class BusinessLogin extends Component {
       });
 
     axios
-      .get("http://localhost:3003/app/payment/stripeAccountId")
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/stripeAccountId"
+      )
       .then((res) => {
         stripeAccountId = res;
         console.log("boi", stripeAccountId);
@@ -226,7 +234,10 @@ class BusinessLogin extends Component {
 
     trackPromise(
       axios
-        .post("http://localhost:3003/app/BusinessLoginAPI/shop", database)
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          database
+        )
         .then((response) => {
           res = response.data;
 
