@@ -131,6 +131,7 @@
   justify-content: center;
   flex-direction: column;
   margin: auto;
+  margin-top: 10vh;
 }
 
 .titleA {
@@ -144,7 +145,7 @@
 
 .abouttxt {
   display: flex;
-  width: 30%;
+  width: 50%;
   justify-content: center;
   text-align: center;
   margin: auto;
@@ -158,16 +159,75 @@
   width: fit-content;
   margin: auto;
 }
+.RaghavVaibhavHerugu {
+  margin: auto !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.st {
+  height: 10vh;
+  z-index: -99999;
+  width: 100%;
+  background-color: transparent;
+}
+.Awrapp {
+  width: 90%;
+}
+#fit {
+  width: fit-content !important;
+}
 
-@media screen and (max-width: 884px) {
+@media screen and (max-width: 2154px) {
   .abouttxt {
-    font-size: 15px;
     width: 90%;
   }
 }
-
-@media screen and (max-width: 1035px) {
-  .abouttxt {
-    width: 90%;
+@media screen and (max-width: 1922px) {
+  .RaghavVaibhavHerugu {
+    width: 60%;
   }
+  .cofounder {
+    width: 60%;
+  }
+}
+@media screen and (max-width: 1584px) {
+  .Awrapp {
+    width: 97%;
+  }
+}
+.Awrapp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 1026px) {
+  .Awrapp {
+    flex-direction: column;
+  }
+  .abouttxt {
+    margin-bottom: 30px;
+  }
+}
+@media screen and (max-width: 634px) {
+  .abouttxt {
+    font-size: medium;
+  }
+}
+@media screen and (max-width: 504px) {
+  .RaghavVaibhavHerugu {
+    width: 70%;
+  }
+}
+@media screen and (max-height: 818px) {
+  .abouttxt {
+    margin-top: 300px;
+  }
+}
+
+.About {
+  overflow-y: scroll !important;
 }

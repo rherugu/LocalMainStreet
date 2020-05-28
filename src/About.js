@@ -203,26 +203,65 @@ class About extends Component {
             </h3>
           </div>
         </header>
-        <main className="mainA">
-          {/* prettier-ignore */}
-          <div className="titleandtext">
+        <div className="st"></div>
+        <div className="Awrapp">
+          {" "}
+          {/* <main className="mainA">
+
+            <div className="titleandtext">
             <h1 className="titleA">About</h1>
-            {/* prettier-ignore */}
+    
+            
+            
+          </div>
+          </main> */}
+          <div
+            style={{
+              width: "100%",
+            }}
+          >
+            <h1 className="titleA">About</h1>
             <h3 className="abouttxt">
-              Back in late March, we were hit with global pandemic caused due to the Coronavirus. As the crisis started unfold, we saw our schools and local businesses being shut down. Besides the serious danger to public health, the economy also came to a standstill. We saw small businesses, the backbone of America, feel the impact. Our favorite local resteraunts, salons, and other small businesses were struggling to survive. We decided to to something about it. 
-              {/* We are in the middle of a crisis. Covid 19 has harmed many, but the
-              financial aspect is just as bad. People are losing businesses, jobs,
-              and money at an fast rate. The situation has begun to surpass that
-              of the 2008 recession. Small business owners, the pizza resteraunt
-              around the block, the barber shop nearby, etc. These people have
-              lost their businesses. And thats where we come in. */}
-              <br></br><br></br> 
-              Here, at LocalMainStreet.com we allow customers to buy and share gift cards and vouchers from your favorite local businesses.
-              Registration is free and only takes a few clicks. This is our way of contributing to the community and the businesses that have served us for a long time.
-              United we stand, together we win!
+              Back in late March, we were hit with global pandemic caused due to
+              the Coronavirus. As the crisis started unfold, we saw our schools
+              and local businesses being shut down. Besides the serious danger
+              to public health, the economy also came to a standstill. We saw
+              small businesses, the backbone of America, feel the impact. Our
+              favorite local resteraunts, salons, and other small businesses
+              were struggling to survive. We decided to to something about it.
+              <br></br>
+              <br></br>
+              Here, at LocalMainStreet.com we allow customers to buy and share
+              gift cards and vouchers from your favorite local businesses.
+              Registration is free and only takes a few clicks. This is our way
+              of contributing to the community and the businesses that have
+              served us for a long time. United we stand, together we win!
             </h3>
           </div>
-        </main>
+          <div id="fit">
+            <img
+              style={{
+                borderRadius: "15px",
+                margin: "auto",
+                alignSelf: "center",
+              }}
+              className="RaghavVaibhavHerugu"
+              src={require("./Assets/AboutUsPic.png")}
+              alt="raghav and vaibhav herugu"
+            ></img>
+            <p
+              style={{
+                textAlign: "center",
+                margin: "auto",
+              }}
+              className="cofounder"
+            >
+              The Co-Founders, Raghav and Vaibhav Herugu, Both Middle Schoolers
+              from New Jersey
+            </p>
+          </div>
+        </div>
+        {/* <h1 className="titleA">Team</h1> */}
       </div>
     );
   }
