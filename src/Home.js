@@ -315,7 +315,7 @@ class Home extends Component {
             </h3>
             <div className="mainbutton">
               <a
-                onClick={this.onClickCustomerLogin}
+                onClick={this.onClickLogin}
                 className="fancy-button pop-onhover bg-gradient1 Hheading2"
               >
                 <span>Get Started</span>

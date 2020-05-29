@@ -18,6 +18,8 @@ import TermsOfUse from "./TermsOfUse";
 import PrivacyPolicy from "./PrivacyPolicy";
 import fourofour from "./fourofour";
 import ForgotPass from "./ForgotPass";
+import Redirecting from "./Redirecting";
+import BDashboard from "./BDashboard";
 // import FullMap from "./FullMap";
 
 class App extends Component {
@@ -76,6 +78,16 @@ class App extends Component {
             exact
             path="/ForgotPass"
             render={(props) => <ForgotPass {...props} />}
+          />
+          <Route
+            exact
+            path="/Redirecting"
+            render={(props) => <Redirecting {...props} />}
+          />
+          <Route
+            exact
+            path="/BDashboard"
+            render={(props) => <BDashboard {...props} />}
           />
           {/* <Route
             exact

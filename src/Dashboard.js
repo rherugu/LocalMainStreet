@@ -6,42 +6,53 @@ import "react-toastify/dist/ReactToastify.css";
 const Dashboard = (props) => {
   var [price, setPrice] = useState();
   var [name, setName] = useState();
+  var [err, setErr] = useState("");
+  var [Loaded, setLoaded] = useState("flex");
 
   var url = "";
   console.log(props);
-  useEffect(async () => {
-    await axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard",
-        props.location.state
-      )
-      .then((res) => {
-        console.log(res);
-        if (res.data === "temporary") {
-          alert(
-            "We have noticed some unusual traffic coming from your network. To secure your account, you need to login again. We are sorry for any inconvenience caused."
-          );
-          props.history.push({
-            pathname: "/Login",
-            state: {
-              error: "yes",
-            },
-          });
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+  useEffect(() => {
+    (async () => {
+      await axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard",
+          props.location.state
+        )
+        .then((res) => {
+          console.log(res);
+          if (res.data === "temporary") {
+            alert(
+              "We have noticed some unusual traffic coming from your network. To secure your account, you need to login again. We are sorry for any inconvenience caused."
+            );
+            props.history.push({
+              pathname: "/Login",
+              state: {
+                error: "yes",
+              },
+            });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
 
-    axios
-      .get("https://localmainstreetbackend.herokuapp.com/app/payment/dashboard")
-      .then((res) => {
-        url = res;
-        document.location = res.data.url;
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      await axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard"
+        )
+        .then((res) => {
+          url = res;
+          document.location = res.data.url;
+        })
+        .catch((err) => {
+          console.error(err);
+
+          setErr(
+            "Error: This account was registered in test mode, and it cannot be accessed in live mode."
+          );
+          setLoaded("none");
+        });
+    })();
   }, []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -103,7 +114,20 @@ const Dashboard = (props) => {
 
   return (
     <div className="loadingbois">
-      <h2>Loading . . .</h2>
+      <h2
+        style={{
+          display: Loaded,
+        }}
+      >
+        Loading . . .
+      </h2>
+      <br></br>
+      <br></br>
+      <h2>
+        <br></br>
+        <br></br>
+        {err}
+      </h2>
       {/* <header className="Dashboard-Header">
         <div className="DH">
           <h3

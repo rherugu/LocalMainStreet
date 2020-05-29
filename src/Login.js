@@ -80,6 +80,7 @@ class Login extends Component {
             window.location = window.location + "#loaded";
             //using reload() method to reload web page
             window.location.reload();
+            // window.location.reload();
           }
         };
       }
@@ -150,7 +151,7 @@ class Login extends Component {
             response.data.stripeId
           ) {
             this.props.history.push({
-              pathname: "/Dashboard",
+              pathname: "/BDashboard",
               state: {
                 // tour: "no",
                 stripeAccountId: response.data.stripeId,
@@ -171,6 +172,74 @@ class Login extends Component {
     );
   };
 
+  onkeydownLogin = (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      const payload = {
+        email: this.state.email,
+        password: this.state.Password,
+      };
+      trackPromise(
+        axios
+          .post(
+            "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+            payload
+          )
+          .then((response) => {
+            console.log(response);
+            if (response.status === 200) {
+              localStorage.setItem("token", response.data.token);
+              localStorage.setItem("email", response.data.email);
+              localStorage.setItem("emailb", response.data.emailb);
+              localStorage.setItem("fname", response.data.fname);
+              localStorage.setItem("lname", response.data.lname);
+            }
+            const tokenval = localStorage.getItem("token");
+            console.log(tokenval);
+            console.log(response.data.stripeId);
+
+            if (!tokenval) {
+              this.setState({
+                incorrect: "block",
+              });
+            }
+            try {
+              if (this.props.location.state.SuccessJs === "yes") {
+                this.props.history.push("/Success");
+              }
+            } catch (error) {}
+
+            if (response.data.url === "/Shop") {
+              this.props.history.push("/Shop");
+            } else if (
+              response.data.url === "/Dashboard" &&
+              response.data.stripeId
+            ) {
+              this.props.history.push({
+                pathname: "/BDashboard",
+                state: {
+                  // tour: "no",
+                  stripeAccountId: response.data.stripeId,
+                },
+              });
+            } else {
+              alert(
+                "Whoops! Something wrong happened. Possible causes are that this account has not registered properly."
+              );
+            }
+          })
+          .catch((err) => {
+            this.setState({
+              incorrect: "flex",
+            });
+            console.log(err);
+          })
+      );
+    } else {
+      return 0;
+    }
+  };
+
   forgotPass = () => {
     if (this.state.forgotPass === "none") {
       this.setState({
@@ -185,7 +254,7 @@ class Login extends Component {
   };
 
   passwordSend = async (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       this.setState({
         succfcusbusfp2: "Loading...",
       });
@@ -238,7 +307,7 @@ class Login extends Component {
   };
 
   keyCodeValCheck = async (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       this.setState({
         succfcusbusfp3: "Loading...",
       });
@@ -258,7 +327,7 @@ class Login extends Component {
   };
 
   updatePass = async (e) => {
-    if (e.keyCode == 13) {
+    if (e.keyCode === 13) {
       var salt = bcrypt.genSaltSync(10);
       var hashedPassword = bcrypt.hashSync(this.state.newPVal, salt);
       console.info(hashedPassword);
@@ -478,6 +547,7 @@ class Login extends Component {
                   backgroundColor: "#DDDDDD",
                 }}
                 required
+                onKeyDown={this.onkeydownLogin}
               />
               <big>
                 <big>
@@ -505,6 +575,7 @@ class Login extends Component {
                     caps: "hidden",
                   });
                 }}
+                onKeyDown={this.onkeydownLogin}
               />
               <h5
                 id="CapsLock"

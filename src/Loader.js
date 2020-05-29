@@ -7,7 +7,12 @@ const Loader = (props) => {
 
   return (
     promiseInProgress && (
-      <div className="loaderwrapper">
+      <div
+        className="loaderwrapper"
+        style={{
+          zIndex: 9999999999,
+        }}
+      >
         <div className="loader"></div>
       </div>
     )

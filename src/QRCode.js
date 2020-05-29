@@ -192,6 +192,7 @@ class QRCodejs extends React.Component {
       bname: this.props.location.state.bname,
       message: this.state.message,
     };
+    console.log(mail.bname);
 
     axios
       .post(

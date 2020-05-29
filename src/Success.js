@@ -108,8 +108,6 @@ class Success extends Component {
       .then((response) => {
         res = response.data;
 
-        alert(res.message);
-
         if (res.check === 200) {
           alert("Success!");
         }
@@ -120,13 +118,13 @@ class Success extends Component {
         console.error(err);
       });
 
-    // this.props.history.push({
-    //   pathname: "/Dashboard",
-    //   state: {
-    //     // tour: "no",
-    //     stripeAccountId: database.stripeAccountId,
-    //   },
-    // });
+    this.props.history.push({
+      pathname: "/BDashboard",
+      state: {
+        // tour: "no",
+        stripeAccountId: database.stripeAccountId,
+      },
+    });
   }
 
   render() {
@@ -142,8 +140,8 @@ class Success extends Component {
       >
         <h1>Success!</h1>
         <h3>
-          Right now we are proccessing your information. You may close this page
-          and return to the home page.
+          Right now we are proccessing your information. Do not close this
+          window.
         </h3>
       </div>
     );

@@ -295,9 +295,14 @@ const Buy = (props) => {
         console.error(err)
       })
       
-      var fnameq = localStorage.getItem("fname");
-      var lnameq = localStorage.getItem("lname");
-      var emailq = localStorage.getItem("email");
+      const fnameq = localStorage.getItem("fname");
+      const lnameq = localStorage.getItem("lname");
+      const emailq = localStorage.getItem("email");
+      console.log({
+        fnameq,
+        lnameq,
+        emailq
+      })
   
       const payload = {
         nameq: `${fnameq} ${lnameq}`,
@@ -516,7 +521,7 @@ const Buy = (props) => {
 
         <div className="checkout">
           <StripeCheckout
-            stripeKey="pk_test_KkfXWjgjLwtNgUTOjtn25pj4005QCLSJ6I"
+            stripeKey={`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`}
             token={handleToken}
             billingAddress
             shippingAddress
@@ -610,8 +615,8 @@ const Buy = (props) => {
               textAlign: "center",
             }}
           >
-            Please note that $0.59 will be added to your payment for application
-            fees.
+            Please note that $0.59 will be added to your payment for stripe
+            application fees.
           </h6>
         </section>
         <br></br>

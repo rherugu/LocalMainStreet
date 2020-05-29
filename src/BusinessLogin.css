@@ -284,3 +284,17 @@ body {
   width: fit-content !important;
   margin: auto !important;
 }
+
+@media screen and (max-width: 763px) {
+  .Bdash {
+    height: 50px !important;
+    font-size: 15px !important;
+  }
+}
+
+@media screen and (max-width: 403px) {
+  .Bdash {
+    height: 45px !important;
+    font-size: 10px !important;
+  }
+}

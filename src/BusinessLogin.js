@@ -61,6 +61,7 @@ class BusinessLogin extends Component {
       help: "none",
       displayError: "none",
       displayErrorText: "",
+      redirecting: "flex",
     };
   }
   componentDidMount() {
@@ -142,7 +143,6 @@ class BusinessLogin extends Component {
     Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
     var { lat } = "";
     var { lng } = "";
-    // console.log(place);
 
     try {
       Geocode.fromAddress(`${this.state.Address}`).then(
@@ -189,22 +189,19 @@ class BusinessLogin extends Component {
         console.log("ERROR", err);
       });
 
-    await fetch(
-      "https://localmainstreetbackend.herokuapp.com/app/payment/get-oauth-link",
-      {
-        method: "GET",
-        headers: {
+    await axios
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/get-oauth-link",
+        {
           "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then(async (data) => {
-        console.log(data);
-        if (data.url) {
-          stripeUrl = data.url;
+        }
+      )
+      .then(async (res) => {
+        console.log(res);
+        if (res.data.url) {
+          stripeUrl = res.data.url;
         } else {
-          alert("Something went wrong.");
+          alert("Something went wrong. We are sorry.");
         }
       })
       .catch((err) => {
@@ -232,23 +229,20 @@ class BusinessLogin extends Component {
       stripeAccountId: "temporary",
     };
 
-    // module.exports = database;
-
     trackPromise(
       axios
         .post(
           "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
           database
         )
-        .then((response) => {
+        .then(async (response) => {
           res = response.data;
-          var realres = "realres";
+          var realres = "Success!";
           if (
             res.message ===
             '"passwordb" length must be at least 6 characters long'
           ) {
-            realres =
-              "Password length is too short. It needs to be at least 6 characters long.";
+            realres = "Passwords needs to be at least 6 characters long.";
           } else if (
             res.message === '"emailb" length must be at least 6 characters long'
           ) {
@@ -264,6 +258,11 @@ class BusinessLogin extends Component {
             realres = "Please enter your password.";
           } else if (res.message === '"emailb" is not allowed to be empty') {
             realres = "Please enter your email.";
+          } else if (
+            res.message ===
+            "Email already exists. Please choose a different email."
+          ) {
+            realres = "Email already exists. Please choose a different email.";
           }
           this.setState({
             displayError: "flex",
@@ -271,6 +270,32 @@ class BusinessLogin extends Component {
           });
 
           if (res.message === "Success!") {
+            var payload = {
+              email: this.state.email,
+              password: this.state.Password,
+            };
+
+            await axios
+              .post(
+                "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+                payload
+              )
+              .then((response) => {
+                console.log(response);
+                if (response.status === 200) {
+                  localStorage.setItem("token", response.data.token);
+                  localStorage.setItem("email", response.data.email);
+                  localStorage.setItem("emailb", response.data.emailb);
+                  localStorage.setItem("fname", response.data.fname);
+                  localStorage.setItem("lname", response.data.lname);
+                }
+                const tokenval = localStorage.getItem("token");
+                console.log(tokenval);
+                console.log(response.data.stripeId);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
             window.location.assign(stripeUrl);
           }
 
@@ -300,11 +325,190 @@ class BusinessLogin extends Component {
     );
   };
 
+  stripeKey = async (e) => {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      var stripeUrl;
+
+      console.log(this.state.Address);
+
+      Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+      var { lat } = "";
+      var { lng } = "";
+
+      try {
+        Geocode.fromAddress(`${this.state.Address}`).then(
+          (response) => {
+            lat = response.results[0].geometry.location.lat;
+            lng = response.results[0].geometry.location.lng;
+            console.log("lat and lng", lat, lng);
+          },
+          (error) => {
+            this.setState({
+              displayErrorText: "Invalid Address",
+              displayError: "flex",
+            });
+            return;
+          }
+        );
+      } catch (err) {
+        this.setState({
+          displayErrorText: "Invalid Address",
+          displayError: "flex",
+        });
+        return;
+      }
+
+      const data = {
+        email: this.state.email,
+        password: this.state.Password,
+        fname: this.state.fname,
+        lname: this.state.lname,
+        bname: this.state.bname,
+        description: this.state.description,
+        address: this.state.Address,
+        phoneNumber: this.state.PhoneNumber,
+      };
+
+      await axios
+        .post("https://localmainstreetbackend.herokuapp.com/app/payment/data", {
+          data,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log("ERROR", err);
+        });
+
+      await axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/payment/get-oauth-link",
+          {
+            "Content-Type": "application/json",
+          }
+        )
+        .then(async (res) => {
+          console.log(res);
+          if (res.data.url) {
+            stripeUrl = res.data.url;
+          } else {
+            alert("Something went wrong. We are sorry.");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/payment/stripeAccountId"
+        )
+        .then((res) => {
+          stripeAccountId = res;
+          console.log("boi", stripeAccountId);
+        });
+
+      const database = {
+        emailb: this.state.email,
+        passwordb: this.state.Password,
+        fnameb: this.state.fname,
+        lnameb: this.state.lname,
+        bname: this.state.bname,
+        description: this.state.description,
+        address: this.state.Address,
+        phoneNumber: this.state.PhoneNumber,
+        stripeAccountId: "temporary",
+      };
+
+      trackPromise(
+        axios
+          .post(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+            database
+          )
+          .then((response) => {
+            res = response.data;
+            var realres = "Success!";
+            if (
+              res.message ===
+              '"passwordb" length must be at least 6 characters long'
+            ) {
+              realres =
+                "Password length is too short. It needs to be at least 6 characters long.";
+            } else if (
+              res.message ===
+              '"emailb" length must be at least 6 characters long'
+            ) {
+              realres =
+                "Email is too short; needs to be at least 6 characters.";
+            } else if (res.message === '"emailb" must be a valid email') {
+              realres =
+                "The email entered is not a valid email. Make sure to include the @ sign and the '.com, or .io, etc";
+            } else if (res.message === '"fnameb" is not allowed to be empty') {
+              realres = "Please enter your first name.";
+            } else if (res.message === '"lnameb" is not allowed to be empty') {
+              realres = "Please enter your last name.";
+            } else if (
+              res.message === '"passwordb" is not allowed to be empty'
+            ) {
+              realres = "Please enter your password.";
+            } else if (res.message === '"emailb" is not allowed to be empty') {
+              realres = "Please enter your email.";
+            } else if (
+              res.message ===
+              "Email already exists. Please choose a different email."
+            ) {
+              realres =
+                "Email already exists. Please choose a different email.";
+            }
+            this.setState({
+              displayError: "flex",
+              displayErrorText: realres,
+            });
+
+            if (res.message === "Success!") {
+              window.location.assign(stripeUrl);
+            }
+
+            if (res.check === 200) {
+              return (
+                <div className="modal" id="modal">
+                  <button
+                    className="modalclose"
+                    onClick={() => {
+                      var x = document.getElementById("modal");
+                      x.style.opacity = 0;
+                      x.style.pointerEvents = "none";
+                    }}
+                  >
+                    close
+                  </button>
+                  <h3>Step One Complete!</h3>
+                  <button>On to step two!</button>
+                </div>
+              );
+            }
+            console.log("#", response);
+          })
+          .catch(function (err) {
+            console.log(err);
+          })
+      );
+    } else {
+      return 0;
+    }
+  };
+
   render() {
     return (
       <div>
+        <Loader />
         <div
           className="BLogin"
+          style={{
+            display: this.state.redirecting,
+          }}
           onClick={() => {
             if (this.state.help === "flex") {
               this.setState({
@@ -365,7 +569,7 @@ class BusinessLogin extends Component {
               <span>Logout</span>
             </h3>
           </div>
-          <Loader />
+
           <div className="spacer"></div>
           <header className="Home-Header">
             <div className="HH">
@@ -488,6 +692,7 @@ class BusinessLogin extends Component {
                   fontSize: 20,
                   backgroundColor: "#DDDDDD",
                 }}
+                onKeyDown={this.stripeKey}
               />
               <br></br>
               <label style={{ color: "#111111" }}>Last Name</label>
@@ -505,6 +710,7 @@ class BusinessLogin extends Component {
                   fontSize: 20,
                   backgroundColor: "#DDDDDD",
                 }}
+                onKeyDown={this.stripeKey}
               />
               <br></br>
               <label style={{ color: "#111111" }}>Email</label>
@@ -522,6 +728,7 @@ class BusinessLogin extends Component {
                   fontSize: 20,
                   backgroundColor: "#DDDDDD",
                 }}
+                onKeyDown={this.stripeKey}
               />
               <br></br>
               <label style={{ color: "#111111" }}>Password</label>
@@ -539,6 +746,7 @@ class BusinessLogin extends Component {
                   fontSize: 20,
                   backgroundColor: "#DDDDDD",
                 }}
+                onKeyDown={this.stripeKey}
               />
               <br></br>
               <label style={{ color: "#111111" }}>Business Name</label>
@@ -556,6 +764,7 @@ class BusinessLogin extends Component {
                   fontSize: 20,
                   backgroundColor: "#DDDDDD",
                 }}
+                onKeyDown={this.stripeKey}
               />
               <br></br>
               <label className="saysome" style={{ color: "#111111" }}>
@@ -576,6 +785,7 @@ class BusinessLogin extends Component {
                   fontSize: 20,
                   backgroundColor: "#DDDDDD",
                 }}
+                onKeyDown={this.stripeKey}
               ></textarea>
               <br></br>
               <label style={{ color: "#111111" }}>Address</label>
@@ -596,6 +806,7 @@ class BusinessLogin extends Component {
                   this.setState({ Address: place.formatted_address });
                 }}
                 types={["address"]}
+                onKeyDown={this.stripeKey}
                 // componentRestrictions={{ country: "ru" }}
               />
               <br></br>
@@ -614,6 +825,7 @@ class BusinessLogin extends Component {
                   fontSize: 20,
                   backgroundColor: "#DDDDDD",
                 }}
+                onKeyDown={this.stripeKey}
               />
               <br></br>
               {/* <button onClick={this.stripe}>Stripe</button> */}
@@ -635,6 +847,19 @@ class BusinessLogin extends Component {
                   />
                 </span>
               </a>
+              <br></br>
+              <p
+                style={{
+                  textAlign: "center",
+
+                  margin: "auto",
+
+                  width: "fit-content",
+                }}
+              >
+                Please note that the first payout you<br></br> recieve will take
+                up to <strong>5 to 7</strong> business days.
+              </p>
               <br></br>
               <h3
                 style={{
