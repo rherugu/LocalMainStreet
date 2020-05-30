@@ -249,6 +249,12 @@
   }
 }
 
+@media screen and (max-width: 1912px) {
+  .abouttxt {
+    margin-top: 70% !important;
+  }
+}
+
 @media screen and (max-height: 683px) {
   .abouttxt {
     margin-top: 200% !important;

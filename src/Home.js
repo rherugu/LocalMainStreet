@@ -34,6 +34,7 @@ class Home extends Component {
       login: "flex",
       hoverColor3: "white",
       hoverColor4: "white",
+      getStartedDisplay: "flex",
     };
     this.cursor = React.createRef();
   }
@@ -80,6 +81,7 @@ class Home extends Component {
         this.setState({
           login: "flex",
           logout: "none",
+          getStartedDisplay: "flex",
         });
       }
     } else if (tokenB || tokenC !== "undefined") {
@@ -87,6 +89,7 @@ class Home extends Component {
         this.setState({
           login: "none",
           logout: "flex",
+          getStartedDisplay: "none",
         });
       }
     }
@@ -131,7 +134,7 @@ class Home extends Component {
         )
         .then((response) => {
           if (response.data.status === "success") {
-            toast("Thank you very much for your feedback.", {
+            toast("Thank you for contacting us.", {
               type: "success",
             });
             this.resetForm();
@@ -271,6 +274,7 @@ class Home extends Component {
               className="Hheading1"
               style={{
                 visibility: "hidden",
+                display: this.state.getStartedDisplay,
               }}
               onClick={this.onClickContact}
             >
@@ -280,6 +284,7 @@ class Home extends Component {
               className="Hheading1"
               style={{
                 visibility: "hidden",
+                display: this.state.getStartedDisplay,
               }}
               onClick={this.onClickContact}
             >
@@ -313,7 +318,12 @@ class Home extends Component {
             >
               <span>Logout</span>
             </h3>
-            <div className="mainbutton">
+            <div
+              className="mainbutton"
+              style={{
+                display: this.state.getStartedDisplay,
+              }}
+            >
               <a
                 onClick={this.onClickLogin}
                 className="fancy-button pop-onhover bg-gradient1 Hheading2"

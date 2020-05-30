@@ -706,62 +706,6 @@ class Shop extends Component {
               key={Math.floor(100000 + Math.random() * 900000)}
             />
           ))}
-          {this.state.shops.map((shop) => (
-            <MediaCard
-              card={shop}
-              className="MediaCard"
-              bname={shop.bname}
-              description={shop.description}
-              phoneNumber={shop.phoneNumber}
-              history={this.props.history}
-              businessCatagory={shop.businessCatagory}
-              stripeId={shop.stripeAccountId}
-              address={shop.address}
-              key={Math.floor(100000 + Math.random() * 900000)}
-            />
-          ))}
-          {this.state.shops.map((shop) => (
-            <MediaCard
-              card={shop}
-              className="MediaCard"
-              bname={shop.bname}
-              description={shop.description}
-              phoneNumber={shop.phoneNumber}
-              history={this.props.history}
-              businessCatagory={shop.businessCatagory}
-              stripeId={shop.stripeAccountId}
-              address={shop.address}
-              key={Math.floor(100000 + Math.random() * 900000)}
-            />
-          ))}
-          {this.state.shops.map((shop) => (
-            <MediaCard
-              card={shop}
-              className="MediaCard"
-              bname={shop.bname}
-              description={shop.description}
-              phoneNumber={shop.phoneNumber}
-              history={this.props.history}
-              businessCatagory={shop.businessCatagory}
-              stripeId={shop.stripeAccountId}
-              address={shop.address}
-              key={Math.floor(100000 + Math.random() * 900000)}
-            />
-          ))}
-          {this.state.shops.map((shop) => (
-            <MediaCard
-              card={shop}
-              className="MediaCard"
-              bname={shop.bname}
-              description={shop.description}
-              phoneNumber={shop.phoneNumber}
-              history={this.props.history}
-              businessCatagory={shop.businessCatagory}
-              stripeId={shop.stripeAccountId}
-              address={shop.address}
-              key={Math.floor(100000 + Math.random() * 900000)}
-            />
-          ))}
         </div>
         <div className="mapGoogle">
           {/* {this.state.currentPosition !== {} && ( */}

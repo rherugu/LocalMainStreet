@@ -267,6 +267,7 @@ class QRCodejs extends React.Component {
             draggable
             value={val}
             id="mycanvas"
+            includeMargin={true}
           ></QRCode>
         </div>
         <img alt="qr code bought" className="QRCode" src={this.state.img}></img>

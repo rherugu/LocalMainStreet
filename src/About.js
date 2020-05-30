@@ -220,6 +220,10 @@ class About extends Component {
               width: "100%",
             }}
           >
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
             <h3
               className="abouttxt"
               style={{
@@ -297,7 +301,15 @@ class About extends Component {
                     textAlign: "center",
                   }}
                 >
-                  <strong>Raghav Herugu</strong>
+                  <strong>
+                    <a
+                      href="https://github.com/rherugu"
+                      target="_blank"
+                      className="link"
+                    >
+                      Raghav Herugu
+                    </a>
+                  </strong>
                   <br></br> Incoming 8th Grader
                 </p>
               </div>
@@ -325,7 +337,15 @@ class About extends Component {
                     textAlign: "center",
                   }}
                 >
-                  <strong>Vaibhav Herugu</strong>
+                  <strong>
+                    <a
+                      href="https://github.com/vaibhavherugu"
+                      target="_blank"
+                      className="link"
+                    >
+                      Vaibhav Herugu
+                    </a>
+                  </strong>
                   <br></br> Incoming 6th Grader
                 </p>
               </div>
@@ -372,7 +392,15 @@ class About extends Component {
                     textAlign: "center",
                   }}
                 >
-                  <strong>Veeranjaneya Murthy Pilladi</strong>
+                  <strong>
+                    <a
+                      href="https://www.linkedin.com/in/veeranjaneya-murthy-a11b1012a/"
+                      target="_blank"
+                      className="link"
+                    >
+                      Veeranjaneya Murthy Pilladi
+                    </a>
+                  </strong>
                   <br></br>Software Developer
                 </p>
               </div>
@@ -399,7 +427,15 @@ class About extends Component {
                     textAlign: "center",
                   }}
                 >
-                  <strong>Sreenivas Herugu</strong>
+                  <strong>
+                    <a
+                      href="https://www.linkedin.com/in/sreeni-herugu-8694aa1/"
+                      target="_blank"
+                      className="link"
+                    >
+                      Sreenivas Herugu
+                    </a>
+                  </strong>
                   <br></br>Entrepreneur & Tech Consultant
                 </p>
               </div>
@@ -427,7 +463,15 @@ class About extends Component {
                   }}
                 >
                   {" "}
-                  <strong>Kavitha Herugu</strong>
+                  <strong>
+                    <a
+                      href="https://www.linkedin.com/in/kavitha-h-b56620b2/"
+                      target="_blank"
+                      className="link"
+                    >
+                      Kavitha Herugu
+                    </a>
+                  </strong>
                   <br></br>Project Manager
                 </p>
               </div>

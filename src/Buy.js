@@ -176,16 +176,18 @@ const Buy = (props) => {
   var lt, ln;
   (async () => {
     Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-    await Geocode.fromAddress(`${props.location.state.address}`).then(
-      (response) => {
-        lt = response.results[0].geometry.location.lat;
-        ln = response.results[0].geometry.location.lng;
-        console.log(lt, ln);
-      },
-      (error) => {
-        console.error("ERfdsdsffsdROR", error);
-      }
-    );
+    try {
+      await Geocode.fromAddress(`${props.location.state.address}`).then(
+        (response) => {
+          lt = response.results[0].geometry.location.lat;
+          ln = response.results[0].geometry.location.lng;
+          console.log(lt, ln);
+        },
+        (error) => {
+          console.error("ERfdsdsffsdROR", error);
+        }
+      );
+    } catch (error) {}
   })();
 
   var [mprice, setMprice] = useState(0);
@@ -225,8 +227,10 @@ const Buy = (props) => {
     // }
     // geocode();
     (async () => {
-      address = props.location.state.address;
-      bname = props.location.state.bname;
+      try {
+        address = props.location.state.address;
+        bname = props.location.state.bname;
+      } catch (error) {}
 
       try {
         console.log(props.location.state.address);
@@ -409,21 +413,6 @@ const Buy = (props) => {
         id: prop.id,
       };
 
-      await axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/payment/donate",
-          {
-            regularPrice: Number(mprice),
-            donation: donate,
-          }
-        )
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-
       // Call your backend to create the Checkout session.
       dispatch({ type: "setLoading", payload: { loading: true } });
 
@@ -563,9 +552,7 @@ const Buy = (props) => {
           </div>
           <br></br>
           <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+
           <p className="sr-legal-text">
             <big>
               <strong>
@@ -574,7 +561,7 @@ const Buy = (props) => {
               </strong>
             </big>
           </p>
-          <div
+          {/* <div
             id="donate"
             style={{
               display: "flex",
@@ -632,7 +619,21 @@ const Buy = (props) => {
                 setDonate(Number(e.target.value));
               }}
             />
-          </div>
+          </div> */}
+          <a href="https://ko-fi.com/E1E01ROY3" target="_blank">
+            <img
+              height="36"
+              style={{
+                border: "0px",
+                height: "36px",
+                margin: "auto",
+                display: "flex",
+              }}
+              src="https://cdn.ko-fi.com/cdn/kofi1.png?v=2"
+              border="0"
+              alt="Buy LocalMainStreet a Coffee at ko-fi.com"
+            />
+          </a>
           <p
             className="sr-legal-text"
             style={{
