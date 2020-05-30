@@ -647,7 +647,7 @@ a:active {
   position: absolute;
   bottom: 0 !important;
   left: 0;
-  top: 270%;
+  top: 280%;
 }
 
 @media screen and (max-width: 1083) {

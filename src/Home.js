@@ -387,6 +387,7 @@ class Home extends Component {
             <br></br>
             <br></br>
             <br></br>
+
             <big style={{ textAlign: "center" }}>
               <big>
                 <big>
@@ -399,7 +400,12 @@ class Home extends Component {
               </big>
             </big>
 
-            <div className="parentvid1">
+            <div
+              className="parentvid1"
+              style={{
+                flexDirection: "column",
+              }}
+            >
               <big>
                 <h2 className="textvid" style={{ textAlign: "center" }}>
                   During the Covid 19 outbreak, we connect local businesses to
@@ -409,7 +415,15 @@ class Home extends Component {
                   back to normal.
                 </h2>
               </big>
+              <h2 style={{ textAlign: "center", marginTop: "0" }}>
+                This is a token of appreciation to our local business community
+                and is 100% voluntary! <br></br>We do not charge anything for
+                this sevice
+              </h2>
             </div>
+
+            <br></br>
+            <br></br>
 
             <div className="parentvid">
               <div className="videop">
@@ -502,7 +516,7 @@ class Home extends Component {
                     />
                     <br></br>
                     <span>
-                      Get the QR Code by email<br></br> Redeem it later
+                      Get the QR Code by email<br></br> to redeem it later
                     </span>
                   </div>
                 </div>
