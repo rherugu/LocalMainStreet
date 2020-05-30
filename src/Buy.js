@@ -416,7 +416,6 @@ const Buy = (props) => {
         .post(
           "https://localmainstreetbackend.herokuapp.com/app/payment/donate",
           {
-            regularPrice: Number(mprice),
             donation: donate,
           }
         )
@@ -431,7 +430,7 @@ const Buy = (props) => {
       dispatch({ type: "setLoading", payload: { loading: true } });
 
       const { sessionId } = await fetchCheckoutSession({
-        quantity: total,
+        quantity: mprice,
         product: prop,
       });
       // When the customer clicks on the button, redirect them to Checkout.
