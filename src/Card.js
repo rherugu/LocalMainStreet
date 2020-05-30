@@ -80,7 +80,7 @@ export default function MediaCard(props) {
             }, 500);
           }}
         >
-          <CardMedia
+          {/* <CardMedia
             className={classes.media}
             id="media"
             image="./Assets/defaulticon.png"
@@ -88,7 +88,7 @@ export default function MediaCard(props) {
               backgroundImage: `url(${require(`./Assets/${image}`)})`,
               backgroundSize: "cover",
             }}
-          />
+          /> */}
           <CardContent className="content">
             <Typography gutterBottom variant="h5" component="h2">
               {props.bname}
@@ -108,9 +108,6 @@ export default function MediaCard(props) {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
           <Button
             size="small"
             color="primary"

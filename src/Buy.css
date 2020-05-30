@@ -242,28 +242,13 @@ UN COMMENT TO EDIT!!
 .sr-main {
   width: var(--form-width);
   margin-top: 100px;
-  position: absolute;
-  bottom: 0;
-  top: 65%;
-  margin-bottom: 100px;
-  left: 50%;
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
 }
 
 .sr-content {
   padding-left: 48px;
-}
-
-.container1 {
-  position: absolute;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-          transform: translateX(-50%);
-  width: 100%;
 }
 
 @media screen and (max-width: 1080px) {
@@ -977,9 +962,5 @@ input[type="number"]::-webkit-outer-spin-button {
   height: 40%;
   width: 100%;
   margin-bottom: 100px !important;
-}
-
-.container1 {
-  margin-top: 100px;
 }
 /*# sourceMappingURL=Buy.css.map */

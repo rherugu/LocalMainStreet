@@ -163,6 +163,63 @@
   }
 }
 
+.mapGoogle {
+  width: 79vw !important;
+  height: 70vh !important;
+  position: fixed !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+@media screen and (max-width: 1830px) {
+  .mapGoogle {
+    width: 70vw !important;
+  }
+}
+@media screen and (max-width: 1294px) {
+  .mapGoogle {
+    width: 60vw !important;
+  }
+}
+@media screen and (max-width: 954px) {
+  .mapGoogle {
+    width: 50vw !important;
+  }
+}
+
+.search {
+  position: fixed !important;
+  left: 80% !important;
+  transform: translate(-50%) !important;
+}
+@media screen and (max-width: 744px) {
+  .mapGoogle {
+    left: 0 !important;
+    width: 100vw !important;
+    top: 60% !important;
+  }
+  .gridlist {
+    flex-direction: row !important;
+    display: flex !important;
+  }
+  .search {
+    top: 45% !important;
+    width: 90% !important;
+    left: 50% !important;
+  }
+}
+@media screen and (max-height: 962px) {
+  .search {
+    top: 44% !important;
+    transform: scale(0.7) !important;
+    left: 5% !important;
+  }
+}
+
+.Shop {
+  overflow: scroll;
+}
+
 .search {
   width: 25%;
   margin: auto;

@@ -148,7 +148,18 @@ function Map(props) {
       </GoogleMap>
     );
   } else {
-    return <div>no</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          color: "red",
+        }}
+      >
+        <strong>Error - Map could not be loaded</strong>
+      </div>
+    );
   }
 }
 
@@ -177,11 +188,12 @@ const Buy = (props) => {
     );
   })();
 
-  var [mprice, setMprice] = useState();
+  var [mprice, setMprice] = useState(0);
   var [modal, setModal] = useState("none");
   var [dprice, setDprice] = useState("");
   var [lat, setLat] = useState();
   var [lng, setLng] = useState();
+  var [donate, setDonate] = useState(0);
 
   useEffect(() => {
     async function fetchConfig() {
@@ -367,66 +379,69 @@ const Buy = (props) => {
     } else if (mprice > 999996) {
       alert("Price cannot go above $999,996");
     } else {
-      setModal(modal === "flex");
-    }
-    return 0;
-  };
-  const handleClick2 = async (event) => {
-    if (mprice > 999999) {
-      alert("Cannot go above 999,999 dollars.");
-      state.loading = false;
-    }
-    var fnameq = localStorage.getItem("fname");
-    var lnameq = localStorage.getItem("lname");
-    var emailq = localStorage.getItem("email");
+      if (mprice > 999999) {
+        alert("Cannot go above 999,999 dollars.");
+        state.loading = false;
+      }
+      var fnameq = localStorage.getItem("fname");
+      var lnameq = localStorage.getItem("lname");
+      var emailq = localStorage.getItem("email");
 
-    const payload = {
-      nameq: `${fnameq} ${lnameq}`,
-      emailq: emailq,
-      balance: mprice,
-    };
+      const payload = {
+        nameq: `${fnameq} ${lnameq}`,
+        emailq: emailq,
+        balance: mprice,
+      };
 
-    await axios
-      .post(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/getInfo",
-        payload
-      )
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+      await axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/payment/getInfo",
+          payload
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      const id = {
+        id: prop.id,
+      };
+
+      await axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/payment/donate",
+          {
+            regularPrice: Number(mprice),
+            donation: donate,
+          }
+        )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      // Call your backend to create the Checkout session.
+      dispatch({ type: "setLoading", payload: { loading: true } });
+
+      const { sessionId } = await fetchCheckoutSession({
+        quantity: total,
+        product: prop,
       });
-
-    const id = {
-      id: prop.id,
-    };
-
-    // await axios
-    //   .post("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", id)
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // Call your backend to create the Checkout session.
-    dispatch({ type: "setLoading", payload: { loading: true } });
-    const { sessionId } = await fetchCheckoutSession({
-      quantity: mprice,
-      product: prop,
-    });
-    // When the customer clicks on the button, redirect them to Checkout.
-    const { error } = await state.stripe.redirectToCheckout({
-      sessionId,
-    });
-    // If `redirectToCheckout` fails due to a browser or network
-    // error, display the localized error message to your customer
-    // using `error.message`.
-    if (error) {
-      dispatch({ type: "setError", payload: { error } });
-      dispatch({ type: "setLoading", payload: { loading: false } });
+      // When the customer clicks on the button, redirect them to Checkout.
+      const { error } = await state.stripe.redirectToCheckout({
+        sessionId,
+      });
+      // If `redirectToCheckout` fails due to a browser or network
+      // error, display the localized error message to your customer
+      // using `error.message`.
+      if (error) {
+        dispatch({ type: "setError", payload: { error } });
+        dispatch({ type: "setLoading", payload: { loading: false } });
+      }
     }
   };
 
@@ -471,80 +486,21 @@ const Buy = (props) => {
   $(document).ready(function () {
     $(this).scrollTop(0);
   });
+  const total = Number(mprice) + Number(donate);
 
   return (
     <div className="sr-root" id="Buy">
-      <div
-        className="modal"
-        style={{
-          display: modal,
-          zIndex: "99999999999999999999999999999999",
-        }}
-        id="modal"
-      >
-        {/* prettier-ignore */}
-
-        <h3>Would You Like to Donate to us?</h3>
-        <h2
+      <div className="sr-main">
+        <section
+          className="container1"
           style={{
-            margin: "10px",
-            width: "90%",
-            textAlign: "center",
+            display: "flex",
+
+            justifySelf: "center",
+
+            alignSelf: "center",
           }}
         >
-          In order to maintain this service, it costs us money. Any donation is
-          appreciated.
-        </h2>
-        {/* prettier-ignore */}
-
-        <input
-          type="text"
-          value={dprice}
-          onChange={(e) => {
-            setDprice((dprice = e.target.value))
-          }}
-          style={{
-            width: "81%"
-          }}
-          placeholder="Enter how much you want to donate"
-        ></input>
-        {/* <div
-          style={{
-            position: "absolute !important",
-            left: "63% !important",
-            bottom: "30px !important",
-            width: "100px",
-            height: "40px",
-            transform: "translate(-50%, -50%)",
-          }}
-        > */}
-
-        <div className="checkout">
-          <StripeCheckout
-            stripeKey={`${process.env.REACT_APP_STRIPE_PUBLIC_KEY}`}
-            token={handleToken}
-            billingAddress
-            shippingAddress
-            amount={dprice * 100}
-            name="Donate to LocalMainStreet"
-          ></StripeCheckout>
-        </div>
-        <br></br>
-        <input
-          type="button"
-          className="modalclose noDonate"
-          onClick={handleClick2}
-          style={{
-            margin: "10px",
-            width: "80%",
-            textAlign: "center",
-          }}
-          value="No, I do not want to donate."
-        ></input>
-      </div>
-
-      <div className="sr-main">
-        <section className="container1">
           <div>
             <h1 id="h1">{prop.bname}</h1>
             <h4 id="h4">{prop.description}</h4>
@@ -575,6 +531,15 @@ const Buy = (props) => {
               +
             </button>
           </div> */}
+          <br></br>
+          <p
+            className="sr-legal-text"
+            style={{
+              marginBottom: "0",
+            }}
+          >
+            <strong>Enter your amount</strong>
+          </p>
           <div className="quantity-setter">
             <input
               type="number"
@@ -583,6 +548,7 @@ const Buy = (props) => {
               min="1"
               style={{
                 width: "90%",
+                borderRadius: "5px0",
               }}
               className="numberinput"
               max="100000000"
@@ -595,10 +561,90 @@ const Buy = (props) => {
               }}
             />
           </div>
-          <p className="sr-legal-text">Choose your price</p>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <br></br>
+          <p className="sr-legal-text">
+            <big>
+              <strong>
+                It costs us money to provide this service, and we do not charge
+                you for it. Any donation is appreciated
+              </strong>
+            </big>
+          </p>
+          <div
+            id="donate"
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              alignSelf: "center",
+            }}
+          >
+            <input
+              type="button"
+              style={{
+                margin: "0 5px",
+              }}
+              value="$1"
+              className="1 donatebtns"
+              onClick={() => {
+                setDonate(1);
+              }}
+            />
+            <input
+              type="button"
+              style={{
+                margin: "0 5px",
+              }}
+              value="$2"
+              className="2 donatebtns"
+              onClick={() => {
+                setDonate(2);
+              }}
+            />
+            <input
+              type="button"
+              style={{
+                margin: "0 5px",
+              }}
+              value="$5"
+              className="5 donatebtns"
+              onClick={() => {
+                setDonate(5);
+              }}
+            />
+
+            <label>&nbsp;Other</label>
+            <input
+              type="number"
+              style={{
+                margin: "0 5px",
+                textAlign: "center",
+              }}
+              placeholder="Other"
+              className="o donatebtns"
+              // value={donate}
+              onChange={(e) => {
+                setDonate(Number(e.target.value));
+              }}
+            />
+          </div>
+          <p
+            className="sr-legal-text"
+            style={{
+              marginBottom: "0",
+            }}
+          >
+            <strong>Total: ${mprice / 1 + donate}</strong>
+          </p>
           <button role="link" onClick={handleClick} id="bbutton">
-            Buy
+            Buy{" "}
           </button>
+
           <div className="sr-field-error">{state.error?.message}</div>
 
           <h6
@@ -615,14 +661,15 @@ const Buy = (props) => {
               textAlign: "center",
             }}
           >
-            Please note that $0.59 will be added to your payment for stripe
-            application fees.
+            Please note Stripe will have an additional service charge of 60
+            cents added to your payment. We do not charge you anything for this
+            service.
           </h6>
         </section>
         <br></br>
         <br></br>
       </div>
-      <div
+      {/* <div
         id="map2"
         style={{
           position: "absolute",
@@ -640,7 +687,7 @@ const Buy = (props) => {
           lat={lat}
           lng={lng}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

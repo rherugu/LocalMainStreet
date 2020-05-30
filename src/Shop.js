@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./Shop.css";
 import axios from "axios";
 import Component from "@reactions/component";
@@ -8,6 +8,106 @@ import Loader from "./Loader";
 import { trackPromise } from "react-promise-tracker";
 import "react-toastify/dist/ReactToastify.css";
 import Geocode from "react-geocode";
+import {
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+  InfoWindow,
+} from "react-google-maps";
+
+var obj;
+var addressArray = [
+  { lat: 0, lng: 0 },
+  { lat: 10, lng: 56 },
+  { lat: 4, lng: 98 },
+];
+
+class Map extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      shop: null,
+      center: {},
+      bname: null,
+      description: null,
+    };
+  }
+  // componentWillMount() {
+  //   navigator.geolocation.getCurrentPosition((position) => {
+  //     console.log("Latitude is :", position.coords.latitude);
+  //     var lat = position.coords.latitude;
+
+  //     console.log("Longitude is :", position.coords.longitude);
+  //     var lng = position.coords.longitude;
+
+  //     this.setState({
+  //       center: {
+  //         lat: lat,
+  //         lng: lng,
+  //       },
+  //     });
+  //   });
+  // }
+
+  // console.log(center);
+  // if (props.latlng != undefined) {
+
+  render() {
+    console.log(this.props);
+    this.props.latlng.map((latlng) => {
+      console.log(latlng);
+    });
+    return (
+      <GoogleMap
+        defaultZoom={12}
+        defaultCenter={{ lat: 40.3883, lng: -74.3057 }}
+      >
+        {this.props.latlng.map((latlng) => (
+          <Marker
+            position={latlng.data}
+            key={Math.floor(100000 + Math.random() * 900000)}
+            onClick={() => {
+              this.setState({
+                shop: {
+                  lat: Number(latlng.data.lat),
+                  lng: Number(latlng.data.lng),
+                  bname: latlng.bname,
+                  description: latlng.description,
+                },
+              });
+            }}
+          />
+        ))}
+
+        {this.state.shop && (
+          <InfoWindow
+            position={{
+              lat: Number(this.state.shop.lat),
+              lng: Number(this.state.shop.lng),
+            }}
+            onCloseClick={() => {
+              this.setState({
+                shop: null,
+              });
+            }}
+            key={Math.floor(100000 + Math.random() * 900000)}
+          >
+            <div
+              style={{
+                margin: "10px",
+              }}
+            >
+              <h3>{this.state.shop.bname}</h3>
+              <h4>{this.state.shop.description}</h4>
+            </div>
+          </InfoWindow>
+        )}
+      </GoogleMap>
+    );
+  }
+}
+
+const MapWrapped = withGoogleMap(Map);
 
 class Shop extends Component {
   onClickHome = () => {
@@ -36,6 +136,7 @@ class Shop extends Component {
     this.state = {
       shops: [],
       price: 25,
+      bname: [],
       name: "SmartTicketing",
       businessCatagory: "",
       burger: "0",
@@ -45,11 +146,28 @@ class Shop extends Component {
       login: "flex",
       search: "",
       modal: true,
+      addresses: [],
+      currentPosition: {},
+      DescName: [],
     };
     this.bname = "";
   }
 
   async componentDidMount() {
+    // navigator.geolocation.getCurrentPosition((position) => {
+    //   console.log("Latitude is :", position.coords.latitude);
+    //   var lat = position.coords.latitude;
+
+    //   console.log("Longitude is :", position.coords.longitude);
+    //   var lng = position.coords.longitude;
+
+    //   this.setState({
+    //     currentPosition: {
+    //       lat: lat,
+    //       lng: lng,
+    //     },
+    //   });
+    // });
     const tokenval = localStorage.getItem("token");
     const tokenvalB = localStorage.getItem("Btoken");
 
@@ -140,7 +258,49 @@ class Shop extends Component {
             )
             .then((response) => {
               this.setState({ shops: response.data });
-              // shops = this.state.shops.map((shop) => shop);
+
+              Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+
+              addressArray = this.state.shops.map((shop) => shop.address);
+              var busName = this.state.shops.map((shop) => shop.bname);
+              var DescName = this.state.shops.map((shop) => shop.address);
+              console.log("busName", busName);
+              console.log(addressArray);
+              obj = {
+                ...addressArray,
+              };
+
+              console.log(obj);
+              var counter = 0;
+              for (var key in addressArray) {
+                if (addressArray.hasOwnProperty(key)) {
+                  Geocode.fromAddress(addressArray[key]).then(
+                    (response) => {
+                      var result = {
+                        data: response.results[0].geometry.location,
+                        bname: busName[counter],
+                        description: DescName[counter],
+                      };
+                      console.log(result);
+                      addressArray[counter] = result;
+                      // addressArray[counter] = result;
+
+                      this.setState({
+                        addresses: addressArray,
+                        bname: busName,
+                        DescName: DescName,
+                      });
+
+                      ++counter;
+
+                      console.log(addressArray);
+                    },
+                    (error) => {
+                      console.error("ERROR", error);
+                    }
+                  );
+                }
+              }
             })
             .catch((err) => {
               this.onClickLogin();
@@ -151,26 +311,6 @@ class Shop extends Component {
       }
     } else {
     }
-
-    return (
-      <div
-        style={{
-          zIndex: 999999999999999999999999999999999999999999999,
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          width: "50%",
-          height: "50%",
-          backgroundColor: "red",
-        }}
-      >
-        // When I stop working, you stop working // when I start working, you
-        start working, even at 6(sometimes) // you will work as diligently as me
-        // Deal?
-        <h1>Please contribute and Donate to us.</h1>
-        <h3>Even 1 dollar makes a difference!</h3>
-      </div>
-    );
   }
 
   optionChange = (e) => {
@@ -547,7 +687,9 @@ class Shop extends Component {
         <div
           className="gridlist"
           style={{
-            width: "90%",
+            width: "50vw",
+            marginTop: "26vh !important",
+            all: "unset",
           }}
         >
           {this.state.shops.map((shop) => (
@@ -561,10 +703,80 @@ class Shop extends Component {
               businessCatagory={shop.businessCatagory}
               stripeId={shop.stripeAccountId}
               address={shop.address}
+              key={Math.floor(100000 + Math.random() * 900000)}
+            />
+          ))}
+          {this.state.shops.map((shop) => (
+            <MediaCard
+              card={shop}
+              className="MediaCard"
+              bname={shop.bname}
+              description={shop.description}
+              phoneNumber={shop.phoneNumber}
+              history={this.props.history}
+              businessCatagory={shop.businessCatagory}
+              stripeId={shop.stripeAccountId}
+              address={shop.address}
+              key={Math.floor(100000 + Math.random() * 900000)}
+            />
+          ))}
+          {this.state.shops.map((shop) => (
+            <MediaCard
+              card={shop}
+              className="MediaCard"
+              bname={shop.bname}
+              description={shop.description}
+              phoneNumber={shop.phoneNumber}
+              history={this.props.history}
+              businessCatagory={shop.businessCatagory}
+              stripeId={shop.stripeAccountId}
+              address={shop.address}
+              key={Math.floor(100000 + Math.random() * 900000)}
+            />
+          ))}
+          {this.state.shops.map((shop) => (
+            <MediaCard
+              card={shop}
+              className="MediaCard"
+              bname={shop.bname}
+              description={shop.description}
+              phoneNumber={shop.phoneNumber}
+              history={this.props.history}
+              businessCatagory={shop.businessCatagory}
+              stripeId={shop.stripeAccountId}
+              address={shop.address}
+              key={Math.floor(100000 + Math.random() * 900000)}
+            />
+          ))}
+          {this.state.shops.map((shop) => (
+            <MediaCard
+              card={shop}
+              className="MediaCard"
+              bname={shop.bname}
+              description={shop.description}
+              phoneNumber={shop.phoneNumber}
+              history={this.props.history}
+              businessCatagory={shop.businessCatagory}
+              stripeId={shop.stripeAccountId}
+              address={shop.address}
+              key={Math.floor(100000 + Math.random() * 900000)}
             />
           ))}
         </div>
-        <p className="end">It looks like you've reached the end.</p>
+        <div className="mapGoogle">
+          {/* {this.state.currentPosition !== {} && ( */}
+          <MapWrapped
+            currentPosition={this.state.currentPosition}
+            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GKEY}`}
+            loadingElement={<div style={{ height: `100%` }} />}
+            containerElement={<div style={{ height: `100%` }} />}
+            mapElement={<div style={{ height: `100%` }} />}
+            latlng={this.state.addresses}
+            bname={this.state.bname}
+            description={this.state.DescName}
+          />
+          {/* )} */}
+        </div>
       </div>
     );
   }

@@ -296,7 +296,10 @@ class BusinessLogin extends Component {
               .catch((err) => {
                 console.log(err);
               });
-            window.location.assign(stripeUrl);
+            this.props.history.push({
+              pathname: "/Redirecting",
+              state: { stripeUrl: stripeUrl },
+            });
           }
 
           if (res.check === 200) {
@@ -848,18 +851,7 @@ class BusinessLogin extends Component {
                 </span>
               </a>
               <br></br>
-              <p
-                style={{
-                  textAlign: "center",
 
-                  margin: "auto",
-
-                  width: "fit-content",
-                }}
-              >
-                Please note that the first payout you<br></br> recieve will take
-                up to <strong>5 to 7</strong> business days.
-              </p>
               <br></br>
               <h3
                 style={{
