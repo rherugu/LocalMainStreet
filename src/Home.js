@@ -325,7 +325,14 @@ class Home extends Component {
               }}
             >
               <a
-                onClick={this.onClickLogin}
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/login",
+                    state: {
+                      getsStarted: "yes",
+                    },
+                  });
+                }}
                 className="fancy-button pop-onhover bg-gradient1 Hheading2"
               >
                 <span>Get Started</span>

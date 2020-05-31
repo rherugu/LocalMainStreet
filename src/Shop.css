@@ -132,6 +132,11 @@
     column-count: 6;
   }
 }
+@media (max-height: 844px) {
+  .search {
+    top: 3% !important;
+  }
+}
 @media (max-width: 1824px) {
   .gridlist {
     column-count: 6;
@@ -189,8 +194,11 @@
 
 .search {
   position: fixed !important;
-  left: 80% !important;
-  transform: translate(-50%) !important;
+  left: 73% !important;
+  top: 130px;
+  height: fit-content !important;
+
+  transform: translate(-80%) !important;
 }
 @media screen and (max-width: 744px) {
   .mapGoogle {
@@ -203,16 +211,34 @@
     display: flex !important;
   }
   .search {
-    top: 45% !important;
+    top: 39% !important;
     width: 90% !important;
-    left: 50% !important;
+    left: 77% !important;
   }
 }
-@media screen and (max-height: 962px) {
+
+@media screen and (max-width: 746px), (max-height: 846px) {
   .search {
-    top: 44% !important;
-    transform: scale(0.7) !important;
+    top: 47% !important;
     left: 5% !important;
+    transform: scale(0.7) !important;
+  }
+  .Search_Businesses {
+    display: none;
+  }
+}
+
+@media screen and (max-height: 804px) {
+  .mapGoogle {
+    height: 30% !important;
+    bottom: 0 !important;
+    top: 70% !important;
+  }
+  .search {
+    top: 50% !important;
+  }
+  .brDisplay {
+    display: none;
   }
 }
 

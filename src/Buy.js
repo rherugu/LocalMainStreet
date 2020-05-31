@@ -173,20 +173,6 @@ const Buy = (props) => {
     error: null,
     stripe: null,
   });
-  var lt, ln;
-  (async () => {
-    Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-    await Geocode.fromAddress(`${props.location.state.address}`).then(
-      (response) => {
-        lt = response.results[0].geometry.location.lat;
-        ln = response.results[0].geometry.location.lng;
-        console.log(lt, ln);
-      },
-      (error) => {
-        console.error("ERfdsdsffsdROR", error);
-      }
-    );
-  })();
 
   var [mprice, setMprice] = useState(0);
   var [modal, setModal] = useState("none");
@@ -196,6 +182,15 @@ const Buy = (props) => {
   var [donate, setDonate] = useState(0);
 
   useEffect(() => {
+    (() => {
+      const tokenval = localStorage.getItem("token");
+
+      const token = `${tokenval}`;
+
+      if (token === "undefined") {
+        props.history.push("/Login");
+      }
+    })();
     async function fetchConfig() {
       // Fetch config from our backend.
       const { publicKey, basePrice, currency } = await fetch(
@@ -504,8 +499,14 @@ const Buy = (props) => {
           }}
         >
           <div>
-            <h1 id="h1">{prop.bname}</h1>
-            <h4 id="h4">{prop.description}</h4>
+            <h1
+              style={{
+                fontSize: "40px",
+              }}
+              id="h1"
+            >
+              {prop.bname}
+            </h1>
           </div>
           {/* <div className="quantity-setter">
             <button
@@ -540,7 +541,9 @@ const Buy = (props) => {
               marginBottom: "0",
             }}
           >
-            <strong>Enter your amount</strong>
+            <big>
+              <strong>Enter your amount</strong>
+            </big>
           </p>
           <div className="quantity-setter">
             <input
@@ -550,11 +553,11 @@ const Buy = (props) => {
               min="1"
               style={{
                 width: "90%",
-                borderRadius: "5px0",
+                borderRadius: "5px",
               }}
               className="numberinput"
               max="100000000"
-              value={mprice}
+              placeholder="0"
               onChange={(e) => {
                 price: formatPrice({
                   amount: e.target.value,
@@ -565,9 +568,7 @@ const Buy = (props) => {
           </div>
           <br></br>
           <br></br>
-          <br></br>
-          <br></br>
-          <br></br>
+
           <p className="sr-legal-text">
             <big>
               <strong>
@@ -594,7 +595,11 @@ const Buy = (props) => {
               value="$1"
               className="1 donatebtns"
               onClick={() => {
-                setDonate(1);
+                if (donate !== 1) {
+                  setDonate(1);
+                } else if (donate === 1) {
+                  setDonate(0);
+                }
               }}
             />
             <input
@@ -605,7 +610,11 @@ const Buy = (props) => {
               value="$2"
               className="2 donatebtns"
               onClick={() => {
-                setDonate(2);
+                if (donate !== 2) {
+                  setDonate(2);
+                } else if (donate === 2) {
+                  setDonate(0);
+                }
               }}
             />
             <input
@@ -616,7 +625,11 @@ const Buy = (props) => {
               value="$5"
               className="5 donatebtns"
               onClick={() => {
-                setDonate(5);
+                if (donate !== 5) {
+                  setDonate(5);
+                } else if (donate === 5) {
+                  setDonate(0);
+                }
               }}
             />
 
@@ -635,38 +648,40 @@ const Buy = (props) => {
               }}
             />
           </div>
+          <br></br>
           <p
-            className="sr-legal-text"
             style={{
               marginBottom: "0",
+              fontSize: "18px",
+              textAlign: "center",
             }}
           >
             <strong>Total: ${mprice / 1 + donate}</strong>
           </p>
-          <button role="link" onClick={handleClick} id="bbutton">
+
+          <p
+            style={{
+              textAlign: "center",
+            }}
+            className="sr-legal-text"
+          >
+            We partner with Stripe for all payment processing. All your
+            information is encrypted and secure. Please note Stripe will have an
+            additional service charge of 2.9% + 30 cents added to your payment.
+            We do not charge you anything for this service.
+          </p>
+          <button
+            role="link"
+            style={{
+              fontSize: "20px",
+            }}
+            onClick={handleClick}
+            id="bbutton"
+          >
             Buy{" "}
           </button>
 
           <div className="sr-field-error">{state.error?.message}</div>
-
-          <h6
-            style={{
-              textAlign: "center",
-            }}
-          >
-            Don't worry! Your information is secure and encrypted. We use
-            Stripe, one of the leading brands in payment processing, to deliver
-            a secure, safe, and smart way to handle payments.
-          </h6>
-          <h6
-            style={{
-              textAlign: "center",
-            }}
-          >
-            Please note Stripe will have an additional service charge of 60
-            cents added to your payment. We do not charge you anything for this
-            service.
-          </h6>
         </section>
         <br></br>
         <br></br>

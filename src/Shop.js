@@ -600,14 +600,15 @@ class Shop extends Component {
         <br></br>
         <br></br>
         <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
+        <br className="brDisplay"></br>
+        <br className="brDisplay"></br>
+        <br className="brDisplay"></br>
         <div className="search">
           <label
             style={{
               cursor: "text",
             }}
+            className="Search_Businesses"
           >
             Search Businesses
           </label>
@@ -632,55 +633,6 @@ class Shop extends Component {
               value="Search"
               onClick={this.handleSearch}
             ></input>
-            <br></br>
-            {/* <input
-              type="button"
-              className="searchSubmit"
-              value="View businesses based on your location"
-              onClick={() => {
-                var lat;
-                var lng;
-                navigator.geolocation.getCurrentPosition((position) => {
-                  console.log("Latitude is :", position.coords.latitude);
-                  console.log("Longitude is :", position.coords.longitude);
-                  lat = position.coords.latitude;
-                  lng = position.coords.longitude;
-                  Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-                  Geocode.fromLatLng(lat, lng).then(
-                    (response) => {
-                      const address = response.results[0].formatted_address;
-                      console.log(address);
-                    },
-                    (error) => {
-                      console.error(error);
-                    }
-                  );
-                });
-              }}
-            ></input> */}
-            <br></br>
-            {/* <a
-              href="javascript:void(0)"
-              style={{
-                width: "fit-content",
-                margin: "auto",
-              }}
-              onClick={() => {
-                this.props.history.push({
-                  pathname: "/FullMap",
-                  state: {
-                    address: this.state.shops.map((shop) => shop.address),
-                    bname: this.state.shops.map((shop) => shop.bname),
-                  },
-                });
-              }}
-              className="link"
-            >
-              View Map
-            </a> */}
-            <br></br>
-            <br></br>
-            <br></br>
           </div>
         </div>
 

@@ -46,7 +46,9 @@ class Login extends Component {
       succfcusbusfp3: "Click Enter to submit",
       succfcusbusfp4: "Click Enter to submit",
       caps: "hidden",
+      getstarted: "flex",
       incorrect: "none",
+      getstartedisplay: "none",
     };
   }
   onClickHome = () => {
@@ -85,6 +87,15 @@ class Login extends Component {
         };
       }
     } catch (error) {}
+    try {
+      var getstarted = this.props.location.state.getsStarted;
+      if (getstarted === "yes") {
+        this.setState({
+          getstarted: "none",
+          getstartedisplay: "flex",
+        });
+      }
+    } catch (err) {}
 
     const tokenval = localStorage.getItem("token");
     const tokenvalB = localStorage.getItem("Btoken");
@@ -141,6 +152,13 @@ class Login extends Component {
           try {
             if (this.props.location.state.SuccessJs === "yes") {
               this.props.history.push("/Success");
+            }
+          } catch (error) {}
+
+          try {
+            if (this.props.location.state.qrcode === "yes") {
+              this.props.history.push("/QRcode");
+              alert("fg");
             }
           } catch (error) {}
 
@@ -206,6 +224,12 @@ class Login extends Component {
             try {
               if (this.props.location.state.SuccessJs === "yes") {
                 this.props.history.push("/Success");
+              }
+            } catch (error) {}
+
+            try {
+              if (this.props.location.state.qrcode === "yes") {
+                window.location.assign("/QRcode");
               }
             } catch (error) {}
 
@@ -512,7 +536,12 @@ class Login extends Component {
             </h3>
           </div>
         </header>
-        <main className="mainLog">
+        <main
+          className="mainLog"
+          style={{
+            display: this.state.getstarted,
+          }}
+        >
           <div className="formL">
             {/* {this.errorMessage ? <h2>{this.errorMessage}</h2> : null} */}
 
@@ -809,6 +838,138 @@ class Login extends Component {
                 <br></br>
               </div>
             </form>
+          </div>
+        </main>
+        <main
+          style={{
+            display: this.state.getstartedisplay,
+            flexDirection: "column",
+          }}
+        >
+          <h1
+            style={{
+              textAlign: "center",
+            }}
+          >
+            Register Here!
+          </h1>
+          <div
+            style={{
+              flexDirection: "row",
+              display: "flex",
+              margin: "auto",
+            }}
+          >
+            <div
+              className="buttonb"
+              onClick={() => {
+                this.props.history.push("/BusinessLogin");
+              }}
+            >
+              <svg>
+                <polyline
+                  className="o1"
+                  points="0 0, 150 0, 150 55, 0 55, 0 0"
+                ></polyline>
+                <text
+                  x="50%"
+                  y="35%"
+                  dominant-baseline="middle"
+                  text-anchor="middle"
+                  fill="black"
+                >
+                  Register a
+                </text>
+                <text
+                  x="50%"
+                  y="65%"
+                  dominant-baseline="middle"
+                  text-anchor="middle"
+                  fill="black"
+                >
+                  Business
+                </text>
+                <polyline
+                  className="o2"
+                  points="0 0, 150 0, 150 55, 0 55, 0 0"
+                ></polyline>
+              </svg>
+              {/* <span>Register a</span>
+                  <span>Business</span> */}
+            </div>
+
+            <div
+              className="buttonb"
+              onClick={() => {
+                this.props.history.push("/CustomerLogin");
+              }}
+            >
+              <svg>
+                <polyline
+                  className="o1"
+                  points="0 0, 150 0, 150 55, 0 55, 0 0"
+                ></polyline>
+                <text
+                  x="50%"
+                  y="35%"
+                  dominant-baseline="middle"
+                  text-anchor="middle"
+                  fill="black"
+                >
+                  Register as
+                </text>
+                <text
+                  x="50%"
+                  y="65%"
+                  dominant-baseline="middle"
+                  text-anchor="middle"
+                  fill="black"
+                >
+                  a Customer
+                </text>
+                <polyline
+                  className="o2"
+                  points="0 0, 150 0, 150 55, 0 55, 0 0"
+                ></polyline>
+              </svg>
+              {/* <span>Register a</span>
+                  <span>Business</span> */}
+            </div>
+          </div>
+          <br />
+          <h2>Or if you already have an account...</h2>
+          <div
+            className="buttonb"
+            onClick={() => {
+              window.location.reload();
+              this.props.history.push({
+                pathname: "/Login",
+                state: { getsStarted: "no" },
+              });
+            }}
+          >
+            <svg>
+              <polyline
+                className="o1"
+                points="0 0, 150 0, 150 55, 0 55, 0 0"
+              ></polyline>
+              <text
+                x="50%"
+                y="50%"
+                dominant-baseline="middle"
+                text-anchor="middle"
+                fill="black"
+              >
+                Login
+              </text>
+
+              <polyline
+                className="o2"
+                points="0 0, 150 0, 150 55, 0 55, 0 0"
+              ></polyline>
+            </svg>
+            {/* <span>Register a</span>
+                  <span>Business</span> */}
           </div>
         </main>
       </div>

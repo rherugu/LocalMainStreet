@@ -54,9 +54,31 @@ class QRCodejs extends React.Component {
       });
 
     const emaill = localStorage.getItem("email");
-
+    var decryptedData, data;
+    try {
+      data = JSON.stringify(this.props.location.state.value.encData);
+    } catch (error) {
+      data = JSON.stringify(JSON.parse(localStorage.getItem("QRCode")).encData);
+    }
+    console.log(data);
+    await axios
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/decryption",
+        {
+          data: data,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        decryptedData = res.data.decryptedData;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
     const mail = {
       emailq: emaill,
+      bname: this.props.location.state.bname,
+      amount: decryptedData.balance,
     };
 
     axios
@@ -186,11 +208,35 @@ class QRCodejs extends React.Component {
         console.log(err);
       });
 
+    var decryptedData, data;
+    try {
+      data = JSON.stringify(this.props.location.state.value.encData);
+    } catch (error) {
+      data = JSON.stringify(JSON.parse(localStorage.getItem("QRCode")).encData);
+    }
+    console.log(data);
+
+    await axios
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/decryption",
+        {
+          data: data,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        decryptedData = res.data.decryptedData;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
     const mail = {
       emailq: this.state.emailf,
       name: this.state.name,
       bname: this.props.location.state.bname,
       message: this.state.message,
+      amount: decryptedData.balance,
     };
     console.log(mail.bname);
 
@@ -227,6 +273,15 @@ class QRCodejs extends React.Component {
       email = localStorage.getItem("emailb");
     } else if (tokenB === "undefined") {
       email = localStorage.getItem("email");
+    }
+    if (email === "undefined") {
+      alert("You got logged out, you need to login to access this page");
+      this.props.history.push({
+        pathname: "/Login",
+        state: {
+          qrcode: "yes",
+        },
+      });
     }
     var valueL;
     var val;
@@ -412,6 +467,12 @@ class QRCodejs extends React.Component {
             width: "30%",
           }}
         ></input>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
+        <br></br>
       </div>
     );
   }
