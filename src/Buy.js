@@ -4,14 +4,6 @@ import React, { useEffect, useReducer, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import "./Buy.css";
 import axios from "axios";
-import {
-  withGoogleMap,
-  withScriptjs,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from "react-google-maps";
-import StripeCheckout from "react-stripe-checkout";
 import Geocode from "react-geocode";
 import $ from "jquery";
 import { toast } from "react-toastify";
@@ -100,71 +92,6 @@ function reducer(state, action) {
   }
 }
 
-function Map(props) {
-  var [shop, setShop] = useState(null);
-  console.log(props);
-
-  if (props.lat && props.lng != undefined) {
-    return (
-      <GoogleMap
-        defaultZoom={10}
-        defaultCenter={{ lat: Number(props.lat), lng: Number(props.lng) }}
-      >
-        <Marker
-          position={{
-            lat: Number(props.lat),
-            lng: Number(props.lng),
-          }}
-          onClick={() => {
-            setShop(
-              (shop = {
-                lat: Number(props.lat),
-                lng: Number(props.lng),
-              })
-            );
-          }}
-        />
-
-        {shop && (
-          <InfoWindow
-            position={{
-              lat: Number(props.lat),
-              lng: Number(props.lng),
-            }}
-            onCloseClick={() => {
-              setShop((shop = null));
-            }}
-          >
-            <div
-              style={{
-                margin: "10px",
-              }}
-            >
-              <h3>{bname}</h3>
-              <h4>{address}</h4>
-            </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    );
-  } else {
-    return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          color: "red",
-        }}
-      >
-        <strong>Error - Map could not be loaded</strong>
-      </div>
-    );
-  }
-}
-
-const MapWrapped = withGoogleMap(Map);
-
 const Buy = (props) => {
   const [state, dispatch] = useReducer(reducer, {
     quantity: 1,
@@ -182,6 +109,7 @@ const Buy = (props) => {
   var [donate, setDonate] = useState(0);
   var [tooMuch, setTooMuch] = useState("none");
   var [tooMuchMprice, setTooMuchMprice] = useState();
+  var [buyBtn, setBuyBtn] = useState("Buy");
 
   useEffect(() => {
     (() => {
@@ -206,166 +134,9 @@ const Buy = (props) => {
       });
     }
     fetchConfig();
-
-    // async function geocode() {
-    //   const options = {
-    //     provider: "tomtom",
-    //     // Optional depending on the providers
-    //     apiKey: "1mFsoddRBssP98W4yadCzAdopJJXjuw0", // for Mapquest, OpenCage, Google Premier
-    //     formatter: null, // 'gpx', 'string', ...
-    //   };
-
-    //   const geocoder = NodeGeocoder(options);
-
-    //   const res = await geocoder.geocode("2 Darryl Dr");
-    //   console.log("OHHIHI", res);
-    // }
-    // geocode();
-    (async () => {
-      try {
-        address = props.location.state.address;
-        bname = props.location.state.bname;
-      } catch (error) {}
-
-      try {
-        console.log(props.location.state.address);
-        if (props.location.state.address === undefined) {
-          alert("Invalid address. Map could not be displayed");
-        }
-
-        Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-        try {
-          var { lat } = "";
-          var { lng } = "";
-          try {
-            await Geocode.fromAddress(`${props.location.state.address}`).then(
-              (response) => {
-                lat = response.results[0].geometry.location.lat;
-                lng = response.results[0].geometry.location.lng;
-                console.log("lat and lng", lat, lng);
-                // prettier-ignore
-                setLng((lng = lng));
-                setLat((lat = lat));
-
-                lati = lat;
-                lngi = lng;
-                console.log("gyfds", lat);
-                console.log("Number", Number(lat));
-              },
-              (error) => {
-                console.error("ERROR", error);
-              }
-            );
-          } catch (error) {}
-
-          // const script = document.createElement("script");
-          // script.src = process.env.PUBLIC_URL + "/sdk/tomtom.min.js";
-          // document.body.appendChild(script);
-          // script.async = true;
-          // script.onload = () => {
-          //   var map = window.tomtom.L.map("map", {
-          //     source: "vector",
-          //     key: `${process.env.REACT_APP_TKEY}`,
-          //     center: [lat, lng],
-          //     basePath: "/sdk",
-          //     zoom: 16,
-          //   });
-          // };
-        } catch (error) {
-          alert("Invalid address. Map could not be displayed");
-        }
-      } catch (err) {}
-    })();
   }, []);
 
   var prop = props.location.state;
-
-  // prettier-ignore
-
-  async function handleToken(token, addresses) {
-    const product = {
-      name: "Donate to LocalMainStreet",
-      price: dprice,
-    };
-    const response = await axios.post(
-      "https://localmainstreetbackend.herokuapp.com/app/payment/checkout",
-      {
-        token,
-        product,
-      }
-    );
-
-    const { status } = response.data;
-    if (status === "success") {
-      toast("Success! Check email for details", { type: "success" });
-
-      axios.post("https://localmainstreetbackend.herokuapp.com/app/payment/donate", {
-        status: "yes"
-      }).then(res => {
-        console.log(res)
-      }).catch(err => {
-        console.error(err)
-      })
-      
-      const fnameq = localStorage.getItem("fname");
-      const lnameq = localStorage.getItem("lname");
-      const emailq = localStorage.getItem("email");
-      console.log({
-        fnameq,
-        lnameq,
-        emailq
-      })
-  
-      const payload = {
-        nameq: `${fnameq} ${lnameq}`,
-        emailq: emailq,
-        balance: mprice,
-      };
-  
-      await axios
-        .post("https://localmainstreetbackend.herokuapp.com/app/payment/getInfo", payload)
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-  
-      const id = {
-        id: prop.id,
-      };
-  
-      // await axios
-      //   .post("https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session", id)
-      //   .then((res) => {
-      //     console.log(res);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
-  
-      // Call your backend to create the Checkout session.
-      dispatch({ type: "setLoading", payload: { loading: true } });
-      const { sessionId } = await fetchCheckoutSession({
-        quantity: mprice,
-        product: prop,
-      });
-      // When the customer clicks on the button, redirect them to Checkout.
-      const { error } = await state.stripe.redirectToCheckout({
-        sessionId,
-      });
-      // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `error.message`.
-      if (error) {
-        dispatch({ type: "setError", payload: { error } });
-        dispatch({ type: "setLoading", payload: { loading: false } });
-      }
-    
-    } else {
-      toast("Something went wrong.", { type: "error" });
-    }
-  }
 
   const handleClick = async (event) => {
     if (mprice === undefined) {
@@ -379,10 +150,11 @@ const Buy = (props) => {
     } else if (mprice > 999996) {
       alert("Price cannot go above $999,996");
     } else {
-      if (mprice > 999999) {
-        alert("Cannot go above 999,999 dollars.");
+      if (mprice > 999996) {
+        alert("Cannot go above 999,996 dollars.");
         state.loading = false;
       }
+      setBuyBtn("Processing...");
       var fnameq = localStorage.getItem("fname");
       var lnameq = localStorage.getItem("lname");
       var emailq = localStorage.getItem("email");
@@ -443,10 +215,6 @@ const Buy = (props) => {
       }
     }
   };
-
-  //   pushShop = () => {
-  //     this.props.history.push("/Shop");
-  //   };
 
   var props = props;
 
@@ -687,7 +455,7 @@ const Buy = (props) => {
             onClick={handleClick}
             id="bbutton"
           >
-            Buy
+            {buyBtn}
           </button>
           <div
             style={{
