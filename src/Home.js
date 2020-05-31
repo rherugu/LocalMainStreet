@@ -541,20 +541,6 @@ class Home extends Component {
                 </div>
               </big>
             </div>
-            <div className="AvailableP">
-              <big>
-                <big>
-                  <big>
-                    <h1 className="Available">Available For Download</h1>
-                  </big>
-                </big>
-              </big>
-            </div>
-            <img
-              className="phoneimg"
-              src={require("./Assets/phone.png")}
-              draggable="false"
-            ></img>
           </div>
         </div>
         <div className="home-footer">

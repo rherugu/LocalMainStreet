@@ -205,16 +205,6 @@ class About extends Component {
         </header>
         <div className="st"></div>
         <div className="Awrapp">
-          {" "}
-          {/* <main className="mainA">
-
-            <div className="titleandtext">
-            <h1 className="titleA">About</h1>
-    
-            
-            
-          </div>
-          </main> */}{" "}
           <br></br>
           <br></br>
           <br></br>
