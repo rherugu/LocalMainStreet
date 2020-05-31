@@ -481,8 +481,6 @@ const Buy = (props) => {
               type="button"
               value="No"
               onClick={() => {
-                setMprice(0);
-                setTooMuchMprice(NaN);
                 setTooMuch("none");
               }}
             ></input>
