@@ -453,6 +453,7 @@ class Home extends Component {
                   <video
                     className="video"
                     controls
+                    controlsList="nodownload"
                     src={require("./Assets/introVid.mp4")}
                   ></video>
                 </div>
