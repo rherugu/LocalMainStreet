@@ -610,6 +610,7 @@ class Login extends Component {
                 id="CapsLock"
                 style={{
                   visibility: this.state.caps,
+                  color: "red",
                 }}
               >
                 Warning! You have Caps-Lock on.
@@ -771,7 +772,7 @@ class Login extends Component {
                 }}
               >
                 <label>
-                  Enter your email so we can send you a confirmation link. This
+                  Enter your email so we can send you a confirmation code. This
                   email should be registered with LocalMainStreet.
                 </label>
                 <input

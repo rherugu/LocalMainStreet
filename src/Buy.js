@@ -180,6 +180,8 @@ const Buy = (props) => {
   var [lat, setLat] = useState();
   var [lng, setLng] = useState();
   var [donate, setDonate] = useState(0);
+  var [tooMuch, setTooMuch] = useState("none");
+  var [tooMuchMprice, setTooMuchMprice] = useState();
 
   useEffect(() => {
     (() => {
@@ -555,6 +557,7 @@ const Buy = (props) => {
                 width: "90%",
                 borderRadius: "5px",
               }}
+              value={tooMuchMprice}
               className="numberinput"
               max="100000000"
               placeholder="0"
@@ -563,6 +566,12 @@ const Buy = (props) => {
                   amount: e.target.value,
                 });
                 setMprice((mprice = e.target.value));
+                if (mprice > 100) {
+                  setTooMuch("block");
+                }
+                if (mprice < 100) {
+                  setTooMuch("none");
+                }
               }}
             />
           </div>
@@ -678,8 +687,38 @@ const Buy = (props) => {
             onClick={handleClick}
             id="bbutton"
           >
-            Buy{" "}
+            Buy
           </button>
+          <div
+            style={{
+              textAlign: "center",
+              display: tooMuch,
+            }}
+          >
+            <h3>
+              You are purchasing an amount greater than 100. Are you sure?
+            </h3>
+            <input
+              type="button"
+              style={{
+                marginBottom: "10px",
+              }}
+              onClick={() => {
+                setTooMuch("none");
+              }}
+              value="Yes"
+            ></input>
+
+            <input
+              type="button"
+              value="No"
+              onClick={() => {
+                setMprice(0);
+                setTooMuchMprice(NaN);
+                setTooMuch("none");
+              }}
+            ></input>
+          </div>
 
           <div className="sr-field-error">{state.error?.message}</div>
         </section>
