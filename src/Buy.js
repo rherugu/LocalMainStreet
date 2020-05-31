@@ -140,19 +140,21 @@ const Buy = (props) => {
 
   const handleClick = async (event) => {
     if (mprice === undefined) {
-      alert("Please enter a price");
+      setBuyBtn("Please enter a price");
+    } else if (mprice === 0) {
+      setBuyBtn("Please enter a price");
     } else if (mprice === "0") {
-      alert("Please enter a price. It cannot be 0.");
+      setBuyBtn("Please enter a price. It cannot be 0.");
     } else if (mprice === null) {
-      alert("Please enter a price");
+      setBuyBtn("Please enter a price");
     } else if (mprice === "") {
-      alert("Please enter a price");
+      setBuyBtn("Please enter a price");
     } else if (mprice > 999996) {
-      alert("Price cannot go above $999,996");
+      setBuyBtn("Price cannot go above $999,996");
     } else {
       if (mprice > 999996) {
-        alert("Cannot go above 999,996 dollars.");
         state.loading = false;
+        setBuyBtn("Cannot go above 999,996 dollars.");
       }
       setBuyBtn("Processing...");
       var fnameq = localStorage.getItem("fname");
