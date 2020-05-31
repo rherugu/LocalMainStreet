@@ -327,7 +327,7 @@ class Home extends Component {
               <a
                 onClick={() => {
                   this.props.history.push({
-                    pathname: "/login",
+                    pathname: "/GetStarted",
                     state: {
                       getsStarted: "yes",
                     },
@@ -429,7 +429,8 @@ class Home extends Component {
                   your community. In these uncertain times, we need to stand
                   together. You can help by buying gift cards and vouchers from
                   your local businesses to be redeemed later when things get
-                  back to normal.
+                  back to normal. This will help local businesses generate some
+                  revenue and survive the crisis.
                 </h2>
               </big>
               <h2 style={{ textAlign: "center", marginTop: "0" }}>

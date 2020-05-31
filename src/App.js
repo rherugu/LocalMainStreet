@@ -20,6 +20,7 @@ import fourofour from "./fourofour";
 import ForgotPass from "./ForgotPass";
 import Redirecting from "./Redirecting";
 import BDashboard from "./BDashboard";
+import GetStarted from "./GetStarted";
 // import FullMap from "./FullMap";
 
 class App extends Component {
@@ -89,11 +90,11 @@ class App extends Component {
             path="/BDashboard"
             render={(props) => <BDashboard {...props} />}
           />
-          {/* <Route
+          <Route
             exact
-            path="/FullMap"
-            render={(props) => <FullMap {...props} />}
-          /> */}
+            path="/GetStarted"
+            render={(props) => <GetStarted {...props} />}
+          />
           <Route component={fourofour} />
         </Switch>
       </Router>

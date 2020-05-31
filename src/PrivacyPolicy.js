@@ -2780,6 +2780,7 @@ const PrivacyPolicy = () => {
           <a
             style={{ color: "rgb(48, 48, 241) !important" }}
             href="https://termly.io/products/privacy-policy-generator/?ftseo"
+            target="_blank"
           >
             Termly’s Privacy Policy Generator
           </a>

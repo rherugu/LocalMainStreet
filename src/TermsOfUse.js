@@ -6645,6 +6645,7 @@ const TermsOfUse = () => {
             <a
               style={{ color: "rgb(48, 48, 241) !important" }}
               href="https://termly.io/products/terms-and-conditions-generator/?ftseo"
+              target="_blank"
             >
               Termly’s Terms and Conditions Generator
             </a>
