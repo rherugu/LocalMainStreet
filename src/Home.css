@@ -1070,3 +1070,9 @@ a:active {
     transform: translateY(-15px);
   }
 }
+
+@media screen and (max-width: 285px) {
+  .clicknext {
+    font-size: 20px;
+  }
+}

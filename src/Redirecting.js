@@ -40,18 +40,21 @@ class Redirecting extends React.Component {
         >
           <h1
             style={{
-              maxWidth: "50%",
+              // maxWidth: "50%",
               textAlign: "center",
+              marginTop: "100px",
             }}
           >
-            <big>Registration Successful at LocalMainStreet!</big>
+            <big> </big>
           </h1>
           <br></br>
+
           <h1
             style={{
               maxWidth: "50%",
               textAlign: "center",
             }}
+            className="clicknext"
           >
             Click Next to setup your financial information for payments.{" "}
             <br></br>
