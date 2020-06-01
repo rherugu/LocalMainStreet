@@ -262,10 +262,8 @@ class About extends Component {
           <br></br>
           <div id="fit">
             <big>
-              <br></br>
-              <br></br>
               <h1 className="titleA">Team</h1>
-              <br></br>
+
               <br></br>
             </big>
             <div
@@ -349,14 +347,9 @@ class About extends Component {
                 </p>
               </div>
             </div>
-            <br></br>
-            <br></br>
-            <br></br>
+
             <big>
-              <br></br>
-              <br></br>
               <h1 className="titleA">Advisors</h1>
-              <br></br>
               <br></br>
             </big>
             <div

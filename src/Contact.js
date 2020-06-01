@@ -313,6 +313,10 @@ class Contact extends Component {
               }}
               value="Cancel"
             ></input>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
           </form>
         </main>
       </div>

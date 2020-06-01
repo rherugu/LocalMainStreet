@@ -375,11 +375,6 @@
   }
 }
 
-@media screen and (max-height: 1700px) {
-  .home-footer {
-    height: 100vh;
-  }
-}
 /* 
 @media screen and (max-height: 1077px) {
   .home-footer {
@@ -446,4 +441,20 @@
     -ms-flex-pack: start;
     justify-content: flex-start;
   }
+}
+
+@media screen and (max-width: 1373px) {
+  .mainC {
+    width: 70%;
+  }
+}
+
+@media screen and (max-height: 763px) {
+  .mainC {
+    margin-top: 300px;
+  }
+}
+
+.Contact {
+  overflow: scroll !important;
 }

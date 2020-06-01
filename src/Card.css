@@ -9,3 +9,13 @@
 .content {
   word-wrap: break-word;
 }
+
+@media screen and (max-width: 642px), (max-height: 755px) {
+  #Cardoo {
+    height: 220px;
+    overflow: scroll;
+  }
+  .at {
+    overflow: scroll;
+  }
+}

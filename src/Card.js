@@ -96,7 +96,7 @@ export default function MediaCard(props) {
             <Typography
               variant="body2"
               color="textSecondary"
-              className="typographywrap"
+              className="typographywrap at"
               component="p"
             >
               {props.description}

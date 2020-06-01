@@ -32,30 +32,11 @@ class Map extends React.Component {
       description: null,
     };
   }
-  // componentWillMount() {
-  //   navigator.geolocation.getCurrentPosition((position) => {
-  //     console.log("Latitude is :", position.coords.latitude);
-  //     var lat = position.coords.latitude;
-
-  //     console.log("Longitude is :", position.coords.longitude);
-  //     var lng = position.coords.longitude;
-
-  //     this.setState({
-  //       center: {
-  //         lat: lat,
-  //         lng: lng,
-  //       },
-  //     });
-  //   });
-  // }
-
-  // console.log(center);
-  // if (props.latlng != undefined) {
 
   render() {
     console.log(this.props);
     this.props.latlng.map((latlng) => {
-      console.log(latlng);
+      console.log("*******", latlng);
     });
     return (
       <GoogleMap
@@ -75,6 +56,7 @@ class Map extends React.Component {
                   description: latlng.description,
                 },
               });
+              console.log("this.state.shop", this.state.shop);
             }}
           />
         ))}
@@ -260,12 +242,13 @@ class Shop extends Component {
               this.setState({ shops: response.data });
 
               Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-
-              addressArray = this.state.shops.map((shop) => shop.address);
+              addressArray = [];
+              addressArray = this.state.shops.map((shop) => shop);
               var busName = this.state.shops.map((shop) => shop.bname);
               var DescName = this.state.shops.map((shop) => shop.address);
               console.log("busName", busName);
               console.log(addressArray);
+              var addressSet = [];
               obj = {
                 ...addressArray,
               };
@@ -273,33 +256,40 @@ class Shop extends Component {
               console.log(obj);
               var counter = 0;
               for (var key in addressArray) {
-                if (addressArray.hasOwnProperty(key)) {
-                  Geocode.fromAddress(addressArray[key]).then(
-                    (response) => {
-                      var result = {
-                        data: response.results[0].geometry.location,
-                        bname: busName[counter],
-                        description: DescName[counter],
-                      };
-                      console.log(result);
-                      addressArray[counter] = result;
-                      // addressArray[counter] = result;
+                console.info("Key: ", key);
+                //console.info("Counter: ", counter);
+                Geocode.fromAddress(addressArray[key].address).then(
+                  (response) => {
+                    console.warn(
+                      "response.results[0].geometry.location",
+                      response.results[0].geometry.location
+                    );
+                    var result = {
+                      data: response.results[0].geometry.location,
+                      bname: addressArray[counter].bname,
+                      description: addressArray[counter].address,
+                    };
+                    console.log("data", result.data);
+                    console.log("bname", result.bname);
+                    console.log("description", result.description);
+                    console.log(result);
 
-                      this.setState({
-                        addresses: addressArray,
-                        bname: busName,
-                        DescName: DescName,
-                      });
+                    addressSet[counter] = result;
 
-                      ++counter;
+                    this.setState({
+                      addresses: addressSet,
+                    });
+                    console.log("state", this.state.addresses);
 
-                      console.log(addressArray);
-                    },
-                    (error) => {
-                      console.error("ERROR", error);
-                    }
-                  );
-                }
+                    ++counter;
+                    console.info("Counter: ", counter);
+                    console.log(addressSet);
+                  },
+                  (error) => {
+                    console.error("ERROR", error);
+                  }
+                );
+                //console.info("Counter: ", counter);
               }
             })
             .catch((err) => {
@@ -668,8 +658,6 @@ class Shop extends Component {
             containerElement={<div style={{ height: `100%` }} />}
             mapElement={<div style={{ height: `100%` }} />}
             latlng={this.state.addresses}
-            bname={this.state.bname}
-            description={this.state.DescName}
           />
           {/* )} */}
         </div>
