@@ -30,19 +30,39 @@ const fetchCheckoutSession = async ({ quantity, product }) => {
   //   payload,
   //   headers
   // );
-  return await fetch(
-    "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        quantity,
-        product,
-      }),
-    }
-  ).then((res) => res.json());
+  return await axios({
+    url:
+      "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+    // withCredentials: true,
+    data: JSON.stringify({
+      quantity,
+      product,
+    }),
+  })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  // return await fetch(
+  //   "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
+  //   {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       quantity,
+  //       product,
+  //     }),
+  //   }
+  // ).then((res) => res.json());
 };
 
 const formatPrice = ({ amount, currency, quantity }) => {
@@ -224,21 +244,44 @@ const Buy = (props) => {
       // Call your backend to create the Checkout session.
       dispatch({ type: "setLoading", payload: { loading: true } });
 
-      const { sessionId } = await fetchCheckoutSession({
-        quantity: mprice,
-        product: prop,
-      });
-      // When the customer clicks on the button, redirect them to Checkout.
-      const { error } = await state.stripe.redirectToCheckout({
-        sessionId,
-      });
-      // If `redirectToCheckout` fails due to a browser or network
-      // error, display the localized error message to your customer
-      // using `error.message`.
-      if (error) {
-        dispatch({ type: "setError", payload: { error } });
-        dispatch({ type: "setLoading", payload: { loading: false } });
-      }
+      // const { sessionId } = await fetchCheckoutSession({
+      //   quantity: mprice,
+      //   product: prop,
+      // });
+      var sessionId;
+      axios({
+        url:
+          "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
+        // withCredentials: true,
+        data: JSON.stringify({
+          quantity: mprice,
+          product: prop,
+        }),
+      })
+        .then(async (res) => {
+          console.log(res);
+          sessionId = res.data.sessionId;
+          console.log(sessionId);
+          // When the customer clicks on the button, redirect them to Checkout.
+          const { error } = await state.stripe.redirectToCheckout({
+            sessionId,
+          });
+          // If `redirectToCheckout` fails due to a browser or network
+          // error, display the localized error message to your customer
+          // using `error.message`.
+          if (error) {
+            dispatch({ type: "setError", payload: { error } });
+            dispatch({ type: "setLoading", payload: { loading: false } });
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
     }
   };
 
