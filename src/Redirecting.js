@@ -65,7 +65,7 @@ class Redirecting extends React.Component {
             type="button"
             value="Next"
             style={{
-              width: "10%",
+              width: "30%",
               backgroundColor: "green",
               color: "white",
               fontSize: "20px",
