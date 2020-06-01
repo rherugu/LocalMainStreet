@@ -77,6 +77,8 @@ const formatPrice = ({ amount, currency, quantity }) => {
       zeroDecimalCurrency = false;
     }
   }
+  console.log(typeof Intl.NumberFormat.prototype.formatToParts);
+  console.log(typeof Intl.DateTimeFormat.prototype.formatToParts);
   amount = zeroDecimalCurrency ? amount : amount / 100;
   const total = (quantity * amount).toFixed(2);
   return numberFormat.format(total);
@@ -88,11 +90,11 @@ function reducer(state, action) {
       return {
         ...state,
         ...action.payload,
-        price: formatPrice({
+        price: {
           amount: action.payload.basePrice / 100,
           currency: action.payload.currency,
           quantity: state.quantity,
-        }),
+        },
       };
     case "increment":
       return {
@@ -132,6 +134,7 @@ const Buy = (props) => {
     stripe: null,
   });
 
+  var [stripe, setStripe] = useState(null);
   var [mprice, setMprice] = useState(0);
   var [modal, setModal] = useState("none");
   var [dprice, setDprice] = useState("");
@@ -176,6 +179,7 @@ const Buy = (props) => {
           stripe: await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY),
         },
       });
+      setStripe(await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY));
     }
     fetchConfig();
   }, []);
@@ -266,9 +270,12 @@ const Buy = (props) => {
         .then(async (res) => {
           console.log(res);
           sessionId = res.data.sessionId;
-          console.log(sessionId);
+          console.log(stripe);
+          var checkoutSession = await loadStripe(
+            process.env.REACT_APP_STRIPE_PUBLIC_KEY
+          );
           // When the customer clicks on the button, redirect them to Checkout.
-          const { error } = await state.stripe.redirectToCheckout({
+          const { error } = await checkoutSession.redirectToCheckout({
             sessionId,
           });
           // If `redirectToCheckout` fails due to a browser or network
@@ -399,9 +406,9 @@ const Buy = (props) => {
               max="100000000"
               placeholder="0"
               onChange={(e) => {
-                price: formatPrice({
-                  amount: e.target.value,
-                });
+                // formatPrice({
+                //   amount: e.target.value,
+                // });
                 setMprice((mprice = e.target.value));
                 if (mprice > 100) {
                   setTooMuch("block");
