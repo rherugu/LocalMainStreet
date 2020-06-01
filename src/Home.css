@@ -473,3 +473,17 @@ a:active {
 .Hheading2b {
   font-size: 27px !important;
 }
+
+@media screen and (max-width: 677px) {
+  .parentvid1 {
+    width: 90%;
+  }
+}
+@media screen and (max-width: 419px) {
+  .fancy-button span {
+    font-size: 15px !important;
+  }
+  header {
+    overflow-x: scroll;
+  }
+}
