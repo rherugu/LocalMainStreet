@@ -16,9 +16,20 @@ var lati = 0;
 var lngi = 0;
 var address;
 var bname;
-// prettier-ignore
 
 const fetchCheckoutSession = async ({ quantity, product }) => {
+  // const payload = {
+  //   quantity,
+  //   product,
+  // };
+  // const headers = {
+  //   "Content-Type": "application/json",
+  // };
+  // return await axios.post(
+  //   "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
+  //   payload,
+  //   headers
+  // );
   return await fetch(
     "https://localmainstreetbackend.herokuapp.com/app/payment/create-checkout-session",
     {
@@ -127,14 +138,23 @@ const Buy = (props) => {
     })();
     async function fetchConfig() {
       // Fetch config from our backend.
-      const { publicKey, basePrice, currency } = await fetch(
-        "https://localmainstreetbackend.herokuapp.com/app/payment/config"
-      ).then((res) => res.json());
+      // const { publicKey, basePrice, currency } = await fetch(
+      //   "https://localmainstreetbackend.herokuapp.com/app/payment/config"
+      // ).then((res) => res.json());
+      const { publicKey, basePrice, currency } = axios
+        .get("https://localmainstreetbackend.herokuapp.com/app/payment/config")
+        .then((res) => {
+          console.log(res);
+        });
       // Make sure to call `loadStripe` outside of a component’s render to avoid
       // recreating the `Stripe` object on every render.
       dispatch({
         type: "useEffectUpdate",
-        payload: { basePrice, currency, stripe: await loadStripe(publicKey) },
+        payload: {
+          basePrice,
+          currency,
+          stripe: await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY),
+        },
       });
     }
     fetchConfig();
