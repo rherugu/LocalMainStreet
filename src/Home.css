@@ -478,6 +478,13 @@ a:active {
   .parentvid1 {
     width: 90%;
   }
+  .WWA {
+    margin-top: 25em;
+    font-size: 30px;
+  }
+  .textvid {
+    font-size: 20px;
+  }
 }
 @media screen and (max-width: 419px) {
   .fancy-button span {
