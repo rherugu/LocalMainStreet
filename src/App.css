@@ -1,8 +1,18 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 99999 version
+*/
+
 .item-enter {
   opacity: 0;
 }
 .item-enter-active {
   opacity: 1;
+  -webkit-transition: opacity 500ms ease-in;
+  -o-transition: opacity 500ms ease-in;
+  -moz-transition: opacity 500ms ease-in;
   transition: opacity 500ms ease-in;
 }
 .item-exit {
@@ -10,5 +20,8 @@
 }
 .item-exit-active {
   opacity: 0;
+  -webkit-transition: opacity 500ms ease-in;
+  -o-transition: opacity 500ms ease-in;
+  -moz-transition: opacity 500ms ease-in;
   transition: opacity 500ms ease-in;
 }

@@ -2,27 +2,42 @@
 * Prefixed by https://autoprefixer.github.io
 * PostCSS: v7.0.29,
 * Autoprefixer: v9.7.6
+* Browsers: last 99999 version
+*/
+
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
 * Browsers: last 4 version
 */
 
 .Hheading1 {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   font-family: Poppins-Light;
   color: white;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
   cursor: pointer;
   -webkit-box-flex: 0.2;
   -ms-flex: 0.2;
+  -webkit-flex: 0.2;
+  -moz-box-flex: 0.2;
   flex: 0.2;
 }
 
 .Hheading2 {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   font-family: Poppins-Light;
   color: white;
@@ -30,10 +45,14 @@
   cursor: pointer;
   -webkit-box-flex: 1;
   -ms-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
   flex: 1;
   float: left;
   -webkit-box-pack: end;
   -ms-flex-pack: end;
+  -webkit-justify-content: flex-end;
+  -moz-box-pack: end;
   justify-content: flex-end;
 }
 
@@ -41,6 +60,8 @@
 .logoimg2 {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   font-family: Poppins-SemiBold;
   color: white;
@@ -48,10 +69,14 @@
   cursor: pointer;
   -webkit-box-flex: 1;
   -ms-flex: 1;
+  -webkit-flex: 1;
+  -moz-box-flex: 1;
   flex: 1;
   float: left;
   -webkit-box-pack: start;
   -ms-flex-pack: start;
+  -webkit-justify-content: flex-start;
+  -moz-box-pack: start;
   justify-content: flex-start;
 }
 
@@ -72,18 +97,24 @@
 .Home-Header {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   width: 100%;
   height: 10vh;
   margin: 0 auto;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
   align-items: center;
   background-color: rgb(74, 74, 74);
   position: fixed;
   padding-top: 0px;
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
   justify-content: space-between;
   z-index: 3;
   top: 0px;
@@ -93,12 +124,16 @@
 .HH {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   width: 95%;
   height: 100%;
   margin: 0 auto;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
   align-items: center;
   background-color: rgb(74, 74, 74);
   z-index: 3;
@@ -112,6 +147,8 @@
   .Hheading1 {
     -webkit-box-flex: 0.5;
     -ms-flex: 0.5;
+    -webkit-flex: 0.5;
+    -moz-box-flex: 0.5;
     flex: 0.5;
   }
 }
@@ -120,6 +157,8 @@
   .logoimg2 {
     display: -webkit-box;
     display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-box;
     display: flex;
     font-family: Poppins-SemiBold;
     color: white;
@@ -127,15 +166,23 @@
     cursor: pointer;
     -webkit-box-flex: 1;
     -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
     flex: 1;
     float: left;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    -moz-box-pack: start;
     justify-content: flex-start;
 
     -webkit-transform: scale(0.7);
 
     -ms-transform: scale(0.7);
+
+    -moz-transform: scale(0.7);
+
+    -o-transform: scale(0.7);
 
     transform: scale(0.7);
   }
@@ -153,6 +200,8 @@
   .Hheading {
     display: -webkit-box;
     display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-box;
     display: flex;
     font-family: Poppins-Light;
     color: white;
@@ -160,10 +209,14 @@
     cursor: pointer;
     -webkit-box-flex: 1;
     -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
     flex: 1;
     float: left;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    -moz-box-pack: start;
     justify-content: flex-start;
   }
 }
@@ -175,29 +228,45 @@
   z-index: -2;
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
   align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
   flex-direction: column;
 }
 
 .mainC {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
   flex-direction: column;
   margin: auto;
   width: 20%;
@@ -206,10 +275,14 @@
 .titleC {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   width: 100%;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
   text-align: center;
   font-size: 50px;
@@ -219,14 +292,21 @@
 .formC {
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
   margin: auto;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
   flex-direction: column;
   width: 100%;
 }
@@ -240,6 +320,8 @@
   outline: none;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
   float: right;
   margin: 0;
@@ -252,6 +334,8 @@
 .ButtonsC {
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
 }
 
@@ -266,6 +350,7 @@
   outline: none;
   -webkit-transition: border-color 0.2s;
   -o-transition: border-color 0.2s;
+  -moz-transition: border-color 0.2s;
   transition: border-color 0.2s;
 }
 
@@ -273,6 +358,8 @@
   .formCL {
     -webkit-transform: scale(0.9);
     -ms-transform: scale(0.9);
+    -moz-transform: scale(0.9);
+    -o-transform: scale(0.9);
     transform: scale(0.9);
   }
 }
@@ -281,6 +368,8 @@
   .formCCL {
     -webkit-transform: scale(0.5);
     -ms-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    -o-transform: scale(0.5);
     transform: scale(0.5);
   }
 }
@@ -289,11 +378,15 @@
   .formCL {
     -webkit-transform: scale(0.7);
     -ms-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
     transform: scale(0.7);
   }
   .titleCol {
     -webkit-transform: scale(0.7);
     -ms-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
     transform: scale(0.7);
     margin: 0;
   }
@@ -303,11 +396,15 @@
   .formCL {
     -webkit-transform: scale(0.5);
     -ms-transform: scale(0.5);
+    -moz-transform: scale(0.5);
+    -o-transform: scale(0.5);
     transform: scale(0.5);
   }
   .titleCol {
     -webkit-transform: scale(0.7);
     -ms-transform: scale(0.7);
+    -moz-transform: scale(0.7);
+    -o-transform: scale(0.7);
     transform: scale(0.7);
     margin: 0;
   }
@@ -321,6 +418,9 @@
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
   flex-direction: column;
 }
 .bar {
@@ -329,12 +429,17 @@
   background-color: white;
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   margin: 3px;
   cursor: pointer;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
   flex-direction: column;
 }
 
@@ -347,21 +452,34 @@
   height: 10%;
   display: -webkit-box;
   display: -ms-flexbox;
+  display: -webkit-flex;
+  display: -moz-box;
   display: flex;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  -moz-box-pack: center;
   justify-content: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
   align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
   -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
   flex-direction: column;
   background-color: rgb(71, 71, 71);
   -webkit-transition: all 0.7s ease;
   -o-transition: all 0.7s ease;
+  -moz-transition: all 0.7s ease;
   transition: all 0.7s ease;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
   background-size: cover;
 }
 
@@ -403,22 +521,34 @@
   .burgermenu {
     display: -webkit-box;
     display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-box;
     display: flex;
     -webkit-box-flex: 1;
     -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
     flex: 1;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
     flex-direction: column;
   }
   .logoimg2 {
     display: -webkit-box;
     display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-box;
     display: flex;
     -webkit-box-orient: horizontal;
     -webkit-box-direction: reverse;
     -ms-flex-direction: row-reverse;
+    -webkit-flex-direction: row-reverse;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: reverse;
     flex-direction: row-reverse;
     margin-right: 0;
     position: absolute;
@@ -428,6 +558,8 @@
   .Hheading {
     display: -webkit-box;
     display: -ms-flexbox;
+    display: -webkit-flex;
+    display: -moz-box;
     display: flex;
     font-family: Poppins-Light;
     color: white;
@@ -435,10 +567,14 @@
     cursor: pointer;
     -webkit-box-flex: 1;
     -ms-flex: 1;
+    -webkit-flex: 1;
+    -moz-box-flex: 1;
     flex: 1;
     float: left;
     -webkit-box-pack: start;
     -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    -moz-box-pack: start;
     justify-content: flex-start;
   }
 }
