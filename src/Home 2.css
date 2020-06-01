@@ -1,11 +1,4 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v7.0.29,
-* Autoprefixer: v9.7.6
-* Browsers: last 4 version
-*/
-
-@import "fonts.css";
+/* @import "fonts.css";
 
 * {
   font-family: Poppins-Regular;
@@ -13,52 +6,34 @@
 }
 
 .Hheading1 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-Light;
   color: white;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
-  -webkit-box-flex: 0.2;
-  -ms-flex: 0.2;
   flex: 0.2;
 }
 
 .Hheading2 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-Light;
   color: white;
 
   cursor: pointer;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1;
   float: left;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
 .logoimg,
 .logoimg2 {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-SemiBold;
   color: white;
 
   cursor: pointer;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1;
   float: left;
-  -webkit-box-pack: start;
-  -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
@@ -77,33 +52,23 @@
 }
 
 .Home-Header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 100%;
   height: 10vh;
   margin: 0 auto;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background-color: rgb(74, 74, 74);
   position: fixed;
   padding-top: 0px;
-  -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   z-index: 3;
 }
 
 .HH {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   width: 95%;
   height: 100%;
   margin: 0 auto;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   background-color: rgb(74, 74, 74);
   z-index: 3;
@@ -116,32 +81,20 @@
 
 @media screen and (max-width: 1483px) {
   .Hheading1 {
-    -webkit-box-flex: 0.5;
-    -ms-flex: 0.5;
     flex: 0.5;
   }
 }
 
 @media screen and (max-width: 1034px) {
   .logoimg2 {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     font-family: Poppins-SemiBold;
     color: white;
 
     cursor: pointer;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
     flex: 1;
     float: left;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
     justify-content: flex-start;
-
-    -webkit-transform: scale(0.7);
-
-    -ms-transform: scale(0.7);
 
     transform: scale(0.7);
   }
@@ -155,23 +108,15 @@
   height: 30px;
   width: 35px;
   z-index: 90909999;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 .bar {
   height: 5px;
   z-index: 909099999;
   background-color: white;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin: 3px;
   cursor: pointer;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -182,22 +127,11 @@
   top: 0;
   z-index: 2;
   height: 200%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   background-color: rgb(71, 71, 71);
-  -webkit-transition: all 0.7s ease;
-  -o-transition: all 0.7s ease;
   transition: all 0.7s ease;
   background-size: cover;
 }
@@ -211,18 +145,6 @@
     font-size: 45px;
   }
 }
-
-/* @media screen and (max-height: 1700px) {
-  .home-footer {
-    height: 100vh;
-  }
-} */
-/* 
-@media screen and (max-height: 1077px) {
-  .home-footer {
-    height: 1000vh;
-  }
-} */
 
 @media screen and (max-width: 209px) {
   .burger {
@@ -243,24 +165,12 @@
   }
 
   .burgermenu {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
     flex: 1;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
   }
   .logoimg2 {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: reverse;
-    -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
     margin-right: 0;
     position: absolute;
@@ -268,19 +178,13 @@
   }
 
   .Hheading {
-    display: -webkit-box;
-    display: -ms-flexbox;
     display: flex;
     font-family: Poppins-Light;
     color: white;
 
     cursor: pointer;
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
     flex: 1;
     float: left;
-    -webkit-box-pack: start;
-    -ms-flex-pack: start;
     justify-content: flex-start;
   }
 }
@@ -290,31 +194,16 @@
   position: fixed;
   width: 100%;
   z-index: -2;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .textloop {
   font-family: Poppins-Regular;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
   align-items: center;
   font-size: 40px;
   color: #fff;
@@ -326,54 +215,46 @@
   color: #fff;
 }
 
-/* bg shortcodes */
 .bg-gradient1 span,
 .bg-gradient1:before {
   background: #52a0fd;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#52a0fd),
-    color-stop(80%, #00e2fa),
-    to(#00e2fa)
+  background: -moz-linear-gradient(left, #52a0fd 0%, #00e2fa 80%, #00e2fa 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #52a0fd 0%,
+    #00e2fa 80%,
+    #00e2fa 100%
   );
-  background: -o-linear-gradient(left, #52a0fd 0%, #00e2fa 80%, #00e2fa 100%);
   background: linear-gradient(to right, #52a0fd 0%, #00e2fa 80%, #00e2fa 100%);
 }
 .bg-gradient2 span,
 .bg-gradient2:before {
   background: #44ea76;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#44ea76),
-    color-stop(80%, #39fad7),
-    to(#39fad7)
+  background: -moz-linear-gradient(left, #44ea76 0%, #39fad7 80%, #39fad7 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #44ea76 0%,
+    #39fad7 80%,
+    #39fad7 100%
   );
-  background: -o-linear-gradient(left, #44ea76 0%, #39fad7 80%, #39fad7 100%);
   background: linear-gradient(to right, #44ea76 0%, #39fad7 80%, #39fad7 100%);
 }
 .bg-gradient3 span,
 .bg-gradient3:before {
   background: #fa6c9f;
-  background: -webkit-gradient(
-    linear,
-    left top,
-    right top,
-    from(#fa6c9f),
-    color-stop(80%, #ffe140),
-    to(#ffe140)
+  background: -moz-linear-gradient(left, #fa6c9f 0%, #ffe140 80%, #ffe140 100%);
+  background: -webkit-linear-gradient(
+    left,
+    #fa6c9f 0%,
+    #ffe140 80%,
+    #ffe140 100%
   );
-  background: -o-linear-gradient(left, #fa6c9f 0%, #ffe140 80%, #ffe140 100%);
   background: linear-gradient(to right, #fa6c9f 0%, #ffe140 80%, #ffe140 100%);
 }
-/* General */
+
 .wrapper {
   margin: 5% auto;
   text-align: center;
-  -webkit-transform-style: perserve-3d;
   transform-style: perserve-3d;
   perspecive: 800px;
 }
@@ -385,7 +266,7 @@ a:focus,
 a:active {
   text-decoration: none;
 }
-/* fancy Button */
+
 .fancy-button {
   display: inline-block;
   margin: 30px;
@@ -407,12 +288,8 @@ a:active {
   right: 30px;
   z-index: -1;
   border-radius: 30em;
-  -webkit-filter: blur(20px) brightness(0.95);
   filter: blur(20px) brightness(0.95);
-  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
 .fancy-button i {
@@ -428,10 +305,7 @@ a:active {
   position: relative;
   z-index: 2;
   will-change: transform, filter;
-  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
 .fancy-button:focus,
@@ -442,15 +316,11 @@ a:active {
   color: #fff;
 }
 .fancy-button:hover span {
-  -webkit-filter: brightness(1.05) contrast(1.05);
   filter: brightness(1.05) contrast(1.05);
-  -webkit-transform: scale(0.95);
-  -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
 .fancy-button:hover:before {
   bottom: 0;
-  -webkit-filter: blur(10px) brightness(0.95);
   filter: blur(10px) brightness(0.95);
 }
 .fancy-button.pop-onhover:before {
@@ -460,30 +330,19 @@ a:active {
 .fancy-button.pop-onhover:hover:before {
   bottom: -7px;
   opacity: 1;
-  -webkit-filter: blur(20px);
   filter: blur(20px);
 }
 .fancy-button.pop-onhover:hover span {
-  -webkit-transform: scale(1.04);
-  -ms-transform: scale(1.04);
   transform: scale(1.04);
 }
 .fancy-button.pop-onhover:hover:active span {
-  -webkit-filter: brightness(1) contrast(1);
   filter: brightness(1) contrast(1);
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
   transform: scale(1);
-  -webkit-transition: all 0.15s ease-out;
-  -o-transition: all 0.15s ease-out;
   transition: all 0.15s ease-out;
 }
 .fancy-button.pop-onhover:hover:active:before {
   bottom: 0;
-  -webkit-filter: blur(10px) brightness(0.95);
   filter: blur(10px) brightness(0.95);
-  -webkit-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
@@ -492,11 +351,7 @@ a:active {
 }
 .mainbutton {
   cursor: pointer;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
 }
 
@@ -524,11 +379,8 @@ a:active {
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-animation: slideBg 17s linear infinite 0s;
   animation: slideBg 17s linear infinite 0s;
-  -webkit-animation-timing-function: ease;
   animation-timing-function: ease;
   background-image: url(./Assets/homebg.jpg);
   background-attachment: fixed;
@@ -551,27 +403,6 @@ a:active {
 @media screen and (max-width: 2076px) {
   .textvid {
     width: 100% !important;
-  }
-}
-
-@-webkit-keyframes slideBg {
-  0% {
-    background-image: url(./Assets/homebg.jpg);
-  }
-  20% {
-    background-image: url(./Assets/homebg2.jpg);
-  }
-  40% {
-    background-image: url(./Assets/bg.jpg);
-  }
-  60% {
-    background-image: url(./Assets/homebg3.jpg);
-  }
-  80% {
-    background-image: url(./Assets/homebg4.jpg);
-  }
-  100% {
-    background-image: url(./Assets/homebg.jpg);
   }
 }
 
@@ -599,11 +430,7 @@ a:active {
 .parentvid {
   width: 90%;
   margin: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
   justify-content: center;
   margin-bottom: 50px !important;
 }
@@ -611,11 +438,7 @@ a:active {
 .parentvid1 {
   width: 90%;
   margin: auto;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: end;
-  -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
@@ -633,12 +456,8 @@ a:active {
 
 .textvid {
   width: 42.6%;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin: auto;
-  -webkit-box-flex: 1;
-  -ms-flex: 1;
   flex: 1;
   margin-bottom: 100px;
   text-align: center;
@@ -664,18 +483,12 @@ a:active {
 }
 
 .contact {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   position: absolute;
   bottom: 0px;
   margin-bottom: 11px;
-  /* left: 90%;
-  transform: translate(-90%); */
+
   left: 90%;
   width: auto;
   right: 0px;
@@ -713,25 +526,7 @@ a:active {
   color: #ddd;
   font-size: 14px;
   outline: none;
-  -webkit-transition: border-color 0.2s;
-  -o-transition: border-color 0.2s;
   transition: border-color 0.2s;
-}
-
-.app-form-control::-webkit-input-placeholder {
-  color: #666;
-}
-
-.app-form-control::-moz-placeholder {
-  color: #666;
-}
-
-.app-form-control:-ms-input-placeholder {
-  color: #666;
-}
-
-.app-form-control::-ms-input-placeholder {
-  color: #666;
 }
 
 .app-form-control::placeholder {
@@ -757,9 +552,6 @@ a:active {
 
 @media screen and (max-width: 520px) {
   .screen-body {
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
     flex-direction: column;
   }
 
@@ -768,9 +560,6 @@ a:active {
   }
 
   .app-title {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: row;
     flex-direction: row;
   }
 
@@ -794,48 +583,34 @@ a:active {
 }
 
 .socialmedia {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
   flex-direction: row;
 }
 
 .facebook:hover {
-  -webkit-filter: drop-shadow(1px 1px #c8c8c8);
   filter: drop-shadow(1px 1px #c8c8c8);
   cursor: pointer;
 }
 
 .instagram:hover {
-  -webkit-filter: drop-shadow(1px 1px #c8c8c8);
   filter: drop-shadow(1px 1px #c8c8c8);
   cursor: pointer;
 }
 
 .linkedin:hover {
-  -webkit-filter: drop-shadow(1px 1px #c8c8c8);
   filter: drop-shadow(1px 1px #c8c8c8);
   cursor: pointer;
 }
 
 .facebook:active {
-  -webkit-transform: translate(1px, 1px);
-  -ms-transform: translate(1px, 1px);
   transform: translate(1px, 1px);
 }
 
 .instagram:active {
-  -webkit-transform: translate(1px, 1px);
-  -ms-transform: translate(1px, 1px);
   transform: translate(1px, 1px);
 }
 
 .linkedin:active {
-  -webkit-transform: translate(1px, 1px);
-  -ms-transform: translate(1px, 1px);
   transform: translate(1px, 1px);
 }
 
@@ -850,14 +625,9 @@ a:active {
 .home-footer {
   width: 100%;
   height: 50% !important;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   margin-top: 100px;
   background-color: rgb(74, 74, 74);
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
   margin-bottom: 0px;
   position: absolute;
@@ -877,8 +647,6 @@ a:active {
     height: 60%;
   }
   .logoimg {
-    -webkit-transform: scale(0.7);
-    -ms-transform: scale(0.7);
     transform: scale(0.7);
   }
 }
@@ -889,12 +657,7 @@ a:active {
 }
 
 .logoandterms {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -958,7 +721,6 @@ a:active {
     width: 300%;
     background-color: rgb(255, 250, 210);
     background-image: none;
-    -webkit-animation: none;
     animation: none;
   }
   .home-footer {
@@ -973,11 +735,6 @@ a:active {
   }
 }
 
-/* @media screen and (max-height: 655px) {
-  .sectionf {
-    margin-bottom: 300px;
-  }
-} */
 
 @media screen and (max-width: 548px) {
   .bgcover {
@@ -996,8 +753,6 @@ a:active {
   position: absolute;
   margin-top: 3.125vh;
   right: 5%;
-  -webkit-transform: translate(-5%);
-  -ms-transform: translate(-5%);
   transform: translate(-5%);
 }
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css);
@@ -1024,6 +779,9 @@ a:active {
   height: 60px;
   margin-left: -30px;
   border: 2px solid #ffffff;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
   border-radius: 50%;
   animation: bounce 2s infinite;
   -webkit-animation: bounce 2s infinite;
@@ -1052,21 +810,50 @@ a:active {
     -webkit-transform: translateY(-15px);
   }
 }
+
+@-moz-keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -moz-transform: translateY(0);
+  }
+  40% {
+    -moz-transform: translateY(-30px);
+  }
+  60% {
+    -moz-transform: translateY(-15px);
+  }
+}
+
+@-o-keyframes bounce {
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    -o-transform: translateY(0);
+  }
+  40% {
+    -o-transform: translateY(-30px);
+  }
+  60% {
+    -o-transform: translateY(-15px);
+  }
+}
 @keyframes bounce {
   0%,
   20%,
   50%,
   80%,
   100% {
-    -webkit-transform: translateY(0);
     transform: translateY(0);
   }
   40% {
-    -webkit-transform: translateY(-30px);
     transform: translateY(-30px);
   }
   60% {
-    -webkit-transform: translateY(-15px);
     transform: translateY(-15px);
   }
-}
+} */

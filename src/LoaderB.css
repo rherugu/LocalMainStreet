@@ -1,7 +1,16 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 .loaderwrapper {
   position: absolute;
   top: 50%;
   left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 .loader {
@@ -26,9 +35,11 @@
 
 @keyframes spin {
   0% {
+    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
+    -webkit-transform: rotate(360deg);
     transform: rotate(360deg);
   }
 }
@@ -42,6 +53,8 @@
   left: 50%;
   color: #f3f3f3;
   text-align: center;
+  -webkit-transform: translate(-50%);
+  -ms-transform: translate(-50%);
   transform: translate(-50%);
   background-color: rgb(86, 86, 86);
   width: 400px;
@@ -49,7 +62,26 @@
 
 .loaderwrapper h2:before {
   content: "Hashing Passwords...";
+  -webkit-animation: head 6s ease-out forwards;
   animation: head 6s ease-out forwards;
+}
+
+@-webkit-keyframes head {
+  0% {
+    content: "Hashing Passwords...";
+  }
+  20% {
+    content: "Checking for Validity";
+  }
+  40% {
+    content: "Proccessing data";
+  }
+  61% {
+    content: "Hashing Bank Credentials...";
+  }
+  100% {
+    content: "Hashing Bank Credentials...";
+  }
 }
 
 @keyframes head {

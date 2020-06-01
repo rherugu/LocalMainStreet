@@ -289,7 +289,13 @@ class GetStarted extends React.Component {
             </div>
           </div>
           <br />
-          <h2>Or if you already have an account...</h2>
+          <h2
+            style={{
+              textAlign: "center",
+            }}
+          >
+            Or if you already have an account...
+          </h2>
           <div
             className="buttonb"
             onClick={() => {

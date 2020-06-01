@@ -110,6 +110,9 @@ const Buy = (props) => {
   var [tooMuch, setTooMuch] = useState("none");
   var [tooMuchMprice, setTooMuchMprice] = useState();
   var [buyBtn, setBuyBtn] = useState("Buy");
+  var [green1, setGreen1] = useState();
+  var [green2, setGreen2] = useState();
+  var [green5, setGreen5] = useState();
 
   useEffect(() => {
     (() => {
@@ -120,6 +123,7 @@ const Buy = (props) => {
       if (token === "undefined") {
         props.history.push("/Login");
       }
+      setBuyBtn("Buy");
     })();
     async function fetchConfig() {
       // Fetch config from our backend.
@@ -370,14 +374,19 @@ const Buy = (props) => {
               type="button"
               style={{
                 margin: "0 5px",
+                backgroundColor: green1,
               }}
               value="$1"
               className="1 donatebtns"
               onClick={() => {
                 if (donate !== 1) {
                   setDonate(1);
+                  setGreen1("#7FDBFF");
+                  setGreen5();
+                  setGreen2();
                 } else if (donate === 1) {
                   setDonate(0);
+                  setGreen1();
                 }
               }}
             />
@@ -385,14 +394,19 @@ const Buy = (props) => {
               type="button"
               style={{
                 margin: "0 5px",
+                backgroundColor: green2,
               }}
               value="$2"
               className="2 donatebtns"
               onClick={() => {
                 if (donate !== 2) {
                   setDonate(2);
+                  setGreen2("#7FDBFF");
+                  setGreen1();
+                  setGreen5();
                 } else if (donate === 2) {
                   setDonate(0);
+                  setGreen2();
                 }
               }}
             />
@@ -400,14 +414,19 @@ const Buy = (props) => {
               type="button"
               style={{
                 margin: "0 5px",
+                backgroundColor: green5,
               }}
               value="$5"
               className="5 donatebtns"
               onClick={() => {
                 if (donate !== 5) {
                   setDonate(5);
+                  setGreen5("#7FDBFF");
+                  setGreen1();
+                  setGreen2();
                 } else if (donate === 5) {
                   setDonate(0);
+                  setGreen5();
                 }
               }}
             />
@@ -424,6 +443,9 @@ const Buy = (props) => {
               // value={donate}
               onChange={(e) => {
                 setDonate(Number(e.target.value));
+                setGreen1();
+                setGreen2();
+                setGreen5();
               }}
             />
           </div>

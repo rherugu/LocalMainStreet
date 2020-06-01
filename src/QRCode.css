@@ -1,3 +1,10 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 .titleQR {
   font-size: 50px;
   text-align: center;
@@ -19,14 +26,20 @@
   }
 
   .sendtxtext {
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
     transform: scale(0.7);
   }
 
   .sendbtnbutton {
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
     transform: scale(0.7);
   }
 
   .sendwrngwrong {
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
     transform: scale(0.7);
   }
 }

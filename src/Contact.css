@@ -1,32 +1,57 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 .Hheading1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-Light;
   color: white;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   cursor: pointer;
+  -webkit-box-flex: 0.2;
+  -ms-flex: 0.2;
   flex: 0.2;
 }
 
 .Hheading2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-Light;
   color: white;
 
   cursor: pointer;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   float: left;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
 }
 
 .logoimg,
 .logoimg2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   font-family: Poppins-SemiBold;
   color: white;
 
   cursor: pointer;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   float: left;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
 }
 
@@ -45,14 +70,20 @@
 }
 
 .Home-Header {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
   height: 10vh;
   margin: 0 auto;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background-color: rgb(74, 74, 74);
   position: fixed;
   padding-top: 0px;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
   z-index: 3;
   top: 0px;
@@ -60,10 +91,14 @@
 }
 
 .HH {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 95%;
   height: 100%;
   margin: 0 auto;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background-color: rgb(74, 74, 74);
   z-index: 3;
@@ -75,20 +110,32 @@
 
 @media screen and (max-width: 1483px) {
   .Hheading1 {
+    -webkit-box-flex: 0.5;
+    -ms-flex: 0.5;
     flex: 0.5;
   }
 }
 
 @media screen and (max-width: 1034px) {
   .logoimg2 {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     font-family: Poppins-SemiBold;
     color: white;
 
     cursor: pointer;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     float: left;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
+
+    -webkit-transform: scale(0.7);
+
+    -ms-transform: scale(0.7);
 
     transform: scale(0.7);
   }
@@ -104,13 +151,19 @@
   }
 
   .Hheading {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     font-family: Poppins-Light;
     color: white;
 
     cursor: pointer;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     float: left;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
   }
 }
@@ -120,23 +173,43 @@
   position: fixed;
   width: 100%;
   z-index: -2;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .mainC {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   margin: auto;
   width: 20%;
 }
 
 .titleC {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   width: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
   font-size: 50px;
@@ -144,9 +217,16 @@
 }
 
 .formC {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   margin: auto;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
 }
@@ -158,6 +238,8 @@
   font-size: 14px;
   cursor: pointer;
   outline: none;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   float: right;
   margin: 0;
@@ -168,6 +250,8 @@
 }
 
 .ButtonsC {
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
 }
 
@@ -180,26 +264,36 @@
   color: rgb(50, 50, 50);
   font-size: 14px;
   outline: none;
+  -webkit-transition: border-color 0.2s;
+  -o-transition: border-color 0.2s;
   transition: border-color 0.2s;
 }
 
 @media screen and (max-width: 658px) {
   .formCL {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
     transform: scale(0.9);
   }
 }
 
 @media screen and (max-width: 530px) {
   .formCCL {
+    -webkit-transform: scale(0.5);
+    -ms-transform: scale(0.5);
     transform: scale(0.5);
   }
 }
 
 @media screen and (max-width: 548px) {
   .formCL {
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
     transform: scale(0.7);
   }
   .titleCol {
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
     transform: scale(0.7);
     margin: 0;
   }
@@ -207,9 +301,13 @@
 
 @media screen and (max-width: 424px) {
   .formCL {
+    -webkit-transform: scale(0.5);
+    -ms-transform: scale(0.5);
     transform: scale(0.5);
   }
   .titleCol {
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
     transform: scale(0.7);
     margin: 0;
   }
@@ -220,15 +318,23 @@
   height: 30px;
   width: 35px;
   z-index: 90909999;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 .bar {
   height: 5px;
   z-index: 909099999;
   background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   margin: 3px;
   cursor: pointer;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -239,11 +345,22 @@
   top: 0;
   z-index: 2;
   height: 10%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   background-color: rgb(71, 71, 71);
+  -webkit-transition: all 0.7s ease;
+  -o-transition: all 0.7s ease;
   transition: all 0.7s ease;
   background-size: cover;
 }
@@ -289,12 +406,24 @@
   }
 
   .burgermenu {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
   }
   .logoimg2 {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: reverse;
+    -ms-flex-direction: row-reverse;
     flex-direction: row-reverse;
     margin-right: 0;
     position: absolute;
@@ -302,13 +431,19 @@
   }
 
   .Hheading {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     font-family: Poppins-Light;
     color: white;
 
     cursor: pointer;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     float: left;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
     justify-content: flex-start;
   }
 }

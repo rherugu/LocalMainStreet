@@ -1,11 +1,27 @@
+/*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
 .login {
   height: 100%;
   position: fixed;
   width: 100%;
   z-index: -2;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   overflow-y: scroll !important;
   overflow-x: hidden !important;
@@ -15,9 +31,18 @@
   margin-bottom: 50px;
 }
 .formL {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   margin: 0;
   width: 100vw;
@@ -39,12 +64,16 @@
 
 .fancy-button22121,
 .ee {
+  -webkit-transform: scale(0.61);
+  -ms-transform: scale(0.61);
   transform: scale(0.61);
 }
 .oo {
   width: unset !important;
 }
 .fancy-button {
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
   transform: scale(0.8);
 }
 
@@ -59,8 +88,12 @@
   right: 30px;
   z-index: -1;
   border-radius: 30em;
+  -webkit-filter: blur(20px) brightness(0.95);
   filter: blur(20px) brightness(0.95);
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  -webkit-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
 .fancy-button22121 i,
@@ -72,14 +105,21 @@
 }
 .fancy-button22121 span,
 .fancy-button span {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   padding: 18px 60px;
   border-radius: 50em;
   position: relative;
   z-index: 2;
   will-change: transform, filter;
+  -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
+  -webkit-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   font-size: x-large;
 }
@@ -95,12 +135,16 @@
 }
 .fancy-button22121:hover span,
 .fancy-button:hover span {
+  -webkit-filter: brightness(1.05) contrast(1.05);
   filter: brightness(1.05) contrast(1.05);
+  -webkit-transform: scale(0.95);
+  -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
 .fancy-button22121:hover:before,
 .fancy-button:hover:before {
   bottom: 0;
+  -webkit-filter: blur(10px) brightness(0.95);
   filter: blur(10px) brightness(0.95);
 }
 .fancy-button22121.pop-onhover:before,
@@ -112,30 +156,50 @@
 .fancy-button.poponhover:hover:before {
   bottom: -7px;
   opacity: 1;
+  -webkit-filter: blur(20px);
   filter: blur(20px);
 }
 .fancy-button22121.pop-onhover:hover span,
 .fancy-button.poponhover:hover span {
+  -webkit-transform: scale(1.04);
+  -ms-transform: scale(1.04);
   transform: scale(1.04);
 }
 .fancy-button22121.pop-onhover:hover:active span,
 .fancy-button22121.pop-onhover:hover:active span {
+  -webkit-filter: brightness(1) contrast(1);
   filter: brightness(1) contrast(1);
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
   transform: scale(1);
+  -webkit-transition: all 0.15s ease-out;
+  -o-transition: all 0.15s ease-out;
   transition: all 0.15s ease-out;
 }
 .fancy-button22121.pop-onhover:hover:active:before,
 .fancy-button22121.pop-onhover:hover:active:before {
   bottom: 0;
+  -webkit-filter: blur(10px) brightness(0.95);
   filter: blur(10px) brightness(0.95);
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
 }
 
 @import url("https://fonts.googleapis.com/css?family=Raleway:400,400i,700");
 .buttonb {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   cursor: pointer;
   margin: 20px;
@@ -149,6 +213,8 @@
 .buttonb svg .o1 {
   stroke: rgba(255, 179, 65, 0.7);
   fill: #ffa114;
+  -webkit-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
   width: 150%;
 }
@@ -156,11 +222,19 @@
   stroke: white;
   stroke-dasharray: 20 420;
   stroke-dashoffset: 20;
+  -webkit-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
   transition: all 1s ease-in-out;
 }
 .buttonb svg text {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   bottom: 0;
   margin: auto 0;
@@ -169,8 +243,14 @@
   z-index: 99090909;
 }
 text {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -181,9 +261,18 @@ text {
   stroke-dashoffset: -420;
 }
 .loginB {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
 }
 
@@ -205,21 +294,29 @@ text {
 
 @media screen and (max-width: 658px) {
   .formL {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
     transform: scale(0.9);
   }
 }
 
 @media screen and (max-width: 504px) {
   .formL {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
     transform: scale(0.8);
   }
 }
 
 @media screen and (max-width: 374px) {
   .formL {
+    -webkit-transform: scale(0.7);
+    -ms-transform: scale(0.7);
     transform: scale(0.7);
   }
   .titleLog {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
     transform: scale(0.9);
     margin: 0;
   }
@@ -227,9 +324,13 @@ text {
 
 @media screen and (max-width: 298px) {
   .formL {
+    -webkit-transform: scale(0.6);
+    -ms-transform: scale(0.6);
     transform: scale(0.6);
   }
   .titleLog {
+    -webkit-transform: scale(0.8);
+    -ms-transform: scale(0.8);
     transform: scale(0.8);
     margin: 0;
   }
