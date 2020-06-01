@@ -1927,6 +1927,7 @@ const PrivacyPolicy = () => {
                     data-custom-class="link"
                     href="https://developers.google.com/maps/terms"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     here
                   </a>
@@ -1940,6 +1941,7 @@ const PrivacyPolicy = () => {
                     data-custom-class="link"
                     href="https://policies.google.com/privacy"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     link
                   </a>
@@ -2267,6 +2269,7 @@ const PrivacyPolicy = () => {
                     data-custom-class="link"
                     href="http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm"
                     target="_blank"
+                    rel="noopener noreferrer"
                   >
                     http://ec.europa.eu/justice/data-protection/bodies/authorities/index_en.htm
                   </a>
@@ -2749,6 +2752,7 @@ const PrivacyPolicy = () => {
                           href="https://app.termly.io/notify/27efdd4f-6ec1-43f2-a588-ca29c3743bae"
                           rel="noopener noreferrer"
                           target="_blank"
+                          rel="noopener noreferrer"
                         >
                           here
                         </a>
@@ -2781,6 +2785,7 @@ const PrivacyPolicy = () => {
             style={{ color: "rgb(48, 48, 241) !important" }}
             href="https://termly.io/products/privacy-policy-generator/?ftseo"
             target="_blank"
+            rel="noopener noreferrer"
           >
             Termly’s Privacy Policy Generator
           </a>

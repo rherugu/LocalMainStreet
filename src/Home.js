@@ -600,6 +600,7 @@ class Home extends Component {
                   <a
                     className="link aaa"
                     target="_blank"
+                    rel="noopener noreferrer"
                     href="/TermsOfUse"
                     style={{
                       zIndex: "0",
@@ -625,6 +626,7 @@ class Home extends Component {
                   <a
                     className="link aaa aaa"
                     target="_blank"
+                    rel="noopener noreferrer"
                     href="/PrivacyPolicy"
                     style={{
                       zIndex: "0",
@@ -650,6 +652,7 @@ class Home extends Component {
                   <a
                     href="https://icons8.com/"
                     target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       zIndex: "0",
                       width: "max-content",

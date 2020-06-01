@@ -8,7 +8,7 @@ import Geocode from "react-geocode";
 import $ from "jquery";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+require("intersection-observer");
 const NodeGeocoder = require("node-geocoder");
 
 var bc;

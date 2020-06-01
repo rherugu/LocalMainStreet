@@ -878,6 +878,7 @@ class BusinessLogin extends Component {
                 <a
                   target="_blank"
                   rel="noopener noreferrer"
+                  rel="noopener noreferrer"
                   className="link"
                   href="https://stripe.com/connect-account/legal"
                 >
@@ -890,6 +891,7 @@ class BusinessLogin extends Component {
                 You also agree to LocalMainStreet's&nbsp;
                 <a
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="link"
                   rel="noopener noreferrer"
                   style={{
@@ -905,6 +907,7 @@ class BusinessLogin extends Component {
                 &nbsp;and our&nbsp;{" "}
                 <a
                   target="_blank"
+                  rel="noopener noreferrer"
                   rel="noopener noreferrer"
                   style={{
                     cursor: "pointer",

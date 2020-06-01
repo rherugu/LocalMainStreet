@@ -5299,6 +5299,7 @@ const TermsOfUse = () => {
                                 href="http://www.adr.org"
                                 rel="noopener noreferrer"
                                 target="_blank"
+                                rel="noopener noreferrer"
                               >
                                 <span
                                   style={{
@@ -6646,6 +6647,7 @@ const TermsOfUse = () => {
               style={{ color: "rgb(48, 48, 241) !important" }}
               href="https://termly.io/products/terms-and-conditions-generator/?ftseo"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Termly’s Terms and Conditions Generator
             </a>

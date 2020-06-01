@@ -301,6 +301,7 @@ class About extends Component {
                     <a
                       href="https://github.com/rherugu"
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="link"
                     >
                       Raghav Herugu
@@ -337,6 +338,7 @@ class About extends Component {
                     <a
                       href="https://github.com/vaibhavherugu"
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="link"
                     >
                       Vaibhav Herugu
@@ -387,6 +389,7 @@ class About extends Component {
                     <a
                       href="https://www.linkedin.com/in/veeranjaneya-murthy-a11b1012a/"
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="link"
                     >
                       Veeranjaneya Murthy Pilladi
@@ -422,6 +425,7 @@ class About extends Component {
                     <a
                       href="https://www.linkedin.com/in/sreeni-herugu-8694aa1/"
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="link"
                     >
                       Sreenivas Herugu
@@ -458,6 +462,7 @@ class About extends Component {
                     <a
                       href="https://www.linkedin.com/in/kavitha-h-b56620b2/"
                       target="_blank"
+                      rel="noopener noreferrer"
                       className="link"
                     >
                       Kavitha Herugu
