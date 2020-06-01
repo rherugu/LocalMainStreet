@@ -293,10 +293,14 @@ class Shop extends Component {
               }
             })
             .catch((err) => {
+              localStorage.setItem("token", "undefined");
+              localStorage.setItem("Btoken", "undefined");
               this.onClickLogin();
             })
         );
       } else {
+        localStorage.setItem("token", "undefined");
+        localStorage.setItem("Btoken", "undefined");
         this.onClickLogin();
       }
     } else {
