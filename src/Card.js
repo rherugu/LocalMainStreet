@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -24,6 +24,16 @@ const useStyles = makeStyles({
 
 export default function MediaCard(props) {
   const classes = useStyles();
+
+  const [disabled, setDisabled] = useState(false);
+
+  useEffect(() => {
+    (() => {
+      if (props.stripeId === "temporary") {
+        setDisabled(true);
+      }
+    })();
+  }, []);
 
   var image;
   if (props.businessCatagory === "Restaurant") {
@@ -79,6 +89,7 @@ export default function MediaCard(props) {
               });
             }, 500);
           }}
+          disabled={disabled}
         >
           {/* <CardMedia
             className={classes.media}
@@ -124,8 +135,18 @@ export default function MediaCard(props) {
                 },
               });
             }}
+            disabled={disabled}
           >
             Buy Gift Cards
+          </Button>
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              window.location.assign(`https://${props.website}`);
+            }}
+          >
+            {props.website ? `website: ${props.website}` : ""}
           </Button>
         </CardActions>
       </Card>

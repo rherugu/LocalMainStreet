@@ -655,6 +655,7 @@ class Shop extends Component {
               businessCatagory={shop.businessCatagory}
               stripeId={shop.stripeAccountId}
               address={shop.address}
+              website={shop.website}
               key={Math.floor(100000 + Math.random() * 900000)}
             />
           ))}

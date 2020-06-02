@@ -46,6 +46,7 @@ class BusinessLogin extends Component {
       mailSent: false,
       error: null,
       PhoneNumber: "",
+      website: "",
       businessCatagory: "",
       displaymessage: "hidden",
       Password: "",
@@ -182,6 +183,7 @@ class BusinessLogin extends Component {
       description: this.state.description,
       address: this.state.Address,
       phoneNumber: this.state.PhoneNumber,
+      website: this.state.website,
     };
 
     await axios
@@ -232,6 +234,7 @@ class BusinessLogin extends Component {
       description: this.state.description,
       address: this.state.Address,
       phoneNumber: this.state.PhoneNumber,
+      website: this.state.website,
       stripeAccountId: "temporary",
     };
 
@@ -377,6 +380,7 @@ class BusinessLogin extends Component {
         description: this.state.description,
         address: this.state.Address,
         phoneNumber: this.state.PhoneNumber,
+        website: this.state.website,
       };
 
       await axios
@@ -427,6 +431,7 @@ class BusinessLogin extends Component {
         description: this.state.description,
         address: this.state.Address,
         phoneNumber: this.state.PhoneNumber,
+        website: this.state.website,
         stripeAccountId: "temporary",
       };
 
@@ -436,15 +441,14 @@ class BusinessLogin extends Component {
             "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
             database
           )
-          .then((response) => {
+          .then(async (response) => {
             res = response.data;
             var realres = "Success!";
             if (
               res.message ===
               '"passwordb" length must be at least 6 characters long'
             ) {
-              realres =
-                "Password length is too short. It needs to be at least 6 characters long.";
+              realres = "Passwords needs to be at least 6 characters long.";
             } else if (
               res.message ===
               '"emailb" length must be at least 6 characters long'
@@ -477,7 +481,36 @@ class BusinessLogin extends Component {
             });
 
             if (res.message === "Success!") {
-              window.location.assign(stripeUrl);
+              var payload = {
+                email: this.state.email,
+                password: this.state.Password,
+              };
+
+              await axios
+                .post(
+                  "https://localmainstreetbackend.herokuapp.com/app/LoginAPI/login",
+                  payload
+                )
+                .then((response) => {
+                  console.log(response);
+                  if (response.status === 200) {
+                    localStorage.setItem("token", response.data.token);
+                    localStorage.setItem("email", response.data.email);
+                    localStorage.setItem("emailb", response.data.emailb);
+                    localStorage.setItem("fname", response.data.fname);
+                    localStorage.setItem("lname", response.data.lname);
+                  }
+                  const tokenval = localStorage.getItem("token");
+                  console.log(tokenval);
+                  console.log(response.data.stripeId);
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+              this.props.history.push({
+                pathname: "/Redirecting",
+                state: { stripeUrl: stripeUrl },
+              });
             }
 
             if (res.check === 200) {
@@ -837,7 +870,24 @@ class BusinessLogin extends Component {
                 onKeyDown={this.stripeKey}
               />
               <br></br>
-              {/* <button onClick={this.stripe}>Stripe</button> */}
+              <label style={{ color: "#111111" }}>Business Website</label>
+              <br></br>
+              <input
+                type="url"
+                id="PhoneNumber"
+                name="PhoneNumber"
+                placeholder="If you don't have a website, leave it blank."
+                value={this.state.website}
+                onChange={(e) => this.setState({ website: e.target.value })}
+                style={{
+                  width: 500,
+                  height: 50,
+                  fontSize: 20,
+                  backgroundColor: "#DDDDDD",
+                }}
+                onKeyDown={this.stripeKey}
+              />
+              <br></br>
 
               <br></br>
 
