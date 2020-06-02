@@ -163,8 +163,8 @@ class Login extends Component {
 
           try {
             if (this.props.location.state.qrcode === "yes") {
+              window.location.assign("/QRcode");
               this.props.history.push("/QRcode");
-              alert("fg");
             }
           } catch (error) {}
 

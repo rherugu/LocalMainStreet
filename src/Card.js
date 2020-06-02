@@ -85,6 +85,7 @@ export default function MediaCard(props) {
                   businessCatagory: props.businessCatagory,
                   id: props.stripeId,
                   address: props.address,
+                  email: props.emailb,
                 },
               });
             }, 500);
@@ -132,6 +133,7 @@ export default function MediaCard(props) {
                   className: "Buy",
                   id: props.stripeId,
                   address: props.address,
+                  email: props.emailb,
                 },
               });
             }}
@@ -143,10 +145,10 @@ export default function MediaCard(props) {
             size="small"
             color="primary"
             onClick={() => {
-              window.location.assign(`https://${props.website}`);
+              window.location.assign(`http://${props.website}`);
             }}
           >
-            {props.website ? `website: ${props.website}` : ""}
+            {props.website ? `Click to Go to website` : ""}
           </Button>
         </CardActions>
       </Card>

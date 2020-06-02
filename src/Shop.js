@@ -189,6 +189,21 @@ class Shop extends Component {
       .then((res) => {
         if (res.data.status === "success") {
           check = undefined;
+          axios
+            .post(
+              "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcodetoBusiness",
+              {
+                emailq: res.data.emailbusiness,
+                amount: res.data.amountPaid,
+                bname: res.data.businessName,
+              }
+            )
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              console.error(err);
+            });
           var dl = {
             name: res.data.businessName,
             amountPaid: res.data.amountPaid,
@@ -649,6 +664,7 @@ class Shop extends Component {
               card={shop}
               className="MediaCard"
               bname={shop.bname}
+              emailb={shop.emailb}
               description={shop.description}
               phoneNumber={shop.phoneNumber}
               history={this.props.history}
