@@ -31,6 +31,35 @@ class GetStarted extends React.Component {
     localStorage.setItem("Btoken", undefined);
     this.props.history.push("/login");
   };
+  componentDidMount() {
+    const tokenval = localStorage.getItem("token");
+    const tokenvalB = localStorage.getItem("Btoken");
+
+    var tokenC = `${tokenval}`;
+    var tokenB = `${tokenvalB}`;
+    if (!localStorage.getItem("visted")) {
+      this.setState({
+        login: "flex",
+        logout: "none",
+      });
+      localStorage.setItem("visted", true);
+    }
+    if (tokenB && tokenC === "undefined") {
+      if (this.state.login === "none") {
+        this.setState({
+          login: "flex",
+          logout: "none",
+        });
+      }
+    } else if (tokenB || tokenC !== "undefined") {
+      if (this.state.login === "flex") {
+        this.setState({
+          login: "none",
+          logout: "flex",
+        });
+      }
+    }
+  }
   render() {
     return (
       <div

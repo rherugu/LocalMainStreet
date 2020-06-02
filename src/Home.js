@@ -76,6 +76,15 @@ class Home extends Component {
     var tokenC = `${tokenval}`;
     var tokenB = `${tokenvalB}`;
 
+    if (!localStorage.getItem("visted")) {
+      this.setState({
+        login: "flex",
+        logout: "none",
+        getStartedDisplay: "flex",
+      });
+      localStorage.setItem("visted", true);
+    }
+
     if (tokenB && tokenC === "undefined") {
       if (this.state.login === "none") {
         this.setState({

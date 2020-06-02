@@ -849,7 +849,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-family: Poppins-Light;
+  font-family: "Poppins-Light";
   color: white;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
@@ -864,7 +864,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-family: Poppins-Light;
+  font-family: "Poppins-Light";
   color: white;
   cursor: pointer;
   -webkit-box-flex: 1;
@@ -880,7 +880,7 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  font-family: Poppins-SemiBold;
+  font-family: "Poppins-SemiBold";
   color: white;
   cursor: pointer;
   -webkit-box-flex: 1;
@@ -907,7 +907,7 @@
 
 .default,
 .default1 {
-  font-family: Poppins-Bold;
+  font-family: "Poppins-Bold";
 }
 
 .Dashboard-Header {
@@ -986,7 +986,7 @@
 }
 
 .welcometxt {
-  font-family: Poppins-Thin;
+  font-family: "Poppins-Thin";
   font-size: 50px;
 }
 
@@ -1047,7 +1047,7 @@
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    font-family: Poppins-Light;
+    font-family: "Poppins-Light";
     color: white;
     cursor: pointer;
     -webkit-box-flex: 1;

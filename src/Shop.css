@@ -20,7 +20,7 @@
   display: -webkit-flex;
   display: -moz-box;
   display: flex;
-  font-family: Poppins-Light;
+  font-family: "Poppins-Light";
   color: white;
   -webkit-box-pack: center;
   -ms-flex-pack: center;
@@ -41,7 +41,7 @@
   display: -webkit-flex;
   display: -moz-box;
   display: flex;
-  font-family: Poppins-Light;
+  font-family: "Poppins-Light";
   color: white;
 
   cursor: pointer;
@@ -65,7 +65,7 @@
   display: -webkit-flex;
   display: -moz-box;
   display: flex;
-  font-family: Poppins-SemiBold;
+  font-family: "Poppins-SemiBold";
   color: white;
 
   cursor: pointer;
@@ -387,7 +387,7 @@
   -webkit-align-items: flex-end;
   -moz-box-align: end;
   align-items: flex-end;
-  font-family: Poppins-Regular;
+  font-family: "Poppins-Regular";
 }
 
 @media screen and (max-width: 1483px) {
@@ -407,7 +407,7 @@
     display: -webkit-flex;
     display: -moz-box;
     display: flex;
-    font-family: Poppins-SemiBold;
+    font-family: "Poppins-SemiBold";
     color: white;
 
     cursor: pointer;
@@ -450,7 +450,7 @@
     display: -webkit-flex;
     display: -moz-box;
     display: flex;
-    font-family: Poppins-Light;
+    font-family: "Poppins-Light";
     color: white;
 
     cursor: pointer;
