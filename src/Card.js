@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import "./Card.css";
+import $ from "jquery";
 
 const useStyles = makeStyles({
   root: {
@@ -26,11 +27,15 @@ export default function MediaCard(props) {
   const classes = useStyles();
 
   const [disabled, setDisabled] = useState(false);
+  const [website, setWebsite] = useState(false);
 
   useEffect(() => {
     (() => {
       if (props.stripeId === "temporary") {
         setDisabled(true);
+      }
+      if (props.website === " ") {
+        setWebsite(true);
       }
     })();
   }, []);
@@ -55,7 +60,11 @@ export default function MediaCard(props) {
   } else {
     image = "defaulticon.png";
   }
-
+  $(document).ready(function () {
+    $(".MediaCard1").on("contextmenu", function () {
+      return false;
+    });
+  });
   return (
     <div
       className={props.className}
@@ -73,6 +82,7 @@ export default function MediaCard(props) {
         id="Cardoo"
       >
         <CardActionArea
+          className="MediaCard1"
           onClick={() => {
             setTimeout(function () {
               props.history.push({
@@ -101,7 +111,7 @@ export default function MediaCard(props) {
               backgroundSize: "cover",
             }}
           /> */}
-          <CardContent className="content">
+          <CardContent className="content MediaCard1">
             <Typography gutterBottom variant="h5" component="h2">
               {props.bname}
             </Typography>
@@ -119,7 +129,7 @@ export default function MediaCard(props) {
             </small>
           </CardContent>
         </CardActionArea>
-        <CardActions>
+        <CardActions className="MediaCard1">
           <Button
             size="small"
             color="primary"
@@ -145,10 +155,13 @@ export default function MediaCard(props) {
             size="small"
             color="primary"
             onClick={() => {
-              window.location.assign(`${props.website}`);
+              setTimeout(() => {
+                window.open(`${props.website}`, "_blank");
+              }, 500);
             }}
+            disabled={website}
           >
-            {props.website != " " ? `Click to Go to website` : ""}
+            {props.website != " " ? `Buy from their website` : ""}
           </Button>
         </CardActions>
       </Card>

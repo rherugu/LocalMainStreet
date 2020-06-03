@@ -42,6 +42,7 @@ class Map extends React.Component {
       <GoogleMap
         defaultZoom={12}
         defaultCenter={{ lat: 40.3883, lng: -74.3057 }}
+        options={this.props.options}
       >
         {this.props.latlng.map((latlng) => (
           <Marker
@@ -397,7 +398,61 @@ class Shop extends Component {
       return 0;
     }
   };
-
+  keySearch2 = (e) => {
+    if (e.keyCode === 13) {
+      // if (e.keyCode == 13) {
+      if (/\S/.test(this.state.search)) {
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
+        axios
+          .post(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+            {
+              query: this.state.search,
+            },
+            { headers }
+          )
+          .then((res) => {
+            console.log(res);
+            this.setState({
+              shops: res.data.result.map((shop) => shop),
+            });
+            console.log(this.state.shops);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else if (this.state.search === "" || null || undefined) {
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
+        axios
+          .post(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+            {
+              query: this.state.search,
+            },
+            { headers }
+          )
+          .then((res) => {
+            console.log(res);
+            this.setState({
+              shops: res.data.result.map((shop) => shop),
+            });
+            console.log(this.state.shops);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else {
+        return 0;
+      }
+    } else {
+    }
+  };
   keySearch = (e) => {
     this.setState({
       search: e.target.value,
@@ -643,14 +698,14 @@ class Shop extends Component {
               className="searchBar"
               value={this.state.search}
               onChange={this.keySearch}
-              // onKeyDown={this.keySearch}
+              onKeyDown={this.keySearch2}
             ></input>
-            <input
+            {/* <input
               type="button"
               className="searchSubmit"
               value="Search"
               onClick={this.handleSearch}
-            ></input>
+            ></input> */}
           </div>
         </div>
 
@@ -688,6 +743,7 @@ class Shop extends Component {
             containerElement={<div style={{ height: `100%` }} />}
             mapElement={<div style={{ height: `100%` }} />}
             latlng={this.state.addresses}
+            options={{ gestureHandling: "greedy", streetViewControl: false }}
           />
           {/* )} */}
         </div>
