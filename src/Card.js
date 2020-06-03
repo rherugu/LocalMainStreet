@@ -145,7 +145,7 @@ export default function MediaCard(props) {
             size="small"
             color="primary"
             onClick={() => {
-              window.location.assign(`http://${props.website}`);
+              window.location.assign(`${props.website}`);
             }}
           >
             {props.website != " " ? `Click to Go to website` : ""}
