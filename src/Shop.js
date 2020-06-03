@@ -196,6 +196,9 @@ class Shop extends Component {
                 emailq: res.data.emailbusiness,
                 amount: res.data.amountPaid,
                 bname: res.data.businessName,
+                name: `${localStorage.getItem("fname")} ${localStorage.getItem(
+                  "lname"
+                )}`,
               }
             )
             .then((res) => {
