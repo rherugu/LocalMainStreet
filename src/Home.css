@@ -131,10 +131,10 @@
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   backface-visibility: hidden;
-  -webkit-animation: slideBg 17s linear infinite 0s;
-  -moz-animation: slideBg 17s linear infinite 0s;
-  -o-animation: slideBg 17s linear infinite 0s;
-  animation: slideBg 17s linear infinite 0s;
+  -webkit-animation: slideBg 17s linear infinite 0.0001s;
+  -moz-animation: slideBg 17s linear infinite 0.0001s;
+  -o-animation: slideBg 17s linear infinite 0.0001s;
+  animation: slideBg 17s linear infinite 0.0001s;
   -webkit-animation-timing-function: ease;
   -moz-animation-timing-function: ease;
   -o-animation-timing-function: ease;
