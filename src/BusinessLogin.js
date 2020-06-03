@@ -46,7 +46,7 @@ class BusinessLogin extends Component {
       mailSent: false,
       error: null,
       PhoneNumber: "",
-      website: "",
+      website: " ",
       businessCatagory: "",
       displaymessage: "hidden",
       Password: "",

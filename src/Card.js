@@ -148,7 +148,7 @@ export default function MediaCard(props) {
               window.location.assign(`http://${props.website}`);
             }}
           >
-            {props.website ? `Click to Go to website` : ""}
+            {props.website != " " ? `Click to Go to website` : ""}
           </Button>
         </CardActions>
       </Card>
