@@ -247,6 +247,7 @@ class BusinessLogin extends Component {
         .then(async (response) => {
           res = response.data;
           var realres = "Success!";
+
           if (
             res.message ===
             '"passwordb" length must be at least 6 characters long'
@@ -257,8 +258,7 @@ class BusinessLogin extends Component {
           ) {
             realres = "Email is too short; needs to be at least 6 characters.";
           } else if (res.message === '"emailb" must be a valid email') {
-            realres =
-              "The email entered is not a valid email. Make sure to include the @ sign and the '.com, or .io, etc";
+            realres = "The email entered is not a valid email.";
           } else if (res.message === '"fnameb" is not allowed to be empty') {
             realres = "Please enter your first name.";
           } else if (res.message === '"lnameb" is not allowed to be empty') {
@@ -272,7 +272,11 @@ class BusinessLogin extends Component {
             "Email already exists. Please choose a different email."
           ) {
             realres = "Email already exists. Please choose a different email.";
+          } else if (res.message === '"website" must be a valid uri') {
+            realres =
+              "Make sure to include the 'https://' prefix for the website.";
           }
+
           this.setState({
             displayError: "flex",
             displayErrorText: realres,
