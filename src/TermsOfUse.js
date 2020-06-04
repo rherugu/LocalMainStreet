@@ -6414,6 +6414,18 @@ const TermsOfUse = () => {
                   hereby waive any and all defenses you may have based on the
                   electronic form of these Terms of Use and the lack of signing
                   by the parties hereto to execute these Terms of Use.
+                  <br />
+                  <br />
+                  <br />
+                  <strong>
+                    <big>IMPORTANT NOTICE:</big>
+                  </strong>
+                  <br />
+                  WE ARE NOT RESPONSIBLE during the unfortunate scenario when a
+                  voucher is bought, and in the time span before the voucher was
+                  redeemed, a merchant goes out of business and is no longer
+                  able to provide the redemption of the gift card. WE ARE MERELY
+                  a connector between customer and merchant.
                   <bdt className="block-component" />
                 </span>
               </div>
