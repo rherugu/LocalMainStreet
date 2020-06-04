@@ -328,7 +328,7 @@
   }
 }
 
-/* @media screen and (max-width: 746px), (max-height: 846px) {
+@media screen and (max-width: 746px), (max-height: 846px) {
   .search {
     top: 47% !important;
     left: 5% !important;
@@ -341,15 +341,9 @@
   .Search_Businesses {
     display: none;
   }
-} */
-
-@media screen and (width: 1024px), (height: 1366px) {
-  .search {
-    top: 15%;
-  }
 }
 
-@media screen and (max-height: 981px) {
+@media screen and (max-height: 804px) {
   .mapGoogle {
     height: 30% !important;
     bottom: 0 !important;
