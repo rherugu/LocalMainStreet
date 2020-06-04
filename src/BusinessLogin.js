@@ -62,6 +62,8 @@ class BusinessLogin extends Component {
       help: "none",
       displayError: "none",
       displayErrorText: "",
+      displayErrorTextw: "",
+      displayErrorw: "none",
       redirecting: "flex",
     };
   }
@@ -246,8 +248,23 @@ class BusinessLogin extends Component {
         )
         .then(async (response) => {
           res = response.data;
+          var m = "";
           var realres = "Success!";
+          if (this.state.bname === "" || null || undefined) {
+            realres = "Please enter your business name";
+          }
 
+          if (this.state.description === "" || null || undefined) {
+            realres = "Please enter a description";
+          }
+
+          if (this.state.Address === "" || null || undefined) {
+            realres = "Please enter an address";
+          }
+
+          if (this.state.PhoneNumber === "" || null || undefined) {
+            realres = "Please enter a phone number";
+          }
           if (
             res.message ===
             '"passwordb" length must be at least 6 characters long'
@@ -275,11 +292,14 @@ class BusinessLogin extends Component {
           } else if (res.message === '"website" must be a valid uri') {
             realres =
               "Make sure to include the 'https://' prefix for the website.";
+            m = "Do not include any other text but the url.";
           }
 
           this.setState({
             displayError: "flex",
             displayErrorText: realres,
+            displayErrorw: "flex",
+            displayErrorTextw: m,
           });
 
           if (res.message === "Success!") {
@@ -923,6 +943,17 @@ class BusinessLogin extends Component {
                 }}
               >
                 {this.state.displayErrorText}
+              </h3>
+              <h3
+                style={{
+                  textAlign: "center",
+                  display: this.state.displayErrorw,
+                  margin: "auto",
+                  color: "red",
+                  width: "fit-content",
+                }}
+              >
+                {this.state.displayErrorTextw}
               </h3>
               <h6
                 className="termsforstripe"
