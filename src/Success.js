@@ -102,7 +102,9 @@ class Success extends Component {
 
     axios
       .patch(
-        `https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/${this.shops}`,
+        `https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/email/${`${localStorage.getItem(
+          "emailb"
+        )}`}`,
         database
       )
       .then((response) => {
