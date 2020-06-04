@@ -40,8 +40,15 @@ class Map extends React.Component {
     });
     return (
       <GoogleMap
+        onClick={() => {
+          if (this.state.shop != null) {
+            this.setState({
+              shop: null,
+            });
+          }
+        }}
         defaultZoom={12}
-        defaultCenter={{ lat: 40.3883, lng: -74.3057 }}
+        defaultCenter={{ lat: 40.3583, lng: -74.26 }}
         options={this.props.options}
       >
         {this.props.latlng.map((latlng) => (
@@ -54,7 +61,10 @@ class Map extends React.Component {
                   lat: Number(latlng.data.lat),
                   lng: Number(latlng.data.lng),
                   bname: latlng.bname,
-                  description: latlng.description,
+                  description: latlng.address,
+                  website: latlng.website,
+                  email: latlng.emailb,
+                  phone: latlng.phoneNumber,
                 },
               });
               console.log("this.state.shop", this.state.shop);
@@ -65,7 +75,7 @@ class Map extends React.Component {
         {this.state.shop && (
           <InfoWindow
             position={{
-              lat: Number(this.state.shop.lat),
+              lat: Number(this.state.shop.lat + 0.003),
               lng: Number(this.state.shop.lng),
             }}
             onCloseClick={() => {
@@ -82,6 +92,18 @@ class Map extends React.Component {
             >
               <h3>{this.state.shop.bname}</h3>
               <h4>{this.state.shop.description}</h4>
+              <a
+                href={this.state.shop.website}
+                target="_blank"
+                className="link"
+                rel="noopener noreferrer"
+              >
+                {this.state.shop.website !== " "
+                  ? "Click to go to the website"
+                  : ""}
+              </a>
+              <p>Email: {this.state.shop.email}</p>
+              <p>Phone: {this.state.shop.phone}</p>
             </div>
           </InfoWindow>
         )}
@@ -263,7 +285,7 @@ class Shop extends Component {
               "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
               { headers }
             )
-            .then((response) => {
+            .then(async (response) => {
               this.setState({ shops: response.data });
 
               Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
@@ -274,50 +296,37 @@ class Shop extends Component {
               console.log("busName", busName);
               console.log(addressArray);
               var addressSet = [];
-              obj = {
-                ...addressArray,
-              };
 
-              console.log(obj);
-              var counter = 0;
-              for (var key in addressArray) {
-                console.info("Key: ", key);
-                //console.info("Counter: ", counter);
-                Geocode.fromAddress(addressArray[key].address).then(
-                  (response) => {
-                    console.warn(
-                      "response.results[0].geometry.location",
-                      response.results[0].geometry.location
-                    );
-                    var result = {
-                      data: response.results[0].geometry.location,
-                      bname: addressArray[counter].bname,
-                      description: addressArray[counter].address,
-                    };
-                    console.log("data", result.data);
-                    console.log("bname", result.bname);
-                    console.log("description", result.description);
-                    console.log(result);
+              for (var count = 0; count < addressArray.length; count++) {
+                console.log("Address: ", addressArray[count].address);
 
-                    addressSet[counter] = result;
-
-                    this.setState({
-                      addresses: addressSet,
-                    });
-                    console.log("state", this.state.addresses);
-
-                    ++counter;
-                    console.info("Counter: ", counter);
-                    console.log(addressSet);
-                  },
-                  (error) => {
-                    console.error("ERROR", error);
-                  }
+                const response = await Geocode.fromAddress(
+                  addressArray[count].address
                 );
-                //console.info("Counter: ", counter);
+
+                console.warn(
+                  "response.results[0].geometry.location",
+                  response.results[0].geometry.location
+                );
+
+                addressArray[count].data =
+                  response.results[0].geometry.location;
+
+                console.log("data", addressArray[count].data);
+                console.log("bname", addressArray[count].bname);
+                console.log("description", addressArray[count].description);
+
+                this.setState({
+                  addresses: addressArray,
+                });
+                console.log("state", this.state.addresses);
+
+                console.log("ioioioioioiioioioi", addressSet);
               }
             })
+
             .catch((err) => {
+              console.log(err);
               localStorage.setItem("token", "undefined");
               localStorage.setItem("Btoken", "undefined");
               this.onClickLogin();
