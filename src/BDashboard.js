@@ -26,7 +26,7 @@ class BDashboard extends React.Component {
     };
     axios
       .get(
-        "http://localhost:3003/app/BusinessLoginAPI/shop/" +
+        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/" +
           localStorage.getItem("emailb"),
         {
           headers,
