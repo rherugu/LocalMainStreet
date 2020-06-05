@@ -75,7 +75,7 @@ class Map extends React.Component {
         {this.state.shop && (
           <InfoWindow
             position={{
-              lat: Number(this.state.shop.lat + 0.003),
+              lat: Number(this.state.shop.lat),
               lng: Number(this.state.shop.lng),
             }}
             onCloseClick={() => {

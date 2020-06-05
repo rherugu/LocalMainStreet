@@ -161,7 +161,7 @@ export default function MediaCard(props) {
             }}
             disabled={website}
           >
-            {props.website != " " ? `Buy from their website` : ""}
+            {props.website != " " ? `Go to their website` : ""}
           </Button>
         </CardActions>
       </Card>
