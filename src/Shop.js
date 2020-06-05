@@ -14,6 +14,8 @@ import {
   Marker,
   InfoWindow,
 } from "react-google-maps";
+import $ from "jquery";
+import "jquery-mousewheel";
 
 var obj;
 var addressArray = [
@@ -34,10 +36,6 @@ class Map extends React.Component {
   }
 
   render() {
-    console.log(this.props);
-    this.props.latlng.map((latlng) => {
-      console.log("*******", latlng);
-    });
     return (
       <GoogleMap
         onClick={() => {
@@ -47,8 +45,9 @@ class Map extends React.Component {
             });
           }
         }}
-        defaultZoom={11}
-        defaultCenter={{ lat: 40.3583, lng: -74.26 }}
+        center={this.props.userLocation}
+        defaultZoom={8}
+        defaultCenter={this.props.userLocation}
         options={this.props.options}
       >
         {this.props.latlng.map((latlng) => (
@@ -67,7 +66,6 @@ class Map extends React.Component {
                   phone: latlng.phoneNumber,
                 },
               });
-              console.log("this.state.shop", this.state.shop);
             }}
           />
         ))}
@@ -154,25 +152,22 @@ class Shop extends Component {
       addresses: [],
       currentPosition: {},
       DescName: [],
+      userLocation: { lat: 0, lng: 0 },
     };
     this.bname = "";
   }
-
+  success = (position) => {
+    this.setState({
+      userLocation: {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      },
+    });
+  };
+  error = (err) => {
+    alert(err);
+  };
   async componentDidMount() {
-    // navigator.geolocation.getCurrentPosition((position) => {
-    //   console.log("Latitude is :", position.coords.latitude);
-    //   var lat = position.coords.latitude;
-
-    //   console.log("Longitude is :", position.coords.longitude);
-    //   var lng = position.coords.longitude;
-
-    //   this.setState({
-    //     currentPosition: {
-    //       lat: lat,
-    //       lng: lng,
-    //     },
-    //   });
-    // });
     const tokenval = localStorage.getItem("token");
     const tokenvalB = localStorage.getItem("Btoken");
 
@@ -289,39 +284,42 @@ class Shop extends Component {
               this.setState({ shops: response.data });
 
               Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+              if (navigator.geolocation) {
+                const options = {
+                  enableHighAccuracy: true,
+                  timeout: 5000,
+                  maximumAge: 0,
+                };
+
+                navigator.geolocation.getCurrentPosition(
+                  this.success,
+                  this.error,
+                  options
+                );
+              } else {
+                this.setState({
+                  userLocation: { lat: 40.3583, lng: -74.26 },
+                });
+              }
+
               addressArray = [];
               addressArray = this.state.shops.map((shop) => shop);
               var busName = this.state.shops.map((shop) => shop.bname);
               var DescName = this.state.shops.map((shop) => shop.address);
-              console.log("busName", busName);
-              console.log(addressArray);
+
               var addressSet = [];
 
               for (var count = 0; count < addressArray.length; count++) {
-                console.log("Address: ", addressArray[count].address);
-
                 const response = await Geocode.fromAddress(
                   addressArray[count].address
-                );
-
-                console.warn(
-                  "response.results[0].geometry.location",
-                  response.results[0].geometry.location
                 );
 
                 addressArray[count].data =
                   response.results[0].geometry.location;
 
-                console.log("data", addressArray[count].data);
-                console.log("bname", addressArray[count].bname);
-                console.log("description", addressArray[count].description);
-
                 this.setState({
                   addresses: addressArray,
                 });
-                console.log("state", this.state.addresses);
-
-                console.log("ioioioioioiioioioi", addressSet);
               }
             })
 
@@ -529,6 +527,11 @@ class Shop extends Component {
     const description = this.state.shops.map((shop) => {
       return <p key={shop._id}>{shop.description}</p>;
     });
+    $(".gridlist").mousewheel(function (event, delta) {
+      this.scrollLeft -= delta * 30;
+
+      event.preventDefault();
+    });
 
     return (
       <div className="Shop">
@@ -720,11 +723,13 @@ class Shop extends Component {
 
         <div
           className="gridlist"
-          style={{
-            width: "50vw",
-            marginTop: "26vh !important",
-            all: "unset",
-          }}
+          style={
+            {
+              // width: "50vw",
+              // marginTop: "26vh !important",
+              // // all: "unset",
+            }
+          }
         >
           {this.state.shops.map((shop) => (
             <MediaCard
@@ -752,7 +757,8 @@ class Shop extends Component {
             containerElement={<div style={{ height: `100%` }} />}
             mapElement={<div style={{ height: `100%` }} />}
             latlng={this.state.addresses}
-            options={{ gestureHandling: "greedy", streetViewControl: false }}
+            userLocation={this.state.userLocation}
+            options={{ gestureHandling: "auto", streetViewControl: false }}
           />
           {/* )} */}
         </div>

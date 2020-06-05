@@ -77,7 +77,8 @@ export default function MediaCard(props) {
       <Card
         className={classes.root}
         style={{
-          marginRight: "0 !important",
+          marginRight: "15px",
+          marginLeft: "15px",
         }}
         id="Cardoo"
       >
@@ -115,14 +116,14 @@ export default function MediaCard(props) {
             <Typography gutterBottom variant="h5" component="h2">
               {props.bname}
             </Typography>
-            <Typography
+            {/* <Typography
               variant="body2"
               color="textSecondary"
               className="typographywrap at"
               component="p"
             >
               {props.description}
-            </Typography>
+            </Typography> */}
             <br></br>
             <small>
               <p>Phone: {props.phoneNumber}</p>
@@ -133,6 +134,7 @@ export default function MediaCard(props) {
           <Button
             size="small"
             color="primary"
+            variant="outlined"
             onClick={() => {
               props.history.push({
                 pathname: "/Buy",
@@ -147,10 +149,12 @@ export default function MediaCard(props) {
                 },
               });
             }}
+            className="cardBtn"
             disabled={disabled}
           >
             Buy Gift Cards
           </Button>
+
           <Button
             size="small"
             color="primary"
