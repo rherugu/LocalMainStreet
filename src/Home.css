@@ -122,25 +122,6 @@
 .slideshowbg {
   width: 100vw;
   height: 100vh;
-  background-position: center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  background-repeat: no-repeat;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  backface-visibility: hidden;
-  -webkit-animation: slideBg 17s linear infinite 0.0001s;
-  -moz-animation: slideBg 17s linear infinite 0.0001s;
-  -o-animation: slideBg 17s linear infinite 0.0001s;
-  animation: slideBg 17s linear infinite 0.0001s;
-  -webkit-animation-timing-function: ease;
-  -moz-animation-timing-function: ease;
-  -o-animation-timing-function: ease;
-  animation-timing-function: ease;
-  background-image: url(./Assets/homebg.jpg);
-  background-attachment: fixed;
 }
 .textloop {
   margin-bottom: 50vh;

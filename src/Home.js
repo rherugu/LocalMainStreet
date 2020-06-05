@@ -5,6 +5,7 @@ import TextLoop from "react-text-loop";
 import axios from "axios";
 import { toast } from "react-toastify";
 import $ from "jquery";
+import BackgroundSlider from "react-background-slider";
 import "react-toastify/dist/ReactToastify.css";
 
 class Home extends Component {
@@ -187,7 +188,20 @@ class Home extends Component {
       <div className="zoom">
         {" "}
         <div className="slideshowbg">
-          {/* <meta name="viewport" content="initial-scale=1.0"></meta> */}
+          <BackgroundSlider
+            images={[
+              require("./Assets/homebg.jpg"),
+              require("./Assets/homebg2.jpg"),
+              require("./Assets/bg.jpg"),
+              require("./Assets/homebg3.jpg"),
+              require("./Assets/homebg4.jpg"),
+            ]}
+            style={{
+              height: "90vh",
+            }}
+            duration={2.5}
+            transition={1}
+          />
           <div
             className="burger"
             style={{
