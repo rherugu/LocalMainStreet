@@ -68,6 +68,7 @@ export default function MediaCard(props) {
   return (
     <div
       className={props.className}
+      id="cardWrapper"
       style={{
         display: "inline-block",
         // margin: "0 auto",

@@ -363,6 +363,14 @@ const Buy = (props) => {
             >
               {prop.bname}
             </h1>
+            <p
+              className="sr-legal-text"
+              style={{
+                textAlign: "left",
+              }}
+            >
+              {prop.description}
+            </p>
           </div>
           {/* <div className="quantity-setter">
             <button
