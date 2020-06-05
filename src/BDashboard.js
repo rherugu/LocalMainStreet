@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 
 class BDashboard extends React.Component {
   constructor(props) {
@@ -15,6 +16,10 @@ class BDashboard extends React.Component {
       description: "",
       address: "",
       phoneNumber: "",
+      deleteDisplay: "none",
+      txtdeletbtnvalue: "Delete your account",
+      DELETETHISACCOUNT: "none",
+      checked: false,
     };
   }
   componentDidMount() {
@@ -64,6 +69,25 @@ class BDashboard extends React.Component {
           width: "100vw",
         }}
       >
+        <br></br>
+        <br></br>
+
+        {/* <input
+          type="button"
+          style={{
+            backgroundColor: "#111111",
+            fontSize: 15,
+            width: "300px",
+            position: "fixed",
+            left: "30px",
+            top: 0,
+            color: "#fff",
+            marginTop: "30px",
+          }}
+          className="hjdfsz"
+          value="Click to Update your account"
+        ></input> */}
+
         <div
           style={{
             display: "flex",

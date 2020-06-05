@@ -6425,7 +6425,8 @@ const TermsOfUse = () => {
                   voucher is bought, and in the time span before the voucher was
                   redeemed, a merchant goes out of business and is no longer
                   able to provide the redemption of the gift card. WE ARE MERELY
-                  a connector between customer and merchant.
+                  a facilitator of this service. We do not charge for this
+                  service and neither are we liable for any losses incurred.
                   <bdt className="block-component" />
                 </span>
               </div>

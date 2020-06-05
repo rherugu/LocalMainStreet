@@ -47,7 +47,7 @@ class Map extends React.Component {
             });
           }
         }}
-        defaultZoom={12}
+        defaultZoom={11}
         defaultCenter={{ lat: 40.3583, lng: -74.26 }}
         options={this.props.options}
       >

@@ -155,6 +155,26 @@ class CustomerLogin extends Component {
                   if (!tokenval) {
                     alert("Incorrect email or password.");
                   }
+                  try {
+                    if (this.props.location.state.buy === "yes") {
+                      localStorage.setItem("token", response.data.token);
+                      this.props.history.push({
+                        pathname: "/Buy",
+                        state: {
+                          bname: this.props.location.state.bname,
+                          description: this.props.location.state.description,
+                          phoneNumber: this.props.location.state.phoneNumber,
+                          businessCatagory: "fds",
+                          id: this.props.location.state.id,
+                          address: this.props.location.state.address,
+                          email: this.props.location.state.email,
+                        },
+                      });
+                      return 0;
+                    }
+                  } catch (err) {
+                    alert(err);
+                  }
                   if (response.data.url === "/Shop") {
                     this.props.history.push("/Shop");
                   } else if (
@@ -266,6 +286,26 @@ class CustomerLogin extends Component {
 
                     if (!tokenval) {
                       alert("Incorrect email or password.");
+                    }
+                    try {
+                      if (this.props.location.state.buy === "yes") {
+                        localStorage.setItem("token", response.data.token);
+                        this.props.history.push({
+                          pathname: "/Buy",
+                          state: {
+                            bname: this.props.location.state.bname,
+                            description: this.props.location.state.description,
+                            phoneNumber: this.props.location.state.phoneNumber,
+                            businessCatagory: "fds",
+                            id: this.props.location.state.id,
+                            address: this.props.location.state.address,
+                            email: this.props.location.state.email,
+                          },
+                        });
+                        return 0;
+                      }
+                    } catch (err) {
+                      alert(err);
                     }
                     if (response.data.url === "/Shop") {
                       this.props.history.push("/Shop");

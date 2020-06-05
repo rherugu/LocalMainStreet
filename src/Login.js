@@ -49,6 +49,7 @@ class Login extends Component {
       getstarted: "flex",
       incorrect: "none",
       getstartedisplay: "none",
+      buy: "",
     };
   }
   onClickHome = () => {
@@ -85,6 +86,15 @@ class Login extends Component {
             // window.location.reload();
           }
         };
+      }
+    } catch (error) {}
+    try {
+      var e = this.props.location.state.buy;
+      if (e === "yes") {
+        this.setState({
+          buy:
+            "You need to login to buy a product. If you don't have an account, register by clicking the orange button below that says register as a customer.",
+        });
       }
     } catch (error) {}
     try {
@@ -162,9 +172,26 @@ class Login extends Component {
           } catch (error) {}
 
           try {
+            if (this.props.location.state.buy === "yes") {
+              this.props.history.push({
+                pathname: "/Buy",
+                state: {
+                  bname: this.props.location.state.bname,
+                  description: this.props.location.state.description,
+                  phoneNumber: this.props.location.state.phoneNumber,
+                  businessCatagory: "fds",
+                  id: this.props.location.state.id,
+                  address: this.props.location.state.address,
+                  email: this.props.location.state.emailb,
+                },
+              });
+              return 0;
+            }
+          } catch (error) {}
+
+          try {
             if (this.props.location.state.qrcode === "yes") {
               window.location.assign("/QRcode");
-              this.props.history.push("/QRcode");
             }
           } catch (error) {}
 
@@ -230,6 +257,24 @@ class Login extends Component {
             try {
               if (this.props.location.state.SuccessJs === "yes") {
                 this.props.history.push("/Success");
+              }
+            } catch (error) {}
+
+            try {
+              if (this.props.location.state.buy === "yes") {
+                this.props.history.push({
+                  pathname: "/Buy",
+                  state: {
+                    bname: this.props.location.state.bname,
+                    description: this.props.location.state.description,
+                    phoneNumber: this.props.location.state.phoneNumber,
+                    businessCatagory: "fds",
+                    id: this.props.location.state.id,
+                    address: this.props.location.state.address,
+                    email: this.props.location.state.emailb,
+                  },
+                });
+                return 0;
               }
             } catch (error) {}
 
@@ -552,6 +597,9 @@ class Login extends Component {
             {/* {this.errorMessage ? <h2>{this.errorMessage}</h2> : null} */}
 
             <form className="formL">
+              <h1 style={{ color: "red", textAlign: "center" }}>
+                <strong>{this.state.buy}</strong>
+              </h1>
               <big>
                 <big>
                   <big>
@@ -727,6 +775,22 @@ class Login extends Component {
                 <div
                   className="buttonb"
                   onClick={() => {
+                    if (this.props.location.state.buy === "yes") {
+                      this.props.history.push({
+                        pathname: "/CustomerLogin",
+                        state: {
+                          buy: "yes",
+                          bname: this.props.location.state.bname,
+                          description: this.props.location.state.description,
+                          phoneNumber: this.props.location.state.phoneNumber,
+                          businessCatagory: "fds",
+                          id: this.props.location.state.id,
+                          address: this.props.location.state.address,
+                          email: this.props.location.state.emailb,
+                        },
+                      });
+                      return 0;
+                    }
                     this.props.history.push("/CustomerLogin");
                   }}
                 >

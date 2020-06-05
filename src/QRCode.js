@@ -341,6 +341,7 @@ class QRCodejs extends React.Component {
           onClick={this.handleEmail}
           style={{
             width: "30%",
+            backgroundColor: "#FFDC00",
           }}
         ></input>
         <br></br>

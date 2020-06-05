@@ -147,18 +147,8 @@ const Buy = (props) => {
   var [green1, setGreen1] = useState();
   var [green2, setGreen2] = useState();
   var [green5, setGreen5] = useState();
-
+  var prop = props.location.state;
   useEffect(() => {
-    (() => {
-      const tokenval = localStorage.getItem("token");
-
-      const token = `${tokenval}`;
-
-      if (token === "undefined") {
-        props.history.push("/Login");
-      }
-      setBuyBtn("Buy");
-    })();
     async function fetchConfig() {
       // Fetch config from our backend.
       // const { publicKey, basePrice, currency } = await fetch(
@@ -182,9 +172,29 @@ const Buy = (props) => {
       setStripe(await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY));
     }
     fetchConfig();
-  }, []);
+    (() => {
+      const tokenval = localStorage.getItem("token");
 
-  var prop = props.location.state;
+      const token = `${tokenval}`;
+
+      if (token === "undefined") {
+        props.history.push({
+          pathname: "/Login",
+          state: {
+            buy: "yes",
+            bname: prop.bname,
+            description: prop.description,
+            phoneNumber: prop.phoneNumber,
+            businessCatagory: prop.businessCatagory,
+            id: prop.id,
+            address: prop.address,
+            email: prop.emailb,
+          },
+        });
+      }
+      setBuyBtn("Buy");
+    })();
+  }, []);
 
   const handleClick = async (event) => {
     if (mprice === undefined) {
