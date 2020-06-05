@@ -329,6 +329,18 @@ class BusinessLogin extends Component {
               .catch((err) => {
                 console.log(err);
               });
+            await axios
+              .post(
+                "https://localmainstreetbackend.herokuapp.com/app/contact/Bregistration",
+                {
+                  emailq: this.state.email,
+                  name: this.state.fname,
+                }
+              )
+              .then((res) => {
+                console.log(res);
+              })
+              .catch((err) => console.log(err));
             this.props.history.push({
               pathname: "/Redirecting",
               state: { stripeUrl: stripeUrl },
@@ -531,6 +543,18 @@ class BusinessLogin extends Component {
                 .catch((err) => {
                   console.log(err);
                 });
+              await axios
+                .post(
+                  "https://localmainstreetbackend.herokuapp.com/app/contact/Bregistration",
+                  {
+                    emailq: this.state.email,
+                    name: this.state.fname,
+                  }
+                )
+                .then((res) => {
+                  console.log(res);
+                })
+                .catch((err) => console.log(err));
               this.props.history.push({
                 pathname: "/Redirecting",
                 state: { stripeUrl: stripeUrl },
