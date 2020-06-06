@@ -46,7 +46,8 @@ class Map extends React.Component {
           }
         }}
         center={this.props.userLocation}
-        defaultZoom={8}
+        defaultZoom={this.props.zoom}
+        zoom={this.props.zoom}
         defaultCenter={this.props.userLocation}
         options={this.props.options}
       >
@@ -152,7 +153,8 @@ class Shop extends Component {
       addresses: [],
       currentPosition: {},
       DescName: [],
-      userLocation: { lat: 0, lng: 0 },
+      userLocation: { lat: 39.0119, lng: -98.4842 },
+      zoom: 5,
     };
     this.bname = "";
   }
@@ -162,10 +164,11 @@ class Shop extends Component {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       },
+      zoom: 7.8,
     });
   };
   error = (err) => {
-    alert(err);
+    console.error(err);
   };
   async componentDidMount() {
     const tokenval = localStorage.getItem("token");
@@ -299,6 +302,7 @@ class Shop extends Component {
               } else {
                 this.setState({
                   userLocation: { lat: 40.3583, lng: -74.26 },
+                  zoom: 8,
                 });
               }
 
@@ -759,6 +763,7 @@ class Shop extends Component {
             latlng={this.state.addresses}
             userLocation={this.state.userLocation}
             options={{ gestureHandling: "auto", streetViewControl: false }}
+            zoom={this.state.zoom}
           />
           {/* )} */}
         </div>
