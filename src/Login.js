@@ -775,23 +775,27 @@ class Login extends Component {
                 <div
                   className="buttonb"
                   onClick={() => {
-                    if (this.props.location.state.buy === "yes") {
-                      this.props.history.push({
-                        pathname: "/CustomerLogin",
-                        state: {
-                          buy: "yes",
-                          bname: this.props.location.state.bname,
-                          description: this.props.location.state.description,
-                          phoneNumber: this.props.location.state.phoneNumber,
-                          businessCatagory: "fds",
-                          id: this.props.location.state.id,
-                          address: this.props.location.state.address,
-                          email: this.props.location.state.emailb,
-                        },
-                      });
-                      return 0;
+                    try {
+                      if (this.props.location.state.buy === "yes") {
+                        this.props.history.push({
+                          pathname: "/CustomerLogin",
+                          state: {
+                            buy: "yes",
+                            bname: this.props.location.state.bname,
+                            description: this.props.location.state.description,
+                            phoneNumber: this.props.location.state.phoneNumber,
+                            businessCatagory: "fds",
+                            id: this.props.location.state.id,
+                            address: this.props.location.state.address,
+                            email: this.props.location.state.emailb,
+                          },
+                        });
+                        return 0;
+                      }
+                      this.props.history.push("/CustomerLogin");
+                    } catch (err) {
+                      this.props.history.push("/CustomerLogin");
                     }
-                    this.props.history.push("/CustomerLogin");
                   }}
                 >
                   <svg>
