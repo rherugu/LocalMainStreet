@@ -173,7 +173,7 @@ class CustomerLogin extends Component {
                       return 0;
                     }
                   } catch (err) {
-                    alert(err);
+                    console.log(err);
                   }
                   if (response.data.url === "/Shop") {
                     this.props.history.push("/Shop");
