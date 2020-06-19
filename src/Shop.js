@@ -156,6 +156,7 @@ class Shop extends Component {
       DescName: [],
       userLocation: { lat: 39.0119, lng: -98.4842 },
       zoom: 5,
+      loadingMAP2: "flex",
     };
     this.bname = "";
   }
@@ -335,6 +336,7 @@ class Shop extends Component {
         }
         this.setState({
           loadingMAP: false,
+          loadingMAP2: "none",
         });
       } else {
         localStorage.setItem("token", "undefined");
@@ -755,7 +757,22 @@ class Shop extends Component {
           ))}
         </div>
         <div className="mapGoogle">
-          <div style={{ width: "fit-content", margin: "auto" }}>
+          <div
+            style={{
+              width: "fit-content",
+              margin: "auto",
+              textAlign: "center",
+            }}
+          >
+            <i
+              style={{
+                display: this.state.loadingMAP2,
+                width: "fit-content",
+                margin: "5px auto",
+              }}
+              class="fa fa-refresh fa-spin"
+            ></i>
+
             {this.state.loadingMAP ? "Loading The Map..." : ""}
           </div>
           {/* {this.state.currentPosition !== {} && ( */}
