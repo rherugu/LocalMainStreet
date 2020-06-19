@@ -190,16 +190,16 @@ class Home extends Component {
         <div className="slideshowbg">
           <BackgroundSlider
             images={[
-              require("./Assets/homebg.jpg"),
-              require("./Assets/homebg2.jpg"),
-              require("./Assets/bg.jpg"),
+              // require("./Assets/homebg.jpg"),
+              // require("./Assets/homebg2.jpg"),
+              // require("./Assets/bg.jpg"),
               require("./Assets/homebg3.jpg"),
-              require("./Assets/homebg4.jpg"),
+              // require("./Assets/homebg4.jpg"),
             ]}
             style={{
               height: "90vh",
             }}
-            duration={2.5}
+            duration={99999999999999999999999999999999999999}
             transition={1}
           />
           <div

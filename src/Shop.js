@@ -148,6 +148,7 @@ class Shop extends Component {
       width: "30px",
       logout: "none",
       login: "flex",
+      loadingMAP: true,
       search: "",
       modal: true,
       addresses: [],
@@ -277,7 +278,7 @@ class Shop extends Component {
       });
     if (check) {
       if (tokenval) {
-        trackPromise(
+        await trackPromise(
           axios
             .get(
               "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
@@ -285,46 +286,6 @@ class Shop extends Component {
             )
             .then(async (response) => {
               this.setState({ shops: response.data });
-
-              Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-              if (navigator.geolocation) {
-                const options = {
-                  enableHighAccuracy: true,
-                  timeout: 5000,
-                  maximumAge: 0,
-                };
-
-                navigator.geolocation.getCurrentPosition(
-                  this.success,
-                  this.error,
-                  options
-                );
-              } else {
-                this.setState({
-                  userLocation: { lat: 40.3583, lng: -74.26 },
-                  zoom: 8,
-                });
-              }
-
-              addressArray = [];
-              addressArray = this.state.shops.map((shop) => shop);
-              var busName = this.state.shops.map((shop) => shop.bname);
-              var DescName = this.state.shops.map((shop) => shop.address);
-
-              var addressSet = [];
-
-              for (var count = 0; count < addressArray.length; count++) {
-                const response = await Geocode.fromAddress(
-                  addressArray[count].address
-                );
-
-                addressArray[count].data =
-                  response.results[0].geometry.location;
-
-                this.setState({
-                  addresses: addressArray,
-                });
-              }
             })
 
             .catch((err) => {
@@ -334,6 +295,47 @@ class Shop extends Component {
               this.onClickLogin();
             })
         );
+        Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+        if (navigator.geolocation) {
+          const options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0,
+          };
+
+          navigator.geolocation.getCurrentPosition(
+            this.success,
+            this.error,
+            options
+          );
+        } else {
+          this.setState({
+            userLocation: { lat: 40.3583, lng: -74.26 },
+            zoom: 8,
+          });
+        }
+
+        addressArray = [];
+        addressArray = this.state.shops.map((shop) => shop);
+        var busName = this.state.shops.map((shop) => shop.bname);
+        var DescName = this.state.shops.map((shop) => shop.address);
+
+        var addressSet = [];
+
+        for (var count = 0; count < addressArray.length; count++) {
+          const response = await Geocode.fromAddress(
+            addressArray[count].address
+          );
+
+          addressArray[count].data = response.results[0].geometry.location;
+
+          this.setState({
+            addresses: addressArray,
+          });
+        }
+        this.setState({
+          loadingMAP: false,
+        });
       } else {
         localStorage.setItem("token", "undefined");
         localStorage.setItem("Btoken", "undefined");
@@ -753,6 +755,9 @@ class Shop extends Component {
           ))}
         </div>
         <div className="mapGoogle">
+          <div style={{ width: "fit-content", margin: "auto" }}>
+            {this.state.loadingMAP ? "Loading The Map..." : ""}
+          </div>
           {/* {this.state.currentPosition !== {} && ( */}
           <MapWrapped
             currentPosition={this.state.currentPosition}

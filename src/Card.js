@@ -27,12 +27,21 @@ export default function MediaCard(props) {
   const classes = useStyles();
 
   const [disabled, setDisabled] = useState(false);
+  const [disabled2, setDisabled2] = useState("flex");
+  var [idtemp, setidtemp] = useState("i");
   const [website, setWebsite] = useState(false);
 
   useEffect(() => {
     (() => {
       if (props.stripeId === "temporary") {
-        setDisabled(true);
+        setidtemp((idtemp = "temporary"));
+        console.log(idtemp);
+        if (idtemp === "temporary") {
+          setDisabled(true);
+          setTimeout(() => {
+            setDisabled2("none");
+          }, 1000);
+        }
       }
       if (props.website === " ") {
         setWebsite(true);
@@ -151,7 +160,7 @@ export default function MediaCard(props) {
               });
             }}
             className="cardBtn"
-            disabled={disabled}
+            style={{ display: disabled2 }}
           >
             Buy Gift Cards
           </Button>
