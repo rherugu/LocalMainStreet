@@ -27,6 +27,7 @@
   }
 }
 
-.cardWrapper::-webkit-scrollbar {
-  display: none;
+#cardWrapper::-webkit-scrollbar,
+#Cardoo::-webkit-scrollbar {
+  display: none !important;
 }
