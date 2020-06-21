@@ -50,6 +50,7 @@ class Login extends Component {
       incorrect: "none",
       getstartedisplay: "none",
       buy: "",
+      dashboardoftheB: "none",
     };
   }
   onClickHome = () => {
@@ -133,6 +134,11 @@ class Login extends Component {
           logout: "flex",
         });
       }
+    }
+    if (localStorage.getItem("type") === "business") {
+      this.setState({ dashboardoftheB: "flex" });
+    } else {
+      this.setState({ dashboardoftheB: "none" });
     }
   }
   onSubmitHandler = (e) => {
@@ -285,11 +291,13 @@ class Login extends Component {
             } catch (error) {}
 
             if (response.data.url === "/Shop") {
+              localStorage.setItem("type", "customer");
               this.props.history.push("/Shop");
             } else if (
               response.data.url === "/Dashboard" &&
               response.data.stripeId
             ) {
+              localStorage.setItem("type", "business");
               this.props.history.push({
                 pathname: "/BDashboard",
                 state: {
@@ -483,6 +491,14 @@ class Login extends Component {
           >
             <span>Contact</span>
           </h3>
+          <a href="/BDashboard">
+            <span
+              className="Hheading1b"
+              style={{ display: this.state.dashboardoftheB }}
+            >
+              <span>Dashboard</span>
+            </span>
+          </a>
           <h3
             className="Hheading2b"
             style={{ fontSize: "20px", display: this.state.login }}
@@ -578,12 +594,17 @@ class Login extends Component {
             >
               <span>Login</span>
             </h3>
-            <h3
-              className="Hheading2"
-              style={{ display: this.state.logout }}
-              onClick={this.onClickLogout}
-            >
-              <span>Logout</span>
+            <h3 className="Hheading2" style={{ display: this.state.logout }}>
+              <a href="/BDashboard">
+                <span
+                  className="Hheading1"
+                  style={{ display: this.state.dashboardoftheB }}
+                >
+                  <span>Dashboard</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+              </a>
+              <span onClick={this.onClickLogout}>Logout</span>
             </h3>
           </div>
         </header>

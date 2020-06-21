@@ -650,3 +650,9 @@ a:active {
     overflow-x: scroll;
   }
 }
+
+@media screen and (max-width: 379px) {
+  .logoimg2 {
+    display: none !important;
+  }
+}

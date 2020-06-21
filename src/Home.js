@@ -36,6 +36,7 @@ class Home extends Component {
       hoverColor3: "white",
       hoverColor4: "white",
       getStartedDisplay: "flex",
+      dashboardoftheB: "none",
     };
     this.cursor = React.createRef();
   }
@@ -102,6 +103,11 @@ class Home extends Component {
           getStartedDisplay: "none",
         });
       }
+    }
+    if (localStorage.getItem("type") === "business") {
+      this.setState({ dashboardoftheB: "flex" });
+    } else {
+      this.setState({ dashboardoftheB: "none" });
     }
   }
 
@@ -221,6 +227,14 @@ class Home extends Component {
             <h3 className="Hheading1b" onClick={this.onClickContact}>
               <span>Contact</span>
             </h3>
+            <a href="/BDashboard">
+              <span
+                className="Hheading1b"
+                style={{ display: this.state.dashboardoftheB }}
+              >
+                <span>Dashboard</span>
+              </span>
+            </a>
             <h3
               className="Hheading2b"
               style={{ display: this.state.login }}
@@ -328,7 +342,6 @@ class Home extends Component {
               <h3 className="Hheading1" onClick={this.onClickContact}>
                 <span>Contact</span>
               </h3>
-
               <h3
                 className="Hheading2"
                 style={{ display: this.state.login }}
@@ -336,14 +349,18 @@ class Home extends Component {
               >
                 <span>Login</span>
               </h3>
-
-              <h3
-                className="Hheading2"
-                style={{ display: this.state.logout }}
-                onClick={this.onClickLogout}
-              >
-                <span>Logout</span>
-              </h3>
+              <h3 className="Hheading2" style={{ display: this.state.logout }}>
+                <a href="/BDashboard">
+                  <span
+                    className="Hheading1"
+                    style={{ display: this.state.dashboardoftheB }}
+                  >
+                    <span>Dashboard</span>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </span>
+                </a>
+                <span onClick={this.onClickLogout}>Logout</span>
+              </h3>{" "}
               <div
                 className="mainbutton"
                 style={{

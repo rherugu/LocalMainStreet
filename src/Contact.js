@@ -17,6 +17,7 @@ class Contact extends Component {
       width: "30px",
       logout: "none",
       login: "flex",
+      dashboardoftheB: "none",
     };
   }
   componentDidMount() {
@@ -46,6 +47,11 @@ class Contact extends Component {
           logout: "flex",
         });
       }
+    }
+    if (localStorage.getItem("type") === "business") {
+      this.setState({ dashboardoftheB: "flex" });
+    } else {
+      this.setState({ dashboardoftheB: "none" });
     }
   }
   onClickHome = () => {
@@ -169,6 +175,14 @@ class Contact extends Component {
           >
             <span>Contact</span>
           </h3>
+          <a href="/BDashboard">
+            <span
+              className="Hheading1b"
+              style={{ display: this.state.dashboardoftheB }}
+            >
+              <span>Dashboard</span>
+            </span>
+          </a>
           <h3
             className="Hheading2b"
             style={{ fontSize: "20px", display: this.state.login }}
@@ -263,12 +277,17 @@ class Contact extends Component {
             >
               <span>Login</span>
             </h3>
-            <h3
-              className="Hheading2"
-              style={{ display: this.state.logout }}
-              onClick={this.onClickLogout}
-            >
-              <span>Logout</span>
+            <h3 className="Hheading2" style={{ display: this.state.logout }}>
+              <a href="/BDashboard">
+                <span
+                  className="Hheading1"
+                  style={{ display: this.state.dashboardoftheB }}
+                >
+                  <span>Dashboard</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+              </a>
+              <span onClick={this.onClickLogout}>Logout</span>
             </h3>
           </div>
         </header>
