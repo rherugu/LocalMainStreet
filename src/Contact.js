@@ -175,14 +175,14 @@ class Contact extends Component {
           >
             <span>Contact</span>
           </h3>
-          <a href="/BDashboard">
+          {/* <a href="/BDashboard">
             <span
               className="Hheading1b"
               style={{ display: this.state.dashboardoftheB }}
             >
               <span>Dashboard</span>
             </span>
-          </a>
+          </a> */}
           <h3
             className="Hheading2b"
             style={{ fontSize: "20px", display: this.state.login }}

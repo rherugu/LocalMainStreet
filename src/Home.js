@@ -227,14 +227,14 @@ class Home extends Component {
             <h3 className="Hheading1b" onClick={this.onClickContact}>
               <span>Contact</span>
             </h3>
-            <a href="/BDashboard">
+            {/* <a href="/BDashboard">
               <span
                 className="Hheading1b"
                 style={{ display: this.state.dashboardoftheB }}
               >
                 <span>Dashboard</span>
               </span>
-            </a>
+            </a> */}
             <h3
               className="Hheading2b"
               style={{ display: this.state.login }}
