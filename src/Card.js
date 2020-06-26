@@ -33,18 +33,11 @@ export default function MediaCard(props) {
 
   useEffect(() => {
     (() => {
-      if (props.stripeId === "temporary") {
-        setidtemp((idtemp = "temporary"));
-        console.log(idtemp);
-        if (idtemp === "temporary") {
-          setDisabled(true);
-          setTimeout(() => {
-            setDisabled2("none");
-          }, 1000);
-        }
-      }
       if (props.website === " ") {
         setWebsite(true);
+      }
+      if (props.stripeId === "temporary") {
+        setDisabled(true);
       }
     })();
   }, []);
@@ -69,22 +62,10 @@ export default function MediaCard(props) {
   } else {
     image = "defaulticon.png";
   }
-  $(document).ready(function () {
-    $(".MediaCard1").on("contextmenu", function () {
-      return false;
-    });
-  });
+
   return (
-    <div
-      className={props.className}
-      id="cardWrapper"
-      style={{
-        display: "inline-block",
-        // margin: "0 auto",
-        marginRight: "0",
-      }}
-    >
-      <Card
+    <div className={props.className} id="cardWrapper">
+      <div
         className={classes.root}
         style={{
           marginRight: "15px",
@@ -92,28 +73,7 @@ export default function MediaCard(props) {
         }}
         id="Cardoo"
       >
-        <CardActionArea
-          className="MediaCard1"
-          onClick={() => {
-            setTimeout(function () {
-              props.history.push({
-                pathname: "/Buy",
-                state: {
-                  bname: props.bname,
-                  description: props.description,
-                  phoneNumber: props.phoneNumber,
-                  className: "Buy",
-                  businessCatagory: props.businessCatagory,
-                  id: props.stripeId,
-                  address: props.address,
-                  email: props.emailb,
-                },
-              });
-            }, 500);
-          }}
-          disabled={disabled}
-        >
-          {/* <CardMedia
+        {/* <CardMedia
             className={classes.media}
             id="media"
             image="./Assets/defaulticon.png"
@@ -122,25 +82,13 @@ export default function MediaCard(props) {
               backgroundSize: "cover",
             }}
           /> */}
-          <CardContent className="content MediaCard1">
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.bname}
-            </Typography>
-            {/* <Typography
-              variant="body2"
-              color="textSecondary"
-              className="typographywrap at"
-              component="p"
-            >
-              {props.description}
-            </Typography> */}
-            <br></br>
-            <small>
-              <p>Phone: {props.phoneNumber}</p>
-            </small>
-          </CardContent>
-        </CardActionArea>
-        <CardActions className="MediaCard1">
+        <div className="content MediaCard1">
+          <div gutterBottom variant="h5" component="h2">
+            {props.bname}
+          </div>
+        </div>
+
+        <div className="MediaCard1 btn">
           <Button
             size="small"
             color="primary"
@@ -160,7 +108,7 @@ export default function MediaCard(props) {
               });
             }}
             className="cardBtn"
-            style={{ display: disabled2 }}
+            disabled={disabled}
           >
             Buy Gift Cards
           </Button>
@@ -174,11 +122,12 @@ export default function MediaCard(props) {
               }, 500);
             }}
             disabled={website}
+            className="cardBtn"
           >
             {props.website != " " ? `Go to their website` : ""}
           </Button>
-        </CardActions>
-      </Card>
+        </div>
+      </div>
 
       {/* <Card className={classes.root}>
         <CardActionArea>
@@ -205,7 +154,6 @@ export default function MediaCard(props) {
           </Button>
         </CardActions>
       </Card> */}
-      <br></br>
     </div>
   );
 }

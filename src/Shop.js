@@ -326,15 +326,22 @@ class Shop extends Component {
         addressArray = this.state.shops.map((shop) => shop);
         var busName = this.state.shops.map((shop) => shop.bname);
         var DescName = this.state.shops.map((shop) => shop.address);
+        var lat = this.state.shops.map((shop) => shop.lat);
+        var lng = this.state.shops.map((shop) => shop.lng);
+        console.log(lat, lng);
 
         var addressSet = [];
 
         for (var count = 0; count < addressArray.length; count++) {
-          const response = await Geocode.fromAddress(
-            addressArray[count].address
-          );
+          // const response = await Geocode.fromAddress(
+          //   addressArray[count].address
+          // );
 
-          addressArray[count].data = response.results[0].geometry.location;
+          addressArray[count].data = {
+            lat: lat[count],
+            lng: lng[count],
+          };
+          console.log(addressArray);
 
           this.setState({
             addresses: addressArray,
@@ -541,11 +548,6 @@ class Shop extends Component {
     const description = this.state.shops.map((shop) => {
       return <p key={shop._id}>{shop.description}</p>;
     });
-    $(".gridlist").mousewheel(function (event, delta) {
-      this.scrollLeft -= delta * 30;
-
-      event.preventDefault();
-    });
 
     return (
       <div className="Shop">
@@ -723,6 +725,7 @@ class Shop extends Component {
             className="Search_Businesses"
           >
             Search Businesses
+            <a href="javascript:void(0)"> Show map</a>
           </label>
           <div
             className="search-main"
@@ -734,7 +737,7 @@ class Shop extends Component {
             <input
               placeholder="Enter search query here"
               type="text"
-              className="searchBar"
+              className="searchBar redinput"
               value={this.state.search}
               onChange={this.keySearch}
               onKeyDown={this.keySearch2}
@@ -803,7 +806,7 @@ class Shop extends Component {
             mapElement={<div style={{ height: `100%` }} />}
             latlng={this.state.addresses}
             userLocation={this.state.userLocation}
-            options={{ gestureHandling: "auto", streetViewControl: false }}
+            options={{ gestureHandling: "greedy", streetViewControl: false }}
             zoom={this.state.zoom}
           />
           {/* )} */}

@@ -156,11 +156,11 @@ class BusinessLogin extends Component {
     console.log(this.state.Address);
 
     Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-    var { lat } = "";
-    var { lng } = "";
+    var lat = "";
+    var lng = "";
 
     try {
-      Geocode.fromAddress(`${this.state.Address}`).then(
+      await Geocode.fromAddress(`${this.state.Address}`).then(
         (response) => {
           lat = response.results[0].geometry.location.lat;
           lng = response.results[0].geometry.location.lng;
@@ -244,6 +244,8 @@ class BusinessLogin extends Component {
       phoneNumber: this.state.PhoneNumber,
       website: this.state.website,
       stripeAccountId: "temporary",
+      lat: lat,
+      lng: lng,
     };
 
     trackPromise(
@@ -387,11 +389,11 @@ class BusinessLogin extends Component {
       console.log(this.state.Address);
 
       Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-      var { lat } = "";
-      var { lng } = "";
+      var lat = "";
+      var lng = "";
 
       try {
-        Geocode.fromAddress(`${this.state.Address}`).then(
+        await Geocode.fromAddress(`${this.state.Address}`).then(
           (response) => {
             lat = response.results[0].geometry.location.lat;
             lng = response.results[0].geometry.location.lng;
@@ -423,6 +425,8 @@ class BusinessLogin extends Component {
         address: this.state.Address,
         phoneNumber: this.state.PhoneNumber,
         website: this.state.website,
+        lat: lat,
+        lng: lng,
       };
 
       await axios
@@ -475,6 +479,8 @@ class BusinessLogin extends Component {
         phoneNumber: this.state.PhoneNumber,
         website: this.state.website,
         stripeAccountId: "temporary",
+        lat: lat,
+        lng: lng,
       };
 
       trackPromise(
@@ -485,7 +491,23 @@ class BusinessLogin extends Component {
           )
           .then(async (response) => {
             res = response.data;
+            var m = "";
             var realres = "Success!";
+            if (this.state.bname === "" || null || undefined) {
+              realres = "Please enter your business name";
+            }
+
+            if (this.state.description === "" || null || undefined) {
+              realres = "Please enter a description";
+            }
+
+            if (this.state.Address === "" || null || undefined) {
+              realres = "Please enter an address";
+            }
+
+            if (this.state.PhoneNumber === "" || null || undefined) {
+              realres = "Please enter a phone number";
+            }
             if (
               res.message ===
               '"passwordb" length must be at least 6 characters long'
@@ -498,8 +520,7 @@ class BusinessLogin extends Component {
               realres =
                 "Email is too short; needs to be at least 6 characters.";
             } else if (res.message === '"emailb" must be a valid email') {
-              realres =
-                "The email entered is not a valid email. Make sure to include the @ sign and the '.com, or .io, etc";
+              realres = "The email entered is not a valid email.";
             } else if (res.message === '"fnameb" is not allowed to be empty') {
               realres = "Please enter your first name.";
             } else if (res.message === '"lnameb" is not allowed to be empty') {
@@ -516,10 +537,17 @@ class BusinessLogin extends Component {
             ) {
               realres =
                 "Email already exists. Please choose a different email.";
+            } else if (res.message === '"website" must be a valid uri') {
+              realres =
+                "Make sure to include the 'https://' prefix for the website.";
+              m = "Do not include any other text but the url.";
             }
+
             this.setState({
               displayError: "flex",
               displayErrorText: realres,
+              displayErrorw: "flex",
+              displayErrorTextw: m,
             });
 
             if (res.message === "Success!") {

@@ -1,23 +1,99 @@
 .mapGoogle {
-  height: 63vh;
-}
-
-.gridlist {
-  height: fit-content;
-  width: 100vw !important;
-  white-space: nowrap;
-  overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
+  width: 68vw;
+  height: 87vh;
+  margin-left: 31vw;
+  position: fixed;
 }
 
 .MediaCard {
-  box-sizing: border-box;
-  margin-right: 50px;
-  margin-top: 25px;
-  display: inline-block;
+  float: left;
+}
+
+.gridlist {
+  width: 30vw;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  height: fit-content;
+  position: static !important;
+  margin-bottom: 30px;
+  margin-top: 150px;
 }
 
 .search {
-  width: 300px;
-  margin: auto;
+  width: 25.5vw;
+  position: fixed;
+  left: 30px;
+  background-color: rgb(74, 74, 74);
+  z-index: 2;
+  padding: 30px;
+  top: 10vh;
+  border-radius: 0px 0px 6px 6px;
+}
+
+.Search_Businesses {
+  color: white;
+  font-weight: bold;
+}
+
+.Search_Businesses a {
+  color: red;
+  display: none;
+  margin-left: 20px;
+}
+
+@media screen and (max-width: 1518px) {
+  .mapGoogle {
+    width: 58vw;
+    margin-left: 41vw;
+  }
+  .gridlist {
+    width: 40vw;
+  }
+  .search {
+    width: 25vw;
+    margin: auto;
+  }
+}
+
+@media screen and (max-width: 1224px) {
+  .mapGoogle {
+    width: 48vw;
+    margin-left: 51vw;
+  }
+  .gridlist {
+    width: 50vw;
+  }
+  .search {
+    width: 25vw;
+    margin: auto;
+  }
+}
+@media screen and (max-width: 953px) {
+  #cardWrapper {
+    width: 80% !important;
+  }
+}
+
+@media screen and (max-width: 832px) {
+  .mapGoogle {
+    display: none;
+  }
+  #cardWrapper {
+    width: 90% !important;
+  }
+  .gridlist {
+    width: 100vw;
+  }
+  .search {
+    width: 92vw;
+    left: 0;
+    border-radius: 0;
+  }
+}
+
+@media screen and (max-width: 442px) {
+  #cardWrapper {
+    width: 80% !important;
+  }
 }

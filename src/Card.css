@@ -31,3 +31,42 @@
 #Cardoo::-webkit-scrollbar {
   display: none !important;
 }
+
+.btn {
+  display: flex;
+  flex-direction: row;
+}
+
+.cardBtn {
+  width: 170px;
+  height: 35px;
+}
+
+#cardWrapper {
+  border: 1.89px solid black;
+  margin: 30px 30px auto;
+  border-radius: 5px;
+  width: 90%;
+  padding: 19px 9px;
+}
+
+.cardBtn {
+  margin: auto !important;
+}
+
+.buybtncard {
+  margin-right: 30px;
+}
+
+.content {
+  margin: auto 0px 10px;
+}
+
+#Cardoo {
+  width: 100% !important;
+  height: fit-content;
+}
+
+.MediaCared1 {
+  height: fit-content !important;
+}
