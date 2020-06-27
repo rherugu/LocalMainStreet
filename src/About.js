@@ -318,7 +318,7 @@ class About extends Component {
                 >
                   <strong>
                     <a
-                      href="https://github.com/rherugu"
+                      href="https://www.linkedin.com/in/raghav-herugu-5b263a1b1/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="link"
