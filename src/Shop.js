@@ -158,6 +158,7 @@ class Shop extends Component {
       zoom: 5,
       loadingMAP2: "flex",
       dashboardoftheB: "none",
+      FetchingData: "block",
     };
     this.bname = "";
   }
@@ -174,6 +175,9 @@ class Shop extends Component {
     console.error(err);
   };
   async componentDidMount() {
+    this.setState({
+      FetchingData: "block",
+    });
     const tokenval = localStorage.getItem("token");
     const tokenvalB = localStorage.getItem("Btoken");
 
@@ -358,6 +362,9 @@ class Shop extends Component {
       }
     } else {
     }
+    this.setState({
+      FetchingData: "none",
+    });
   }
 
   optionChange = (e) => {
@@ -761,6 +768,14 @@ class Shop extends Component {
             }
           }
         >
+          <p
+            style={{
+              textAlign: "center",
+              display: this.state.FetchingData,
+            }}
+          >
+            Fetching Data...
+          </p>
           {this.state.shops.map((shop) => (
             <MediaCard
               card={shop}
