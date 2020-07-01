@@ -351,73 +351,7 @@ class QRCodejs extends React.Component {
             display: this.state.display,
           }}
         ></br>
-        <a
-          href="javascript:void(0)"
-          onClick={(e) => {
-            e.preventDefault();
-            if (this.state.wrongEmail === "none") {
-              this.setState({
-                wrongEmail: "flex",
-                wrongEmailTxt: "Hide text input",
-              });
-            }
-            if (this.state.wrongEmail === "flex") {
-              this.setState({
-                wrongEmail: "none",
-                wrongEmailTxt: "Wrong Email?",
-              });
-            }
-          }}
-          className="link"
-        >
-          {this.state.wrongEmailTxt}
-        </a>
 
-        <br></br>
-        <div
-          style={{
-            display: this.state.wrongEmail,
-          }}
-        >
-          <input
-            type="email"
-            placeholder="Enter right email"
-            value={this.state.email}
-            onChange={(e) => {
-              this.setState({
-                email: e.target.value,
-              });
-            }}
-            style={{
-              width: "100%",
-            }}
-          ></input>
-
-          <input
-            style={{
-              height: "44px",
-              marginTop: "6.4px",
-              marginLeft: "3px",
-            }}
-            onClick={this.handleWrongEmail}
-            type="submit"
-            value="Submit"
-          ></input>
-        </div>
-        <br></br>
-
-        <input
-          type="button"
-          className="sendbtnbutton"
-          value="Refund this payment"
-          onClick={this.refund}
-          style={{
-            width: "30%",
-            display: this.state.refund,
-          }}
-        ></input>
-        <br></br>
-        <br></br>
         <label>Share with a friend!</label>
         <br></br>
         <input
