@@ -72,6 +72,7 @@
     "react-tabs-redux": "^4.0.0",
     "react-text-loop": "^2.3.0",
     "react-toastify": "^5.5.0",
+    "react-tooltip": "^4.2.7",
     "react-transition-group": "^4.3.0",
     "redux": "^4.0.5",
     "semantic-ui-css": "^2.4.1",

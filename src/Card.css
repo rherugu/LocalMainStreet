@@ -70,3 +70,8 @@
 .MediaCared1 {
   height: fit-content !important;
 }
+
+.CardTooltip {
+  width: 500px !important;
+  text-align: center;
+}

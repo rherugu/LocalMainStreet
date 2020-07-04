@@ -168,7 +168,7 @@ class Shop extends Component {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       },
-      zoom: 7.8,
+      zoom: 12,
     });
   };
   error = (err) => {

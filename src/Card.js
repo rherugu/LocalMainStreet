@@ -9,6 +9,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import "./Card.css";
 import $ from "jquery";
+import ReactTooltip from "react-tooltip";
 
 const useStyles = makeStyles({
   root: {
@@ -64,16 +65,22 @@ export default function MediaCard(props) {
   }
 
   return (
-    <div className={props.className} id="cardWrapper">
+    <div>
       <div
-        className={classes.root}
-        style={{
-          marginRight: "15px",
-          marginLeft: "15px",
-        }}
-        id="Cardoo"
+        data-tip={props.description}
+        data-multiline="true"
+        className={props.className}
+        id="cardWrapper"
       >
-        {/* <CardMedia
+        <div
+          className={classes.root}
+          style={{
+            marginRight: "15px",
+            marginLeft: "15px",
+          }}
+          id="Cardoo"
+        >
+          {/* <CardMedia
             className={classes.media}
             id="media"
             image="./Assets/defaulticon.png"
@@ -82,54 +89,54 @@ export default function MediaCard(props) {
               backgroundSize: "cover",
             }}
           /> */}
-        <div className="content MediaCard1">
-          <div gutterBottom variant="h5" component="h2">
-            {props.bname}
+          <div className="content MediaCard1">
+            <div gutterBottom variant="h5" component="h2">
+              {props.bname}
+            </div>
+          </div>
+
+          <div className="MediaCard1 btn">
+            <Button
+              size="small"
+              color="primary"
+              variant="outlined"
+              onClick={() => {
+                props.history.push({
+                  pathname: "/Buy",
+                  state: {
+                    bname: props.bname,
+                    description: props.description,
+                    phoneNumber: props.phoneNumber,
+                    className: "Buy",
+                    id: props.stripeId,
+                    address: props.address,
+                    email: props.emailb,
+                  },
+                });
+              }}
+              className="cardBtn"
+              disabled={disabled}
+            >
+              Buy Gift Cards
+            </Button>
+
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => {
+                setTimeout(() => {
+                  window.open(`${props.website}`, "_blank");
+                }, 500);
+              }}
+              disabled={website}
+              className="cardBtn"
+            >
+              {props.website != " " ? `Go to their website` : ""}
+            </Button>
           </div>
         </div>
 
-        <div className="MediaCard1 btn">
-          <Button
-            size="small"
-            color="primary"
-            variant="outlined"
-            onClick={() => {
-              props.history.push({
-                pathname: "/Buy",
-                state: {
-                  bname: props.bname,
-                  description: props.description,
-                  phoneNumber: props.phoneNumber,
-                  className: "Buy",
-                  id: props.stripeId,
-                  address: props.address,
-                  email: props.emailb,
-                },
-              });
-            }}
-            className="cardBtn"
-            disabled={disabled}
-          >
-            Buy Gift Cards
-          </Button>
-
-          <Button
-            size="small"
-            color="primary"
-            onClick={() => {
-              setTimeout(() => {
-                window.open(`${props.website}`, "_blank");
-              }, 500);
-            }}
-            disabled={website}
-            className="cardBtn"
-          >
-            {props.website != " " ? `Go to their website` : ""}
-          </Button>
-        </div>
-      </div>
-
-      {/* <Card className={classes.root}>
+        {/* <Card className={classes.root}>
         <CardActionArea>
           <CardMedia
             className={classes.media}
@@ -154,6 +161,15 @@ export default function MediaCard(props) {
           </Button>
         </CardActions>
       </Card> */}
+      </div>
+
+      <ReactTooltip
+        className="CardTooltip"
+        multiline={true}
+        place="right"
+        type="info"
+        effect="solid"
+      />
     </div>
   );
 }
