@@ -779,7 +779,7 @@ class Shop extends Component {
           {this.state.shops.map((shop) => (
             <MediaCard
               card={shop}
-              className="MediaCard"
+              className="MediaCard ripple"
               bname={shop.bname}
               emailb={shop.emailb}
               description={shop.description}
