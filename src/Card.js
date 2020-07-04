@@ -10,6 +10,11 @@ import Typography from "@material-ui/core/Typography";
 import "./Card.css";
 import $ from "jquery";
 import ReactTooltip from "react-tooltip";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const useStyles = makeStyles({
   root: {
@@ -31,6 +36,15 @@ export default function MediaCard(props) {
   const [disabled2, setDisabled2] = useState("flex");
   var [idtemp, setidtemp] = useState("i");
   const [website, setWebsite] = useState(false);
+  const [dialogOpen, setdialogOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setdialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setdialogOpen(false);
+  };
 
   useEffect(() => {
     (() => {
@@ -71,6 +85,7 @@ export default function MediaCard(props) {
         data-multiline="true"
         className={props.className}
         id="cardWrapper"
+        onClick={handleClickOpen}
       >
         <div
           className={classes.root}
@@ -162,6 +177,31 @@ export default function MediaCard(props) {
         </CardActions>
       </Card> */}
       </div>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleClose}
+        style={{
+          zIndex: 999999999,
+        }}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{props.bname}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            {props.description}
+          </DialogContentText>
+          <br />
+          <DialogContentText id="alert-dialog-description">
+            {props.address}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <ReactTooltip
         className="CardTooltip"
@@ -169,6 +209,7 @@ export default function MediaCard(props) {
         place="right"
         type="info"
         effect="solid"
+        clickable={false}
       />
     </div>
   );

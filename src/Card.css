@@ -48,6 +48,7 @@
   border-radius: 5px;
   width: 90%;
   padding: 19px 9px;
+  cursor: pointer;
 }
 
 .cardBtn {
