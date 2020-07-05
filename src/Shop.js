@@ -301,8 +301,6 @@ class Shop extends Component {
 
             .catch((err) => {
               console.log(err);
-              localStorage.setItem("token", "undefined");
-              localStorage.setItem("Btoken", "undefined");
               this.onClickLogin();
             })
         );
@@ -332,7 +330,6 @@ class Shop extends Component {
         var DescName = this.state.shops.map((shop) => shop.address);
         var lat = this.state.shops.map((shop) => shop.lat);
         var lng = this.state.shops.map((shop) => shop.lng);
-        console.log(lat, lng);
 
         var addressSet = [];
 
@@ -345,7 +342,6 @@ class Shop extends Component {
             lat: lat[count],
             lng: lng[count],
           };
-          console.log(addressArray);
 
           this.setState({
             addresses: addressArray,
@@ -401,7 +397,6 @@ class Shop extends Component {
           this.setState({
             shops: res.data.result.map((shop) => shop),
           });
-          console.log(this.state.shops);
         })
         .catch((err) => {
           console.error(err);
@@ -424,7 +419,6 @@ class Shop extends Component {
           this.setState({
             shops: res.data.result.map((shop) => shop),
           });
-          console.log(this.state.shops);
         })
         .catch((err) => {
           console.error(err);
@@ -454,7 +448,6 @@ class Shop extends Component {
             this.setState({
               shops: res.data.result.map((shop) => shop),
             });
-            console.log(this.state.shops);
           })
           .catch((err) => {
             console.error(err);
