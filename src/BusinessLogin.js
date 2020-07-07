@@ -8,6 +8,7 @@ import { trackPromise } from "react-promise-tracker";
 import Loader from "./Loader";
 import Autocomplete from "react-google-autocomplete";
 import Geocode from "react-geocode";
+import { post } from "jquery";
 
 var res = "f";
 var stripeAccountId;
@@ -68,7 +69,7 @@ class BusinessLogin extends Component {
       dashboardoftheB: "none",
     };
   }
-  componentDidMount() {
+  async componentDidMount() {
     const tokenval = localStorage.getItem("token");
     const tokenvalB = localStorage.getItem("Btoken");
 
@@ -101,6 +102,46 @@ class BusinessLogin extends Component {
     } else {
       this.setState({ dashboardoftheB: "none" });
     }
+    // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+    // await Geocode.fromAddress("3099 W Chapman Ave, Orange, CA 92868, USA").then(
+    //   (response) => {
+    //     console.log(response.results[0].address_components[2].long_name);
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //   }
+    // );
+    // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+    // await Geocode.fromAddress("Otay Ranch Dr, Chula Vista, CA 91915, USA").then(
+    //   (response) => {
+    //     var addr = response.results[0].address_components;
+    //     var postal, city;
+    //     var zip =
+    //       response.results[0].address_components[addr.length - 2].long_name;
+    //     for (
+    //       var i = 0;
+    //       i < response.results[0].address_components.length;
+    //       ++i
+    //     ) {
+    //       if (
+    //         response.results[0].address_components[i].types[0] == "postal_code"
+    //       ) {
+    //         postal = response.results[0].address_components[i].long_name;
+    //       }
+    //       if (
+    //         response.results[0].address_components[i].types[0] == "locality"
+    //       ) {
+    //         city = response.results[0].address_components[i].long_name;
+    //       }
+    //     }
+    //     console.log(postal);
+    //     console.log(city);
+    //     console.log(response);
+    //   },
+    //   (error) => {
+    //     console.error(error);
+    //   }
+    // );
   }
 
   onSubmitEventHandler = (e) => {
@@ -158,6 +199,7 @@ class BusinessLogin extends Component {
     Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
     var lat = "";
     var lng = "";
+    var postal, city;
 
     try {
       await Geocode.fromAddress(`${this.state.Address}`).then(
@@ -181,6 +223,30 @@ class BusinessLogin extends Component {
       });
       return;
     }
+
+    await Geocode.fromAddress(`${this.state.Address}`).then(
+      (response) => {
+        for (
+          var i = 0;
+          i < response.results[0].address_components.length;
+          ++i
+        ) {
+          if (
+            response.results[0].address_components[i].types[0] == "postal_code"
+          ) {
+            postal = response.results[0].address_components[i].long_name;
+          }
+          if (
+            response.results[0].address_components[i].types[0] == "locality"
+          ) {
+            city = response.results[0].address_components[i].long_name;
+          }
+        }
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
 
     const data = {
       email: this.state.email,
@@ -246,6 +312,8 @@ class BusinessLogin extends Component {
       stripeAccountId: "temporary",
       lat: lat,
       lng: lng,
+      city: city,
+      zipCode: postal,
     };
 
     trackPromise(

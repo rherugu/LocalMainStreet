@@ -380,6 +380,23 @@ class Shop extends Component {
 
   handleSearch = () => {
     if (/\S/.test(this.state.search)) {
+      if (this.state.search === "" || " " || undefined || NaN || null) {
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
+        axios
+          .get(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+            { headers }
+          )
+          .then(async (response) => {
+            this.setState({ shops: response.data });
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
       const tokenval = localStorage.getItem("token");
       const headers = {
         "auth-token": tokenval,
@@ -393,9 +410,8 @@ class Shop extends Component {
           { headers }
         )
         .then((res) => {
-          console.log(res);
           this.setState({
-            shops: res.data.result.map((shop) => shop),
+            shops: res.data.results.map((shop) => shop),
           });
         })
         .catch((err) => {
@@ -415,9 +431,8 @@ class Shop extends Component {
           { headers }
         )
         .then((res) => {
-          console.log(res);
           this.setState({
-            shops: res.data.result.map((shop) => shop),
+            shops: res.data.results.map((shop) => shop),
           });
         })
         .catch((err) => {
@@ -429,54 +444,68 @@ class Shop extends Component {
   };
   keySearch2 = (e) => {
     if (e.keyCode === 13) {
-      // if (e.keyCode == 13) {
-      if (/\S/.test(this.state.search)) {
+      // // if (e.keyCode == 13) {
+      // if (/\S/.test(this.state.search)) {
+      //   const tokenval = localStorage.getItem("token");
+      //   const headers = {
+      //     "auth-token": tokenval,
+      //   };
+      //   axios
+      //     .post(
+      //       "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+      //       {
+      //         query: this.state.search,
+      //       },
+      //       { headers }
+      //     )
+      //     .then((res) => {
+      //       this.setState({
+      //         shops: res.data.results.map((shop) => shop),
+      //       });
+      //     })
+      //     .catch((err) => {
+      //       console.error(err);
+      //     });
+      // } else if (this.state.search === "" || null || undefined) {
+      //   const tokenval = localStorage.getItem("token");
+      //   const headers = {
+      //     "auth-token": tokenval,
+      //   };
+      //   axios
+      //     .post(
+      //       "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+      //       {
+      //         query: this.state.search,
+      //       },
+      //       { headers }
+      //     )
+      //     .then((res) => {
+      //       this.setState({
+      //         shops: res.data.results.map((shop) => shop),
+      //       });
+      //     })
+      //     .catch((err) => {
+      //       console.error(err);
+      //     });
+      // } else {
+      //   return 0;
+      // }
+      if (this.state.search === "" || " " || undefined || NaN || null) {
         const tokenval = localStorage.getItem("token");
         const headers = {
           "auth-token": tokenval,
         };
         axios
-          .post(
-            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-            {
-              query: this.state.search,
-            },
+          .get(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
             { headers }
           )
-          .then((res) => {
-            console.log(res);
-            this.setState({
-              shops: res.data.result.map((shop) => shop),
-            });
+          .then(async (response) => {
+            this.setState({ shops: response.data });
           })
           .catch((err) => {
-            console.error(err);
+            console.log(err);
           });
-      } else if (this.state.search === "" || null || undefined) {
-        const tokenval = localStorage.getItem("token");
-        const headers = {
-          "auth-token": tokenval,
-        };
-        axios
-          .post(
-            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-            {
-              query: this.state.search,
-            },
-            { headers }
-          )
-          .then((res) => {
-            console.log(res);
-            this.setState({
-              shops: res.data.result.map((shop) => shop),
-            });
-            console.log(this.state.shops);
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } else {
-        return 0;
       }
     } else {
     }
@@ -500,11 +529,9 @@ class Shop extends Component {
           { headers }
         )
         .then((res) => {
-          console.log(res);
           this.setState({
-            shops: res.data.result.map((shop) => shop),
+            shops: res.data.results.map((shop) => shop),
           });
-          console.log(this.state.shops);
         })
         .catch((err) => {
           console.error(err);
@@ -523,11 +550,9 @@ class Shop extends Component {
           { headers }
         )
         .then((res) => {
-          console.log(res);
           this.setState({
-            shops: res.data.result.map((shop) => shop),
+            shops: res.data.results.map((shop) => shop),
           });
-          console.log(this.state.shops);
         })
         .catch((err) => {
           console.error(err);
@@ -735,7 +760,7 @@ class Shop extends Component {
             }}
           >
             <input
-              placeholder="Enter search query here"
+              placeholder="Search by City, Zip Code, or Name"
               type="text"
               className="searchBar redinput"
               value={this.state.search}
