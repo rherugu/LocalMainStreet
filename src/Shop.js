@@ -38,13 +38,6 @@ class Map extends React.Component {
   render() {
     return (
       <GoogleMap
-        onClick={() => {
-          if (this.state.shop != null) {
-            this.setState({
-              shop: null,
-            });
-          }
-        }}
         center={this.props.userLocation}
         defaultZoom={this.props.zoom}
         zoom={this.props.zoom}
@@ -214,6 +207,68 @@ class Shop extends Component {
       "auth-token": tokenval,
     };
     var check = "";
+    await trackPromise(
+      axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          { headers }
+        )
+        .then(async (response) => {
+          this.setState({ shops: response.data });
+        })
+
+        .catch((err) => {
+          console.log(err);
+          this.onClickLogin();
+        })
+    );
+    Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+    if (navigator.geolocation) {
+      const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 0,
+      };
+
+      navigator.geolocation.getCurrentPosition(
+        this.success,
+        this.error,
+        options
+      );
+    } else {
+      this.setState({
+        userLocation: { lat: 40.3583, lng: -74.26 },
+        zoom: 8,
+      });
+    }
+
+    addressArray = [];
+    addressArray = this.state.shops.map((shop) => shop);
+    var busName = this.state.shops.map((shop) => shop.bname);
+    var DescName = this.state.shops.map((shop) => shop.address);
+    var lat = this.state.shops.map((shop) => shop.lat);
+    var lng = this.state.shops.map((shop) => shop.lng);
+
+    var addressSet = [];
+
+    for (var count = 0; count < addressArray.length; count++) {
+      // const response = await Geocode.fromAddress(
+      //   addressArray[count].address
+      // );
+
+      addressArray[count].data = {
+        lat: lat[count],
+        lng: lng[count],
+      };
+
+      this.setState({
+        addresses: addressArray,
+      });
+    }
+    this.setState({
+      loadingMAP: false,
+      loadingMAP2: "none",
+    });
 
     await axios
       .get(
@@ -287,77 +342,7 @@ class Shop extends Component {
           console.log("User has not bought anything yet.");
         }
       });
-    if (check) {
-      if (tokenval) {
-        await trackPromise(
-          axios
-            .get(
-              "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-              { headers }
-            )
-            .then(async (response) => {
-              this.setState({ shops: response.data });
-            })
 
-            .catch((err) => {
-              console.log(err);
-              this.onClickLogin();
-            })
-        );
-        Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-        if (navigator.geolocation) {
-          const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0,
-          };
-
-          navigator.geolocation.getCurrentPosition(
-            this.success,
-            this.error,
-            options
-          );
-        } else {
-          this.setState({
-            userLocation: { lat: 40.3583, lng: -74.26 },
-            zoom: 8,
-          });
-        }
-
-        addressArray = [];
-        addressArray = this.state.shops.map((shop) => shop);
-        var busName = this.state.shops.map((shop) => shop.bname);
-        var DescName = this.state.shops.map((shop) => shop.address);
-        var lat = this.state.shops.map((shop) => shop.lat);
-        var lng = this.state.shops.map((shop) => shop.lng);
-
-        var addressSet = [];
-
-        for (var count = 0; count < addressArray.length; count++) {
-          // const response = await Geocode.fromAddress(
-          //   addressArray[count].address
-          // );
-
-          addressArray[count].data = {
-            lat: lat[count],
-            lng: lng[count],
-          };
-
-          this.setState({
-            addresses: addressArray,
-          });
-        }
-        this.setState({
-          loadingMAP: false,
-          loadingMAP2: "none",
-        });
-      } else {
-        localStorage.setItem("token", "undefined");
-        localStorage.setItem("Btoken", "undefined");
-        this.onClickLogin();
-      }
-    } else {
-    }
     this.setState({
       FetchingData: "none",
     });
