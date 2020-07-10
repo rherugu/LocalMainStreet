@@ -75,3 +75,34 @@
     width: 100% !important;
   }
 }
+
+#CardShareOrForMyself:hover {
+  box-shadow: 4px 3px 5px rgb(215, 215, 215);
+}
+
+#CardShareOrForMyself {
+  transition: ease 0.1s all;
+}
+.CardShareOrForMyself1 {
+  margin-right: 30px;
+}
+
+.CARDSHARBTN {
+  width: 20%;
+}
+
+@media screen and (max-width: 906px) {
+  .CARDSHARBTN {
+    width: 70%;
+  }
+}
+
+@media screen and (max-width: 476px) {
+  .cardcontainer {
+    flex-direction: column;
+  }
+  .CardShareOrForMyself1 {
+    margin-right: 0;
+    margin-bottom: 30px;
+  }
+}

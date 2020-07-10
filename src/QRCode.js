@@ -22,6 +22,7 @@ class QRCodejs extends React.Component {
       emailf: "",
       refund: "block",
       message: "",
+      sendtheqrcodetotheemaildisplay: "none",
     };
   }
 
@@ -89,7 +90,7 @@ class QRCodejs extends React.Component {
       .then((res) => {
         console.log(res);
         this.setState({
-          sent: "Message sent successfully!",
+          sent: `Message sent successfully! Please check your email, ${emaill}`,
         });
       })
       .catch((err) => {
@@ -311,6 +312,7 @@ class QRCodejs extends React.Component {
         >
           Here is your QR code:{" "}
         </h1>
+
         <div
           style={{
             display: "none",
@@ -326,9 +328,69 @@ class QRCodejs extends React.Component {
           ></QRCode>
         </div>
         <img alt="qr code bought" className="QRCode" src={this.state.img}></img>
+        {/* <a href={this.state.img} download>
+          <input
+            type="button"
+            style={{
+              backgroundColor: "#FFDC00",
+            }}
+            value="Download Gift Card"
+          ></input>
+        </a> */}
+        <br />
 
         <br></br>
-        <h3 className="sendtxtext">
+
+        <div style={{ display: "flex" }} className="cardcontainer">
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+
+              backgroundColor: "#f5f5f5",
+              borderRadius: "20px",
+              cursor: "pointer",
+            }}
+            id="CardShareOrForMyself"
+            className="CardShareOrForMyself1"
+            onClick={this.handleEmail}
+          >
+            <img
+              style={{ display: "flex", alignSelf: "center" }}
+              src="https://img.icons8.com/fluent/200/000000/person-male.png"
+            ></img>
+            <h3 style={{ textAlign: "center" }}>Voucher For myself</h3>
+          </div>
+
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: "#f5f5f5",
+              borderRadius: "20px",
+              cursor: "pointer",
+            }}
+            id="CardShareOrForMyself"
+            onClick={() => {
+              if (this.state.sendtheqrcodetotheemaildisplay === "none") {
+                this.setState({
+                  sendtheqrcodetotheemaildisplay: "flex",
+                });
+              } else if (this.state.sendtheqrcodetotheemaildisplay === "flex") {
+                this.setState({
+                  sendtheqrcodetotheemaildisplay: "none",
+                });
+              }
+            }}
+          >
+            <img
+              style={{ display: "flex", alignSelf: "center" }}
+              src="https://img.icons8.com/bubbles/200/000000/friends--v4.png"
+            ></img>
+            <h3 style={{ textAlign: "center" }}>Gift For a friend</h3>
+          </div>
+        </div>
+        {/* <h3 className="sendtxtext">
           Click the button below to send to {email}.
         </h3>
         <br></br>
@@ -343,7 +405,7 @@ class QRCodejs extends React.Component {
             width: "30%",
             backgroundColor: "#FFDC00",
           }}
-        ></input>
+        ></input> */}
         <br></br>
         <h3 className="sendwrngwrong">{this.state.sent}</h3>
         <br
@@ -351,57 +413,66 @@ class QRCodejs extends React.Component {
             display: this.state.display,
           }}
         ></br>
-
-        <label>Share with a friend!</label>
-        <br></br>
-        <input
-          type="email"
-          placeholder="Enter your friends email"
-          value={this.state.emailf}
-          onChange={(e) => {
-            this.setState({
-              emailf: e.target.value,
-            });
-          }}
+        <div
           style={{
-            width: "30%",
+            display: this.state.sendtheqrcodetotheemaildisplay,
+            flexDirection: "column",
           }}
-        ></input>
-        <input
-          type="text"
-          placeholder="Enter your name"
-          value={this.state.name}
-          onChange={(e) => {
-            this.setState({
-              name: e.target.value,
-            });
-          }}
-          style={{
-            width: "30%",
-          }}
-        ></input>
-        <input
-          type="text"
-          placeholder="Enter a message"
-          value={this.state.message}
-          onChange={(e) => {
-            this.setState({
-              message: e.target.value,
-            });
-          }}
-          style={{
-            width: "30%",
-          }}
-        ></input>
-        <input
-          type="button"
-          className="sendbtnbutton"
-          value="Send to friend!"
-          onClick={this.share}
-          style={{
-            width: "30%",
-          }}
-        ></input>
+          className="CARDSHARBTN"
+        >
+          <label>Share with a friend!</label>
+          <br></br>
+          <input
+            type="email"
+            placeholder="Enter your friends email"
+            value={this.state.emailf}
+            onChange={(e) => {
+              this.setState({
+                emailf: e.target.value,
+              });
+            }}
+            style={{
+              width: "100%",
+            }}
+          ></input>
+          <input
+            type="text"
+            placeholder="Enter your name"
+            value={this.state.name}
+            onChange={(e) => {
+              this.setState({
+                name: e.target.value,
+              });
+            }}
+            style={{
+              width: "100%",
+            }}
+          ></input>
+          <textarea
+            type="text"
+            placeholder="Enter a message"
+            value={this.state.message}
+            onChange={(e) => {
+              this.setState({
+                message: e.target.value,
+              });
+            }}
+            style={{
+              width: "100%",
+              height: "100px",
+            }}
+          ></textarea>
+          <input
+            type="button"
+            className="sendbtnbutton"
+            value="Send to friend!"
+            onClick={this.share}
+            style={{
+              width: "100%",
+              backgroundColor: "#FFDC00",
+            }}
+          ></input>
+        </div>
         <br></br>
         <br></br>
         <br></br>

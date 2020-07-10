@@ -66,6 +66,7 @@
 #Cardoo {
   width: 100% !important;
   height: fit-content;
+  overflow: hidden;
 }
 
 .MediaCared1 {
