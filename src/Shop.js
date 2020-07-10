@@ -567,7 +567,7 @@ class Shop extends Component {
             height: "100%",
             opacity: this.state.burger,
             pointerEvents: this.state.pointerEvents,
-            zIndex: "900909",
+            zIndex: 999999999999999,
             position: "fixed",
           }}
         >
