@@ -562,12 +562,11 @@ class Shop extends Component {
     return (
       <div className="Shop">
         <div
-          className="burger1"
+          className="burger1 khdsaid12e"
           style={{
             height: "100%",
             opacity: this.state.burger,
             pointerEvents: this.state.pointerEvents,
-            zIndex: 999999999999999,
             position: "fixed",
           }}
         >
@@ -741,7 +740,7 @@ class Shop extends Component {
             className="search-main"
             style={{
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
             }}
           >
             <input
@@ -749,15 +748,27 @@ class Shop extends Component {
               type="text"
               className="searchBar redinput"
               value={this.state.search}
-              onChange={this.keySearch}
-              onKeyDown={this.keySearch2}
+              style={{
+                borderRadius: "6px 0px 0px 6px",
+              }}
+              onChange={(e) => {
+                this.setState({
+                  search: e.target.value,
+                });
+              }}
             ></input>
-            {/* <input
+            <input
               type="button"
               className="searchSubmit"
               value="Search"
+              style={{
+                backgroundColor: "#FFDC00",
+                cursor: "pointer",
+                marginTop: "6px",
+                borderRadius: "0px 6px 6px 0px",
+              }}
               onClick={this.handleSearch}
-            ></input> */}
+            ></input>
           </div>
         </div>
 

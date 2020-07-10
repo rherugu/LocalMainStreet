@@ -24,11 +24,15 @@
   width: 25.5vw;
   position: fixed;
   left: 30px;
-  background-color: rgb(74, 74, 74);
-  z-index: 0;
+  background-color: rgb(74, 74, 74) !important;
+  z-index: 1;
   padding: 30px;
   top: 10vh;
   border-radius: 0px 0px 6px 6px;
+}
+
+.khdsaid12e {
+  z-index: 2 !important;
 }
 
 .Search_Businesses {
