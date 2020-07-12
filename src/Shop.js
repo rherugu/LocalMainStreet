@@ -103,6 +103,13 @@ class MapBox extends React.Component {
       click: true,
     };
   }
+  listener = (e) => {
+    if (e.key === "Escape") {
+      this.setState({
+        selectedShop: null,
+      });
+    }
+  };
 
   componentDidMount() {
     console.log(this.props.userLocation);
@@ -149,6 +156,12 @@ class MapBox extends React.Component {
       .catch((err) => {
         console.error(err);
       });
+
+    window.addEventListener("keydown", this.listener);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("keydown", this.listener);
   }
 
   // componentWillReceiveProps(nextProps) {
