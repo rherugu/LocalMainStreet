@@ -852,7 +852,7 @@ class Shop extends Component {
             }}
             className="Search_Businesses"
           >
-            Search Businesses
+            Search by City, Zip, or Name
             {/* <a
               href="javascript:void(0)"
               onClick={() => {
@@ -905,10 +905,30 @@ class Shop extends Component {
                 backgroundColor: "#FFDC00",
                 cursor: "pointer",
                 marginTop: "6px",
-                borderRadius: "0px 6px 6px 0px",
+                borderRadius: "0px 0px 0px 0px",
                 width: "100px",
               }}
               onClick={this.handleSearch}
+            ></input>
+            <input
+              type="button"
+              className="searchSubmit"
+              value="View Full Map"
+              style={{
+                backgroundColor: "#FFDC00",
+                cursor: "pointer",
+                marginTop: "6px",
+                borderRadius: "0px 6px 6px 0px",
+                width: "200px",
+              }}
+              onClick={() => {
+                this.props.history.push({
+                  pathname: "/MapView",
+                  state: {
+                    latlng: this.state.addresses,
+                  },
+                });
+              }}
             ></input>
           </div>
         </div>

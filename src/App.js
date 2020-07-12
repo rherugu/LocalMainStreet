@@ -21,7 +21,7 @@ import ForgotPass from "./ForgotPass";
 import Redirecting from "./Redirecting";
 import BDashboard from "./BDashboard";
 import GetStarted from "./GetStarted";
-// import FullMap from "./FullMap";
+import MapView from "./MapView";
 
 class App extends Component {
   render() {
@@ -94,6 +94,11 @@ class App extends Component {
             exact
             path="/GetStarted"
             render={(props) => <GetStarted {...props} />}
+          />
+          <Route
+            exact
+            path="/MapView"
+            render={(props) => <MapView {...props} />}
           />
           <Route component={fourofour} />
         </Switch>
