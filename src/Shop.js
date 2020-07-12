@@ -117,22 +117,52 @@ class MapBox extends React.Component {
         pitch: this.state.pitch,
       },
     });
+    axios
+      .get("https://api.ipify.org/?format=json")
+      .then((res) => {
+        const ip = res.data.ip;
+        axios
+          .get(`http://ip-api.com/json/${ip}`)
+          .then((res) => {
+            this.setState({
+              userLocation: {
+                lat: res.data.lat,
+                lng: res.data.lon,
+              },
+              zoom: 12,
+              viewport: {
+                latitude: res.data.lat,
+                longitude: res.data.lon,
+                zoom: 12,
+                width: "68vw",
+                height: "87vh",
+                pitch: this.state.pitch,
+              },
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      userLocation: nextProps.userLocation,
-      zoom: nextProps.zoom,
-      viewport: {
-        latitude: this.state.userLocation.lat,
-        longitude: this.state.userLocation.lng,
-        zoom: this.state.zoom,
-        width: "68vw",
-        height: "87vh",
-        pitch: this.state.pitch,
-      },
-    });
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   this.setState({
+  //     userLocation: nextProps.userLocation,
+  //     zoom: nextProps.zoom,
+  //     viewport: {
+  //       latitude: this.state.userLocation.lat,
+  //       longitude: this.state.userLocation.lng,
+  //       zoom: this.state.zoom,
+  //       width: "68vw",
+  //       height: "87vh",
+  //       pitch: this.state.pitch,
+  //     },
+  //   });
+  // }
 
   onClickEventHandler = (datum) => {
     console.log(datum);
@@ -346,24 +376,24 @@ class Shop extends Component {
         .then(async (response) => {
           this.setState({ shops: response.data });
           Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-          if (navigator.geolocation) {
-            const options = {
-              enableHighAccuracy: true,
-              timeout: 5000,
-              maximumAge: 0,
-            };
+          // if (navigator.geolocation) {
+          //   const options = {
+          //     enableHighAccuracy: true,
+          //     timeout: 5000,
+          //     maximumAge: 0,
+          //   };
 
-            navigator.geolocation.getCurrentPosition(
-              this.success,
-              this.error,
-              options
-            );
-          } else {
-            this.setState({
-              userLocation: { lat: 40.3583, lng: -74.26 },
-              zoom: 8,
-            });
-          }
+          //   navigator.geolocation.getCurrentPosition(
+          //     this.success,
+          //     this.error,
+          //     options
+          //   );
+          // } else {
+          //   this.setState({
+          //     userLocation: { lat: 40.3583, lng: -74.26 },
+          //     zoom: 8,
+          //   });
+          // }
 
           addressArray = [];
           addressArray = this.state.shops.map((shop) => shop);
