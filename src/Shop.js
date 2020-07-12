@@ -122,17 +122,19 @@ class MapBox extends React.Component {
       .then((res) => {
         const ip = res.data.ip;
         axios
-          .get(`http://ip-api.com/json/${ip}`)
+          .get(
+            `https://api.ipgeolocation.io/timezone?apiKey=d661648f3c9a49b1a3ebb4faf32c0533&ip=${ip}&lang=cn%27`
+          )
           .then((res) => {
             this.setState({
               userLocation: {
-                lat: res.data.lat,
-                lng: res.data.lon,
+                lat: Number(res.data.geo.latitude),
+                lng: Number(res.data.geo.longitude),
               },
               zoom: 12,
               viewport: {
-                latitude: res.data.lat,
-                longitude: res.data.lon,
+                latitude: Number(res.data.geo.latitude),
+                longitude: Number(res.data.geo.longitude),
                 zoom: 12,
                 width: "68vw",
                 height: "87vh",
