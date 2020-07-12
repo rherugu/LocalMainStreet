@@ -54,7 +54,7 @@ class Markers extends React.PureComponent {
             fill="#0074D9"
           /> */}
           <path
-            fill="#0074D9"
+            fill="#e3362d"
             class="path1"
             style={{
               transform: "scale(2)",
@@ -211,7 +211,7 @@ class MapBox extends React.Component {
             });
           }
         }}
-        mapStyle="mapbox://styles/rherugu/ckchz711y0p411is27378o5cs?optimize=true"
+        mapStyle="mapbox://styles/rherugu/ckcjl9otn3c4m1jp5xoguwg6o?optimize=true"
       >
         <Markers
           data={this.props.latlng}
