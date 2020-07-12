@@ -165,6 +165,7 @@ export default class MapView extends React.Component {
             borderRadius: "0",
             zIndex: "999999",
             zIndex: 999999,
+            fontSize: "30px",
           }}
           type="button"
           value="Go Back"
