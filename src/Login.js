@@ -4,7 +4,12 @@ import "./Login.css";
 import "react-tabs/style/react-tabs.css";
 import "react-awesome-button/dist/styles.css";
 import axios from "axios";
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
 import { trackPromise } from "react-promise-tracker";
 import Loader from "./Loader";
 
@@ -49,7 +54,7 @@ class Login extends Component {
       getstarted: "flex",
       incorrect: "none",
       getstartedisplay: "none",
-      buy: "",
+      buy: false,
       dashboardoftheB: "none",
     };
   }
@@ -93,8 +98,7 @@ class Login extends Component {
       var e = this.props.location.state.buy;
       if (e === "yes") {
         this.setState({
-          buy:
-            "You need to login to buy a product. If you don't have an account, register by clicking the orange button below that says register as a customer.",
+          buy: true,
         });
       }
     } catch (error) {}
@@ -618,9 +622,44 @@ class Login extends Component {
             {/* {this.errorMessage ? <h2>{this.errorMessage}</h2> : null} */}
 
             <form className="formL">
-              <h1 style={{ color: "red", textAlign: "center" }}>
+              {/* <h1 style={{ color: "red", textAlign: "center" }}>
                 <strong>{this.state.buy}</strong>
-              </h1>
+              </h1> */}
+              <Dialog
+                open={this.state.buy}
+                onClose={() => {
+                  this.setState({
+                    buy: false,
+                  });
+                }}
+                style={{
+                  zIndex: 999999999,
+                }}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  You need to login to buy a product.
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Please login to buy a product. If you don't have an account,
+                    click the orange button that says 'Register as A Customer.'
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={() => {
+                      this.setState({
+                        buy: false,
+                      });
+                    }}
+                    color="primary"
+                  >
+                    Got it!
+                  </Button>
+                </DialogActions>
+              </Dialog>
               <big>
                 <big>
                   <big>
