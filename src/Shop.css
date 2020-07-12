@@ -1,4 +1,4 @@
-.mapGoogle {
+.mapMapBox {
   width: 68vw;
   height: 87vh;
   margin-left: 31vw;
@@ -41,13 +41,12 @@
 }
 
 .Search_Businesses a {
-  color: red;
   display: none;
-  margin-left: 20px;
+  color: white;
 }
 
 @media screen and (max-width: 1518px) {
-  .mapGoogle {
+  .mapMapBox {
     width: 58vw;
     margin-left: 41vw;
   }
@@ -61,7 +60,7 @@
 }
 
 @media screen and (max-width: 1224px) {
-  .mapGoogle {
+  .mapMapBox {
     width: 48vw;
     margin-left: 51vw;
   }
@@ -80,14 +79,18 @@
 }
 
 @media screen and (max-width: 832px) {
-  .mapGoogle {
-    display: none;
+  .mapMapBox {
+    display: none !important;
   }
   #cardWrapper {
     width: 90% !important;
   }
   .gridlist {
     width: 100vw;
+  }
+  .Search_Businesses a {
+    display: flex;
+    width: fit-content;
   }
   .search {
     width: 92vw;

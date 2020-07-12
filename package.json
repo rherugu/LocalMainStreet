@@ -55,6 +55,7 @@
     "react-gradient-text": "^0.1.0",
     "react-infinite": "^0.13.0",
     "react-infinite-scroll-component": "^5.0.4",
+    "react-map-gl": "^5.1.0-alpha.1",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.7.0",
     "react-native-safe-area-context": "^0.7.3",
@@ -79,7 +80,8 @@
     "semantic-ui-react": "^0.88.2",
     "stripe": "^8.38.0",
     "styled-components": "^5.1.0",
-    "video-react": "^0.14.1"
+    "video-react": "^0.14.1",
+    "viewport-mercator-project": "^7.0.1"
   },
   "scripts": {
     "start": "env-cmd -f .env react-scripts start",

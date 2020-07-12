@@ -2,20 +2,13 @@ import React, { useState, useEffect } from "react";
 import "./Shop.css";
 import axios from "axios";
 import Component from "@reactions/component";
-import { toast } from "react-toastify";
 import MediaCard from "./Card";
 import Loader from "./Loader";
 import { trackPromise } from "react-promise-tracker";
 import "react-toastify/dist/ReactToastify.css";
 import Geocode from "react-geocode";
-import {
-  withGoogleMap,
-  GoogleMap,
-  Marker,
-  InfoWindow,
-} from "react-google-maps";
-import $ from "jquery";
 import "jquery-mousewheel";
+import ReactMapGL, { Marker, Popup } from "react-map-gl";
 
 var obj;
 var addressArray = [
@@ -24,87 +17,196 @@ var addressArray = [
   { lat: 4, lng: 98 },
 ];
 
-class Map extends React.Component {
+class Markers extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      shop: null,
-      center: {},
-      bname: null,
-      description: null,
+      selectedShop: null,
     };
   }
-
   render() {
-    return (
-      <GoogleMap
-        center={this.props.userLocation}
-        defaultZoom={this.props.zoom}
-        zoom={this.props.zoom}
-        defaultCenter={this.props.userLocation}
-        options={this.props.options}
+    const { data, onClick } = this.props;
+    return data.map((datum) => (
+      <Marker
+        key={Math.floor(100000 + Math.random() * 900000)}
+        longitude={datum.lng}
+        latitude={datum.lat}
       >
-        {this.props.latlng.map((latlng) => (
-          <Marker
-            position={latlng.data}
-            key={Math.floor(100000 + Math.random() * 900000)}
-            onClick={() => {
-              this.setState({
-                shop: {
-                  lat: Number(latlng.data.lat),
-                  lng: Number(latlng.data.lng),
-                  bname: latlng.bname,
-                  description: latlng.address,
-                  website: latlng.website,
-                  email: latlng.emailb,
-                  phone: latlng.phoneNumber,
-                },
-              });
+        <svg
+          height="40"
+          width="40"
+          style={{ cursor: "pointer" }}
+          onClick={(e) => {
+            e.preventDefault();
+            this.setState({
+              selectedShop: datum,
+            });
+            console.log(datum);
+            this.props.callback(datum);
+          }}
+          className="markersvgcircle"
+        >
+          {/* <circle
+            
+            cx="10"
+            cy="10"
+            r="10"
+            fill="#0074D9"
+          /> */}
+          <path
+            fill="#0074D9"
+            class="path1"
+            style={{
+              transform: "scale(2)",
             }}
+            d="M8 2.1c1.1 0 2.2 0.5 3 1.3 0.8 0.9 1.3 1.9 1.3 3.1s-0.5 2.5-1.3 3.3l-3 3.1-3-3.1c-0.8-0.8-1.3-2-1.3-3.3 0-1.2 0.4-2.2 1.3-3.1 0.8-0.8 1.9-1.3 3-1.3z"
           />
-        ))}
-
-        {this.state.shop && (
-          <InfoWindow
-            position={{
-              lat: Number(this.state.shop.lat),
-              lng: Number(this.state.shop.lng),
+          <path
+            fill="#fff"
+            class="path2"
+            style={{
+              transform: "scale(2)",
             }}
-            onCloseClick={() => {
-              this.setState({
-                shop: null,
-              });
+            d="M8 15.8l-4.4-4.6c-1.2-1.2-1.9-2.9-1.9-4.7 0-1.7 0.6-3.2 1.8-4.5 1.3-1.2 2.8-1.8 4.5-1.8s3.2 0.7 4.4 1.9c1.2 1.2 1.8 2.8 1.8 4.5s-0.7 3.5-1.8 4.7l-4.4 4.5zM4 10.7l4 4.1 3.9-4.1c1-1.1 1.6-2.6 1.6-4.2 0-1.5-0.6-2.9-1.6-4s-2.4-1.7-3.9-1.7-2.9 0.6-4 1.7c-1 1.1-1.6 2.5-1.6 4 0 1.6 0.6 3.2 1.6 4.2v0z"
+          />
+          <path
+            fill="#fff"
+            class="path3"
+            style={{
+              transform: "scale(2)",
             }}
-            key={Math.floor(100000 + Math.random() * 900000)}
-          >
-            <div
-              style={{
-                margin: "10px",
-              }}
-            >
-              <h3>{this.state.shop.bname}</h3>
-              <h4>{this.state.shop.description}</h4>
-              <a
-                href={this.state.shop.website}
-                target="_blank"
-                className="link"
-                rel="noopener noreferrer"
-              >
-                {this.state.shop.website !== " "
-                  ? "Click to go to the website"
-                  : ""}
-              </a>
-              <p>Email: {this.state.shop.email}</p>
-              <p>Phone: {this.state.shop.phone}</p>
-            </div>
-          </InfoWindow>
-        )}
-      </GoogleMap>
-    );
+            d="M8 16l-4.5-4.7c-1.2-1.2-1.9-3-1.9-4.8 0-1.7 0.6-3.3 1.9-4.6 1.2-1.2 2.8-1.9 4.5-1.9s3.3 0.7 4.5 1.9c1.2 1.3 1.9 2.9 1.9 4.6 0 1.8-0.7 3.6-1.9 4.8l-4.5 4.7zM8 0.3c-1.6 0-3.2 0.7-4.3 1.9-1.2 1.2-1.8 2.7-1.8 4.3 0 1.7 0.7 3.4 1.8 4.5l4.3 4.5 4.3-4.5c1.1-1.2 1.8-2.9 1.8-4.5s-0.6-3.1-1.8-4.4c-1.2-1.1-2.7-1.8-4.3-1.8zM8 15.1l-4.1-4.2c-1-1.2-1.7-2.8-1.7-4.4s0.6-3 1.7-4.1c1.1-1.1 2.6-1.7 4.1-1.7s3 0.6 4.1 1.7c1.1 1.1 1.7 2.6 1.7 4.1 0 1.6-0.6 3.2-1.7 4.3l-4.1 4.3zM4.2 10.6l3.8 4 3.8-4c1-1 1.6-2.6 1.6-4.1s-0.6-2.8-1.6-3.9c-1-1-2.4-1.6-3.8-1.6s-2.8 0.6-3.8 1.6c-1 1.1-1.6 2.4-1.6 3.9 0 1.6 0.6 3.1 1.6 4.1v0z"
+          />
+        </svg>
+      </Marker>
+    ));
   }
 }
 
-const MapWrapped = withGoogleMap(Map);
+class MapBox extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      userLocation: this.props.userLocation,
+      zoom: this.props.zoom,
+      viewport: {
+        latitude: 43,
+        longitude: -75,
+        zoom: 4,
+        width: "68vw",
+        height: "87vh",
+      },
+      latlng: this.props.latlng,
+      selectedShop: null,
+      pitch: 57.639834299290534,
+      desc: "View Description",
+      click: true,
+    };
+  }
+
+  componentDidMount() {
+    console.log(this.props.userLocation);
+    console.log(this.state.userLocation);
+    this.setState({
+      viewport: {
+        latitude: this.state.userLocation.lat,
+        longitude: this.state.userLocation.lng,
+        zoom: this.state.zoom,
+        width: "68vw",
+        height: "87vh",
+        pitch: this.state.pitch,
+      },
+    });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      userLocation: nextProps.userLocation,
+      zoom: nextProps.zoom,
+      viewport: {
+        latitude: this.state.userLocation.lat,
+        longitude: this.state.userLocation.lng,
+        zoom: this.state.zoom,
+        width: "68vw",
+        height: "87vh",
+        pitch: this.state.pitch,
+      },
+    });
+  }
+
+  onClickEventHandler = (datum) => {
+    console.log(datum);
+    this.setState({
+      selectedShop: datum,
+    });
+  };
+
+  callback = (shop) => {
+    console.log("shopdadasdsa", shop);
+    this.setState({
+      selectedShop: shop,
+    });
+  };
+
+  render() {
+    return (
+      <ReactMapGL
+        {...this.state.viewport}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_API_KEY}
+        onViewportChange={(viewportUpdated) => {
+          this.setState({
+            viewport: viewportUpdated,
+          });
+        }}
+        onClick={() => {
+          if (this.state.click) {
+            window.location = "#";
+            this.setState({
+              click: false,
+            });
+          }
+        }}
+        mapStyle="mapbox://styles/rherugu/ckchz711y0p411is27378o5cs?optimize=true"
+      >
+        <Markers
+          data={this.props.latlng}
+          onClick={this.onClickEventHandler}
+          callback={this.callback}
+        />
+        {this.state.selectedShop && (
+          <Popup
+            latitude={this.state.selectedShop.lat}
+            longitude={this.state.selectedShop.lng}
+            onClose={() => {
+              this.setState({
+                selectedShop: null,
+              });
+            }}
+            closeOnClick={false}
+          >
+            <div style={{ width: "400px" }}>
+              <h3>{this.state.selectedShop.bname}</h3>
+              <h4>{this.state.selectedShop.address}</h4>
+
+              <br></br>
+              <a
+                href={this.state.selectedShop.website}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {this.state.selectedShop.website !== " "
+                  ? "Click to go to the website"
+                  : ""}
+              </a>
+              <p>Email: {this.state.selectedShop.emailb}</p>
+              <p>Phone: {this.state.selectedShop.phoneNumber}</p>
+            </div>
+          </Popup>
+        )}
+      </ReactMapGL>
+    );
+  }
+}
 
 class Shop extends Component {
   onClickHome = () => {
@@ -148,14 +250,19 @@ class Shop extends Component {
       currentPosition: {},
       DescName: [],
       userLocation: { lat: 39.0119, lng: -98.4842 },
-      zoom: 5,
+      zoom: 4,
       loadingMAP2: "block",
       dashboardoftheB: "none",
       FetchingData: "block",
+      showMap: "ddaadsdas",
+      gridlistDisplay: "flex",
+      showmaptext: "Show map",
+      mapMapBoxDisplayBlockNone: "block",
     };
     this.bname = "";
   }
   success = (position) => {
+    window.location = "#";
     this.setState({
       userLocation: {
         lat: position.coords.latitude,
@@ -166,6 +273,29 @@ class Shop extends Component {
   };
   error = (err) => {
     console.error(err);
+    window.location = "#";
+    axios
+      .get("https://api.ipify.org/?format=json")
+      .then((res) => {
+        const ip = res.data.ip;
+        axios
+          .get(`http://ip-api.com/json/${ip}`)
+          .then((res) => {
+            this.setState({
+              userLocation: {
+                lat: res.data.lat,
+                lng: res.data.lon,
+              },
+              zoom: 12,
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
   async componentDidMount() {
     this.setState({
@@ -207,7 +337,7 @@ class Shop extends Component {
       "auth-token": tokenval,
     };
     var check = "";
-    await trackPromise(
+    trackPromise(
       axios
         .get(
           "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
@@ -215,6 +345,49 @@ class Shop extends Component {
         )
         .then(async (response) => {
           this.setState({ shops: response.data });
+          Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+          if (navigator.geolocation) {
+            const options = {
+              enableHighAccuracy: true,
+              timeout: 5000,
+              maximumAge: 0,
+            };
+
+            navigator.geolocation.getCurrentPosition(
+              this.success,
+              this.error,
+              options
+            );
+          } else {
+            this.setState({
+              userLocation: { lat: 40.3583, lng: -74.26 },
+              zoom: 8,
+            });
+          }
+
+          addressArray = [];
+          addressArray = this.state.shops.map((shop) => shop);
+          var busName = this.state.shops.map((shop) => shop.bname);
+          var DescName = this.state.shops.map((shop) => shop.address);
+          var lat = this.state.shops.map((shop) => shop.lat);
+          var lng = this.state.shops.map((shop) => shop.lng);
+
+          var addressSet = [];
+          this.setState({
+            addresses: addressArray,
+          });
+
+          // for (var count = 0; count < addressArray.length; count++) {
+          //   // const response = await Geocode.fromAddress(
+          //   //   addressArray[count].address
+          //   // );
+
+          //   addressArray[count].data = {
+          //     lat: lat[count],
+          //     lng: lng[count],
+          //   };
+
+          // }
         })
 
         .catch((err) => {
@@ -222,49 +395,7 @@ class Shop extends Component {
           this.onClickLogin();
         })
     );
-    Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-    if (navigator.geolocation) {
-      const options = {
-        enableHighAccuracy: true,
-        timeout: 5000,
-        maximumAge: 0,
-      };
 
-      navigator.geolocation.getCurrentPosition(
-        this.success,
-        this.error,
-        options
-      );
-    } else {
-      this.setState({
-        userLocation: { lat: 40.3583, lng: -74.26 },
-        zoom: 8,
-      });
-    }
-
-    addressArray = [];
-    addressArray = this.state.shops.map((shop) => shop);
-    var busName = this.state.shops.map((shop) => shop.bname);
-    var DescName = this.state.shops.map((shop) => shop.address);
-    var lat = this.state.shops.map((shop) => shop.lat);
-    var lng = this.state.shops.map((shop) => shop.lng);
-
-    var addressSet = [];
-
-    for (var count = 0; count < addressArray.length; count++) {
-      // const response = await Geocode.fromAddress(
-      //   addressArray[count].address
-      // );
-
-      addressArray[count].data = {
-        lat: lat[count],
-        lng: lng[count],
-      };
-
-      this.setState({
-        addresses: addressArray,
-      });
-    }
     this.setState({
       loadingMAP: false,
       loadingMAP2: "none",
@@ -408,16 +539,13 @@ class Shop extends Component {
         "auth-token": tokenval,
       };
       axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-          {
-            query: this.state.search,
-          },
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/",
           { headers }
         )
         .then((res) => {
           this.setState({
-            shops: res.data.results.map((shop) => shop),
+            shops: res.data,
           });
         })
         .catch((err) => {
@@ -427,121 +555,68 @@ class Shop extends Component {
       return 0;
     }
   };
-  keySearch2 = (e) => {
-    if (e.keyCode === 13) {
-      // // if (e.keyCode == 13) {
-      // if (/\S/.test(this.state.search)) {
-      //   const tokenval = localStorage.getItem("token");
-      //   const headers = {
-      //     "auth-token": tokenval,
-      //   };
-      //   axios
-      //     .post(
-      //       "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-      //       {
-      //         query: this.state.search,
-      //       },
-      //       { headers }
-      //     )
-      //     .then((res) => {
-      //       this.setState({
-      //         shops: res.data.results.map((shop) => shop),
-      //       });
-      //     })
-      //     .catch((err) => {
-      //       console.error(err);
-      //     });
-      // } else if (this.state.search === "" || null || undefined) {
-      //   const tokenval = localStorage.getItem("token");
-      //   const headers = {
-      //     "auth-token": tokenval,
-      //   };
-      //   axios
-      //     .post(
-      //       "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-      //       {
-      //         query: this.state.search,
-      //       },
-      //       { headers }
-      //     )
-      //     .then((res) => {
-      //       this.setState({
-      //         shops: res.data.results.map((shop) => shop),
-      //       });
-      //     })
-      //     .catch((err) => {
-      //       console.error(err);
-      //     });
-      // } else {
-      //   return 0;
-      // }
-      if (this.state.search === "" || " " || undefined || NaN || null) {
+
+  keySearch = (e) => {
+    if (e.keyCode == 13) {
+      if (/\S/.test(this.state.search)) {
+        if (this.state.search === "" || " " || undefined || NaN || null) {
+          const tokenval = localStorage.getItem("token");
+          const headers = {
+            "auth-token": tokenval,
+          };
+          axios
+            .get(
+              "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+              { headers }
+            )
+            .then(async (response) => {
+              this.setState({ shops: response.data });
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
+        axios
+          .post(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+            {
+              query: this.state.search,
+            },
+            { headers }
+          )
+          .then((res) => {
+            this.setState({
+              shops: res.data.results.map((shop) => shop),
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      } else if (this.state.search === "" || null || undefined) {
         const tokenval = localStorage.getItem("token");
         const headers = {
           "auth-token": tokenval,
         };
         axios
           .get(
-            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/",
             { headers }
           )
-          .then(async (response) => {
-            this.setState({ shops: response.data });
+          .then((res) => {
+            this.setState({
+              shops: res.data,
+            });
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
+      } else {
+        return 0;
       }
-    } else {
-    }
-  };
-  keySearch = (e) => {
-    this.setState({
-      search: e.target.value,
-    });
-    // if (e.keyCode == 13) {
-    if (/\S/.test(this.state.search)) {
-      const tokenval = localStorage.getItem("token");
-      const headers = {
-        "auth-token": tokenval,
-      };
-      axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-          {
-            query: this.state.search,
-          },
-          { headers }
-        )
-        .then((res) => {
-          this.setState({
-            shops: res.data.results.map((shop) => shop),
-          });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else if (this.state.search === "" || null || undefined) {
-      const tokenval = localStorage.getItem("token");
-      const headers = {
-        "auth-token": tokenval,
-      };
-      axios
-        .post(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-          {
-            query: this.state.search,
-          },
-          { headers }
-        )
-        .then((res) => {
-          this.setState({
-            shops: res.data.results.map((shop) => shop),
-          });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
     } else {
       return 0;
     }
@@ -558,7 +633,6 @@ class Shop extends Component {
     const description = this.state.shops.map((shop) => {
       return <p key={shop._id}>{shop.description}</p>;
     });
-
     return (
       <div className="Shop">
         <div
@@ -734,7 +808,27 @@ class Shop extends Component {
             className="Search_Businesses"
           >
             Search Businesses
-            <a href="javascript:void(0)"> Show map</a>
+            {/* <a
+              href="javascript:void(0)"
+              onClick={() => {
+                if (this.state.gridlistDisplay === "flex") {
+                  this.setState({
+                    gridlistDisplay: "none",
+                    showmaptext: "Back",
+                    mapMapBoxDisplayBlockNone: "block",
+                  });
+                } else if (this.state.gridlistDisplay === "none") {
+                  this.setState({
+                    gridlistDisplay: "flex",
+                    showmaptext: "Show Map",
+                    mapMapBoxDisplayBlockNone: "none",
+                  });
+                }
+              }}
+              className="link"
+            >
+              {this.state.showmaptext}
+            </a> */}
           </label>
           <div
             className="search-main"
@@ -756,6 +850,7 @@ class Shop extends Component {
                   search: e.target.value,
                 });
               }}
+              onKeyDown={this.keySearch}
             ></input>
             <input
               type="button"
@@ -766,6 +861,7 @@ class Shop extends Component {
                 cursor: "pointer",
                 marginTop: "6px",
                 borderRadius: "0px 6px 6px 0px",
+                width: "100px",
               }}
               onClick={this.handleSearch}
             ></input>
@@ -774,13 +870,12 @@ class Shop extends Component {
 
         <div
           className="gridlist"
-          style={
-            {
-              // width: "50vw",
-              // marginTop: "26vh !important",
-              // // all: "unset",
-            }
-          }
+          style={{
+            // width: "50vw",
+            // marginTop: "26vh !important",
+            // // all: "unset",
+            display: this.state.gridlistDisplay,
+          }}
         >
           <p
             style={{
@@ -807,7 +902,7 @@ class Shop extends Component {
             />
           ))}
         </div>
-        <div className="mapGoogle">
+        <div className="mapMapBox">
           <div
             style={{
               width: "fit-content",
@@ -827,17 +922,15 @@ class Shop extends Component {
             {this.state.loadingMAP ? "Loading The Map..." : ""}
           </div>
           {/* {this.state.currentPosition !== {} && ( */}
-          <MapWrapped
+
+          <MapBox
             currentPosition={this.state.currentPosition}
-            googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places&key=${process.env.REACT_APP_GKEY}`}
-            loadingElement={<div style={{ height: `100%` }} />}
-            containerElement={<div style={{ height: `100%` }} />}
-            mapElement={<div style={{ height: `100%` }} />}
             latlng={this.state.addresses}
             userLocation={this.state.userLocation}
-            options={{ gestureHandling: "greedy", streetViewControl: false }}
             zoom={this.state.zoom}
+            shop={this.state.shops}
           />
+
           {/* )} */}
         </div>
       </div>
