@@ -43,6 +43,7 @@
     "qrcode.react": "^1.0.0",
     "query-string": "^6.11.1",
     "react": "^16.13.1",
+    "react-app-polyfill": "^1.0.6",
     "react-awesome-button": "^6.5.1",
     "react-background-slider": "^2.0.0",
     "react-background-slideshow": "^1.0.4",
@@ -103,6 +104,7 @@
       "not op_mini all"
     ],
     "development": [
+      "ie 11",
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
