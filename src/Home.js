@@ -194,20 +194,20 @@ class Home extends Component {
       <div className="zoom">
         {" "}
         <div className="slideshowbg">
-          <BackgroundSlider
+          {/* <BackgroundSlider
             images={[
               // require("./Assets/homebg.jpg"),
               // require("./Assets/homebg2.jpg"),
               // require("./Assets/bg.jpg"),
               require("./Assets/homebg3.jpg"),
               // require("./Assets/homebg4.jpg"),
-            ]}
+            ]}  
             style={{
               height: "90vh",
             }}
             duration={99999999999999999999999999999999999999}
             transition={1}
-          />
+          /> */}
           <div
             className="burger"
             style={{
@@ -378,7 +378,13 @@ class Home extends Component {
                   }}
                   className="fancy-button pop-onhover bg-gradient1 Hheading2"
                 >
-                  <span>Get Started</span>
+                  <span
+                    style={{
+                      color: "#ffffff",
+                    }}
+                  >
+                    Get Started
+                  </span>
                 </a>
               </div>
             </div>

@@ -122,6 +122,9 @@
 .slideshowbg {
   width: 100vw;
   height: 100vh;
+  background-image: url(./Assets/homebg3.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .textloop {
   margin-bottom: 50vh;
@@ -619,11 +622,11 @@ a:active {
     margin-top: 15em;
   }
 }
-@media screen and (max-height: 672px) {
+/* @media screen and (max-height: 672px) {
   .WWA {
     margin-top: 10em;
   }
-}
+} */
 
 .Hheading1b,
 .Hheading2b {
@@ -634,10 +637,10 @@ a:active {
   .parentvid1 {
     width: 90%;
   }
-  .WWA {
+  /* .WWA {
     margin-top: 25em;
     font-size: 30px;
-  }
+  } */
   .textvid {
     font-size: 20px;
   }
