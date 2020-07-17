@@ -35,6 +35,60 @@ class QRCodejs extends React.Component {
     });
 
     localStorage.setItem("QRCodeUrl", img);
+    await axios
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/getqrcode",
+        { qrcode: img }
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+
+    const emaill = localStorage.getItem("email");
+    var decryptedData, data;
+    try {
+      data = JSON.stringify(this.props.location.state.value.encData);
+    } catch (error) {
+      data = JSON.stringify(JSON.parse(localStorage.getItem("QRCode")).encData);
+    }
+    console.log(data);
+    await axios
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/payment/decryption",
+        {
+          data: data,
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        decryptedData = res.data.decryptedData;
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    const mail = {
+      emailq: emaill,
+      bname: this.props.location.state.bname,
+      amount: decryptedData.balance,
+    };
+
+    axios
+      .post(
+        "https://localmainstreetbackend.herokuapp.com/app/contact/sendqrcode",
+        mail
+      )
+      .then((res) => {
+        console.log(res);
+        this.setState({
+          sent: `This gift has been sent to ${emaill}. Please check spam folder if needed.`,
+        });
+      })
+      .catch((err) => {
+        console.error("ERROR!!!", err);
+      });
   }
 
   handleEmail = async () => {
