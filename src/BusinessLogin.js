@@ -326,6 +326,10 @@ class BusinessLogin extends Component {
           res = response.data;
           var m = "";
           var realres = "Success!";
+          if (response.data.message === '"city" is required') {
+            realres = "Something is wrong with your address.";
+            m = "The address you provided may be a road.";
+          }
           if (this.state.bname === "" || null || undefined) {
             realres = "Please enter your business name";
           }
@@ -561,6 +565,10 @@ class BusinessLogin extends Component {
             res = response.data;
             var m = "";
             var realres = "Success!";
+            if (response.data.message === '"city" is required') {
+              realres = "Something is wrong with your address.";
+              m = "The address you provided may be a road.";
+            }
             if (this.state.bname === "" || null || undefined) {
               realres = "Please enter your business name";
             }
