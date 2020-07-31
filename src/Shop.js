@@ -129,9 +129,7 @@ class MapBox extends React.Component {
       .then((res) => {
         const ip = res.data.ip;
         axios
-          .get(
-            `http://api.ipstack.com/${ip}?access_key=${process.env.REACT_APP_IPSTACK_API_KEY}&format=1`
-          )
+          .get(`https://ipapi.co/${ip}/json/`)
           .then((res) => {
             this.setState({
               userLocation: {
