@@ -130,18 +130,18 @@ class MapBox extends React.Component {
         const ip = res.data.ip;
         axios
           .get(
-            `https://api.ipgeolocation.io/timezone?apiKey=d661648f3c9a49b1a3ebb4faf32c0533&ip=${ip}&lang=cn%27`
+            `http://api.ipstack.com/${ip}?access_key=${process.env.REACT_APP_IPSTACK_API_KEY}&format=1`
           )
           .then((res) => {
             this.setState({
               userLocation: {
-                lat: Number(res.data.geo.latitude),
-                lng: Number(res.data.geo.longitude),
+                lat: Number(res.data.latitude),
+                lng: Number(res.data.longitude),
               },
               zoom: 12,
               viewport: {
-                latitude: Number(res.data.geo.latitude),
-                longitude: Number(res.data.geo.longitude),
+                latitude: Number(res.data.latitude),
+                longitude: Number(res.data.longitude),
                 zoom: 12,
                 width: "68vw",
                 height: "87vh",
@@ -390,7 +390,7 @@ class Shop extends Component {
         )
         .then(async (response) => {
           this.setState({ shops: response.data });
-          Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+          // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
           // if (navigator.geolocation) {
           //   const options = {
           //     enableHighAccuracy: true,
