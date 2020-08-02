@@ -301,6 +301,7 @@ class Shop extends Component {
       gridlistDisplay: "flex",
       showmaptext: "Show map",
       mapMapBoxDisplayBlockNone: "block",
+      loadingShopBusinesses: "none",
     };
     this.bname = "";
   }
@@ -380,64 +381,65 @@ class Shop extends Component {
       "auth-token": tokenval,
     };
     var check = "";
-    trackPromise(
-      axios
-        .get(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-          { headers }
-        )
-        .then(async (response) => {
-          this.setState({ shops: response.data });
-          // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-          // if (navigator.geolocation) {
-          //   const options = {
-          //     enableHighAccuracy: true,
-          //     timeout: 5000,
-          //     maximumAge: 0,
-          //   };
+    // trackPromise(
+    this.setState({
+      loadingShopBusinesses: "flex",
+    });
+    axios
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+        { headers }
+      )
+      .then((response) => {
+        this.setState({ shops: response.data });
+        // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+        // if (navigator.geolocation) {
+        //   const options = {
+        //     enableHighAccuracy: true,
+        //     timeout: 5000,
+        //     maximumAge: 0,
+        //   };
 
-          //   navigator.geolocation.getCurrentPosition(
-          //     this.success,
-          //     this.error,
-          //     options
-          //   );
-          // } else {
-          //   this.setState({
-          //     userLocation: { lat: 40.3583, lng: -74.26 },
-          //     zoom: 8,
-          //   });
-          // }
+        //   navigator.geolocation.getCurrentPosition(
+        //     this.success,
+        //     this.error,
+        //     options
+        //   );
+        // } else {
+        //   this.setState({
+        //     userLocation: { lat: 40.3583, lng: -74.26 },
+        //     zoom: 8,
+        //   });
+        // }
 
-          addressArray = [];
-          addressArray = this.state.shops.map((shop) => shop);
-          var busName = this.state.shops.map((shop) => shop.bname);
-          var DescName = this.state.shops.map((shop) => shop.address);
-          var lat = this.state.shops.map((shop) => shop.lat);
-          var lng = this.state.shops.map((shop) => shop.lng);
+        addressArray = [];
+        addressArray = this.state.shops.map((shop) => shop);
 
-          var addressSet = [];
-          this.setState({
-            addresses: addressArray,
-          });
+        this.setState({
+          addresses: addressArray,
+        });
 
-          // for (var count = 0; count < addressArray.length; count++) {
-          //   // const response = await Geocode.fromAddress(
-          //   //   addressArray[count].address
-          //   // );
+        // for (var count = 0; count < addressArray.length; count++) {
+        //   // const response = await Geocode.fromAddress(
+        //   //   addressArray[count].address
+        //   // );
 
-          //   addressArray[count].data = {
-          //     lat: lat[count],
-          //     lng: lng[count],
-          //   };
+        //   addressArray[count].data = {
+        //     lat: lat[count],
+        //     lng: lng[count],
+        //   };
 
-          // }
-        })
+        // }
+        this.setState({
+          loadingShopBusinesses: "none",
+        });
+      })
 
-        .catch((err) => {
-          console.log(err);
-          this.onClickLogin();
-        })
-    );
+      .catch((err) => {
+        console.log(err);
+        this.onClickLogin();
+      });
+    // );
 
     this.setState({
       loadingMAP: false,
@@ -679,6 +681,15 @@ class Shop extends Component {
     return (
       <div className="Shop">
         <div
+          className="loaderwrapper"
+          style={{
+            zIndex: 9999999999,
+            display: this.state.loadingShopBusinesses,
+          }}
+        >
+          <div className="loader"></div>
+        </div>
+        <div
           className="burger1 khdsaid12e"
           style={{
             height: "100%",
@@ -738,7 +749,6 @@ class Shop extends Component {
             <span>Logout</span>
           </h3>
         </div>
-        <Loader />
 
         <header
           className="Home-Header"
