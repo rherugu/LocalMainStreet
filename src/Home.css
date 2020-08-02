@@ -288,6 +288,16 @@
   }
 }
 
+@media screen and (max-height: 1112px) {
+  .video {
+    -webkit-border-radius: 2px 15px 15px 15px;
+    -moz-border-radius: 2px 15px 15px 15px;
+    border-radius: 2px 15px 15px 15px;
+    width: 300px !important;
+    height: 168.75px !important;
+  }
+}
+
 @media screen and (max-width: 679px) {
   .video {
     width: 40vh;
