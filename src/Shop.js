@@ -847,21 +847,25 @@ class Shop extends Component {
             </h3>
           </div>
         </header>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br className="brDisplay"></br>
-        <br className="brDisplay"></br>
-        <br className="brDisplay"></br>
-        <div className="search">
-          <label
-            style={{
-              cursor: "text",
-            }}
-            className="Search_Businesses"
-          >
-            Search by City, Zip, or Name
-            {/* <a
+
+        <div
+          className="gridlist"
+          style={{
+            // width: "50vw",
+            // marginTop: "26vh !important",
+            // // all: "unset",
+            display: this.state.gridlistDisplay,
+          }}
+        >
+          <div className="search">
+            <label
+              style={{
+                cursor: "text",
+              }}
+              className="Search_Businesses"
+            >
+              Search by City, Zip, or Name
+              {/* <a
               href="javascript:void(0)"
               onClick={() => {
                 if (this.state.gridlistDisplay === "flex") {
@@ -882,74 +886,64 @@ class Shop extends Component {
             >
               {this.state.showmaptext}
             </a> */}
-          </label>
-          <div
-            className="search-main"
-            style={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <input
-              placeholder="Search by City, Zip Code, or Name"
-              type="text"
-              className="searchBar redinput"
-              value={this.state.search}
+            </label>
+            <div
+              className="search-main"
               style={{
-                borderRadius: "6px 0px 0px 6px",
+                display: "flex",
+                flexDirection: "row",
               }}
-              onChange={(e) => {
-                this.setState({
-                  search: e.target.value,
-                });
-              }}
-              onKeyDown={this.keySearch}
-            ></input>
-            <input
-              type="button"
-              className="searchSubmit"
-              value="Search"
-              style={{
-                backgroundColor: "#FFDC00",
-                cursor: "pointer",
-                marginTop: "6px",
-                borderRadius: "0px 0px 0px 0px",
-                width: "100px",
-              }}
-              onClick={this.handleSearch}
-            ></input>
-            <input
-              type="button"
-              className="searchSubmit"
-              value="View Full Map"
-              style={{
-                backgroundColor: "#FFDC00",
-                cursor: "pointer",
-                marginTop: "6px",
-                borderRadius: "0px 6px 6px 0px",
-                width: "200px",
-              }}
-              onClick={() => {
-                this.props.history.push({
-                  pathname: "/MapView",
-                  state: {
-                    latlng: this.state.addresses,
-                  },
-                });
-              }}
-            ></input>
+            >
+              <input
+                placeholder="Search by City, Zip Code, or Name"
+                type="text"
+                className="searchBar redinput"
+                value={this.state.search}
+                style={{
+                  borderRadius: "6px 0px 0px 6px",
+                }}
+                onChange={(e) => {
+                  this.setState({
+                    search: e.target.value,
+                  });
+                }}
+                onKeyDown={this.keySearch}
+              ></input>
+              <input
+                type="button"
+                className="searchSubmit"
+                value="Search"
+                style={{
+                  backgroundColor: "#FFDC00",
+                  cursor: "pointer",
+                  marginTop: "6px",
+                  borderRadius: "0px 0px 0px 0px",
+                  width: "100px",
+                }}
+                onClick={this.handleSearch}
+              ></input>
+              <input
+                type="button"
+                className="searchSubmit"
+                value="View Full Map"
+                style={{
+                  backgroundColor: "#FFDC00",
+                  cursor: "pointer",
+                  marginTop: "6px",
+                  borderRadius: "0px 6px 6px 0px",
+                  width: "200px",
+                }}
+                onClick={() => {
+                  this.props.history.push({
+                    pathname: "/MapView",
+                    state: {
+                      latlng: this.state.addresses,
+                    },
+                  });
+                }}
+              ></input>
+            </div>
           </div>
-        </div>
-
-        <div
-          className="gridlist"
-          style={{
-            // width: "50vw",
-            // marginTop: "26vh !important",
-            // // all: "unset",
-            display: this.state.gridlistDisplay,
-          }}
-        >
           <p
             style={{
               textAlign: "center",

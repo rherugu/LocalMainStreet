@@ -15,6 +15,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useStyles = makeStyles({
   root: {
@@ -57,6 +58,8 @@ export default function MediaCard(props) {
     })();
   }, []);
 
+  const matches = useMediaQuery("(max-width:437px)");
+
   var image;
   if (props.businessCatagory === "Restaurant") {
     image = "resteraunt.png";
@@ -79,7 +82,7 @@ export default function MediaCard(props) {
   }
 
   return (
-    <div>
+    <div id="totalCardWrapper">
       <div
         data-tip={props.description}
         data-multiline="true"
@@ -129,7 +132,7 @@ export default function MediaCard(props) {
                   },
                 });
               }}
-              className="cardBtn"
+              className="cardBtn cardBtn1"
               disabled={disabled}
             >
               Buy Gift Cards
@@ -144,9 +147,11 @@ export default function MediaCard(props) {
                 }, 500);
               }}
               disabled={website}
-              className="cardBtn"
+              className="cardBtn cardBtn2"
             >
-              {props.website != " " ? `Go to their website` : ""}
+              {props.website != " "
+                ? `${!matches ? "Go to their website" : "Website"}`
+                : ""}
             </Button>
           </div>
         </div>
