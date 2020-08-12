@@ -41,15 +41,12 @@
   width: 170px;
   height: 35px;
 }
-#totalCardWrapper {
-  width: calc(100%-1px);
-}
+
 #totalCardWrapper {
   border: 1.89px solid black;
   margin: 30px 0px auto;
   border-radius: 5px;
   padding: 19px;
-
   cursor: pointer;
 }
 
