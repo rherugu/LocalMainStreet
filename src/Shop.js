@@ -412,12 +412,12 @@ class Shop extends Component {
         //   });
         // }
 
-        addressArray = [];
-        addressArray = this.state.shops.map((shop) => shop);
+        // addressArray = [];
+        // addressArray = this.state.shops.map((shop) => shop);
 
-        this.setState({
-          addresses: addressArray,
-        });
+        // this.setState({
+        //   addresses: this.state.shops.map((shop) => shop),
+        // });
 
         // for (var count = 0; count < addressArray.length; count++) {
         //   // const response = await Geocode.fromAddress(
@@ -992,7 +992,7 @@ class Shop extends Component {
 
           <MapBox
             currentPosition={this.state.currentPosition}
-            latlng={this.state.addresses}
+            latlng={this.state.shops.map((shop) => shop)}
             userLocation={this.state.userLocation}
             zoom={this.state.zoom}
             shop={this.state.shops}
