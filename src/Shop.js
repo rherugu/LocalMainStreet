@@ -16,6 +16,7 @@ var addressArray = [
   { lat: 10, lng: 56 },
   { lat: 4, lng: 98 },
 ];
+const qs = require("query-string");
 
 class Markers extends React.PureComponent {
   constructor(props) {
@@ -112,8 +113,6 @@ class MapBox extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props.userLocation);
-    console.log(this.state.userLocation);
     this.setState({
       viewport: {
         latitude: this.state.userLocation.lat,
@@ -343,6 +342,10 @@ class Shop extends Component {
   };
   async componentDidMount() {
     this.setState({
+      loadingShopBusinesses: "flex",
+    });
+    console.log(this.props.userLocation);
+    this.setState({
       FetchingData: "block",
     });
     const tokenval = localStorage.getItem("token");
@@ -382,63 +385,86 @@ class Shop extends Component {
     };
     var check = "";
     // trackPromise(
-    this.setState({
-      loadingShopBusinesses: "flex",
-    });
-    axios
-      .get(
-        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-        { headers }
-      )
-      .then((response) => {
-        this.setState({ shops: response.data });
-        // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-        // if (navigator.geolocation) {
-        //   const options = {
-        //     enableHighAccuracy: true,
-        //     timeout: 5000,
-        //     maximumAge: 0,
-        //   };
 
-        //   navigator.geolocation.getCurrentPosition(
-        //     this.success,
-        //     this.error,
-        //     options
-        //   );
-        // } else {
-        //   this.setState({
-        //     userLocation: { lat: 40.3583, lng: -74.26 },
-        //     zoom: 8,
-        //   });
-        // }
+    const parsed = qs.parse(this.props.location.search);
+    console.log(parsed.search);
 
-        // addressArray = [];
-        // addressArray = this.state.shops.map((shop) => shop);
-
-        // this.setState({
-        //   addresses: this.state.shops.map((shop) => shop),
-        // });
-
-        // for (var count = 0; count < addressArray.length; count++) {
-        //   // const response = await Geocode.fromAddress(
-        //   //   addressArray[count].address
-        //   // );
-
-        //   addressArray[count].data = {
-        //     lat: lat[count],
-        //     lng: lng[count],
-        //   };
-
-        // }
-        this.setState({
-          loadingShopBusinesses: "none",
+    if (parsed.search !== undefined || null || NaN) {
+      console.log("search ther 3847dh");
+      const tokenval = localStorage.getItem("token");
+      const headers = {
+        "auth-token": tokenval,
+      };
+      axios
+        .post(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+          {
+            query: parsed.search,
+          },
+          { headers }
+        )
+        .then((res) => {
+          this.setState({
+            shops: res.data.results.map((shop) => shop),
+          });
+        })
+        .catch((err) => {
+          console.error(err);
         });
-      })
+    } else {
+      axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
+          { headers }
+        )
+        .then((response) => {
+          this.setState({ shops: response.data });
+          // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
+          // if (navigator.geolocation) {
+          //   const options = {
+          //     enableHighAccuracy: true,
+          //     timeout: 5000,
+          //     maximumAge: 0,
+          //   };
 
-      .catch((err) => {
-        console.log(err);
-        this.onClickLogin();
-      });
+          //   navigator.geolocation.getCurrentPosition(
+          //     this.success,
+          //     this.error,
+          //     options
+          //   );
+          // } else {
+          //   this.setState({
+          //     userLocation: { lat: 40.3583, lng: -74.26 },
+          //     zoom: 8,
+          //   });
+          // }
+
+          // addressArray = [];
+          // addressArray = this.state.shops.map((shop) => shop);
+
+          // this.setState({
+          //   addresses: this.state.shops.map((shop) => shop),
+          // });
+
+          // for (var count = 0; count < addressArray.length; count++) {
+          //   // const response = await Geocode.fromAddress(
+          //   //   addressArray[count].address
+          //   // );
+
+          //   addressArray[count].data = {
+          //     lat: lat[count],
+          //     lng: lng[count],
+          //   };
+
+          // }
+        })
+
+        .catch((err) => {
+          console.log(err);
+          this.onClickLogin();
+        });
+    }
+
     // );
 
     this.setState({
@@ -521,6 +547,9 @@ class Shop extends Component {
 
     this.setState({
       FetchingData: "none",
+    });
+    this.setState({
+      loadingShopBusinesses: "none",
     });
   }
 
