@@ -82,11 +82,11 @@ export default function MediaCard(props) {
   }
 
   return (
-    <div id="totalCardWrapper">
+    <div id="totalCardWrapper" className="ripple">
       <div
         data-tip={props.description}
         data-multiline="true"
-        className={props.className}
+        className={props.className} // Media
         id="cardWrapper"
         onClick={handleClickOpen}
       >
@@ -200,6 +200,10 @@ export default function MediaCard(props) {
           <DialogContentText id="alert-dialog-description">
             {props.address}
           </DialogContentText>
+          <br />
+          <DialogContentText id="alert-dialog-description">
+            {props.phoneNumber}
+          </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
@@ -207,7 +211,7 @@ export default function MediaCard(props) {
           </Button>
         </DialogActions>
       </Dialog>
-
+      {/* 
       <ReactTooltip
         className="CardTooltip"
         multiline={true}
@@ -215,7 +219,7 @@ export default function MediaCard(props) {
         type="info"
         effect="solid"
         clickable={false}
-      />
+      /> */}
     </div>
   );
 }

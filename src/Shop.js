@@ -16,6 +16,9 @@ var addressArray = [
   { lat: 10, lng: 56 },
   { lat: 4, lng: 98 },
 ];
+var limit = 12;
+var limitcounter = 1;
+
 const qs = require("query-string");
 
 class Markers extends React.PureComponent {
@@ -42,7 +45,6 @@ class Markers extends React.PureComponent {
             this.setState({
               selectedShop: datum,
             });
-            console.log(datum);
             this.props.callback(datum);
           }}
           className="markersvgcircle"
@@ -159,6 +161,7 @@ class MapBox extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener("keydown", this.listener);
+    window.removeEventListener("scroll", this.scrollEventListener);
   }
 
   // componentWillReceiveProps(nextProps) {
@@ -184,7 +187,6 @@ class MapBox extends React.Component {
   };
 
   callback = (shop) => {
-    console.log("shopdadasdsa", shop);
     this.setState({
       selectedShop: shop,
     });
@@ -250,6 +252,34 @@ class MapBox extends React.Component {
   }
 }
 
+class SearchBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: "",
+    };
+  }
+
+  handleChange = (e) => {
+    // this.props.onSearchChange(e.target.value);
+  };
+  render() {
+    return (
+      <input
+        placeholder="Search by City, Zip Code, or Name"
+        type="text"
+        className="searchBar redinput"
+        style={{
+          borderRadius: "6px 0px 0px 6px",
+        }}
+        id="myInput"
+        onChange={this.handleChange}
+        // onKeyDown={this.keySearch}
+      ></input>
+    );
+  }
+}
+
 class Shop extends Component {
   onClickHome = () => {
     this.props.history.push("/");
@@ -276,10 +306,6 @@ class Shop extends Component {
     super(props);
     this.state = {
       shops: [],
-      price: 25,
-      bname: [],
-      name: "SmartTicketing",
-      businessCatagory: "",
       burger: "0",
       pointerEvents: "none",
       width: "30px",
@@ -290,7 +316,6 @@ class Shop extends Component {
       modal: true,
       addresses: [],
       currentPosition: {},
-      DescName: [],
       userLocation: { lat: 39.0119, lng: -98.4842 },
       zoom: 4,
       loadingMAP2: "block",
@@ -301,8 +326,12 @@ class Shop extends Component {
       showmaptext: "Show map",
       mapMapBoxDisplayBlockNone: "block",
       loadingShopBusinesses: "none",
+      shopbusinessesmapbox: [],
+      loadmorebtndisplayshopcount: "block",
+      loadmorebtntextshopcount: "Loading...",
+      count: 0,
+      searchtest: "",
     };
-    this.bname = "";
   }
   success = (position) => {
     window.location = "#";
@@ -339,6 +368,9 @@ class Shop extends Component {
       .catch((err) => {
         console.error(err);
       });
+  };
+  scrollEventListener = (e) => {
+    this.handleScrollLoadMore(e);
   };
   async componentDidMount() {
     this.setState({
@@ -380,9 +412,20 @@ class Shop extends Component {
     } else {
       this.setState({ dashboardoftheB: "none" });
     }
+
+    var limit = 12;
     const headers = {
       "auth-token": tokenval,
+      limit: limit,
     };
+    const headers2 = {
+      "auth-token": tokenval,
+      limit: limit + limit,
+    };
+    // this.scrollListener = window.addEventListener("scroll", (e) => {
+    //   this.handleScrollLoadMore(e);
+    // });
+
     var check = "";
     // trackPromise(
 
@@ -404,6 +447,7 @@ class Shop extends Component {
           { headers }
         )
         .then((res) => {
+          this.setState({ loadmorebtndisplayshopcount: "none" });
           this.setState({
             shops: res.data.results.map((shop) => shop),
           });
@@ -412,57 +456,45 @@ class Shop extends Component {
           console.error(err);
         });
     } else {
+      const headers222 = {
+        "auth-token": localStorage.getItem("token"),
+        page: 0,
+      };
       axios
         .get(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-          { headers }
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/count"
+        )
+        .then((res) => {
+          this.setState({
+            count: res.data,
+          });
+          console.log(res);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+      await axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/pagination",
+          {
+            headers222,
+          }
         )
         .then((response) => {
-          this.setState({ shops: response.data });
-          // Geocode.setApiKey(`${process.env.REACT_APP_GKEY}`);
-          // if (navigator.geolocation) {
-          //   const options = {
-          //     enableHighAccuracy: true,
-          //     timeout: 5000,
-          //     maximumAge: 0,
-          //   };
-
-          //   navigator.geolocation.getCurrentPosition(
-          //     this.success,
-          //     this.error,
-          //     options
-          //   );
-          // } else {
-          //   this.setState({
-          //     userLocation: { lat: 40.3583, lng: -74.26 },
-          //     zoom: 8,
-          //   });
-          // }
-
-          // addressArray = [];
-          // addressArray = this.state.shops.map((shop) => shop);
-
-          // this.setState({
-          //   addresses: this.state.shops.map((shop) => shop),
-          // });
-
-          // for (var count = 0; count < addressArray.length; count++) {
-          //   // const response = await Geocode.fromAddress(
-          //   //   addressArray[count].address
-          //   // );
-
-          //   addressArray[count].data = {
-          //     lat: lat[count],
-          //     lng: lng[count],
-          //   };
-
-          // }
+          this.setState({
+            shops: response.data,
+          });
+          console.log(limitcounter);
+          // limitcounter++;
         })
 
         .catch((err) => {
-          console.log(err);
-          this.onClickLogin();
+          console.error(err);
         });
+      this.scrollListener = window.addEventListener(
+        "scroll",
+        this.scrollEventListener
+      );
     }
 
     // );
@@ -551,6 +583,20 @@ class Shop extends Component {
     this.setState({
       loadingShopBusinesses: "none",
     });
+    axios
+      .get(
+        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop"
+      )
+      .then((response) => {
+        this.setState({
+          shopbusinessesmapbox: response.data,
+        });
+      })
+
+      .catch((err) => {
+        console.log(err);
+        this.onClickLogin();
+      });
   }
 
   optionChange = (e) => {
@@ -569,24 +615,50 @@ class Shop extends Component {
   };
 
   handleSearch = () => {
-    if (/\S/.test(this.state.search)) {
-      if (this.state.search === "" || " " || undefined || NaN || null) {
-        const tokenval = localStorage.getItem("token");
-        const headers = {
-          "auth-token": tokenval,
+    this.setState({
+      loadingShopBusinesses: "flex",
+    });
+    var inputVal = document.getElementById("myInput").value;
+    this.setState({
+      search: inputVal,
+    });
+
+    if (!inputVal.replace(/\s/g, "").length) {
+      if (inputVal === "") {
+        const parsed = qs.parse(this.props.location.search);
+        if (parsed.search !== undefined || null || NaN) {
+          window.location = window.location.href.split("?")[0];
+        }
+        const headers222 = {
+          "auth-token": localStorage.getItem("token"),
+          page: 0,
         };
         axios
           .get(
-            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-            { headers }
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/pagination",
+            {
+              headers222,
+            }
           )
-          .then(async (response) => {
-            this.setState({ shops: response.data });
+          .then((response) => {
+            window.addEventListener("scroll", this.scrollEventListener);
+            this.setState({ loadmorebtndisplayshopcount: "block" });
+            this.setState({
+              shops: response.data,
+            });
+            console.log(limitcounter);
+            this.setState({
+              loadingShopBusinesses: "none",
+            });
+            // limitcounter++;
           })
+
           .catch((err) => {
-            console.log(err);
+            console.error(err);
           });
+      } else {
       }
+    } else {
       const tokenval = localStorage.getItem("token");
       const headers = {
         "auth-token": tokenval,
@@ -595,118 +667,156 @@ class Shop extends Component {
         .post(
           "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
           {
-            query: this.state.search,
+            query: inputVal,
           },
           { headers }
         )
         .then((res) => {
+          window.removeEventListener("scroll", this.scrollEventListener);
+          this.setState({ loadmorebtndisplayshopcount: "none" });
           this.setState({
             shops: res.data.results.map((shop) => shop),
           });
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else if (this.state.search === "" || null || undefined) {
-      const tokenval = localStorage.getItem("token");
-      const headers = {
-        "auth-token": tokenval,
-      };
-      axios
-        .get(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/",
-          { headers }
-        )
-        .then((res) => {
           this.setState({
-            shops: res.data,
+            loadingShopBusinesses: "none",
           });
         })
         .catch((err) => {
           console.error(err);
         });
-    } else {
-      return 0;
     }
   };
 
-  keySearch = (e) => {
-    if (e.keyCode == 13) {
-      if (/\S/.test(this.state.search)) {
-        if (this.state.search === "" || " " || undefined || NaN || null) {
-          const tokenval = localStorage.getItem("token");
-          const headers = {
-            "auth-token": tokenval,
-          };
-          axios
-            .get(
-              "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop",
-              { headers }
-            )
-            .then(async (response) => {
-              this.setState({ shops: response.data });
-            })
-            .catch((err) => {
-              console.log(err);
-            });
-        }
-        const tokenval = localStorage.getItem("token");
-        const headers = {
-          "auth-token": tokenval,
-        };
-        axios
-          .post(
-            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
-            {
-              query: this.state.search,
-            },
-            { headers }
-          )
-          .then((res) => {
-            this.setState({
-              shops: res.data.results.map((shop) => shop),
-            });
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } else if (this.state.search === "" || null || undefined) {
-        const tokenval = localStorage.getItem("token");
-        const headers = {
-          "auth-token": tokenval,
-        };
-        axios
-          .get(
-            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/",
-            { headers }
-          )
-          .then((res) => {
-            this.setState({
-              shops: res.data,
-            });
-          })
-          .catch((err) => {
-            console.error(err);
-          });
-      } else {
-        return 0;
-      }
+  // keySearch = async (e) => {
+  //   if (e.keyCode == 13) {
+  //     if (!this.state.search.replace(/\s/g, "").length) {
+  //       if (this.state.search === "") {
+  //         const headers222 = {
+  //           "auth-token": localStorage.getItem("token"),
+  //           page: 0,
+  //         };
+  //         axios
+  //           .get("https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/pagination", {
+  //             headers222,
+  //           })
+  //           .then((response) => {
+  //             this.setState({
+  //               shops: response.data,
+  //             });
+  //             console.log(limitcounter);
+  //             // limitcounter++;
+  //           })
+
+  //           .catch((err) => {
+  //             console.error(err);
+  //           });
+  //       } else {
+  //       }
+  //     } else {
+  //       const tokenval = localStorage.getItem("token");
+  //       const headers = {
+  //         "auth-token": tokenval,
+  //       };
+  //       axios
+  //         .post(
+  //           "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+  //           {
+  //             query: this.state.search,
+  //           },
+  //           { headers }
+  //         )
+  //         .then((res) => {
+  //           this.setState({ loadmorebtndisplayshopcount: "none" });
+  //           this.setState({
+  //             shops: res.data.results.map((shop) => shop),
+  //           });
+  //         })
+  //         .catch((err) => {
+  //           console.error(err);
+  //         });
+  //     }
+  //   } else {
+  //     return 0;
+  //   }
+  // };
+  loadMore = async () => {
+    var top = window.pageYOffset || document.documentElement.scrollTop,
+      left = window.pageXOffset || document.documentElement.scrollLeft;
+    const headers = {
+      "auth-token": localStorage.getItem("token"),
+      page: limitcounter,
+    };
+    // axios
+    //   .get("https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/count")
+    //   .then((res) => {
+    //     console.log(res);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
+    let shopsStatic = this.state.shops;
+
+    var checker = 17 * limitcounter;
+    if (this.state.count <= checker) {
+      this.setState({ loadmorebtndisplayshopcount: "none" });
     } else {
-      return 0;
+      this.setState({
+        loadmorebtntextshopcount: "Loading...",
+      });
+      axios
+        .get(
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/pagination",
+          {
+            headers,
+          }
+        )
+        .then((response) => {
+          var total = shopsStatic.concat(response.data);
+
+          this.setState({
+            shops: total,
+          });
+
+          window.scrollTo(left, top);
+          this.setState({
+            loadmorebtntextshopcount: "Loading...",
+          });
+        })
+
+        .catch((err) => {
+          console.error(err);
+        });
+
+      limitcounter++;
     }
+  };
+  handleScrollLoadMore = () => {
+    var lastLi = document.getElementById("lastscrollshop");
+    var lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
+    var pageOffset = window.pageYOffset + window.innerHeight;
+    if (pageOffset > lastLiOffset) {
+      this.loadMore();
+    }
+  };
+
+  handleSearchBarChange = (val) => {
+    this.setState({
+      search: val,
+    });
   };
 
   render() {
-    const phoneNumber = this.state.shops.map((shop) => {
-      return <p key={shop._id}>{shop.phoneNumber}</p>;
-    });
+    // const phoneNumber = this.state.shops.map((shop) => {
+    //   return <p key={shop._id}>{shop.phoneNumber}</p>;
+    // });
 
-    const bname = this.state.shops.map((shop) => {
-      return <p key={shop._id}>{shop.bname}</p>;
-    });
-    const description = this.state.shops.map((shop) => {
-      return <p key={shop._id}>{shop.description}</p>;
-    });
+    // const bname = this.state.shops.map((shop) => {
+    //   return <p key={shop._id}>{shop.bname}</p>;
+    // });
+    // const description = this.state.shops.map((shop) => {
+    //   return <p key={shop._id}>{shop.description}</p>;
+    // });
+
     return (
       <div className="Shop">
         <div
@@ -923,21 +1033,7 @@ class Shop extends Component {
                 flexDirection: "row",
               }}
             >
-              <input
-                placeholder="Search by City, Zip Code, or Name"
-                type="text"
-                className="searchBar redinput"
-                value={this.state.search}
-                style={{
-                  borderRadius: "6px 0px 0px 6px",
-                }}
-                onChange={(e) => {
-                  this.setState({
-                    search: e.target.value,
-                  });
-                }}
-                onKeyDown={this.keySearch}
-              ></input>
+              <SearchBar onSearchChange={this.handleSearchBarChange} />
               <input
                 type="button"
                 className="searchSubmit"
@@ -966,7 +1062,7 @@ class Shop extends Component {
                   this.props.history.push({
                     pathname: "/MapView",
                     state: {
-                      latlng: this.state.addresses,
+                      latlng: this.state.shopbusinessesmapbox,
                     },
                   });
                 }}
@@ -984,7 +1080,7 @@ class Shop extends Component {
           {this.state.shops.map((shop) => (
             <MediaCard
               card={shop}
-              className="MediaCard ripple"
+              className="MediaCard"
               bname={shop.bname}
               emailb={shop.emailb}
               description={shop.description}
@@ -997,6 +1093,17 @@ class Shop extends Component {
               key={Math.floor(100000 + Math.random() * 900000)}
             />
           ))}
+          <br></br>
+          <input
+            type="button"
+            value={this.state.loadmorebtntextshopcount}
+            style={{
+              backgroundColor: "#ffc728",
+              display: this.state.loadmorebtndisplayshopcount,
+            }}
+            id="lastscrollshop"
+            onClick={this.loadMore}
+          ></input>
         </div>
         <div className="mapMapBox">
           <div
@@ -1021,7 +1128,7 @@ class Shop extends Component {
 
           <MapBox
             currentPosition={this.state.currentPosition}
-            latlng={this.state.shops.map((shop) => shop)}
+            latlng={this.state.shopbusinessesmapbox.map((shop) => shop)}
             userLocation={this.state.userLocation}
             zoom={this.state.zoom}
             shop={this.state.shops}
