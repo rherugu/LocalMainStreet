@@ -32,6 +32,7 @@ class BusinessLogin extends Component {
   onClickLogout = () => {
     localStorage.setItem("token", undefined);
     localStorage.setItem("Btoken", undefined);
+    localStorage.setItem("type", "loggedout");
     this.props.history.push("/login");
   };
 

@@ -38,6 +38,7 @@ export default function MediaCard(props) {
   var [idtemp, setidtemp] = useState("i");
   const [website, setWebsite] = useState(false);
   const [dialogOpen, setdialogOpen] = React.useState(false);
+  const [dialogOpen2, setdialogOpen2] = React.useState(false);
 
   const handleClickOpen = () => {
     setdialogOpen(true);
@@ -45,6 +46,13 @@ export default function MediaCard(props) {
 
   const handleClose = () => {
     setdialogOpen(false);
+  };
+  const handleClickOpen2 = () => {
+    setdialogOpen2(true);
+  };
+
+  const handleClose2 = () => {
+    setdialogOpen2(false);
   };
 
   useEffect(() => {
@@ -119,18 +127,50 @@ export default function MediaCard(props) {
               color="primary"
               variant="outlined"
               onClick={() => {
-                props.history.push({
-                  pathname: "/Buy",
-                  state: {
-                    bname: props.bname,
-                    description: props.description,
-                    phoneNumber: props.phoneNumber,
-                    className: "Buy",
-                    id: props.stripeId,
-                    address: props.address,
-                    email: props.emailb,
-                  },
-                });
+                setdialogOpen(false);
+                if (localStorage.getItem("type") === "business") {
+                  handleClickOpen2();
+                  setdialogOpen(false);
+                } else if (localStorage.getItem("type") === "customer") {
+                  props.history.push({
+                    pathname: "/Buy",
+                    state: {
+                      bname: props.bname,
+                      description: props.description,
+                      phoneNumber: props.phoneNumber,
+                      className: "Buy",
+                      id: props.stripeId,
+                      address: props.address,
+                      email: props.emailb,
+                    },
+                  });
+                } else if (localStorage.getItem("type") === "loggedout") {
+                  props.history.push({
+                    pathname: "/Buy",
+                    state: {
+                      bname: props.bname,
+                      description: props.description,
+                      phoneNumber: props.phoneNumber,
+                      className: "Buy",
+                      id: props.stripeId,
+                      address: props.address,
+                      email: props.emailb,
+                    },
+                  });
+                } else if (localStorage.getItem("type") === null) {
+                  props.history.push({
+                    pathname: "/Buy",
+                    state: {
+                      bname: props.bname,
+                      description: props.description,
+                      phoneNumber: props.phoneNumber,
+                      className: "Buy",
+                      id: props.stripeId,
+                      address: props.address,
+                      email: props.emailb,
+                    },
+                  });
+                }
               }}
               className="cardBtn cardBtn1"
               disabled={disabled}
@@ -142,6 +182,7 @@ export default function MediaCard(props) {
               size="small"
               color="primary"
               onClick={() => {
+                setdialogOpen(false);
                 setTimeout(() => {
                   window.open(`${props.website}`, "_blank");
                 }, 500);
@@ -207,6 +248,32 @@ export default function MediaCard(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={dialogOpen2}
+        onClose={handleClose2}
+        style={{
+          zIndex: 999999999,
+        }}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">
+          You cannot buy a product if you are logged in as a business.
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Buying a product while logged in as a business is disabled. If you
+            want to buy this product, please click{" "}
+            <a href="/CustomerLogin">here</a> to register a new customer
+            account.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose2} color="primary">
             Close
           </Button>
         </DialogActions>

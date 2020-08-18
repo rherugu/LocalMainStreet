@@ -35,6 +35,7 @@
 .btn {
   display: flex;
   flex-direction: row;
+  z-index: 9999999999999999999999999;
 }
 
 .cardBtn {

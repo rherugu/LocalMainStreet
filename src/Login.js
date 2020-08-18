@@ -55,7 +55,9 @@ class Login extends Component {
       incorrect: "none",
       getstartedisplay: "none",
       buy: false,
+      buy2: false,
       dashboardoftheB: "none",
+      stripeIDres: "",
     };
   }
   onClickHome = () => {
@@ -76,6 +78,7 @@ class Login extends Component {
   onClickLogout = () => {
     localStorage.setItem("token", undefined);
     localStorage.setItem("Btoken", undefined);
+    localStorage.setItem("type", "loggedout");
     this.props.history.push("/login");
   };
   componentDidMount() {
@@ -169,6 +172,9 @@ class Login extends Component {
           const tokenval = localStorage.getItem("token");
           console.log(tokenval);
           console.log(response.data.stripeId);
+          this.setState({
+            stripeIDres: response.data.stripeId,
+          });
 
           if (!tokenval) {
             this.setState({
@@ -183,18 +189,30 @@ class Login extends Component {
 
           try {
             if (this.props.location.state.buy === "yes") {
-              this.props.history.push({
-                pathname: "/Buy",
-                state: {
-                  bname: this.props.location.state.bname,
-                  description: this.props.location.state.description,
-                  phoneNumber: this.props.location.state.phoneNumber,
-                  businessCatagory: "fds",
-                  id: this.props.location.state.id,
-                  address: this.props.location.state.address,
-                  email: this.props.location.state.emailb,
-                },
-              });
+              if (response.data.url === "/Shop") {
+                localStorage.removeItem("type");
+                localStorage.setItem("type", "customer");
+                this.props.history.push({
+                  pathname: "/Buy",
+                  state: {
+                    bname: this.props.location.state.bname,
+                    description: this.props.location.state.description,
+                    phoneNumber: this.props.location.state.phoneNumber,
+                    businessCatagory: "fds",
+                    id: this.props.location.state.id,
+                    address: this.props.location.state.address,
+                    email: this.props.location.state.emailb,
+                  },
+                });
+              } else if (
+                response.data.url === "/Dashboard" &&
+                response.data.stripeId
+              ) {
+                localStorage.removeItem("type");
+                localStorage.setItem("type", "business");
+                this.setState({ buy2: true });
+              }
+
               return 0;
             }
           } catch (error) {}
@@ -206,11 +224,15 @@ class Login extends Component {
           } catch (error) {}
 
           if (response.data.url === "/Shop") {
+            localStorage.removeItem("type");
+            localStorage.setItem("type", "customer");
             this.props.history.push("/Shop");
           } else if (
             response.data.url === "/Dashboard" &&
             response.data.stripeId
           ) {
+            localStorage.removeItem("type");
+            localStorage.setItem("type", "business");
             this.props.history.push({
               pathname: "/BDashboard",
               state: {
@@ -258,6 +280,9 @@ class Login extends Component {
             const tokenval = localStorage.getItem("token");
             console.log(tokenval);
             console.log(response.data.stripeId);
+            this.setState({
+              stripeIDres: response.data.stripeId,
+            });
 
             if (!tokenval) {
               this.setState({
@@ -272,18 +297,30 @@ class Login extends Component {
 
             try {
               if (this.props.location.state.buy === "yes") {
-                this.props.history.push({
-                  pathname: "/Buy",
-                  state: {
-                    bname: this.props.location.state.bname,
-                    description: this.props.location.state.description,
-                    phoneNumber: this.props.location.state.phoneNumber,
-                    businessCatagory: "fds",
-                    id: this.props.location.state.id,
-                    address: this.props.location.state.address,
-                    email: this.props.location.state.emailb,
-                  },
-                });
+                if (response.data.url === "/Shop") {
+                  localStorage.removeItem("type");
+                  localStorage.setItem("type", "customer");
+                  this.props.history.push({
+                    pathname: "/Buy",
+                    state: {
+                      bname: this.props.location.state.bname,
+                      description: this.props.location.state.description,
+                      phoneNumber: this.props.location.state.phoneNumber,
+                      businessCatagory: "fds",
+                      id: this.props.location.state.id,
+                      address: this.props.location.state.address,
+                      email: this.props.location.state.emailb,
+                    },
+                  });
+                } else if (
+                  response.data.url === "/Dashboard" &&
+                  response.data.stripeId
+                ) {
+                  localStorage.removeItem("type");
+                  localStorage.setItem("type", "business");
+                  this.setState({ buy2: true });
+                }
+
                 return 0;
               }
             } catch (error) {}
@@ -295,12 +332,14 @@ class Login extends Component {
             } catch (error) {}
 
             if (response.data.url === "/Shop") {
+              localStorage.removeItem("type");
               localStorage.setItem("type", "customer");
               this.props.history.push("/Shop");
             } else if (
               response.data.url === "/Dashboard" &&
               response.data.stripeId
             ) {
+              localStorage.removeItem("type");
               localStorage.setItem("type", "business");
               this.props.history.push({
                 pathname: "/BDashboard",
@@ -657,6 +696,57 @@ class Login extends Component {
                     color="primary"
                   >
                     Got it!
+                  </Button>
+                </DialogActions>
+              </Dialog>
+              <Dialog
+                open={this.state.buy2}
+                onClose={() => {
+                  this.setState({
+                    buy2: false,
+                  });
+                  this.props.history.push({
+                    pathname: "/BDashboard",
+                    state: {
+                      // tour: "no",
+                      stripeAccountId: this.state.stripeIDres,
+                    },
+                  });
+                }}
+                style={{
+                  zIndex: 999999999,
+                }}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+              >
+                <DialogTitle id="alert-dialog-title">
+                  You cannot buy a product if you are logged in as a business.
+                </DialogTitle>
+                <DialogContent>
+                  <DialogContentText id="alert-dialog-description">
+                    Buying a product while logged in as a business is disabled.
+                    If you want to buy this product, please click{" "}
+                    <a href="/CustomerLogin">here</a> to register a new customer
+                    account.
+                  </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                  <Button
+                    onClick={() => {
+                      this.setState({
+                        buy2: false,
+                      });
+                      this.props.history.push({
+                        pathname: "/BDashboard",
+                        state: {
+                          // tour: "no",
+                          stripeAccountId: this.state.stripeIDres,
+                        },
+                      });
+                    }}
+                    color="primary"
+                  >
+                    Close
                   </Button>
                 </DialogActions>
               </Dialog>
