@@ -1,0 +1,72 @@
+.CustomerDashboard h1 {
+  text-align: center;
+}
+
+.CustomerDashboard input {
+  margin-bottom: 30px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.CustomerDashboard p {
+  text-align: center;
+}
+
+.QRcodeCard {
+  width: 90vw;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: row;
+}
+
+.QRcodeCardwrap {
+  background-color: #ffe7a7;
+  padding: 30px;
+  width: 90vw;
+  margin: auto;
+}
+
+.side1,
+.side2 {
+  width: 50%;
+}
+
+.side2 {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+@media screen and (max-width: 686px) {
+  .side1 {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  .side2 {
+    width: 100%;
+    flex-direction: column;
+  }
+  .QRcodeCard {
+    flex-direction: column;
+    width: 70vw;
+  }
+  .QRcodeCardwrap {
+    width: 70vw;
+  }
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  border: 1px solid black;
+}
+
+@media screen and (max-width: 362px) {
+  .codeqr {
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .CustomerDashboard p input {
+    width: 200px !important;
+  }
+}

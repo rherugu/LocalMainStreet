@@ -381,6 +381,16 @@ class QRCodejs extends React.Component {
             includeMargin={true}
           ></QRCode>
         </div>
+        <input
+          type="button"
+          value="View in Dashboard"
+          style={{
+            width: "300px",
+          }}
+          onClick={() => {
+            this.props.history.push("/CustomerDashboard");
+          }}
+        ></input>
         <img alt="qr code bought" className="QRCode" src={this.state.img}></img>
         {/* <a href={this.state.img} download>
           <input

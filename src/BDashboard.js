@@ -111,43 +111,42 @@ class BDashboard extends React.Component {
             type="button"
             value="Click to go to your dashboard"
             onClick={async () => {
-              await axios
-                .post(
-                  "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard",
-                  this.props.location.state
-                )
-                .then((res) => {
-                  console.log(res);
+              // await axios
+              //   .post(
+              //     "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard",
+              //     this.props.location.state
+              //   )
+              //   .then((res) => {
+              //     console.log(res);
 
-                  if (res.data === "temporary") {
-                    alert(
-                      "We have noticed some unusual traffic coming from your network. To secure your account, you need to login again. We are sorry for any inconvenience caused."
-                    );
-                    this.props.history.push({
-                      pathname: "/Login",
-                      state: {
-                        error: "yes",
-                      },
-                    });
-                  }
-                })
-                .catch((err) => {
-                  console.error(err);
-                });
+              //     if (res.data === "temporary") {
+              //       alert(
+              //         "We have noticed some unusual traffic coming from your network. To secure your account, you need to login again. We are sorry for any inconvenience caused."
+              //       );
+              //       this.props.history.push({
+              //         pathname: "/Login",
+              //         state: {
+              //           error: "yes",
+              //         },
+              //       });
+              //     }
+              //   })
+              //   .catch((err) => {
+              //     console.error(err);
+              //   });
 
               await axios
                 .get(
-                  "https://localmainstreetbackend.herokuapp.com/app/payment/dashboard"
+                  `https://localmainstreetbackend.herokuapp.com/app/payment/dashboardGet?stripeAccountId=${this.props.location.state.stripeAccountId}`
                 )
                 .then((res) => {
-                  document.location = res.data.url;
+                  document.location = res.data.url.url;
                 })
                 .catch((err) => {
                   console.error(err);
 
                   this.setState({
-                    error:
-                      "Error: This account was registered in test mode, and it cannot be accessed in live mode.",
+                    error: "An unknown error occured.",
                   });
                 });
             }}

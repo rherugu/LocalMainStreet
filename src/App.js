@@ -22,6 +22,7 @@ import Redirecting from "./Redirecting";
 import BDashboard from "./BDashboard";
 import GetStarted from "./GetStarted";
 import MapView from "./MapView";
+import CustomerDashboard from "./CustomerDashboard";
 
 class App extends Component {
   render() {
@@ -99,6 +100,11 @@ class App extends Component {
             exact
             path="/MapView"
             render={(props) => <MapView {...props} />}
+          />
+          <Route
+            exact
+            path="/CustomerDashboard"
+            render={(props) => <CustomerDashboard {...props} />}
           />
           <Route component={fourofour} />
         </Switch>

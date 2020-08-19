@@ -18,6 +18,7 @@ class Contact extends Component {
       logout: "none",
       login: "flex",
       dashboardoftheB: "none",
+      dashboardoftheC: "none",
     };
   }
   componentDidMount() {
@@ -49,9 +50,11 @@ class Contact extends Component {
       }
     }
     if (localStorage.getItem("type") === "business") {
-      this.setState({ dashboardoftheB: "flex" });
+      this.setState({ dashboardoftheB: "flex", dashboardoftheC: "none" });
+    } else if (localStorage.getItem("type") === "customer") {
+      this.setState({ dashboardoftheB: "none", dashboardoftheC: "flex" });
     } else {
-      this.setState({ dashboardoftheB: "none" });
+      this.setState({ dashboardoftheB: "none", dashboardoftheC: "none" });
     }
   }
   onClickHome = () => {
@@ -283,6 +286,15 @@ class Contact extends Component {
                 <span
                   className="Hheading1"
                   style={{ display: this.state.dashboardoftheB }}
+                >
+                  <span>Dashboard</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+              </a>
+              <a href="/CustomerDashboard">
+                <span
+                  className="Hheading1"
+                  style={{ display: this.state.dashboardoftheC }}
                 >
                   <span>Dashboard</span>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
