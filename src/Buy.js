@@ -16,6 +16,7 @@ var lati = 0;
 var lngi = 0;
 var address;
 var bname;
+const qs = require("query-string");
 
 const fetchCheckoutSession = async ({ quantity, product }) => {
   // const payload = {
@@ -305,14 +306,21 @@ const Buy = (props) => {
   var props = props;
 
   try {
-    bc = prop.businessCatagory;
+    bc = prop.bname;
   } catch (err) {
-    prop = {
-      bname: "",
-      description: "",
-    };
-
-    props.history.push("/Shop");
+    const parsed = qs.parse(props.location.search);
+    console.log(parsed.search);
+    if (parsed !== undefined || null || NaN) {
+      prop = {
+        bname: parsed.bname,
+        description: parsed.description,
+        phoneNumber: parsed.phoneNumber,
+        className: "Buy",
+        id: parsed.stripeId,
+        address: parsed.address,
+        email: parsed.emailb,
+      };
+    }
   }
 
   var image;
