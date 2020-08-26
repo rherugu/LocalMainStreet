@@ -318,7 +318,7 @@ const Buy = (props) => {
         className: "Buy",
         id: parsed.stripeId,
         address: parsed.address,
-        email: parsed.emailb,
+        email: parsed.email,
       };
     }
   }
