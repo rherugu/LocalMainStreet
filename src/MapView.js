@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import ReactMapGL, { Marker, Popup } from "react-map-gl";
+import Geocode from "react-geocode";
 
 class Markers extends React.PureComponent {
   constructor(props) {
@@ -86,6 +87,7 @@ export default class MapView extends React.Component {
       pitch: 57.639834299290534,
       desc: "View Description",
       click: true,
+      shopbusinessesmapbox: [],
     };
   }
   listener = (e) => {
@@ -97,41 +99,157 @@ export default class MapView extends React.Component {
   };
 
   componentDidMount() {
+    Geocode.setApiKey(process.env.REACT_APP_GKEY);
     console.log(this.props.userLocation);
     console.log(this.state.userLocation);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        var crd = pos.coords;
+        console.log("das", crd);
+        var city;
+        this.setState({
+          userLocation: {
+            lat: Number(crd.latitude),
+            lng: Number(crd.longitude),
+          },
+          zoom: 12,
+          viewport: {
+            latitude: Number(crd.latitude),
+            longitude: Number(crd.longitude),
+            zoom: 12,
+            width: "100vw",
+            height: "97vh",
+            pitch: this.state.pitch,
+          },
+        });
 
-    axios
-      .get("https://api.ipify.org/?format=json")
-      .then((res) => {
-        const ip = res.data.ip;
+        await Geocode.fromLatLng(crd.latitude, crd.longitude).then(
+          (response) => {
+            console.log(response);
+            for (
+              var i = 0;
+              i < response.results[0].address_components.length;
+              ++i
+            ) {
+              if (
+                response.results[0].address_components[i].types[0] == "locality"
+              ) {
+                city = response.results[0].address_components[i].long_name;
+              }
+            }
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+        city = city.replace("Township", "");
+        console.log(city);
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
         axios
-          .get(
-            `https://api.ipgeolocation.io/timezone?apiKey=d661648f3c9a49b1a3ebb4faf32c0533&ip=${ip}&lang=cn%27`
+          .post(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+            {
+              query: city,
+            },
+            { headers }
           )
           .then((res) => {
+            console.log(res);
             this.setState({
-              userLocation: {
-                lat: Number(res.data.geo.latitude),
-                lng: Number(res.data.geo.longitude),
-              },
-              zoom: 12,
-              viewport: {
-                latitude: Number(res.data.geo.latitude),
-                longitude: Number(res.data.geo.longitude),
-                zoom: 12,
-                width: "100vw",
-                height: "97vh",
-                pitch: this.state.pitch,
-              },
+              shopbusinessesmapbox: res.data.results.map((shop) => shop),
             });
           })
           .catch((err) => {
             console.error(err);
           });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      },
+      (err) => {
+        axios
+          .get("https://api.ipify.org/?format=json")
+          .then((res) => {
+            const ip = res.data.ip;
+            axios
+              .get(`https://ipapi.co/${ip}/json/`)
+              .then(async (res) => {
+                this.setState({
+                  userLocation: {
+                    lat: Number(res.data.latitude),
+                    lng: Number(res.data.longitude),
+                  },
+                  zoom: 12,
+                  viewport: {
+                    latitude: Number(res.data.latitude),
+                    longitude: Number(res.data.longitude),
+                    zoom: 12,
+                    width: "100vw",
+                    height: "97vh",
+                    pitch: this.state.pitch,
+                  },
+                  shopbusinessesmapbox: this.props.location.state.latlng,
+                });
+                var city;
+                await Geocode.fromLatLng(
+                  res.data.geo.latitude,
+                  res.data.geo.longitude
+                ).then(
+                  (response) => {
+                    console.log(response);
+                    for (
+                      var i = 0;
+                      i < response.results[0].address_components.length;
+                      ++i
+                    ) {
+                      if (
+                        response.results[0].address_components[i].types[0] ==
+                        "locality"
+                      ) {
+                        city =
+                          response.results[0].address_components[i].long_name;
+                      }
+                    }
+                  },
+                  (error) => {
+                    console.error(error);
+                  }
+                );
+                city = city.replace("Township", "");
+                console.log(city);
+                const tokenval = localStorage.getItem("token");
+                const headers = {
+                  "auth-token": tokenval,
+                };
+                axios
+                  .post(
+                    "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+                    {
+                      query: city,
+                    },
+                    { headers }
+                  )
+                  .then((res) => {
+                    console.log(res);
+                    this.setState({
+                      shopbusinessesmapbox: res.data.results.map(
+                        (shop) => shop
+                      ),
+                    });
+                  })
+                  .catch((err) => {
+                    console.error(err);
+                  });
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    );
 
     window.addEventListener("keydown", this.listener);
   }
@@ -191,7 +309,7 @@ export default class MapView extends React.Component {
           mapStyle="mapbox://styles/rherugu/ckcjl9otn3c4m1jp5xoguwg6o?optimize=true"
         >
           <Markers
-            data={this.props.location.state.latlng}
+            data={this.state.shopbusinessesmapbox}
             onClick={this.onClickEventHandler}
             callback={this.callback}
           />

@@ -125,36 +125,57 @@ class MapBox extends React.Component {
         pitch: this.state.pitch,
       },
     });
-    axios
-      .get("https://api.ipify.org/?format=json")
-      .then((res) => {
-        const ip = res.data.ip;
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        this.setState({
+          userLocation: {
+            lat: Number(pos.coords.latitude),
+            lng: Number(pos.coords.longitude),
+          },
+          zoom: 12,
+          viewport: {
+            latitude: Number(pos.coords.latitude),
+            longitude: Number(pos.coords.longitude),
+            zoom: 12,
+            width: "68vw",
+            height: "87vh",
+            pitch: this.state.pitch,
+          },
+        });
+      },
+      (err) => {
         axios
-          .get(`https://ipapi.co/${ip}/json/`)
+          .get("https://api.ipify.org/?format=json")
           .then((res) => {
-            this.setState({
-              userLocation: {
-                lat: Number(res.data.latitude),
-                lng: Number(res.data.longitude),
-              },
-              zoom: 12,
-              viewport: {
-                latitude: Number(res.data.latitude),
-                longitude: Number(res.data.longitude),
-                zoom: 12,
-                width: "68vw",
-                height: "87vh",
-                pitch: this.state.pitch,
-              },
-            });
+            const ip = res.data.ip;
+            axios
+              .get(`https://ipapi.co/${ip}/json/`)
+              .then((res) => {
+                this.setState({
+                  userLocation: {
+                    lat: Number(res.data.latitude),
+                    lng: Number(res.data.longitude),
+                  },
+                  zoom: 12,
+                  viewport: {
+                    latitude: Number(res.data.latitude),
+                    longitude: Number(res.data.longitude),
+                    zoom: 12,
+                    width: "68vw",
+                    height: "87vh",
+                    pitch: this.state.pitch,
+                  },
+                });
+              })
+              .catch((err) => {
+                console.error(err);
+              });
           })
           .catch((err) => {
             console.error(err);
           });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+      }
+    );
 
     window.addEventListener("keydown", this.listener);
   }
@@ -583,27 +604,136 @@ class Shop extends Component {
           console.log("User has not bought anything yet.");
         }
       });
-
     this.setState({
       FetchingData: "none",
     });
     this.setState({
       loadingShopBusinesses: "none",
     });
-    axios
-      .get(
-        "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop"
-      )
-      .then((response) => {
-        this.setState({
-          shopbusinessesmapbox: response.data,
-        });
-      })
+    Geocode.setApiKey(process.env.REACT_APP_GKEY);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        var crd = pos.coords;
+        console.log("das", crd);
+        var city;
 
-      .catch((err) => {
-        console.log(err);
-        this.onClickLogin();
-      });
+        await Geocode.fromLatLng(crd.latitude, crd.longitude).then(
+          (response) => {
+            console.log(response);
+            for (
+              var i = 0;
+              i < response.results[0].address_components.length;
+              ++i
+            ) {
+              if (
+                response.results[0].address_components[i].types[0] == "locality"
+              ) {
+                city = response.results[0].address_components[i].long_name;
+              }
+            }
+          },
+          (error) => {
+            console.error(error);
+          }
+        );
+        city = city.replace("Township", "");
+        console.log(city);
+        const tokenval = localStorage.getItem("token");
+        const headers = {
+          "auth-token": tokenval,
+        };
+        axios
+          .post(
+            "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+            {
+              query: city,
+            },
+            { headers }
+          )
+          .then((res) => {
+            console.log(res);
+            this.setState({
+              shopbusinessesmapbox: res.data.results.map((shop) => shop),
+            });
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      },
+      (err) => {
+        var city;
+        axios.get("https://api.ipify.org/?format=json").then((res) => {
+          const ip = res.data.ip;
+          axios
+            .get(`https://ipapi.co/${ip}/json/`)
+            .then(async (res) => {
+              await Geocode.fromLatLng(
+                res.data.latitude,
+                res.data.longitude
+              ).then(
+                (response) => {
+                  console.log(response);
+                  for (
+                    var i = 0;
+                    i < response.results[0].address_components.length;
+                    ++i
+                  ) {
+                    if (
+                      response.results[0].address_components[i].types[0] ==
+                      "locality"
+                    ) {
+                      city =
+                        response.results[0].address_components[i].long_name;
+                    }
+                  }
+                },
+                (error) => {
+                  console.error(error);
+                }
+              );
+              const tokenval = localStorage.getItem("token");
+              const headers = {
+                "auth-token": tokenval,
+              };
+              axios
+                .post(
+                  "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/search",
+                  {
+                    query: city,
+                  },
+                  { headers }
+                )
+                .then((res) => {
+                  console.log(res);
+                  this.setState({
+                    shopbusinessesmapbox: res.data.results.map((shop) => shop),
+                  });
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            })
+            .catch((err) => {
+              console.error(err);
+            });
+        });
+      }
+    );
+
+    // axios
+    //   .get(
+    //     "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop"
+    //   )
+    //   .then((response) => {
+    //     this.setState({
+    //       shopbusinessesmapbox: response.data,
+    //     });
+    //   })
+
+    //   .catch((err) => {
+    //     console.log(err);
+    //     this.onClickLogin();
+    //   });
   }
 
   optionChange = (e) => {
