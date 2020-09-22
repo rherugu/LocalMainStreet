@@ -178,20 +178,34 @@ const Buy = (props) => {
 
       const token = `${tokenval}`;
 
-      if (token === "undefined") {
-        props.history.push({
-          pathname: "/Login",
-          state: {
-            buy: "yes",
-            bname: prop.bname,
-            description: prop.description,
-            phoneNumber: prop.phoneNumber,
-            businessCatagory: prop.businessCatagory,
-            id: prop.id,
-            address: prop.address,
-            email: prop.emailb,
-          },
-        });
+      if (
+        token === "undefined" ||
+        token === "" ||
+        token === undefined ||
+        token === null ||
+        token === "null"
+      ) {
+        if (
+          `${localStorage.getItem("type")}` === "loggedout" ||
+          "null" ||
+          null ||
+          undefined ||
+          "undefined"
+        ) {
+          props.history.push({
+            pathname: "/Login",
+            state: {
+              buy: "yes",
+              bname: prop.bname,
+              description: prop.description,
+              phoneNumber: prop.phoneNumber,
+              businessCatagory: prop.businessCatagory,
+              id: prop.id,
+              address: prop.address,
+              email: prop.emailb,
+            },
+          });
+        }
       }
       setBuyBtn("Buy");
     })();

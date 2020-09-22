@@ -313,12 +313,14 @@ class Contact extends Component {
           <form className="formC">
             <input
               type="text"
+              className="formCddsadsa"
               value={this.state.name}
               onChange={(e) => this.setState({ name: e.target.value })}
               placeholder="Name"
             ></input>
             <input
               type="text"
+              className="formCddsadsa"
               value={this.state.emailc}
               onChange={(e) => this.setState({ emailc: e.target.value })}
               placeholder="Email"
@@ -336,12 +338,14 @@ class Contact extends Component {
             <br></br>
             <input
               type="button"
+              className="formCddsadsa"
               onClick={this.handleSubmit}
               value="Submit"
             ></input>
             <br></br>
             <input
               type="button"
+              className="formCddsadsa"
               onClick={() => {
                 this.setState({
                   name: "",

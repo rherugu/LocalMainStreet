@@ -690,11 +690,11 @@ class Login extends Component {
                 aria-describedby="alert-dialog-description"
               >
                 <DialogTitle id="alert-dialog-title">
-                  You need to login to buy a product.
+                  You need to login to buy a gift card.
                 </DialogTitle>
                 <DialogContent>
                   <DialogContentText id="alert-dialog-description">
-                    Please login to buy a product. If you don't have an account,
+                    Please login to buy a voucher. If you don't have an account,
                     click the orange button that says 'Register as A Customer.'
                   </DialogContentText>
                 </DialogContent>
