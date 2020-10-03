@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import "./Card.css";
-import $ from "jquery";
-import ReactTooltip from "react-tooltip";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -30,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard(props) {
+function MediaCard(props) {
   const classes = useStyles();
 
   const [disabled, setDisabled] = useState(false);
@@ -126,6 +118,9 @@ export default function MediaCard(props) {
               size="small"
               color="primary"
               variant="outlined"
+              style={{
+                display: disabled ? "none" : "inline-flex",
+              }}
               onClick={() => {
                 setdialogOpen(false);
                 if (localStorage.getItem("type") === "business") {
@@ -173,7 +168,6 @@ export default function MediaCard(props) {
                 }
               }}
               className="cardBtn cardBtn1"
-              disabled={disabled}
             >
               Buy Gift Cards
             </Button>
@@ -189,6 +183,30 @@ export default function MediaCard(props) {
               }}
               disabled={website}
               className="cardBtn cardBtn2"
+              variant="outlined"
+              style={{
+                margin: disabled ? "0" : "auto",
+                display: disabled ? (website ? "none" : "inline-flex") : "none",
+              }}
+            >
+              {props.website != " "
+                ? `${!matches ? "Go to their website" : "Website"}`
+                : ""}
+            </Button>
+            <Button
+              size="small"
+              color="primary"
+              onClick={() => {
+                setdialogOpen(false);
+                setTimeout(() => {
+                  window.open(`${props.website}`, "_blank");
+                }, 500);
+              }}
+              disabled={website}
+              className="cardBtn cardBtn2 cardBtn2222222233333444"
+              style={{
+                display: disabled ? "none" : "inline-flex",
+              }}
             >
               {props.website != " "
                 ? `${!matches ? "Go to their website" : "Website"}`
@@ -290,3 +308,5 @@ export default function MediaCard(props) {
     </div>
   );
 }
+
+export default React.memo(MediaCard);
