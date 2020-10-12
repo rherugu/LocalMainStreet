@@ -19,6 +19,7 @@ class Contact extends Component {
       login: "flex",
       dashboardoftheB: "none",
       dashboardoftheC: "none",
+      loading: "Send",
     };
   }
   componentDidMount() {
@@ -87,7 +88,9 @@ class Contact extends Component {
     e.preventDefault();
 
     toast.configure();
-
+    this.setState({
+      loading: "Sending...",
+    });
     if (
       this.state.name === "" ||
       this.state.emailc === "" ||
@@ -111,20 +114,34 @@ class Contact extends Component {
         )
         .then((response) => {
           if (response.data.status === "success") {
-            toast("Thank you very much for your feedback.", {
+            toast("Thank you, we will try to reach back soon.", {
               type: "success",
             });
+            this.setState({
+              loading: "Sent!",
+            });
+            setTimeout(() => {
+              this.setState({
+                loading: "Send",
+              });
+            }, 2000);
             this.resetForm();
           } else if (response.data.status === "fail") {
             toast(
               "Hmmmm, Something went wrong. Dont worry, its not you, its us. Please try again.",
               { type: "error" }
             );
+            this.setState({
+              loading: "Send",
+            });
           } else if (
             // prettier-ignore
             response.data === '"emailc" must be a valid email'
           ) {
           toast("Your email must be a valid email.", { type: "error" });
+          this.setState({
+            loading: "Send"
+          })
         }
           // prettier-ignore
           else if (
@@ -135,6 +152,9 @@ class Contact extends Component {
               "Your message is too short. It needs to be at least 6 characters.",
               { type: "error" }
             );
+            this.setState({
+              loading: "Send",
+            });
           }
         });
     }
@@ -340,7 +360,7 @@ class Contact extends Component {
               type="button"
               className="formCddsadsa"
               onClick={this.handleSubmit}
-              value="Submit"
+              value={this.state.loading}
             ></input>
             <br></br>
             <input

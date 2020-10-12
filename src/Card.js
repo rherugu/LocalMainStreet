@@ -137,6 +137,7 @@ function MediaCard(props) {
                       id: props.stripeId,
                       address: props.address,
                       email: props.emailb,
+                      coupon: props.coupon,
                     },
                   });
                 } else if (localStorage.getItem("type") === "loggedout") {
@@ -150,6 +151,7 @@ function MediaCard(props) {
                       id: props.stripeId,
                       address: props.address,
                       email: props.emailb,
+                      coupon: props.coupon,
                     },
                   });
                 } else if (localStorage.getItem("type") === null) {
@@ -163,6 +165,7 @@ function MediaCard(props) {
                       id: props.stripeId,
                       address: props.address,
                       email: props.emailb,
+                      coupon: props.coupon,
                     },
                   });
                 }

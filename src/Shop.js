@@ -1236,6 +1236,7 @@ class Shop extends Component {
               stripeId={shop.stripeAccountId}
               address={shop.address}
               website={shop.website}
+              coupon={shop.coupon}
               key={Math.floor(100000 + Math.random() * 900000)}
             />
           ))}
