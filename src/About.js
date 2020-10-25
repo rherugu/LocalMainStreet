@@ -339,7 +339,7 @@ class About extends Component {
                       Raghav Herugu
                     </a>
                   </strong>
-                  <br></br> Incoming 8th Grader
+                  <br></br> 8th Grader
                 </p>
               </div>
 
@@ -376,7 +376,7 @@ class About extends Component {
                       Vaibhav Herugu
                     </a>
                   </strong>
-                  <br></br> Incoming 6th Grader
+                  <br></br> 6th Grader
                 </p>
               </div>
             </div>
