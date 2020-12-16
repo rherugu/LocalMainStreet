@@ -43,6 +43,7 @@ const fetchCheckoutSession = async ({ quantity, product }) => {
     data: JSON.stringify({
       quantity,
       product,
+      emailbusiness2: this.props.location.state.email,
     }),
   })
     .then((res) => {
@@ -290,6 +291,7 @@ const Buy = (props) => {
         data: JSON.stringify({
           quantity: mprice,
           product: prop,
+          emailbusiness2: prop.email,
         }),
       })
         .then(async (res) => {
