@@ -18,6 +18,7 @@ var addressArray = [
 ];
 var limit = 12;
 var limitcounter = 1;
+var scrolled = false;
 
 const qs = require("query-string");
 
@@ -354,6 +355,7 @@ class Shop extends Component {
       count: 0,
       searchtest: "",
       dashboardoftheC: "none",
+      scrollEventListenerCheck: 0,
     };
   }
   success = (position) => {
@@ -393,8 +395,16 @@ class Shop extends Component {
       });
   };
   scrollEventListener = (e) => {
-    this.handleScrollLoadMore(e);
+    if (!scrolled) {
+      scrolled = true;
+      console.log("ffdsdfsdsf");
+      var checkerStop = this.handleScrollLoadMore(e);
+      if (checkerStop === 1) {
+      }
+      scrolled = false;
+    }
   };
+
   componentWillUnmount() {
     window.removeEventListener("scroll", this.scrollEventListener);
   }
@@ -450,9 +460,10 @@ class Shop extends Component {
       "auth-token": tokenval,
       limit: limit + limit,
     };
-    // this.scrollListener = window.addEventListener("scroll", (e) => {
-    //   this.handleScrollLoadMore(e);
-    // });
+    // this.scrollListener = window.addEventListener(
+    //   "scroll",
+    //   this.scrollEventListener
+    // );
 
     var check = "";
     // trackPromise(
@@ -488,22 +499,22 @@ class Shop extends Component {
         "auth-token": localStorage.getItem("token"),
         page: 0,
       };
+      // axios
+      //   .get(
+      //     "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/count"
+      //   )
+      //   .then((res) => {
+      //     this.setState({
+      //       count: res.data,
+      //     });
+      //     console.log(res);
+      //   })
+      //   .catch((e) => {
+      //     console.log(e);
+      //   });
       axios
         .get(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/count"
-        )
-        .then((res) => {
-          this.setState({
-            count: res.data,
-          });
-          console.log(res);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-      await axios
-        .get(
-          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/pagination",
+          "https://localmainstreetbackend.herokuapp.com/app/BusinessLoginAPI/shop/",
           {
             headers222,
           }
@@ -519,10 +530,10 @@ class Shop extends Component {
         .catch((err) => {
           console.error(err);
         });
-      this.scrollListener = window.addEventListener(
-        "scroll",
-        this.scrollEventListener
-      );
+      // this.scrollListener = window.addEventListener(
+      //   "scroll",
+      //   this.scrollEventListener
+      // );
     }
 
     // );
@@ -778,7 +789,7 @@ class Shop extends Component {
             }
           )
           .then((response) => {
-            window.addEventListener("scroll", this.scrollEventListener);
+            //  window.addEventListener("scroll", this.scrollEventListener);
             this.setState({ loadmorebtndisplayshopcount: "block" });
             this.setState({
               shops: response.data,
@@ -877,6 +888,7 @@ class Shop extends Component {
   //   }
   // };
   loadMore = async () => {
+    console.log("RESTARTED FUNC.");
     var top = window.pageYOffset || document.documentElement.scrollTop,
       left = window.pageXOffset || document.documentElement.scrollLeft;
     const headers = {
@@ -925,14 +937,22 @@ class Shop extends Component {
         });
 
       limitcounter++;
+      console.log(limitcounter);
+      console.log("RESTARTED FUNC.1");
     }
   };
   handleScrollLoadMore = () => {
-    var lastLi = document.getElementById("lastscrollshop");
-    var lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
-    var pageOffset = window.pageYOffset + window.innerHeight;
-    if (pageOffset > lastLiOffset) {
-      this.loadMore();
+    if (scrolled === true) {
+      var lastLi = document.getElementById("lastscrollshop");
+      var lastLiOffset = lastLi.offsetTop + lastLi.clientHeight;
+      var pageOffset = window.pageYOffset + window.innerHeight;
+      if (pageOffset > lastLiOffset) {
+        this.loadMore();
+        console.log("ffffffff");
+        return 1;
+      } else {
+        return 2;
+      }
     }
   };
 
@@ -1241,7 +1261,7 @@ class Shop extends Component {
             />
           ))}
           <br></br>
-          <input
+          {/* <input
             type="button"
             value={this.state.loadmorebtntextshopcount}
             style={{
@@ -1250,7 +1270,7 @@ class Shop extends Component {
             }}
             id="lastscrollshop"
             onClick={this.loadMore}
-          ></input>
+          ></input> */}
         </div>
         <div className="mapMapBox">
           <div

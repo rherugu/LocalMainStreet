@@ -422,7 +422,6 @@ const Buy = (props) => {
               +
             </button>
           </div> */}
-          <br></br>
           <p
             className="sr-legal-text"
             style={{
@@ -464,7 +463,7 @@ const Buy = (props) => {
           <br></br>
           <br></br>
 
-          <p className="sr-legal-text">
+          {/* <p className="sr-legal-text">
             <big>
               <strong>
                 It costs us money to provide this service, and we do not charge
@@ -560,8 +559,7 @@ const Buy = (props) => {
                 setGreen5();
               }}
             />
-          </div>
-          <br></br>
+          </div> */}
           <p
             style={{
               marginBottom: "0",
