@@ -385,6 +385,7 @@ class About extends Component {
               <h1 className="titleA">Advisors</h1>
               <br></br>
             </big>
+
             <div
               style={{
                 display: "flex",
@@ -394,6 +395,42 @@ class About extends Component {
               }}
               className="divflex"
             >
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  style={{
+                    borderRadius: "15px",
+                    margin: "auto",
+                    alignSelf: "center",
+                  }}
+                  className="RaghavVaibhavHerugu"
+                  src={require("./Assets/Tejas.png")}
+                  alt="raghav and vaibhav herugu"
+                ></img>
+                <p
+                  style={{
+                    textAlign: "center",
+                  }}
+                >
+                  <strong>
+                    <a
+                      href="https://www.linkedin.com/in/tejas-khare/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="link"
+                    >
+                      Tejas Khare
+                    </a>
+                  </strong>
+                  <br></br> CMO (Chief Marketing Officer)
+                </p>
+              </div>
               <div
                 style={{
                   display: "flex",
